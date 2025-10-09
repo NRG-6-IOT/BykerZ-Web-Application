@@ -25,6 +25,7 @@ export class Vehicle {
 
 export class Model {
   id: number;
+  name: string;
   brand: string;
   modelYear: string;
   originCountry: string;
@@ -44,6 +45,7 @@ export class Model {
 
   constructor(model: {
     id: number,
+    name: string,
     brand: string,
     modelYear: string,
     originCountry: string,
@@ -61,6 +63,7 @@ export class Model {
     price: string,
   }) {
     this.id = model.id;
+    this.name = model.name;
     this.brand = model.brand;
     this.modelYear = model.modelYear;
     this.originCountry = model.originCountry;
