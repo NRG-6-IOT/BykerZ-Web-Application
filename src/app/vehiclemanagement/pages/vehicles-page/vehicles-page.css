@@ -9,3 +9,15 @@ app-vehicle-card {
   margin: 1rem;
   width: 60%;
 }
+
+.add-button-container {
+  color: white;
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+}
+
+.add-button-container button[matFab] {
+  width: 80px;
+  height: 80px;
+}

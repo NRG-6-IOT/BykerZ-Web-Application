@@ -12,6 +12,12 @@ app-vehicle-card {
   ));
 }
 
+app-vehicles-page {
+  @include mat.fab-overrides((
+    container-color: #380800,
+  ));
+}
+
 :root {
   @include mat.toolbar-overrides((
     container-background-color: #130100,

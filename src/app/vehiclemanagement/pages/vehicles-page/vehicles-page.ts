@@ -1,11 +1,18 @@
 import {Component, OnInit} from '@angular/core';
 import {Model, Vehicle} from '../../model/vehicle.entity';
 import {VehicleCard} from '../../components/vehicle-card/vehicle-card';
+import {MatFabButton, MatIconButton} from '@angular/material/button';
+import {MatIcon} from '@angular/material/icon';
+import {MatDialog} from '@angular/material/dialog';
+import {RegisterVehicleDialog} from '../../components/register-vehicle-dialog/register-vehicle-dialog';
 
 @Component({
   selector: 'app-vehicles-page',
   imports: [
-    VehicleCard
+    VehicleCard,
+    MatIconButton,
+    MatIcon,
+    MatFabButton
   ],
   templateUrl: './vehicles-page.html',
   standalone: true,
@@ -14,6 +21,11 @@ import {VehicleCard} from '../../components/vehicle-card/vehicle-card';
 export class VehiclesPage implements OnInit {
 
   vehicles: Vehicle[] = [];
+
+  constructor(
+    private dialog: MatDialog
+  ) {
+  }
 
   ngOnInit() {
     this.fetchVehicles()
@@ -117,6 +129,13 @@ export class VehiclesPage implements OnInit {
         plate: "XYZ-999",
       }),
     ];
+  }
+
+  OpenCreateDialog() {
+    let dialogRef = this.dialog.open(RegisterVehicleDialog, {
+      disableClose: true,
+      hasBackdrop: true
+    })
   }
 
 }

@@ -2,4 +2,10 @@
   @for (vehicle of vehicles; track vehicle.id) {
     <app-vehicle-card [vehicle]="vehicle"></app-vehicle-card>
   }
+
+  <div class="add-button-container">
+    <button matFab (click)="OpenCreateDialog()">
+      <p style="color: white; font-size: 60px">+</p>
+    </button>
+  </div>
 </div>
