@@ -1,0 +1,27 @@
+<mat-toolbar>
+
+  @if (selectedRole === "Owner") {
+    @for (option of ownerOptions; track option.name) {
+      <a class="navbar-button" [routerLink]="option.route">
+        {{ option.name }}
+      </a>
+    }
+  }
+
+  @if (selectedRole === "Mechanic") {
+    @for (option of mechanicOptions; track option.name) {
+      <a class="navbar-button" [routerLink]="option.route">
+        {{ option.name }}
+      </a>
+    }
+  }
+
+  <div style="flex: 1 1 auto"></div>
+
+  <mat-button-toggle-group [(ngModel)]="selectedRole" (ngModelChange)="SetRoleInStorage($event)">
+    @for (option of roleOptions; track option.value) {
+      <mat-button-toggle [value]="option.value">{{ option.name }}</mat-button-toggle>
+    }
+  </mat-button-toggle-group>
+
+</mat-toolbar>
