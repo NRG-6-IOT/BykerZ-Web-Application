@@ -94,7 +94,7 @@ export class VehiclesPage implements OnInit {
           octane: "90–95cc"
         }),
         year: "2024",
-        plate: "A1B-234",
+        plate: "1324-AF",
       }),
 
       new Vehicle({
@@ -126,7 +126,7 @@ export class VehiclesPage implements OnInit {
           octane: "95–98cc"
         }),
         year: "2022",
-        plate: "XYZ-999",
+        plate: "9548-JI",
       }),
     ];
   }
@@ -134,7 +134,8 @@ export class VehiclesPage implements OnInit {
   OpenCreateDialog() {
     let dialogRef = this.dialog.open(RegisterVehicleDialog, {
       disableClose: true,
-      hasBackdrop: true
+      hasBackdrop: true,
+      maxWidth: '90vw'
     })
   }
 

@@ -18,6 +18,13 @@ app-vehicles-page {
   ));
 }
 
+app-register-vehicle-dialog {
+  @include mat.button-overrides((
+    filled-container-color: #FF6B35,
+    filled-disabled-container-color: #9e4324,
+  ))
+}
+
 :root {
   @include mat.toolbar-overrides((
     container-background-color: #130100,
@@ -27,6 +34,27 @@ app-vehicles-page {
     background-color: white,
     selected-state-background-color: #FF6B35,
     shape: 8px,
+  ));
+  @include mat.dialog-overrides((
+    container-color: #130100,
+    supporting-text-color: white,
+  ));
+  @include mat.select-overrides((
+    panel-background-color: #FF6B35,
+    enabled-trigger-text-color: white,
+  ));
+  @include mat.form-field-overrides((
+    filled-container-color: #FF6B35,
+    filled-input-text-color: white,
+    filled-disabled-container-color: #9e4324,
+    filled-disabled-label-text-color: white,
+    filled-label-text-color: white,
+    filled-focus-label-text-color: white,
+    select-disabled-option-text-color: white,
+    select-option-text-color: white,
+    filled-focus-active-indicator-color: white,
+    enabled-select-arrow-color: white,
+    disabled-select-arrow-color: white
   ));
 }
 
