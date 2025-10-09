@@ -1,0 +1,79 @@
+<div class="main-container">
+  <div class="straight-line">
+    <h1>{{vehicle.model.name}}</h1>
+    <img class="vehicle-image" ngSrc="/assets/images/vehicle_dark.png" width="198" height="101" alt="">
+  </div>
+</div>
+<div class="data-container">
+  <mat-card>
+    <div class="card-inside">
+      <h1>Characteristics</h1>
+      <div class="data-box">
+        <div class="white-box">
+          <div class="spec-grid">
+            <div class="spec">
+              <div class="label">Model year:</div>
+              <div class="value">{{ vehicle?.model?.modelYear || '-' }}</div>
+            </div>
+
+            <div class="spec">
+              <div class="label">Brand:</div>
+              <div class="value">{{ vehicle?.model?.brand || '-' }}</div>
+            </div>
+
+            <div class="spec">
+              <div class="label">Motorcycle type:</div>
+              <div class="value">{{ vehicle?.model?.type || '-' }}</div>
+            </div>
+
+            <div class="spec">
+              <div class="label">Displacement:</div>
+              <div class="value">{{ vehicle?.model?.displacement || '-' }}</div>
+            </div>
+
+            <div class="spec">
+              <div class="label">Engine type:</div>
+              <div class="value">{{ vehicle?.model?.engineType || '-' }}</div>
+            </div>
+
+            <div class="spec">
+              <div class="label">Fuel capacity:</div>
+              <div class="value">{{ vehicle?.model?.tank || '-' }}</div>
+            </div>
+
+            <div class="spec">
+              <div class="label">Maximum power:</div>
+              <div class="value">{{ vehicle?.model?.potency || '-' }}</div>
+            </div>
+
+            <div class="spec">
+              <div class="label">Maximum torque:</div>
+              <div class="value">{{ vehicle?.model?.engineTorque || '-' }}</div>
+            </div>
+
+            <div class="spec">
+              <div class="label">Connectivity:</div>
+              <div class="value">{{ vehicle?.model?.connectivity || '-' }}</div>
+            </div>
+
+            <div class="spec">
+              <div class="label">Weight:</div>
+              <div class="value">{{ vehicle?.model?.weight || '-' }}</div>
+            </div>
+
+            <div class="spec">
+              <div class="label">Oil capacity:</div>
+              <div class="value">{{ vehicle?.model?.oilCapacity || '-' }}</div>
+            </div>
+
+            <div class="spec">
+              <div class="label">Gasoline consumption:</div>
+              <div class="value">{{ vehicle?.model?.consumption || '-' }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </mat-card>
+</div>
