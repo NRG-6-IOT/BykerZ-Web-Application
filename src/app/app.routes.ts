@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import {DashboardPage} from './public/pages/dashboard-page/dashboard-page';
+import {VehiclesPage} from './vehiclemanagement/pages/vehicles-page/vehicles-page';
 
 export const routes: Routes = [
   { path: '', redirectTo: "/dashboard", pathMatch: 'full' },
@@ -9,5 +10,5 @@ export const routes: Routes = [
   { path: "expenses", component: DashboardPage },
   { path: "membership", component: DashboardPage },
   { path: "subscriptions", component: DashboardPage },
-  { path: "vehicles", component: DashboardPage },
+  { path: "vehicles", component: VehiclesPage },
 ];
