@@ -1,1 +1,5 @@
-<p>vehicles-page works!</p>
+<div class="cards-container">
+  @for (vehicle of vehicles; track vehicle.id) {
+    <app-vehicle-card [vehicle]="vehicle"></app-vehicle-card>
+  }
+</div>

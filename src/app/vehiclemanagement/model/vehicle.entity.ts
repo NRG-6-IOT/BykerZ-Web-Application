@@ -34,6 +34,7 @@ export class Model {
 
   displacement: string;
   potency: string;
+  engineType: string;
   engineTorque: string;
   weight: string;
   transmission: string;
@@ -42,6 +43,10 @@ export class Model {
   seatHeight: string;
   consumption: string;
   price: string;
+  oilCapacity: string;
+  connectivity: string;
+  durability: string;
+  octane: string;
 
   constructor(model: {
     id: number,
@@ -53,6 +58,7 @@ export class Model {
     type: string,
     displacement: string,
     potency: string,
+    engineType: string,
     engineTorque: string,
     weight: string,
     transmission: string,
@@ -61,6 +67,10 @@ export class Model {
     seatHeight: string,
     consumption: string,
     price: string,
+    oilCapacity: string,
+    connectivity: string
+    durability: string,
+    octane: string,
   }) {
     this.id = model.id;
     this.name = model.name;
@@ -71,6 +81,7 @@ export class Model {
     this.type = model.type;
     this.displacement = model.displacement;
     this.potency = model.potency;
+    this.engineType = model.engineType;
     this.engineTorque = model.engineTorque;
     this.weight = model.weight;
     this.transmission = model.transmission;
@@ -79,6 +90,10 @@ export class Model {
     this.seatHeight = model.seatHeight;
     this.consumption = model.consumption;
     this.price = model.price;
+    this.oilCapacity = model.oilCapacity;
+    this.connectivity = model.connectivity;
+    this.durability = model.durability;
+    this.octane = model.octane;
   }
 
 }

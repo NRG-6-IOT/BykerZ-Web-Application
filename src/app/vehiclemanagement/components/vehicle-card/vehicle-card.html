@@ -1,0 +1,26 @@
+<mat-card>
+  <mat-card-content>
+    <div class="horizontal">
+      <img class="item" ngSrc="/assets/images/vehicle.png" height="104" width="204" alt=""/>
+
+      <div class="vertical item">
+        <h1>{{ vehicle.model.brand }} - {{ vehicle.model.name }}</h1>
+        <div class="white-box">
+          <b>Año de Modelo:</b> {{vehicle.model.modelYear}}<br>
+          <b>Placa:</b> {{vehicle.plate}}<br>
+          <b>Tipo de Moto:</b> {{vehicle.model.type}}<br>
+          <b>Origen de la marca:</b> {{vehicle.model.originCountry}}<br>
+          <b>País de Fabricación:</b> {{vehicle.model.producedAt}}<br>
+          <b>Cilindrada:</b> {{vehicle.model.displacement}}<br>
+          <b>Octanaje:</b> {{vehicle.model.octane}}
+        </div>
+      </div>
+
+      <div class="item" style="height: 200px; background-color: white; width: 1%; border-radius: 10px"></div>
+
+      <div class="item">
+        <h2>Asociada a: {{GetMechanicNameById(vehicle.mechanicId)}}</h2>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>

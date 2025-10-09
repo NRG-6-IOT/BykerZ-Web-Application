@@ -6,6 +6,12 @@
 // custom components at https://material.angular.dev/guide/theming
 @use '@angular/material' as mat;
 
+app-vehicle-card {
+  @include mat.card-overrides((
+    elevated-container-color: #FF6B35,
+  ));
+}
+
 :root {
   @include mat.toolbar-overrides((
     container-background-color: #130100,
@@ -13,7 +19,7 @@
   ));
   @include mat.button-toggle-overrides((
     background-color: white,
-    selected-state-background-color: orange,
+    selected-state-background-color: #FF6B35,
     shape: 8px,
   ));
 }
