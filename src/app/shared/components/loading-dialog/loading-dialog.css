@@ -1,0 +1,7 @@
+mat-dialog-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 120px;
+  padding: 120px;
+}
