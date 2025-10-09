@@ -1,33 +1,36 @@
 export class Vehicle {
-  brand: string;
+  id: number;
+  ownerId: number;
+  vin: string;
+  plateNumber: string;
   model: string;
-  plate: string;
-  type: string;
-  modelYear: string;
-  brandOrigin: string;
-  fabricationCountry: string;
-  displacement: number;
-  octane: number;
+  brand: string;
+  status: string;
+  year: string;
+  color: string;
+  authorizedMechanicId: number;
 
   constructor(vehicle: {
-    brand: string,
+    id: number,
+    ownerId: number,
+    vin: string,
+    plateNumber: string,
     model: string,
-    plate: string,
-    type: string,
-    modelYear: string,
-    brandOrigin: string,
-    fabricationCountry: string,
-    displacement: number,
-    octane: number,
+    brand: string,
+    status: string,
+    year: string,
+    color: string,
+    authorizedMechanicId: number,
   }) {
-    this.brand = vehicle.brand || "";
+    this.id = vehicle.id;
+    this.ownerId = vehicle.ownerId;
+    this.vin = vehicle.vin;
+    this.plateNumber = vehicle.plateNumber;
     this.model = vehicle.model;
-    this.plate = vehicle.plate;
-    this.type = vehicle.type;
-    this.modelYear = vehicle.modelYear;
-    this.brandOrigin = vehicle.brandOrigin;
-    this.fabricationCountry = vehicle.fabricationCountry;
-    this.displacement = vehicle.displacement;
-    this.octane = vehicle.octane;
+    this.brand = vehicle.brand;
+    this.status = vehicle.status;
+    this.year = vehicle.year;
+    this.color = vehicle.color;
+    this.authorizedMechanicId = vehicle.authorizedMechanicId;
   }
 }
