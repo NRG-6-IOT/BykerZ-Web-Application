@@ -1,10 +1,11 @@
 import { Routes } from '@angular/router';
 import {DashboardPage} from './public/pages/dashboard-page/dashboard-page';
+import {MaintenanceComponent} from '@app/wellness/pages/maintenence/maintenance.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: "/dashboard", pathMatch: 'full' },
   { path: "dashboard", component: DashboardPage},
-  { path: "maintenances", component: DashboardPage },
+  { path: "maintenances", component: MaintenanceComponent },
   { path: "compare", component: DashboardPage },
   { path: "expenses", component: DashboardPage },
   { path: "membership", component: DashboardPage },
