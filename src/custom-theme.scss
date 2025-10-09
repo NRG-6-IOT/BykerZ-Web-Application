@@ -12,6 +12,12 @@ app-vehicle-card {
   ));
 }
 
+app-vehicle-details-page {
+  @include mat.card-overrides((
+    elevated-container-color: #FF6B35,
+  ));
+}
+
 app-vehicles-page {
   @include mat.fab-overrides((
     container-color: #380800,

@@ -2,6 +2,7 @@ import {Component, Input} from '@angular/core';
 import {MatCard, MatCardContent, MatCardFooter, MatCardHeader} from '@angular/material/card';
 import {NgOptimizedImage} from '@angular/common';
 import {Vehicle} from '../../model/vehicle.entity';
+import {RouterLink} from '@angular/router';
 
 @Component({
   selector: 'app-vehicle-card',
@@ -10,7 +11,8 @@ import {Vehicle} from '../../model/vehicle.entity';
     NgOptimizedImage,
     MatCardContent,
     MatCardHeader,
-    MatCardFooter
+    MatCardFooter,
+    RouterLink
   ],
   templateUrl: './vehicle-card.html',
   standalone: true,

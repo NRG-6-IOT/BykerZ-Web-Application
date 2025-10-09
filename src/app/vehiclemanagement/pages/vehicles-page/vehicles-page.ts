@@ -133,7 +133,6 @@ export class VehiclesPage implements OnInit {
 
   OpenCreateDialog() {
     let dialogRef = this.dialog.open(RegisterVehicleDialog, {
-      disableClose: true,
       hasBackdrop: true,
       maxWidth: '90vw'
     })
