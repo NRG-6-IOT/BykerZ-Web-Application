@@ -3,6 +3,9 @@ import {DashboardPage} from './public/pages/dashboard-page/dashboard-page';
 import {MaintenanceComponent} from '@app/wellness/pages/maintenence/maintenance.component';
 import {ExpensesPageComponent} from '@app/wellness/pages/expenses-page/expenses-page.component';
 import {ExpenseItemComponent} from '@app/wellness/components/expense-item/expense-item.component';
+import {VehiclesPage} from './vehiclemanagement/pages/vehicles-page/vehicles-page';
+import {VehicleDetailsPage} from './vehiclemanagement/pages/vehicle-details-page/vehicle-details-page';
+import {SubscriptionPage} from './subscription/pages/subscription-page/subscription-page';
 
 export const routes: Routes = [
   { path: '', redirectTo: "/dashboard", pathMatch: 'full' },
@@ -10,8 +13,9 @@ export const routes: Routes = [
   { path: "maintenances", component: MaintenanceComponent },
   { path: "compare", component: DashboardPage },
   { path: "expenses", component: ExpensesPageComponent },
-  {path: "expenses/:id" , component: ExpenseItemComponent },
+  { path: "expenses/:id" , component: ExpenseItemComponent },
   { path: "membership", component: DashboardPage },
-  { path: "subscriptions", component: DashboardPage },
-  { path: "vehicles", component: DashboardPage },
+  { path: "subscriptions", component: SubscriptionPage },
+  { path: "vehicles", component: VehiclesPage },
+  { path: "vehicle/:vehicleId", component: VehicleDetailsPage },
 ];
