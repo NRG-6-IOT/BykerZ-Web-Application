@@ -1,0 +1,15 @@
+<div>
+  @if (subscriptions.length === 0) {
+    <p class="no-subscriptions-message">No tienes suscripciones activas.</p>
+  }
+  @if (subscriptions.length > 0) {
+    <div class = "subscriptions-list">
+      @for (subscription of subscriptions; track subscription.id) {
+        <app-subscription-card
+          [subscription]="subscription"
+          class="subscription-card"
+        ></app-subscription-card>
+      }
+    </div>
+  }
+</div>
