@@ -12,9 +12,7 @@ import {RouterLink, RouterLinkActive} from '@angular/router';
     MatButtonToggleGroup,
     MatButtonToggle,
     FormsModule,
-    MatButton,
     RouterLink,
-    RouterLinkActive
   ],
   templateUrl: './navbar-component.html',
   standalone: true,
