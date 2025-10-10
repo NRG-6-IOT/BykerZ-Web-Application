@@ -86,6 +86,7 @@ export class MaintenanceComponent {
           expenseAmount: 200,
           expenseUnitPrice: 2,
           expenseTotalPrice: 400,
+          expenseType: "Mantenimiento"
         }
       ]
     }
