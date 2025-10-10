@@ -31,15 +31,19 @@
 }
 
 .code{
-  padding: 10px 40px ;
+  padding: 0 40px ;
   color: white;
   background-color: #FF6B35;
   border-radius: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  font-weight: bold;
+  font-size: 20px;
 }
 
 .notification{
-  padding: 20px;
+  padding: 0 16px;
   color: white;
   background-color: #FF6B35;
   border-radius: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
