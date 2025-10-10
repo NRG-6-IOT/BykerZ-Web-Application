@@ -9,7 +9,6 @@ import {MatButton} from '@angular/material/button';
 @Component({
   selector: 'app-register-vehicle-dialog',
   imports: [
-    MatDialogContainer,
     MatDialogContent,
     MatDialogModule,
     NgOptimizedImage,

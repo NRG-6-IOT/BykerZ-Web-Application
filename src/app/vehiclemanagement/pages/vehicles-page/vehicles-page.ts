@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {Model, Vehicle} from '../../model/vehicle.entity';
 import {VehicleCard} from '../../components/vehicle-card/vehicle-card';
-import {MatFabButton, MatIconButton} from '@angular/material/button';
-import {MatIcon} from '@angular/material/icon';
+import {MatFabButton} from '@angular/material/button';
+import {MatIconModule} from '@angular/material/icon';
 import {MatDialog} from '@angular/material/dialog';
 import {RegisterVehicleDialog} from '../../components/register-vehicle-dialog/register-vehicle-dialog';
 
@@ -10,8 +10,7 @@ import {RegisterVehicleDialog} from '../../components/register-vehicle-dialog/re
   selector: 'app-vehicles-page',
   imports: [
     VehicleCard,
-    MatIconButton,
-    MatIcon,
+    MatIconModule,
     MatFabButton
   ],
   templateUrl: './vehicles-page.html',

@@ -2,14 +2,13 @@ import {Component, OnInit} from '@angular/core';
 import {Model, Vehicle} from '../../model/vehicle.entity';
 import {ActivatedRoute} from '@angular/router';
 import {NgOptimizedImage} from '@angular/common';
-import {MatCard, MatCardHeader} from '@angular/material/card';
+import {MatCard} from '@angular/material/card';
 
 @Component({
   selector: 'app-vehicle-details-page',
   imports: [
     NgOptimizedImage,
-    MatCard,
-    MatCardHeader
+    MatCard
   ],
   templateUrl: './vehicle-details-page.html',
   standalone: true,
@@ -17,7 +16,8 @@ import {MatCard, MatCardHeader} from '@angular/material/card';
 })
 export class VehicleDetailsPage implements OnInit {
 
-  vehicle!: Vehicle;
+  // Make vehicle nullable so template optional chaining is valid and Angular's compiler warnings are removed
+  vehicle?: Vehicle;
 
   constructor(
     private route: ActivatedRoute
@@ -168,20 +168,6 @@ export class VehicleDetailsPage implements OnInit {
         });
         break;
     }
-  }
-
-  GetMechanicNameById(id: number): string {
-    switch (id) {
-      case 20:
-        return "Jorge Ramírez";
-      case 21:
-        return "María López";
-      case 22:
-        return "Raúl Castillo";
-      default:
-        return "Desconocido";
-    }
-    return "Desconocido";
   }
 
 }

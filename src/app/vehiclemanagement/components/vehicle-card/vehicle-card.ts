@@ -10,8 +10,6 @@ import {RouterLink} from '@angular/router';
     MatCard,
     NgOptimizedImage,
     MatCardContent,
-    MatCardHeader,
-    MatCardFooter,
     RouterLink
   ],
   templateUrl: './vehicle-card.html',
