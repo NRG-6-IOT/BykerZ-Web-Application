@@ -1,0 +1,57 @@
+<mat-dialog-content>
+
+  <div class="main-container">
+    <div class="straight-line">
+      <h1>Add a Vehicle</h1>
+      <img ngSrc="/assets/images/vehicle.png" width="204" height="104" alt="">
+    </div>
+    <div class="white-line"></div>
+
+    <div class="straight-line" style="margin-top: 15px">
+      <mat-form-field>
+        <mat-label>Brand</mat-label>
+        <mat-select [(ngModel)]="brand" (ngModelChange)="GetModelOptions()">
+          @for (brand of brandOptions; track brand) {
+            <mat-option [value]="brand">{{brand}}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Model</mat-label>
+        <mat-select [(ngModel)]="model" [disabled]="!brand">
+          @for (model of modelOptions; track model) {
+            <mat-option [value]="model">{{model}}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Year</mat-label>
+        <mat-select [(ngModel)]="year">
+          @for (year of yearOptions; track year) {
+            <mat-option [value]="year">{{year}}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Plate</mat-label>
+        <input
+          matInput
+          name="plate"
+          [(ngModel)]="plate"
+          #plateCtrl="ngModel"
+          required
+          pattern="^[0-9]{4}-[A-Z]{2}$"
+          placeholder="1234-XY"
+        >
+        @if (plateCtrl.invalid && plateCtrl.touched) {
+          <mat-error>
+            Invalid plate format. Example: 1234-XY
+          </mat-error>
+        }
+      </mat-form-field>
+    </div>
+
+    <button mat-flat-button [disabled]="!IsValid()">Register</button>
+  </div>
+
+</mat-dialog-content>

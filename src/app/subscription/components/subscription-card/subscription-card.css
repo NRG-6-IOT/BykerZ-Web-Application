@@ -1,0 +1,26 @@
+.exterior-card{
+  border-radius: 20px;
+  background-color: #FF6B35;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  width: 100%;
+}
+
+.inner-card{
+  border-radius: 20px;
+  background-color: white;
+  padding: 16px;
+  display: flex;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  flex-direction: column;
+}
+
+.row{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  .left{
+    font-weight: bold;
+  }
+}
