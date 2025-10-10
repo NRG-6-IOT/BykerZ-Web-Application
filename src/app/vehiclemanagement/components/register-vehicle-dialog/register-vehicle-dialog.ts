@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {MatDialog, MatDialogContainer, MatDialogContent, MatDialogModule, MatDialogRef} from '@angular/material/dialog';
+import {MatDialogContent, MatDialogModule, MatDialogRef} from '@angular/material/dialog';
 import {NgOptimizedImage} from '@angular/common';
 import {MatOption, MatSelect, MatSelectModule} from '@angular/material/select';
 import {FormsModule} from '@angular/forms';

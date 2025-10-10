@@ -1,5 +1,5 @@
 import {Component, Input} from '@angular/core';
-import {MatCard, MatCardContent, MatCardFooter, MatCardHeader} from '@angular/material/card';
+import {MatCard, MatCardContent} from '@angular/material/card';
 import {NgOptimizedImage} from '@angular/common';
 import {Vehicle} from '../../model/vehicle.entity';
 import {RouterLink} from '@angular/router';
