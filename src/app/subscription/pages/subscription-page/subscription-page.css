@@ -5,6 +5,7 @@
   align-items: center;
   width: 100%;
   padding: 40px;
+  gap: 40px;
   background-color: #ffffff;
 }
 
@@ -17,7 +18,7 @@
 .header{
   display: flex;
   flex-direction: row;
-  align-items: flex-start;
+  align-items: center;
   justify-content: space-between;
   width: 100%;
 }
@@ -31,7 +32,7 @@
 }
 
 .code{
-  padding: 0 40px ;
+  padding: 16px 40px ;
   color: white;
   background-color: #FF6B35;
   border-radius: 20px;
@@ -41,7 +42,7 @@
 }
 
 .notification{
-  padding: 0 16px;
+  padding: 16px;
   color: white;
   background-color: #FF6B35;
   border-radius: 20px;
