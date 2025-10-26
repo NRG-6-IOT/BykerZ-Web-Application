@@ -1,0 +1,36 @@
+<div class="min-h-screen flex items-center justify-center">
+  <div class="flex">
+    <div class="w-96 h-96 border rounded-2xl p-5 bg-[#ffede9] flex items-center justify-center">
+      <div class="text-center">
+        <p class="font-bold text-6xl pb-6">BykerZ</p>
+        <img ngSrc="/assets/images/logo-bykerz.png" alt="Logo" width="180" height="100" />
+      </div>
+    </div>
+
+    <div class="w-96 h-96 border rounded-2xl p-5 bg-[#ff6b35] flex items-center justify-center">
+      <form [formGroup]="signInFormGroup" (ngSubmit)="signIn()"
+            class="w-11/12 max-w-xs space-y-4 flex flex-col items-center ">
+        <mat-form-field class="w-full ">
+          <mat-label>Username</mat-label>
+          <input matInput formControlName="username" required />
+          @if (isInvalidControl(signInFormGroup, 'username')) {
+            <mat-error>{{ errorMessagesForControl(signInFormGroup, 'username') }}</mat-error>
+          }
+        </mat-form-field>
+
+        <mat-form-field class="w-full">
+          <mat-label>Password</mat-label>
+          <input matInput type="password" formControlName="password" required />
+          @if (isInvalidControl(signInFormGroup, 'password')) {
+            <mat-error>{{ errorMessagesForControl(signInFormGroup, 'password') }}</mat-error>
+          }
+        </mat-form-field>
+
+        <button mat-flat-button class="w-full !bg-[#380800]">Sign in</button>
+        <button matButton routerLink="/sign-up">
+          <p class="text-black">Sign Up</p>
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
