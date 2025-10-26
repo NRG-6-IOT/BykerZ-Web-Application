@@ -20,8 +20,7 @@ import {NgOptimizedImage} from '@angular/common';
     RouterLink,
     NgOptimizedImage
   ],
-  templateUrl: './sign-in.page.html',
-  styleUrl: './sign-in.page.css'
+  templateUrl: './sign-in.page.html'
 })
 export class SignInPage extends BaseFormComponent implements OnInit {
   signInFormGroup!: FormGroup;
