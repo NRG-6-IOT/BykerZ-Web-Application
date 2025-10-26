@@ -6,9 +6,13 @@ import {ExpenseItemComponent} from '@app/wellness/components/expense-item/expens
 import {VehiclesPage} from './vehiclemanagement/pages/vehicles-page/vehicles-page';
 import {VehicleDetailsPage} from './vehiclemanagement/pages/vehicle-details-page/vehicle-details-page';
 import {SubscriptionPage} from './subscription/pages/subscription-page/subscription-page';
+import {SignInPage} from '@app/iam/pages/sign-in/sign-in.page';
+import {SignUpPage} from '@app/iam/pages/sign-up/sign-up.page';
 
 export const routes: Routes = [
   { path: '', redirectTo: "/dashboard", pathMatch: 'full' },
+  { path: "sign-in", component: SignInPage },
+  { path: "sign-up", component: SignUpPage },
   { path: "dashboard", component: DashboardPage},
   { path: "maintenances", component: MaintenanceComponent },
   { path: "compare", component: DashboardPage },
