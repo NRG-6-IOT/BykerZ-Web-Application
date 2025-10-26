@@ -6,7 +6,11 @@ import {SignUpRequest} from '@app/iam/model/sign-up.request';
 import {SignUpResponse} from '@app/iam/model/sign-up.response';
 import {SignInRequest} from '@app/iam/model/sign-in.request';
 import {SignInResponse} from '@app/iam/model/sign-in-response';
+import {Injectable} from '@angular/core';
 
+@Injectable({
+  providedIn: 'root'
+})
 export class AuthenticationService {
   baseUrl: string = `${environment.serverBaseUrl}`;
   httpOptions = { headers: new HttpHeaders({'Content-type': 'application/json'})};
