@@ -41,9 +41,9 @@ export class BaseFormComponent {
   private errorMessageForControl(controlName: string, errorKey: string) {
     switch (errorKey) {
       case 'required':
-        return `The field ${controlName} is required`;
+        return `${controlName} is required`;
       default:
-        return `The field ${controlName}is invalid`;
+        return `${controlName} is invalid`;
     }
   }
 }
