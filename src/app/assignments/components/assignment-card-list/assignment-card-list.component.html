@@ -1,0 +1,15 @@
+<div>
+  @if (assignments.length === 0) {
+    <p class="no-subscriptions-message">No tienes suscripciones activas.</p>
+  }
+  @if (assignments.length > 0) {
+    <div class = "subscriptions-list">
+      @for (assignment of assignments; track assignment.id) {
+        <app-assignment-card
+          [assignment]="assignment"
+          class="subscription-card"
+        ></app-assignment-card>
+      }
+    </div>
+  }
+</div>
