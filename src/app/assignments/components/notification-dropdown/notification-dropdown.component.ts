@@ -9,7 +9,7 @@ import {NgForOf} from '@angular/common';
   ],
   styleUrls: ['./notification-dropdown.component.css']
 })
-export class NotificationDropdownComponent {
+export class NotificationDropdown {
   @Input() items: string[] = [
     'Notificación 1',
     'Notificación 2',
