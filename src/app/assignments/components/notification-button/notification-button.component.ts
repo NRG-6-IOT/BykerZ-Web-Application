@@ -1,11 +1,11 @@
 import { Component, ElementRef, HostListener } from '@angular/core';
-import { NotificationDropdownComponent } from '@app/subscription/components/notification-dropdown/notification-dropdown.component';
+import {NotificationDropdown} from '@app/assignments/components/notification-dropdown/notification-dropdown.component';
 
 @Component({
   selector: 'app-notification-button',
   templateUrl: './notification-button.component.html',
   imports: [
-    NotificationDropdownComponent
+    NotificationDropdown
   ],
   styleUrls: ['./notification-button.component.css']
 })
