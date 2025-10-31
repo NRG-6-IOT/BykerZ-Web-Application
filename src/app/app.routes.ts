@@ -5,8 +5,9 @@ import {ExpensesPageComponent} from '@app/wellness/pages/expenses-page/expenses-
 import {ExpenseItemComponent} from '@app/wellness/components/expense-item/expense-item.component';
 import {VehiclesPage} from './vehiclemanagement/pages/vehicles-page/vehicles-page';
 import {VehicleDetailsPage} from './vehiclemanagement/pages/vehicle-details-page/vehicle-details-page';
-import {SubscriptionPage} from './subscription/pages/subscription-page/subscription-page';
-import { ComparePageComponent } from './comparatives/pages/compare-page/compare-page.component';
+import {AssignmentPage} from '@app/assignments/pages/assignment-page/assignment-page.component';
+import {AssignmentDetailPage} from '@app/assignments/pages/assignment-detail-page/assignment-detail-page.component';
+import {ComparePageComponent} from '@app/comparatives/pages/compare-page/compare-page.component';
 import {CompareMechanicComponent} from '@app/comparatives/pages/compare-mechanic/compare-mechanic.component';
 
 export const routes: Routes = [
@@ -18,7 +19,8 @@ export const routes: Routes = [
   { path: "expenses", component: ExpensesPageComponent },
   { path: "expenses/:id" , component: ExpenseItemComponent },
   { path: "membership", component: DashboardPage },
-  { path: "subscriptions", component: SubscriptionPage },
+  { path: "assignments", component: AssignmentPage },
+  { path: "assignment/:id", component: AssignmentDetailPage },
   { path: "vehicles", component: VehiclesPage },
   { path: "vehicle/:vehicleId", component: VehicleDetailsPage },
 ];
