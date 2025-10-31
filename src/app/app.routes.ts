@@ -6,6 +6,7 @@ import {ExpenseItemComponent} from '@app/wellness/components/expense-item/expens
 import {VehiclesPage} from './vehiclemanagement/pages/vehicles-page/vehicles-page';
 import {VehicleDetailsPage} from './vehiclemanagement/pages/vehicle-details-page/vehicle-details-page';
 import {AssignmentPage} from '@app/assignments/pages/assignment-page/assignment-page.component';
+import {AssignmentDetailPage} from '@app/assignments/pages/assignment-detail-page/assignment-detail-page.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: "/dashboard", pathMatch: 'full' },
@@ -15,7 +16,8 @@ export const routes: Routes = [
   { path: "expenses", component: ExpensesPageComponent },
   { path: "expenses/:id" , component: ExpenseItemComponent },
   { path: "membership", component: DashboardPage },
-  { path: "subscriptions", component: AssignmentPage },
+  { path: "assignments", component: AssignmentPage },
+  { path: "assignment/:id", component: AssignmentDetailPage },
   { path: "vehicles", component: VehiclesPage },
   { path: "vehicle/:vehicleId", component: VehicleDetailsPage },
 ];
