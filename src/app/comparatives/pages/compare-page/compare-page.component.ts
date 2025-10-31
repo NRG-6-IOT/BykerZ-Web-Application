@@ -4,6 +4,7 @@ import { Vehicle, Model } from '../../model/model';
 import { VehicleCardComponent } from '../../components/vehicle-card/vehicle-card.component';
 import { SpecsCardComponent } from '../../components/specs-card/specs-card.component';
 import { ScenariosCardComponent } from '../../components/scenarios-card/scenarios-card.component';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   standalone: true,
@@ -17,7 +18,9 @@ import { ScenariosCardComponent } from '../../components/scenarios-card/scenario
         <app-vehicle-card
           [vehicle]="ownerVehicle"
           title="Tu moto"
-          [selectable]="false"
+          [selectable]="true"
+          [options]="availableVehicles"
+          (selectionChange)="onOwnerSelect($event)"
           [orange]="true">
         </app-vehicle-card>
 
@@ -84,15 +87,34 @@ export class ComparePageComponent implements OnInit {
   compareVehicle: Vehicle | null = null;
   availableVehicles: Vehicle[] = [];
 
-  ngOnInit(): void {
-    // owner vehicle fixed (non-selectable) -> mock id 1
-    this.ownerVehicle = this.GetVehicleById(1);
+  constructor(private route: ActivatedRoute) {}
 
-    // available vehicles to choose from (we provide 1..3 as mocks)
+  ngOnInit(): void {
+    // available vehicles (mocks)
     this.availableVehicles = [ this.GetVehicleById(1), this.GetVehicleById(2), this.GetVehicleById(3) ];
 
-    // default comparison: vehicle with id 2
-    this.compareVehicle = this.GetVehicleById(2);
+    // If a query param ownerId is provided use it to set the owner vehicle
+    const ownerIdParam = this.route.snapshot.queryParamMap.get('ownerId');
+    const ownerId = ownerIdParam ? Number(ownerIdParam) : NaN;
+    if (!isNaN(ownerId)) {
+      this.ownerVehicle = this.GetVehicleById(ownerId);
+    } else {
+      // fallback to default
+      this.ownerVehicle = this.GetVehicleById(1);
+    }
+
+    // choose a default compareVehicle that is different from ownerVehicle
+    const defaultCompareId = (this.ownerVehicle?.id === 1) ? 2 : 1;
+    this.compareVehicle = this.GetVehicleById(defaultCompareId);
+  }
+
+  onOwnerSelect(id: number) {
+    this.ownerVehicle = this.GetVehicleById(id);
+    // if compareVehicle matches new ownerVehicle, pick a different default
+    if (this.compareVehicle && this.compareVehicle.id === this.ownerVehicle?.id) {
+      const alternative = this.availableVehicles.find(v => v.id !== this.ownerVehicle?.id) || null;
+      this.compareVehicle = alternative;
+    }
   }
 
   onCompareSelect(id: number) {
