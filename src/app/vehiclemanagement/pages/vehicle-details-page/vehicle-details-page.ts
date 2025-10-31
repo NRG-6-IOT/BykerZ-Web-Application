@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Model, Vehicle} from '../../model/vehicle.entity';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {NgOptimizedImage} from '@angular/common';
 import {MatCard} from '@angular/material/card';
 
@@ -20,7 +20,8 @@ export class VehicleDetailsPage implements OnInit {
   vehicle?: Vehicle;
 
   constructor(
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) {
 
   }
@@ -167,6 +168,16 @@ export class VehicleDetailsPage implements OnInit {
           plate: "3564-YT",
         });
         break;
+    }
+  }
+
+  compare() {
+    const ownerId = this.vehicle?.id;
+    if (ownerId) {
+      this.router.navigate(['/compare'], { queryParams: { ownerId } });
+    } else {
+      // navigate to compare without ownerId if vehicle unknown
+      this.router.navigate(['/compare']);
     }
   }
 
