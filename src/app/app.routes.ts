@@ -6,12 +6,13 @@ import {ExpenseItemComponent} from '@app/wellness/components/expense-item/expens
 import {VehiclesPage} from './vehiclemanagement/pages/vehicles-page/vehicles-page';
 import {VehicleDetailsPage} from './vehiclemanagement/pages/vehicle-details-page/vehicle-details-page';
 import {SubscriptionPage} from './subscription/pages/subscription-page/subscription-page';
+import { ComparePageComponent } from './comparatives/pages/compare-page/compare-page.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: "/dashboard", pathMatch: 'full' },
   { path: "dashboard", component: DashboardPage},
   { path: "maintenances", component: MaintenanceComponent },
-  { path: "compare", component: DashboardPage },
+  { path: "compare", component: ComparePageComponent },
   { path: "expenses", component: ExpensesPageComponent },
   { path: "expenses/:id" , component: ExpenseItemComponent },
   { path: "membership", component: DashboardPage },
