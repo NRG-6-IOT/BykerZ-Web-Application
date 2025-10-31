@@ -1,4 +1,4 @@
-export class Subscription {
+export class Assignment {
   id: number;
   linkDetails: string;
   owner: Owner;
