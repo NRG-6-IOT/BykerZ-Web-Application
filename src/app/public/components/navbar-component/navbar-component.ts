@@ -38,7 +38,7 @@ export class NavbarComponent implements OnInit {
     { name: 'Dashboard', route: '/dashboard' },
     { name: 'Suscripciones', route: '/subscriptions' },
     { name: 'Mantenimientos', route: '/maintenances' },
-    { name: 'Comparativas', route: '/compare' },
+    { name: 'Comparativas', route: '/compare/mechanic' },
     { name: 'Membresía', route: '/membership' }
   ];
 
