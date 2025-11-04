@@ -1,4 +1,4 @@
-/*import {environment} from '../../../environments/environment';
+import {environment} from '../../../environments/environment';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {BehaviorSubject} from 'rxjs';
 import {Router} from '@angular/router';
@@ -31,14 +31,16 @@ export class AuthenticationService {
 
   get currentUsername() {
     return this.signedInUsername.asObservable();
-  }*/
+  }
+
+  // TODO: Implement profile retrieval method
 
   /**
    * Sign up a new user.
    * @param signUpRequest
    * @return The sign up response.
    */
-  /*signUp(signUpRequest: SignUpRequest) {
+  signUp(signUpRequest: SignUpRequest) {
     return this.http.post<SignUpResponse>(`${this.baseUrl}/authentication/sign-up`, signUpRequest, this.httpOptions)
       .subscribe({
         next: (response) => {
@@ -50,14 +52,14 @@ export class AuthenticationService {
           this.router.navigate(['/sign-up']).then();
         }
       });
-  }*/
+  }
 
   /**
    * Sign in an existing user.
    * @param signInRequest
    * @return The sign in response.
    */
-  /*signIn(signInRequest: SignInRequest) {
+  signIn(signInRequest: SignInRequest) {
     return this.http.post<SignInResponse>(`${this.baseUrl}/authentication/sign-in`, signInRequest, this.httpOptions)
       .subscribe({
         next: (response) => {
@@ -75,16 +77,16 @@ export class AuthenticationService {
           this.router.navigate(['/sign-in']).then();
         }
       });
-  }*/
+  }
 
   /**
    * Sign out the current user.
    */
-  /*signOut() {
+  signOut() {
     this.signedIn.next(false);
     this.signedInUserId.next(0);
     this.signedInUsername.next('');
     localStorage.removeItem('token');
     this.router.navigate(['/sign-in']).then();
   }
-}*/
+}
