@@ -7,6 +7,7 @@ import {RouterLink} from '@angular/router';
 import {BaseFormComponent} from '@app/shared/components/base-form.component';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import {SignUpRequest} from '@app/iam/model/sign-up.request';
+import {AuthenticationService} from '@app/iam/services/authentication.service';
 
 @Component({
   selector: 'app-sign-up.component',
@@ -26,7 +27,7 @@ export class SignUpPage extends BaseFormComponent implements OnInit {
   roleSelected?: string;
   submitted = false;
 
-  constructor(private builder: FormBuilder/*, private authenticationService: AuthenticationService*/) {
+  constructor(private builder: FormBuilder, private authenticationService: AuthenticationService) {
     super();
   }
 
@@ -59,7 +60,7 @@ export class SignUpPage extends BaseFormComponent implements OnInit {
     let role = this.roleSelected;
 
     const signUpRequest = new SignUpRequest(firstName, lastName, username, email, photoUrl, password, role);
-    //this.authenticationService.signUp(signUpRequest);
+    this.authenticationService.signUp(signUpRequest);
     console.log(`Sign up requested for user: ${username} with role: ${role}`);
     this.submitted = true;
   }
