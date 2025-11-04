@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {BaseFormComponent} from '@app/shared/components/base-form.component';
 import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
-//import {AuthenticationService} from '@app/iam/services/authentication.service';
+import {AuthenticationService} from '@app/iam/services/authentication.service';
 import {SignInRequest} from '@app/iam/model/sign-in.request';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatButtonModule} from '@angular/material/button';
@@ -26,7 +26,7 @@ export class SignInPage extends BaseFormComponent implements OnInit {
   signInFormGroup!: FormGroup;
   submitted = false;
 
-  constructor(private builder: FormBuilder/*, private authenticationService: AuthenticationService*/) {
+  constructor(private builder: FormBuilder, private authenticationService: AuthenticationService) {
     super();
   }
 
@@ -42,8 +42,8 @@ export class SignInPage extends BaseFormComponent implements OnInit {
     let username = this.signInFormGroup.value.username;
     let password = this.signInFormGroup.value.password;
     const signInRequest = new SignInRequest(username, password);
-    //this.authenticationService.signIn(signInRequest);
-    console.log(`Sign in requested for user: ${username} with password: ${password} (TBD)`);
+    this.authenticationService.signIn(signInRequest);
+    console.log(`Sign in requested for user: ${username} with password: ${password}`);
     this.submitted = true;
   }
 }
