@@ -1,4 +1,4 @@
-/*import {HttpEvent, HttpHandlerFn, HttpInterceptorFn, HttpRequest} from '@angular/common/http';
+import {HttpEvent, HttpHandlerFn, HttpInterceptorFn, HttpRequest} from '@angular/common/http';
 import {Observable} from 'rxjs';
 
 export const authenticationInterceptor: HttpInterceptorFn = (
@@ -12,4 +12,4 @@ export const authenticationInterceptor: HttpInterceptorFn = (
   console.log(handledRequest);
   return next(handledRequest);
 }
-*/
+
