@@ -4,6 +4,7 @@ import {MatButtonToggle, MatButtonToggleGroup} from '@angular/material/button-to
 import {FormsModule} from '@angular/forms';
 import {MatButton} from '@angular/material/button';
 import {RouterLink, RouterLinkActive} from '@angular/router';
+import {AuthenticationService} from '@app/iam/services/authentication.service';
 
 @Component({
   selector: 'app-navbar-component',
@@ -26,6 +27,8 @@ export class NavbarComponent implements OnInit {
   ];
   selectedRole: string = "Owner";
 
+  isSignedIn: boolean = false;
+
   ownerOptions = [
     { name: 'Dashboard', route: '/dashboard' },
     { name: 'Vehículos', route: '/vehicles' },
@@ -44,6 +47,12 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit() {
     this.selectedRole = this.GetRoleFromStorage();
+  }
+
+  constructor(private authenticationService: AuthenticationService) {
+    this.authenticationService.isSignedIn.subscribe(
+      (isSignedIn) => this.isSignedIn = isSignedIn
+    )
   }
 
   SetRoleInStorage(role: string) {
