@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {Model, Vehicle} from '../../model/vehicle.entity';
-import {VehicleCard} from '../../components/vehicle-card/vehicle-card';
+import {Model, Vehicle} from '@app/vehiclemanagement/domain/model/vehicle.entity';
+import {VehicleCard} from '@app/vehiclemanagement/presentation/components/vehicle-card/vehicle-card';
 import {MatFabButton} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
 import {MatDialog} from '@angular/material/dialog';
-import {RegisterVehicleDialog} from '../../components/register-vehicle-dialog/register-vehicle-dialog';
+import {RegisterVehicleDialog} from '@app/vehiclemanagement/presentation/components/register-vehicle-dialog/register-vehicle-dialog';
 
 @Component({
   selector: 'app-vehicles-page',

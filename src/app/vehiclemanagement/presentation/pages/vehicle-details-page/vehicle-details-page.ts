@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {Model, Vehicle} from '../../model/vehicle.entity';
+import {Model, Vehicle} from '@app/vehiclemanagement/domain/model/vehicle.entity';
 import {ActivatedRoute} from '@angular/router';
 import {NgOptimizedImage} from '@angular/common';
 import {MatCard} from '@angular/material/card';
