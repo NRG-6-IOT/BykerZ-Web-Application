@@ -43,7 +43,6 @@ export class SignInPage extends BaseFormComponent implements OnInit {
     let password = this.signInFormGroup.value.password;
     const signInRequest = new SignInRequest(username, password);
     this.authenticationService.signIn(signInRequest);
-    console.log(`Sign in requested for user: ${username} with password: ${password}`);
     this.submitted = true;
   }
 }
