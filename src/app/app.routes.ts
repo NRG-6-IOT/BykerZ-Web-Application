@@ -6,16 +6,21 @@ import {ExpenseItemComponent} from '@app/wellness/components/expense-item/expens
 import {VehiclesPage} from './vehiclemanagement/pages/vehicles-page/vehicles-page';
 import {VehicleDetailsPage} from './vehiclemanagement/pages/vehicle-details-page/vehicle-details-page';
 import {SubscriptionPage} from './subscription/pages/subscription-page/subscription-page';
+import {SignInPage} from '@app/iam/pages/sign-in/sign-in.page';
+import {SignUpPage} from '@app/iam/pages/sign-up/sign-up.page';
+import {authenticationGuard} from '@app/iam/services/authentication.guard';
 
 export const routes: Routes = [
   { path: '', redirectTo: "/dashboard", pathMatch: 'full' },
-  { path: "dashboard", component: DashboardPage},
-  { path: "maintenances", component: MaintenanceComponent },
-  { path: "compare", component: DashboardPage },
-  { path: "expenses", component: ExpensesPageComponent },
-  { path: "expenses/:id" , component: ExpenseItemComponent },
-  { path: "membership", component: DashboardPage },
-  { path: "subscriptions", component: SubscriptionPage },
-  { path: "vehicles", component: VehiclesPage },
-  { path: "vehicle/:vehicleId", component: VehicleDetailsPage },
+  { path: "sign-in", component: SignInPage },
+  { path: "sign-up", component: SignUpPage },
+  { path: "dashboard", component: DashboardPage, canActivate: [authenticationGuard] },
+  { path: "maintenances", component: MaintenanceComponent, canActivate: [authenticationGuard] },
+  { path: "compare", component: DashboardPage, canActivate: [authenticationGuard] },
+  { path: "expenses", component: ExpensesPageComponent, canActivate: [authenticationGuard] },
+  { path: "expenses/:id" , component: ExpenseItemComponent, canActivate: [authenticationGuard] },
+  { path: "membership", component: DashboardPage, canActivate: [authenticationGuard] },
+  { path: "subscriptions", component: SubscriptionPage, canActivate: [authenticationGuard] },
+  { path: "vehicles", component: VehiclesPage, canActivate: [authenticationGuard] },
+  { path: "vehicle/:vehicleId", component: VehicleDetailsPage, canActivate: [authenticationGuard] },
 ];
