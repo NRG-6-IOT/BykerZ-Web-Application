@@ -9,7 +9,6 @@ export const authenticationInterceptor: HttpInterceptorFn = (
   const handledRequest = authToken
     ? req.clone({ headers: req.headers.set('Authorization', `Bearer ${authToken}`)} )
     : req;
-  console.log(handledRequest);
   return next(handledRequest);
 }
 
