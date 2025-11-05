@@ -5,7 +5,7 @@ export class SignUpRequest {
   public email: string;
   public photoUrl: string;
   public password: string;
-  public role: string
+  public roles: string[];
 
   constructor(
     firstName: string,
@@ -14,13 +14,14 @@ export class SignUpRequest {
     email: string,
     photoUrl: string,
     password: string,
-    role: string){
+    roles: string[]
+  ) {
     this.firstName = firstName;
     this.lastName = lastName;
     this.username = username;
     this.email = email;
     this.photoUrl = photoUrl;
     this.password = password;
-    this.role = role;
+    this.roles = roles;
   }
 }
