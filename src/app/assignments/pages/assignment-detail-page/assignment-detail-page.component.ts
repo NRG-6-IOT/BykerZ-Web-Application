@@ -1,6 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {Assignment} from '@app/assignments/model/assignment.entity';
 import {ActivatedRoute} from '@angular/router';
+import {
+  AssignmentCardDialog
+} from '@app/assignments/components/assignment-card-dialog/assignment-card-dialog.component';
+import {MatDialog} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-assignment-detail-page',
@@ -13,7 +17,7 @@ export class AssignmentDetailPage implements OnInit{
   assignment?: Assignment;
   assignmentId?: number;
 
-  constructor(private route: ActivatedRoute) {}
+  constructor(private route: ActivatedRoute, private dialog: MatDialog) {}
 
   ngOnInit(): void {
     const idParam = this.route.snapshot.paramMap.get('id');
@@ -29,5 +33,11 @@ export class AssignmentDetailPage implements OnInit{
     // Si no se recibió por state, usar un servicio o fetch para obtener el assignment por id
     // TODO: inyectar AssignmentService y obtener por id:
     // this.assignmentService.getById(this.assignmentId).subscribe(a => this.assignment = a);
+  }
+
+  openDialog() {
+    this.dialog.open(AssignmentCardDialog, {
+      data: { assignment: this.assignment }
+    });
   }
 }
