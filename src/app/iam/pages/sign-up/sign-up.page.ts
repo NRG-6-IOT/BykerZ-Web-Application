@@ -3,7 +3,6 @@ import {MatButtonModule} from '@angular/material/button';
 import {FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
-import {RouterLink} from '@angular/router';
 import {BaseFormComponent} from '@app/shared/components/base-form.component';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import {SignUpRequest} from '@app/iam/model/sign-up.request';
@@ -17,14 +16,11 @@ import {AuthenticationService} from '@app/iam/services/authentication.service';
     FormsModule,
     ReactiveFormsModule,
     MatFormFieldModule,
-    MatInputModule,
-    RouterLink],
+    MatInputModule],
   templateUrl: './sign-up.page.html'
 })
 export class SignUpPage extends BaseFormComponent implements OnInit {
   signUpForm!: FormGroup;
-  roleSelectionControl = new FormControl('');
-  roleSelected?: string;
   submitted = false;
 
   constructor(private builder: FormBuilder, private authenticationService: AuthenticationService) {
@@ -39,7 +35,8 @@ export class SignUpPage extends BaseFormComponent implements OnInit {
       email: ['', Validators.required],
       photoUrl: ['', Validators.required],
       password: ['', Validators.required],
-      confirmPassword: ['', Validators.required]
+      confirmPassword: ['', Validators.required],
+      role: ['', Validators.required]
     }, {validator: this.passwordMatchValidator});
   }
 
@@ -50,18 +47,19 @@ export class SignUpPage extends BaseFormComponent implements OnInit {
   }
 
   onSubmit() {
-    if (this.signUpForm.invalid || !this.roleSelected) return;
+    if (this.signUpForm.invalid) return;
+
     let firstName = this.signUpForm.value.firstName;
     let lastName = this.signUpForm.value.lastName;
     let username = this.signUpForm.value.username;
     let email = this.signUpForm.value.email;
     let photoUrl = this.signUpForm.value.photoUrl;
     let password = this.signUpForm.value.password;
-    let role = this.roleSelected;
+    let roles = [this.signUpForm.value.role];
 
-    const signUpRequest = new SignUpRequest(firstName, lastName, username, email, photoUrl, password, role);
+    const signUpRequest = new SignUpRequest(firstName, lastName, username, email, photoUrl, password, roles);
+    console.log(`Requesting sign up`);
     this.authenticationService.signUp(signUpRequest);
-    console.log(`Sign up requested for user: ${username} with role: ${role}`);
     this.submitted = true;
   }
 }
