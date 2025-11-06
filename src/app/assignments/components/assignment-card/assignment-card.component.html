@@ -1,11 +1,11 @@
-<div class="exterior-card" (click)="openDialog()">
+<div class="exterior-card" (click)="redirectToDetails()">
   <div class="inner-card">
     <div class="row">
       <div class="left">
         <p>Link details:</p>
       </div>
       <div class="right">
-        <p>{{subscription.linkDetails}}</p>
+        <p>{{assignment.linkDetails}}</p>
       </div>
     </div>
     <div class="row">
@@ -13,7 +13,7 @@
         <p>Owner's name:</p>
       </div>
       <div class="right">
-        <p>{{subscription.owner.name}}</p>
+        <p>{{assignment.owner.name}}</p>
       </div>
     </div>
     <div class="row">
@@ -21,7 +21,7 @@
         <p>Number of motorcycles:</p>
       </div>
       <div class="right">
-        <p>{{subscription.numberVehicles}}</p>
+        <p>{{assignment.numberVehicles}}</p>
       </div>
     </div>
   </div>
