@@ -3,7 +3,7 @@ import {MatButtonModule} from '@angular/material/button';
 import {FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
-import {BaseFormComponent} from '@app/shared/components/base-form.component';
+import {BaseFormComponent} from '@app/shared/presentation/components/base-form.component';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import {SignUpRequest} from '@app/iam/model/sign-up.request';
 import {AuthenticationService} from '@app/iam/services/authentication.service';

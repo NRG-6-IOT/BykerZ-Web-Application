@@ -1,7 +1,7 @@
 import {ChangeDetectionStrategy, Component, inject} from '@angular/core';
 import {MatDialogActions, MatDialogClose, MatDialogContent, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {MatButtonModule} from '@angular/material/button';
-import {CompletedMaintenance} from '@app/wellness/model/completed-maintenance.entity';
+import {CompletedMaintenance} from '@app/maintenance/domain/model/completed-maintenance.entity';
 import {format} from '@formkit/tempo';
 import {MatTableModule} from '@angular/material/table';
 import {CommonModule} from '@angular/common';

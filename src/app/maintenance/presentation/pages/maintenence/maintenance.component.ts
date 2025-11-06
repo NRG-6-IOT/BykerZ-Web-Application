@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import {ScheduledMaintenance} from '@app/wellness/model/schedule-maintenance.entity';
-import {CompletedMaintenance} from '@app/wellness/model/completed-maintenance.entity';
+import {ScheduledMaintenance} from '@app/maintenance/domain/model/schedule-maintenance.entity';
+import {CompletedMaintenance} from '@app/maintenance/domain/model/completed-maintenance.entity';
 import { format } from "@formkit/tempo"
 import {MatDialog} from '@angular/material/dialog';
-import {MaintenanceDialogComponent} from '@app/wellness/components/maintenance-dialog/maintenance-dialog.component';
+import {MaintenanceDialogComponent} from '@app/maintenance/presentation/components/maintenance-dialog/maintenance-dialog.component';
 
 
 @Component({

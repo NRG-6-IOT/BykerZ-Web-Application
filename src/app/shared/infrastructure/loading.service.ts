@@ -1,6 +1,6 @@
 import {EventEmitter, Injectable} from '@angular/core';
 import {MatDialog, MatDialogRef} from '@angular/material/dialog';
-import {LoadingDialog} from '../components/loading-dialog/loading-dialog';
+import {LoadingDialog} from '@app/shared/presentation/components/loading-dialog/loading-dialog';
 
 @Injectable({
   providedIn: 'root'

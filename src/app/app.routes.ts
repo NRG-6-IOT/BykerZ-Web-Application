@@ -1,8 +1,8 @@
 import { Routes } from '@angular/router';
 import {DashboardPage} from './public/pages/dashboard-page/dashboard-page';
-import {MaintenanceComponent} from '@app/wellness/pages/maintenence/maintenance.component';
-import {ExpensesPageComponent} from '@app/wellness/pages/expenses-page/expenses-page.component';
-import {ExpenseItemComponent} from '@app/wellness/components/expense-item/expense-item.component';
+import {MaintenanceComponent} from '@app/maintenance/presentation/pages/maintenence/maintenance.component';
+import {ExpensesPageComponent} from '@app/maintenance/presentation/pages/expenses-page/expenses-page.component';
+import {ExpenseItemComponent} from '@app/maintenance/presentation/components/expense-item/expense-item.component';
 import {VehiclesPage} from './vehiclemanagement/pages/vehicles-page/vehicles-page';
 import {VehicleDetailsPage} from './vehiclemanagement/pages/vehicle-details-page/vehicle-details-page';
 import {SubscriptionPage} from './subscription/pages/subscription-page/subscription-page';
