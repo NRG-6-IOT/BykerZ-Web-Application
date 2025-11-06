@@ -7,9 +7,14 @@ import {VehiclesPage} from './vehiclemanagement/pages/vehicles-page/vehicles-pag
 import {VehicleDetailsPage} from './vehiclemanagement/pages/vehicle-details-page/vehicle-details-page';
 import {AssignmentPage} from '@app/assignments/pages/assignment-page/assignment-page.component';
 import {AssignmentDetailPage} from '@app/assignments/pages/assignment-detail-page/assignment-detail-page.component';
+import {SignInPage} from '@app/iam/pages/sign-in/sign-in.page';
+import {SignUpPage} from '@app/iam/pages/sign-up/sign-up.page';
+import {authenticationGuard} from '@app/iam/services/authentication.guard';
 
 export const routes: Routes = [
   { path: '', redirectTo: "/dashboard", pathMatch: 'full' },
+  { path: "sign-in", component: SignInPage },
+  { path: "sign-up", component: SignUpPage },
   { path: "dashboard", component: DashboardPage},
   { path: "maintenances", component: MaintenanceComponent },
   { path: "compare", component: DashboardPage },
