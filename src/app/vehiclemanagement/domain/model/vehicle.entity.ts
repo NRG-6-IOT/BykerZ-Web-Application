@@ -31,7 +31,6 @@ export class Model {
   originCountry: string;
   producedAt: string;
   type: string;
-
   displacement: string;
   potency: string;
   engineType: string;
