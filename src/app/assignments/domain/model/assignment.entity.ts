@@ -1,3 +1,5 @@
+import {Owner} from '@app/assignments/domain/model/owner.entity';
+
 export class Assignment {
   id: number;
   linkDetails: string;
@@ -13,16 +15,5 @@ export class Assignment {
     this.linkDetails = linkDetails;
     this.owner = owner;
     this.numberVehicles = numberVehicles;
-  }
-}
-export class Owner {
-  id: number;
-  name: string;
-  constructor(
-    id: number,
-    name: string
-  ) {
-    this.id = id;
-    this.name = name;
   }
 }

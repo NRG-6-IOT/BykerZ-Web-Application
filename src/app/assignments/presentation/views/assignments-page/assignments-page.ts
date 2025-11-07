@@ -1,21 +1,20 @@
 import { Component } from '@angular/core';
-import {
-  NotificationButtonComponent
-} from '@app/assignments/components/notification-button/notification-button.component';
-import {Assignment, Owner} from '@app/assignments/model/assignment.entity';
-import {AssignmentCardList} from '@app/assignments/components/assignment-card-list/assignment-card-list.component';
+import {NotificationButton} from '@app/assignments/presentation/components/notification-button/notification-button';
+import {Assignment} from '@app/assignments/domain/model/assignment.entity';
+import {AssignmentCardList} from '@app/assignments/presentation/components/assignment-card-list/assignment-card-list';
+import {Owner} from '@app/assignments/domain/model/owner.entity';
 
 
 @Component({
-  selector: 'app-assignment-page',
+  selector: 'app-assignments-page',
   imports: [
-    NotificationButtonComponent,
+    NotificationButton,
     AssignmentCardList
   ],
-  templateUrl: './assignment-page.component.html',
-  styleUrl: './assignment-page.component.css'
+  templateUrl: './assignments-page.html',
+  styleUrl: './assignments-page.css'
 })
-export class AssignmentPage {
+export class AssignmentsPage {
   assignments: Array<Assignment> = [];
 
   ngOnInit(): void {
