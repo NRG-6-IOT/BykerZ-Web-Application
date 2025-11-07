@@ -3,11 +3,11 @@ import {NgForOf} from '@angular/common';
 
 @Component({
   selector: 'app-notification-dropdown',
-  templateUrl: './notification-dropdown.component.html',
+  templateUrl: './notification-dropdown.html',
   imports: [
     NgForOf
   ],
-  styleUrls: ['./notification-dropdown.component.css']
+  styleUrls: ['./notification-dropdown.css']
 })
 export class NotificationDropdown {
   @Input() items: string[] = [

@@ -13,8 +13,14 @@
     </div>
   </div>
   <div style="width: 100%;">
-    <app-assignment-card-list
-      [assignments]="assignments">
-    </app-assignment-card-list>
+    @if (store.loading()) {
+      <mat-spinner diameter="40"></mat-spinner>
+    } @else if (store.error()) {
+      <mat-error>{{ store.error() }}</mat-error>
+    } @else {
+      <app-assignment-card-list
+        [assignments]="assignments">
+      </app-assignment-card-list>
+    }
   </div>
 </div>

@@ -1,17 +1,17 @@
 import {Component, OnInit} from '@angular/core';
-import {Assignment} from '@app/assignments/model/assignment.entity';
+import {Assignment} from '@app/assignments/domain/model/assignment.entity';
 import {ActivatedRoute} from '@angular/router';
 import {
   AssignmentCardDialog
-} from '@app/assignments/components/assignment-card-dialog/assignment-card-dialog.component';
+} from '@app/assignments/presentation/components/assignment-card-dialog/assignment-card-dialog';
 import {MatDialog} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-assignment-detail-page',
   imports: [
   ],
-  templateUrl: './assignment-detail-page.component.html',
-  styleUrl: './assignment-detail-page.component.css'
+  templateUrl: './assignment-detail-page.html',
+  styleUrl: './assignment-detail-page.css'
 })
 export class AssignmentDetailPage implements OnInit{
   assignment?: Assignment;
