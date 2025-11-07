@@ -1,16 +1,16 @@
 import {Component, Input} from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
-import {Assignment} from '@app/assignments/model/assignment.entity';
+import {Assignment} from '@app/assignments/domain/model/assignment.entity';
 import {
   AssignmentCardDialog
-} from '@app/assignments/components/assignment-card-dialog/assignment-card-dialog.component';
+} from '@app/assignments/presentation/components/assignment-card-dialog/assignment-card-dialog';
 import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-assignment-card',
   imports: [],
-  templateUrl: './assignment-card.component.html',
-  styleUrl: './assignment-card.component.css'
+  templateUrl: './assignment-card.html',
+  styleUrl: './assignment-card.css'
 })
 export class AssignmentCard {
   @Input() assignment!: Assignment;

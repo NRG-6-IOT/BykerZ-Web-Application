@@ -1,15 +1,15 @@
 import { Component, ElementRef, HostListener } from '@angular/core';
-import {NotificationDropdown} from '@app/assignments/components/notification-dropdown/notification-dropdown.component';
+import {NotificationDropdown} from '@app/assignments/presentation/components/notification-dropdown/notification-dropdown';
 
 @Component({
   selector: 'app-notification-button',
-  templateUrl: './notification-button.component.html',
+  templateUrl: './notification-button.html',
   imports: [
     NotificationDropdown
   ],
-  styleUrls: ['./notification-button.component.css']
+  styleUrls: ['./notification-button.css']
 })
-export class NotificationButtonComponent {
+export class NotificationButton {
   open = false;
   constructor(private el: ElementRef<HTMLElement>) {}
 

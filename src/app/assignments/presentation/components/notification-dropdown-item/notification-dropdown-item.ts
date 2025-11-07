@@ -4,8 +4,8 @@ import { Component } from '@angular/core';
   selector: 'app-notification-dropdown-item',
   imports: [
   ],
-  templateUrl: './notification-dropdown-item.component.html',
-  styleUrl: './notification-dropdown-item.component.css'
+  templateUrl: './notification-dropdown-item.html',
+  styleUrl: './notification-dropdown-item.css'
 })
 export class NotificationDropdownItem {
 
