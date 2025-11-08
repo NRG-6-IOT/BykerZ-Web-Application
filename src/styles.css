@@ -4,3 +4,14 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+/* Custom expense dialog styles */
+.custom-expense-dialog .mat-mdc-dialog-container {
+  padding: 0 !important;
+  overflow: visible !important;
+}
+
+.custom-expense-dialog .mat-mdc-dialog-surface {
+  overflow: visible !important;
+}
+

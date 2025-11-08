@@ -4,6 +4,7 @@ import {
   CreateExpenseDialogComponent
 } from '@app/maintenance/presentation/components/create-expense-dialog/create-expense-dialog.component';
 import {MatDialog} from '@angular/material/dialog';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-owner-expenses-page',
@@ -12,11 +13,11 @@ import {MatDialog} from '@angular/material/dialog';
   ],
   template: `
     <div class="w-full h-full p-10 relative">
-      <h2 class="text-3xl font-bold mb-4">Expenses</h2>
+      <h1 class="text-3xl font-bold mb-4">Expenses</h1>
       <div class="flex flex-col gap-4 mb-4">
         @for (expense of expenses; track expense.id) {
           <div class="bg-[#FF6B35] p-4 rounded-2xl flex flex-row-reverse [&:has(.icon-container:hover)]:bg-[#ff9169] transition-colors">
-            <div class="flex justify-center items-center px-10 icon-container group" style="color: white">
+            <div (click)="navigateToDetails(expense.id)" class="flex justify-center items-center px-10 icon-container group cursor-pointer" style="color: white">
               <mat-icon class="scale-200 group-hover:scale-225 transition-transform ease-in-out" fontIcon="arrow_forward_ios"></mat-icon>
             </div>
             <div class="flex justify-center items-center px-10">
@@ -64,10 +65,26 @@ export class OwnerExpensesPageComponent {
   ];
 
   readonly dialog = inject(MatDialog);
+  readonly router = inject(Router);
+
+  navigateToDetails(expenseId: number): void {
+    this.router.navigate(['/expenses', expenseId]);
+  }
 
   openDialog() {
     const dialogRef = this.dialog.open(CreateExpenseDialogComponent, {
-      data: {name: "xdddx", animal: "animal p"},
+      width: 'auto',
+      maxWidth: 'none',
+      disableClose: false,
+      panelClass: 'custom-expense-dialog'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        console.log('Expense created:', result);
+        // Here you can add the expense to your expenses array
+        this.expenses.push(result);
+      }
     });
   }
 

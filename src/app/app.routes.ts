@@ -1,8 +1,6 @@
 import { Routes } from '@angular/router';
 import {DashboardPage} from './public/pages/dashboard-page/dashboard-page';
 import {MaintenanceComponent} from '@app/maintenance/presentation/pages/maintenence/maintenance.component';
-import {ExpensesPageComponent} from '@app/maintenance/presentation/pages/expenses-page/expenses-page.component';
-import {ExpenseItemComponent} from '@app/maintenance/presentation/components/expense-item/expense-item.component';
 import {VehiclesPage} from './vehiclemanagement/pages/vehicles-page/vehicles-page';
 import {VehicleDetailsPage} from './vehiclemanagement/pages/vehicle-details-page/vehicle-details-page';
 import {SubscriptionPage} from './subscription/pages/subscription-page/subscription-page';
@@ -12,6 +10,9 @@ import {authenticationGuard} from '@app/iam/services/authentication.guard';
 import {
   OwnerExpensesPageComponent
 } from '@app/maintenance/presentation/views/owner-expenses-page/owner-expenses-page.component';
+import {
+  OwnerExpenseDetailsPageComponent
+} from '@app/maintenance/presentation/views/owner-expense-details-page/owner-expense-details-page.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: "/dashboard", pathMatch: 'full' },
@@ -25,6 +26,7 @@ export const routes: Routes = [
   { path: "vehicles", component: VehiclesPage, canActivate: [authenticationGuard] },
   { path: "vehicle/:vehicleId", component: VehicleDetailsPage, canActivate: [authenticationGuard] },
   { path: "expenses" ,component: OwnerExpensesPageComponent , canActivate: [authenticationGuard] },
+  { path: "expenses/:expenseId", component: OwnerExpenseDetailsPageComponent, canActivate: [authenticationGuard]}
   //{ path: "owner/maintenance"},
   //{ path: "mechanic/maintenance" },
 ];
