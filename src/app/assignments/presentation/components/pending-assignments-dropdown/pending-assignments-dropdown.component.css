@@ -16,10 +16,18 @@
   padding: 0;
 }
 
-/* empty state */
-.dropdown-empty{
-  padding: 16px;
+.dropdown app-pending-assignments-dropdown-item:hover {
+  background: #f7f7f8;
+}
+.no-pending {
+  padding: 18px;
   text-align: center;
-  color: #9ca3af;
+  color: #6b7280;
   font-size: 0.95rem;
+}
+
+.no-pending p {
+  margin: 0;
+  font-weight: 600;
+  color: #374151;
 }

@@ -1,8 +1,18 @@
 <div class="dropdown">
-  <ul>
-    <app-pending-assignments-dropdown-item
-      *ngFor="let a of assignments"
-      [assignment]="a">
-    </app-pending-assignments-dropdown-item>
-  </ul>
+  @if (assignments.length > 0) {
+    <ng-container>
+      <ul>
+        <app-pending-assignments-dropdown-item
+          *ngFor="let a of assignments"
+          [assignment]="a">
+        </app-pending-assignments-dropdown-item>
+      </ul>
+    </ng-container>
+  } @else {
+    <ng-container>
+      <div class="no-pending">
+        <p>No pending assignments</p>
+      </div>
+    </ng-container>
+  }
 </div>
