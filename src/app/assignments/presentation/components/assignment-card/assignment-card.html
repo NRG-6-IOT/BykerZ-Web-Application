@@ -5,7 +5,7 @@
         <p>Link details:</p>
       </div>
       <div class="right">
-        <p>{{assignment.linkDetails}}</p>
+        <p>{{assignment.id}}</p>
       </div>
     </div>
     <div class="row">
@@ -13,7 +13,7 @@
         <p>Owner's name:</p>
       </div>
       <div class="right">
-        <p>{{assignment.owner.name}}</p>
+        <p>{{assignment.owner?.completeName}}</p>
       </div>
     </div>
     <div class="row">
@@ -21,7 +21,7 @@
         <p>Number of motorcycles:</p>
       </div>
       <div class="right">
-        <p>{{assignment.numberVehicles}}</p>
+        <p>{{assignment.assignmentCode}}</p>
       </div>
     </div>
   </div>
