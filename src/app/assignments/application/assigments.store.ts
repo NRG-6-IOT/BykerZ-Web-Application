@@ -37,6 +37,21 @@ export class AssignmentsStore {
     })
   }
 
+  createAssignment(mechanicId: number): void {
+    this.loadingSignal.set(true);
+    this.errorSignal.set(null);
+    this.assignmentsApi.createAssignment(mechanicId).pipe(retry(2)).subscribe({
+      next: createdAssigment =>{
+        this.pendingAssignmentsSignal.update(pendingAssignments => [createdAssigment, ...pendingAssignments]);
+        this.loadingSignal.set(false);
+      },
+      error: err => {
+        this.errorSignal.set(this.formatError(err, 'Failed to create assignment'));
+        this.loadingSignal.set(false);
+      }
+    });
+  }
+
   private loadActiveAssignments(): void {
     this.loadingSignal.set(true);
     this.errorSignal.set(null);

@@ -39,4 +39,16 @@ export class AssignmentsApi extends BaseApi{
   deleteAssignment(assignmentId: number): Observable<void> {
     return this.assignmentsEndpoint.delete(assignmentId);
   }
+
+  createAssignment(mechanicId: number): Observable<Assignment> {
+    return this.assignmentsEndpoint.createAssignment(mechanicId).pipe(
+      map(response => {
+        if (Array.isArray(response)) {
+          throw new Error('Expected a single AssignmentResource, but received an array.');
+        }
+        return this.assembler.toEntityFromResource(response as AssignmentResource);
+      })
+    );
+  }
+
 }

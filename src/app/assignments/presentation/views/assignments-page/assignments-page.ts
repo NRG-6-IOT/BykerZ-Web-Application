@@ -4,6 +4,9 @@ import {AssignmentCardList} from '@app/assignments/presentation/components/assig
 import {AssignmentsStore} from '@app/assignments/application/assigments.store';
 import {MatProgressSpinner} from '@angular/material/progress-spinner';
 import {MatError} from '@angular/material/form-field';
+import {
+  CreateAssignmentButton
+} from '@app/assignments/presentation/components/create-assignment-button/create-assignment-button';
 
 
 @Component({
@@ -12,7 +15,8 @@ import {MatError} from '@angular/material/form-field';
     PendingAssignmentsButton,
     AssignmentCardList,
     MatProgressSpinner,
-    MatError
+    MatError,
+    CreateAssignmentButton
   ],
   templateUrl: './assignments-page.html',
   styleUrl: './assignments-page.css'
