@@ -51,4 +51,14 @@ export class AssignmentsApi extends BaseApi{
     );
   }
 
+  updateAssignmentType(assignmentId: number, assignmentType: string): Observable<Assignment> {
+    return this.assignmentsEndpoint.updateAssignmentType(assignmentId, assignmentType).pipe(
+      map(response => {
+        if (Array.isArray(response)) {
+          throw new Error('Expected a single AssignmentResource, but received an array.');
+        }
+        return this.assembler.toEntityFromResource(response as AssignmentResource);
+      })
+    );
+  }
 }

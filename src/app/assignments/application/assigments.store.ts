@@ -1,4 +1,4 @@
-import {Injectable, signal} from "@angular/core";
+import {computed, Injectable, Signal, signal} from "@angular/core";
 import {Assignment} from '@app/assignments/domain/model/assignment.entity';
 import {retry} from 'rxjs';
 import {AssignmentsApi} from '@app/assignments/infrastructure/assignments-api';
@@ -87,6 +87,30 @@ export class AssignmentsStore {
         }
       }
     )
+  }
+
+  getAssignmentById(id: number | null | undefined): Signal<Assignment | undefined> {
+    return computed(() => id ? this.activeAssignments().find(c => c.id === id) : undefined);
+  }
+
+  updateAssignmentType(assignmentId: number, assignmentType: string): void {
+    this.loadingSignal.set(true);
+    this.errorSignal.set(null);
+    this.assignmentsApi.updateAssignmentType(assignmentId, assignmentType).pipe(retry(1)).subscribe({
+      next: updatedAssignment => {
+        this.activeAssignmentsSignal.update(assignments =>
+          assignments.map(a => a.id === updatedAssignment.id ? updatedAssignment : a)
+        );
+        this.pendingAssignmentsSignal.update(assignments =>
+          assignments.map(a => a.id === updatedAssignment.id ? updatedAssignment : a)
+        );
+        this.loadingSignal.set(false);
+      },
+      error: err => {
+        this.errorSignal.set(this.formatError(err, 'Failed to update assignment type'));
+        this.loadingSignal.set(false);
+      }
+    });
   }
 
   private formatError(error: any, fallback: string): string {

@@ -1,0 +1,7 @@
+<div class="type-selector">
+  <select id="assignmentType" [(ngModel)]="assignmentType" (change)="onTypeChange($event)">
+    <option *ngFor="let type of assignmentTypes" [value]="type">
+      {{ capitalize(type) }} Customer
+    </option>
+  </select>
+</div>
