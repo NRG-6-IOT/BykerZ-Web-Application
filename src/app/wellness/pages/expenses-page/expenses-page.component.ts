@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {Expense} from '@app/shared/model/expense.entity';
+import {Expense} from '@app/shared/domain/model/expense.entity';
 import {MatIconModule} from '@angular/material/icon';
 
 @Component({

@@ -1,41 +1,92 @@
 import {Injectable, signal} from "@angular/core";
 import {Assignment} from '@app/assignments/domain/model/assignment.entity';
-import {delay} from 'rxjs';
-import {Owner} from '@app/assignments/domain/model/owner.entity';
+import {retry} from 'rxjs';
+import {AssignmentsApi} from '@app/assignments/infrastructure/assignments-api';
+import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 
 @Injectable({providedIn: 'root'})
 export class AssignmentsStore {
-  private assignmentsSignal = signal<Assignment[]>([]);
+  private activeAssignmentsSignal = signal<Assignment[]>([]);
+  private pendingAssignmentsSignal = signal<Assignment[]>([]);
+  private createdAssignmentSignal = signal<Assignment | null>(null);
   private readonly errorSignal = signal<string | null>(null);
   private readonly loadingSignal = signal<boolean>(false);
 
-  readonly assignments = this.assignmentsSignal.asReadonly();
+  readonly activeAssignments = this.activeAssignmentsSignal.asReadonly();
+  readonly pendingAssignments = this.pendingAssignmentsSignal.asReadonly();
+  readonly createdAssignment = this.createdAssignmentSignal.asReadonly();
   readonly error = this.errorSignal.asReadonly();
   readonly loading = this.loadingSignal.asReadonly();
 
-  constructor() {
-    this.loadAssignments();
+  constructor(private assignmentsApi: AssignmentsApi) {
+    this.loadActiveAssignments();
+    this.loadPendingAssignments()
   }
 
-  private loadAssignments(): void {
+  deleteAssignment(id: number): void {
     this.loadingSignal.set(true);
     this.errorSignal.set(null);
-    setTimeout(() => {
-      try {
-        const fetchedAssignments: Assignment[] = [
-          new Assignment(1, 'Frequent Customer', new Owner(1, 'Ana Torres'), 2),
-          new Assignment(2, 'Regular Customer', new Owner(2, 'Luis Pérez'), 1),
-          new Assignment(3, 'Business Customer', new Owner(3, 'María Gómez'), 3),
-          new Assignment(4, 'New Customer', new Owner(4, 'Carlos Ruiz'), 4),
-          new Assignment(5, 'Occasional Customer', new Owner(5, 'Elena Díaz'), 2),
-        ];
-        this.assignmentsSignal.set(fetchedAssignments);
-      } catch (err) {
-        this.errorSignal.set(this.formatError(err, 'Error cargando assignments'));
-      } finally {
+    this.assignmentsApi.deleteAssignment(id).pipe(retry(1)).subscribe({
+      next: () => {
+        this.activeAssignmentsSignal.update(assignments => assignments.filter(a => a.id !== id));
+        this.pendingAssignmentsSignal.update(assignments => assignments.filter(a => a.id !== id));
+        this.loadingSignal.set(false);
+      },
+      error: err => {
+        this.errorSignal.set(this.formatError(err, 'Failed to delete assignment'));
         this.loadingSignal.set(false);
       }
-    }, 2000);
+    })
+  }
+
+  createAssignment(mechanicId: number): void {
+    this.loadingSignal.set(true);
+    this.errorSignal.set(null);
+    this.assignmentsApi.createAssignment(mechanicId).pipe(retry(2)).subscribe({
+      next: createdAssigment =>{
+        this.pendingAssignmentsSignal.update(pendingAssignments => [createdAssigment, ...pendingAssignments]);
+        this.createdAssignmentSignal.set(createdAssigment);
+        this.loadingSignal.set(false);
+      },
+      error: err => {
+        this.errorSignal.set(this.formatError(err, 'Failed to create assignment'));
+        this.loadingSignal.set(false);
+      }
+    });
+  }
+
+  private loadActiveAssignments(): void {
+    this.loadingSignal.set(true);
+    this.errorSignal.set(null);
+    this.assignmentsApi.getAssignmentsByMechanicAndStatus(1,'ACTIVE').pipe(takeUntilDestroyed()).subscribe(
+      {
+        next: assignments =>{
+         this.activeAssignmentsSignal.set(assignments);
+          this.loadingSignal.set(false);
+        },
+        error: err => {
+          this.errorSignal.set(this.formatError(err, 'Failed to load courses'));
+          this.loadingSignal.set(false);
+        }
+      }
+    )
+  }
+
+  private loadPendingAssignments(): void {
+    this.loadingSignal.set(true);
+    this.errorSignal.set(null);
+    this.assignmentsApi.getAssignmentsByMechanicAndStatus(1,'PENDING').pipe(takeUntilDestroyed()).subscribe(
+      {
+        next: assignments =>{
+          this.pendingAssignmentsSignal.set(assignments);
+          this.loadingSignal.set(false);
+        },
+        error: err => {
+          this.errorSignal.set(this.formatError(err, 'Failed to load courses'));
+          this.loadingSignal.set(false);
+        }
+      }
+    )
   }
 
   private formatError(error: any, fallback: string): string {

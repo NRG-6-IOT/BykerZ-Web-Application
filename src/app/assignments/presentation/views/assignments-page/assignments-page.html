@@ -1,14 +1,14 @@
 <div class="screen">
   <div class="header">
     <div class="left">
-      <p>Active Subscription</p>
+      <p>Active Assignments</p>
     </div>
     <div class="right">
-      <div class="code">
-        <p>AFNFZEYMS</p>
+      <div>
+        <app-create-assignment-button></app-create-assignment-button>
       </div>
       <div>
-        <app-notification-button></app-notification-button>
+        <app-pending-assignments-button></app-pending-assignments-button>
       </div>
     </div>
   </div>
@@ -19,7 +19,7 @@
       <mat-error>{{ store.error() }}</mat-error>
     } @else {
       <app-assignment-card-list
-        [assignments]="assignments">
+        [assignments]="activeAssignments">
       </app-assignment-card-list>
     }
   </div>

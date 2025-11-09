@@ -1,0 +1,27 @@
+<div class="dialog-backdrop">
+  <div class="dialog">
+    <div class="title">
+      <p>A new Assignment has been created</p>
+    </div>
+
+    <div class="code">
+      @if (createdAssigment){
+        <ng-container>
+          <p class="code-highlight">Code: {{ createdAssigment.assignmentCode }}</p>
+        </ng-container>
+      } @else {
+        <ng-template>
+          <p class="loading">Loading...</p>
+        </ng-template>
+      }
+    </div>
+
+    <div class="code" style="margin-top: 10px">
+      <p>Share this code with an owner to link it to you</p>
+    </div>
+
+    <div class="btn-container">
+      <button (click)="onClose()" class="close-btn">Close</button>
+    </div>
+  </div>
+</div>

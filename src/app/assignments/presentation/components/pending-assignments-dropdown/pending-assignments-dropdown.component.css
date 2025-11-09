@@ -1,0 +1,33 @@
+.dropdown{
+  width: 320px;
+  max-width: calc(100vw - 32px);
+  max-height: 420px;
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 8px 24px rgba(15,23,42,0.12);
+  padding: 6px;
+  overflow: auto;
+  border: 1px solid #f0f0f0;
+}
+
+/* remove default list padding */
+.dropdown ul{
+  margin: 0;
+  padding: 0;
+}
+
+.dropdown app-pending-assignments-dropdown-item:hover {
+  background: #f7f7f8;
+}
+.no-pending {
+  padding: 18px;
+  text-align: center;
+  color: #6b7280;
+  font-size: 0.95rem;
+}
+
+.no-pending p {
+  margin: 0;
+  font-weight: 600;
+  color: #374151;
+}

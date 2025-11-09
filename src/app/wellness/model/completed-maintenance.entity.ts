@@ -1,4 +1,4 @@
-import {Expense} from '@app/shared/model/expense.entity';
+import {Expense} from '@app/shared/domain/model/expense.entity';
 
 export class CompletedMaintenance {
   maintenanceId: number;

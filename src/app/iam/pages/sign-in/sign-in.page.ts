@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {BaseFormComponent} from '@app/shared/components/base-form.component';
+import {BaseFormComponent} from '@app/shared/presentation/components/base-form.component';
 import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import {AuthenticationService} from '@app/iam/services/authentication.service';
 import {SignInRequest} from '@app/iam/model/sign-in.request';
