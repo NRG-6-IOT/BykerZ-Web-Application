@@ -67,7 +67,13 @@ export class AuthenticationService {
           this.signedInUserId.next(response.id);
           this.signedInUsername.next(response.username);
           localStorage.setItem('token', response.token);
-          this.router.navigate(['/dashboard']).then();
+          if (response.roles.includes('ROLE_MECHANIC')) {
+            localStorage.setItem('user_role', 'ROLE_MECHANIC');
+            this.router.navigate(['/mechanic-dashboard']);
+          } else if (response.roles.includes('ROLE_OWNER')) {
+            localStorage.setItem('user_role', 'ROLE_OWNER');
+            this.router.navigate(['/owner-dashboard']);
+          }
         },
         error: (error) => {
           this.signedIn.next(false);
