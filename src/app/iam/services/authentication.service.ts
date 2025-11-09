@@ -2,10 +2,10 @@ import {environment} from '../../../environments/environment';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {BehaviorSubject} from 'rxjs';
 import {Router} from '@angular/router';
-import {SignUpRequest} from '@app/iam/model/sign-up.request';
-import {SignUpResponse} from '@app/iam/model/sign-up.response';
-import {SignInRequest} from '@app/iam/model/sign-in.request';
-import {SignInResponse} from '@app/iam/model/sign-in-response';
+import {SignUpRequest} from '@app/iam/domain/model/sign-up.request';
+import {SignUpResponse} from '@app/iam/domain/model/sign-up.response';
+import {SignInRequest} from '@app/iam/domain/model/sign-in.request';
+import {SignInResponse} from '@app/iam/domain/model/sign-in-response';
 import {Injectable} from '@angular/core';
 
 @Injectable({
