@@ -37,4 +37,11 @@ export class AssignmentsApiEndpoint extends BaseApiEndpoint<Assignment,Assignmen
       catchError(this.handleError(`Failed to update assignment type for assignmentId=${assignmentId}`))
     );
   }
+
+  getByOwner(ownerId: number): Observable<AssignmentsResponse | AssignmentResource> {
+    const url = `${environment.platformProviderApiBaseUrl}${environment.platformProviderOwnerEndpointPath}/${ownerId}/assignment`;
+    return this.http.get<AssignmentsResponse | AssignmentResource>(url).pipe(
+      catchError(this.handleError(`Failed to fetch assignments for ownerId=${ownerId}`))
+    );
+  }
 }

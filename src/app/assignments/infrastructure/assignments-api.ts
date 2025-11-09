@@ -36,6 +36,17 @@ export class AssignmentsApi extends BaseApi{
     );
   }
 
+  getAssignmentByOwner(ownerId: number): Observable<Assignment> {
+    return this.assignmentsEndpoint.getByOwner(ownerId).pipe(
+      map(response => {
+        if (Array.isArray(response)) {
+          throw new Error('Expected a single AssignmentResource, but received an array.');
+        }
+        return this.assembler.toEntityFromResource(response as AssignmentResource);
+      })
+    );
+  }
+
   deleteAssignment(assignmentId: number): Observable<void> {
     return this.assignmentsEndpoint.delete(assignmentId);
   }
