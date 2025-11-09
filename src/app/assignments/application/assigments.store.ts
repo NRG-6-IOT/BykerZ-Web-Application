@@ -2,6 +2,8 @@ import {Injectable, signal} from "@angular/core";
 import {Assignment} from '@app/assignments/domain/model/assignment.entity';
 import {delay} from 'rxjs';
 import {Owner} from '@app/assignments/domain/model/owner.entity';
+import {AssignmentsApi} from '@app/assignments/infrastructure/assignments-api';
+import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 
 @Injectable({providedIn: 'root'})
 export class AssignmentsStore {
@@ -13,13 +15,26 @@ export class AssignmentsStore {
   readonly error = this.errorSignal.asReadonly();
   readonly loading = this.loadingSignal.asReadonly();
 
-  constructor() {
+  constructor(private assignmentsApi: AssignmentsApi) {
     this.loadAssignments();
   }
 
   private loadAssignments(): void {
     this.loadingSignal.set(true);
     this.errorSignal.set(null);
+    this.assignmentsApi.getAssignmentsByMechanicAndStatus(1,'ACTIVE').pipe(takeUntilDestroyed()).subscribe(
+      {
+        next: assignments =>{
+         this.assignmentsSignal.set(assignments);
+          this.loadingSignal.set(false);
+        },
+        error: err => {
+          this.errorSignal.set(this.formatError(err, 'Failed to load courses'));
+          this.loadingSignal.set(false);
+        }
+      }
+    )
+    /*
     setTimeout(() => {
       try {
         const fetchedAssignments: Assignment[] = [
@@ -36,6 +51,7 @@ export class AssignmentsStore {
         this.loadingSignal.set(false);
       }
     }, 2000);
+     */
   }
 
   private formatError(error: any, fallback: string): string {
