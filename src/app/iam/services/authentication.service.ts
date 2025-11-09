@@ -12,7 +12,7 @@ import {Injectable} from '@angular/core';
   providedIn: 'root'
 })
 export class AuthenticationService {
-  baseUrl: string = `${environment.serverBaseUrl}`;
+  baseUrl: string = `${environment.platformProviderApiBaseUrl}`;
   httpOptions = { headers: new HttpHeaders({'Content-type': 'application/json'})};
 
   private signedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
