@@ -30,4 +30,11 @@ export class AssignmentsApiEndpoint extends BaseApiEndpoint<Assignment,Assignmen
       catchError(this.handleError(`Failed to create assignment for mechanicId=${mechanicId}`))
     );
   }
+
+  updateAssignmentType(assignmentId: number, assignmentType: string): Observable<AssignmentsResponse | AssignmentResource> {
+    const url = `${this.endpointUrl}/${assignmentId}/type`;
+    return this.http.patch<AssignmentsResponse | AssignmentResource>(url, {type: assignmentType}).pipe(
+      catchError(this.handleError(`Failed to update assignment type for assignmentId=${assignmentId}`))
+    );
+  }
 }
