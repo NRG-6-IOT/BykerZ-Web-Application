@@ -1,1 +1,13 @@
-<p>dashboard-page works!</p>
+<div class="screen">
+  <div class="header">
+    <div class="left">
+      <p>Owner Dashboard</p>
+    </div>
+    <div class="right">
+      <p style="font-size: 16px; font-weight: bold">Assigned Mechanic:</p>
+      <div class="mechanic-name">
+        <p>{{ ownerAssignment()?.mechanic?.completeName }}</p>
+      </div>
+    </div>
+  </div>
+</div>
