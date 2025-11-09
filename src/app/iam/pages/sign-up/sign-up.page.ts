@@ -35,8 +35,7 @@ export class SignUpPage extends BaseFormComponent implements OnInit {
       email: ['', Validators.required],
       photoUrl: ['', Validators.required],
       password: ['', Validators.required],
-      confirmPassword: ['', Validators.required],
-      role: ['', Validators.required]
+      confirmPassword: ['', Validators.required]
     }, {validator: this.passwordMatchValidator});
   }
 
@@ -55,7 +54,7 @@ export class SignUpPage extends BaseFormComponent implements OnInit {
     let email = this.signUpForm.value.email;
     let photoUrl = this.signUpForm.value.photoUrl;
     let password = this.signUpForm.value.password;
-    let roles = [this.signUpForm.value.role];
+    let roles = ['ROLE_MECHANIC'];
 
     const signUpRequest = new SignUpRequest(firstName, lastName, username, email, photoUrl, password, roles);
     console.log(`Requesting sign up`);
