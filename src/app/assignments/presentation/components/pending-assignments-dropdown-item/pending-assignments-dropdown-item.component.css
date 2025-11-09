@@ -47,7 +47,8 @@
 
 /* fecha alineada a la derecha */
 .date{
-  margin-left: auto; /* empuja la fecha al extremo derecho */
+  margin-left: auto;
+  margin-right: auto;
   font-size: 0.82rem;
   flex-shrink: 0; /* evita que la fecha colapse */
   flex-direction: column;
@@ -66,6 +67,14 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.delete-button{
+  background-color: #FF6B35;
+  border: none;
+  padding: 4px;
+  border-radius: 6px;
+  transition: background-color .12s ease;
 }
 
 /* Mobile: compactar y permitir que la fecha pase a segunda línea si hace falta */

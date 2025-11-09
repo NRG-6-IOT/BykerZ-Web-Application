@@ -1,5 +1,6 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {Component, EventEmitter, inject, Input, Output} from '@angular/core';
 import {Assignment} from '@app/assignments/domain/model/assignment.entity';
+import {AssignmentsStore} from '@app/assignments/application/assigments.store';
 
 @Component({
   selector: 'app-pending-assignments-dropdown-item',
@@ -9,6 +10,7 @@ import {Assignment} from '@app/assignments/domain/model/assignment.entity';
   styleUrl: './pending-assignments-dropdown-item.component.css'
 })
 export class PendingAssignmentsDropdownItem {
+  readonly store = inject(AssignmentsStore);
   @Input() assignment?: Assignment;
   @Output() select = new EventEmitter<Assignment>();
 
@@ -30,5 +32,9 @@ export class PendingAssignmentsDropdownItem {
       minute: '2-digit',
       hour12: false
     }).format(date);
+  }
+
+  deleteAssignment() {
+    this.store.deleteAssignment(this.assignment?.id!);
   }
 }

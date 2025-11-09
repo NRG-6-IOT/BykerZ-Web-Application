@@ -36,4 +36,7 @@ export class AssignmentsApi extends BaseApi{
     );
   }
 
+  deleteAssignment(assignmentId: number): Observable<void> {
+    return this.assignmentsEndpoint.delete(assignmentId);
+  }
 }
