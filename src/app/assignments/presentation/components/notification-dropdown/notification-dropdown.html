@@ -1,6 +1,8 @@
 <div class="dropdown">
-
   <ul>
-    <li *ngFor="let it of items">{{ it }}</li>
+    <app-notification-dropdown-item
+      *ngFor="let a of assignments"
+      [assignment]="a">
+    </app-notification-dropdown-item>
   </ul>
 </div>
