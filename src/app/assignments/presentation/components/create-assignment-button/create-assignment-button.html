@@ -9,6 +9,8 @@
         fill="white"
       />
     </svg>
-
   </button>
 </div>
+@if (showDialog){
+  <app-create-assignment-dialog (close)="closeDialog()"></app-create-assignment-dialog>
+}

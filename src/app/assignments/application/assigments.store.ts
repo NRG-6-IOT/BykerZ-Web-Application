@@ -8,11 +8,13 @@ import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 export class AssignmentsStore {
   private activeAssignmentsSignal = signal<Assignment[]>([]);
   private pendingAssignmentsSignal = signal<Assignment[]>([]);
+  private createdAssignmentSignal = signal<Assignment | null>(null);
   private readonly errorSignal = signal<string | null>(null);
   private readonly loadingSignal = signal<boolean>(false);
 
   readonly activeAssignments = this.activeAssignmentsSignal.asReadonly();
   readonly pendingAssignments = this.pendingAssignmentsSignal.asReadonly();
+  readonly createdAssignment = this.createdAssignmentSignal.asReadonly();
   readonly error = this.errorSignal.asReadonly();
   readonly loading = this.loadingSignal.asReadonly();
 
@@ -43,6 +45,7 @@ export class AssignmentsStore {
     this.assignmentsApi.createAssignment(mechanicId).pipe(retry(2)).subscribe({
       next: createdAssigment =>{
         this.pendingAssignmentsSignal.update(pendingAssignments => [createdAssigment, ...pendingAssignments]);
+        this.createdAssignmentSignal.set(createdAssigment);
         this.loadingSignal.set(false);
       },
       error: err => {

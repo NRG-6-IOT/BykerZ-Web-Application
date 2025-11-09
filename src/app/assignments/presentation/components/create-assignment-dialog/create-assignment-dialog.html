@@ -1,0 +1,11 @@
+<div class="dialog-backdrop">
+  <div class="dialog">
+    <h3>Assignment creado</h3>
+    @if (createdAssigment){
+      <p>Código: {{ createdAssigment.assignmentCode }}</p>
+    } @else {
+      <p>Cargando...</p>
+    }
+    <button (click)="onClose()">Cerrar</button>
+  </div>
+</div>
