@@ -1,26 +1,28 @@
 import { Routes } from '@angular/router';
-import {DashboardPage} from '@app/public/presentation/views/dashboard-page/dashboard-page';
+import {DashboardOwnerPage} from '@app/public/presentation/views/dashboard-owner-page/dashboard-owner-page';
 import {MaintenanceComponent} from '@app/wellness/pages/maintenence/maintenance.component';
 import {ExpensesPageComponent} from '@app/wellness/pages/expenses-page/expenses-page.component';
 import {ExpenseItemComponent} from '@app/wellness/components/expense-item/expense-item.component';
 import {VehiclesPage} from './vehiclemanagement/pages/vehicles-page/vehicles-page';
 import {VehicleDetailsPage} from './vehiclemanagement/pages/vehicle-details-page/vehicle-details-page';
-import {SubscriptionPage} from './subscription/pages/subscription-page/subscription-page';
 import {SignInPage} from '@app/iam/pages/sign-in/sign-in.page';
 import {SignUpPage} from '@app/iam/pages/sign-up/sign-up.page';
-import {authenticationGuard} from '@app/iam/services/authentication.guard';
+import {DashboardMechanicPage} from '@app/public/presentation/views/dashboard-mechanic-page/dashboard-mechanic-page';
+
+const assignmentsRoutes = () => import('@app/assignments/presentation/assignments.routes').then(m => m.assignmentsRoutes);
 
 export const routes: Routes = [
   { path: '', redirectTo: "/dashboard", pathMatch: 'full' },
   { path: "sign-in", component: SignInPage },
   { path: "sign-up", component: SignUpPage },
-  { path: "dashboard", component: DashboardPage, canActivate: [authenticationGuard] },
-  { path: "maintenances", component: MaintenanceComponent, canActivate: [authenticationGuard] },
-  { path: "compare", component: DashboardPage, canActivate: [authenticationGuard] },
-  { path: "expenses", component: ExpensesPageComponent, canActivate: [authenticationGuard] },
-  { path: "expenses/:id" , component: ExpenseItemComponent, canActivate: [authenticationGuard] },
-  { path: "membership", component: DashboardPage, canActivate: [authenticationGuard] },
-  { path: "subscriptions", component: SubscriptionPage, canActivate: [authenticationGuard] },
-  { path: "vehicles", component: VehiclesPage, canActivate: [authenticationGuard] },
-  { path: "vehicle/:vehicleId", component: VehicleDetailsPage, canActivate: [authenticationGuard] },
+  { path: "owner-dashboard", component: DashboardOwnerPage},
+  { path: "mechanic-dashboard", component: DashboardMechanicPage},
+  { path: "maintenances", component: MaintenanceComponent },
+  { path: "compare", component: DashboardOwnerPage },
+  { path: "expenses", component: ExpensesPageComponent },
+  { path: "expenses/:id" , component: ExpenseItemComponent },
+  { path: "assignments", loadChildren: assignmentsRoutes },
+  { path: "membership", component: DashboardOwnerPage },
+  { path: "vehicles", component: VehiclesPage },
+  { path: "vehicle/:vehicleId", component: VehicleDetailsPage },
 ];

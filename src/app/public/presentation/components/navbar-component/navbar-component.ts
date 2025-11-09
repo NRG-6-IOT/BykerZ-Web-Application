@@ -1,19 +1,18 @@
 import {Component, OnInit} from '@angular/core';
 import {MatToolbar} from '@angular/material/toolbar';
-import {MatButtonToggle, MatButtonToggleGroup} from '@angular/material/button-toggle';
 import {FormsModule} from '@angular/forms';
-import {MatButton} from '@angular/material/button';
-import {RouterLink, RouterLinkActive} from '@angular/router';
+import {Router, RouterLink, RouterLinkActive} from '@angular/router';
 import {AuthenticationService} from '@app/iam/services/authentication.service';
+import {NgForOf, NgIf} from '@angular/common';
 
 @Component({
   selector: 'app-navbar-component',
   imports: [
     MatToolbar,
-    MatButtonToggleGroup,
-    MatButtonToggle,
     FormsModule,
     RouterLink,
+    NgIf,
+    NgForOf,
   ],
   templateUrl: './navbar-component.html',
   standalone: true,
@@ -21,50 +20,81 @@ import {AuthenticationService} from '@app/iam/services/authentication.service';
 })
 export class NavbarComponent implements OnInit {
 
-  roleOptions = [
-    { name: 'Dueño', value: 'Owner'},
-    { name: 'Mecánico', value: 'Mechanic'}
-  ];
-  selectedRole: string = "Owner";
+  menuOptions: { name: string; route: string }[] = [];
 
+  selectedRole: string = '';
   isSignedIn: boolean = false;
 
   ownerOptions = [
-    { name: 'Dashboard', route: '/dashboard' },
-    { name: 'Vehículos', route: '/vehicles' },
-    { name: 'Mantenimientos', route: '/maintenances' },
-    { name: 'Comparativas', route: '/compare' },
-    { name: 'Gastos', route: '/expenses' }
+    { name: 'Dashboard', route: '/owner-dashboard' },
+    { name: 'Vehicles', route: '/vehicles' },
+    { name: 'Maintenance', route: '/maintenances' },
+    { name: 'Comparatives', route: '/compare' },
+    { name: 'Expenses', route: '/expenses' }
   ];
 
   mechanicOptions = [
     { name: 'Dashboard', route: '/dashboard' },
-    { name: 'Asignaciones', route: '/assignments' },
-    { name: 'Mantenimientos', route: '/maintenances' },
-    { name: 'Comparativas', route: '/compare/mechanic' },
-    { name: 'Membresía', route: '/membership' }
+    { name: 'Assignments', route: '/assignments' },
+    { name: 'Maintenance', route: '/maintenances' },
+    { name: 'Comparatives', route: '/compare' },
+    { name: 'Membership', route: '/membership' }
   ];
 
-  ngOnInit() {
-    this.selectedRole = this.GetRoleFromStorage();
-  }
-
   constructor(private authenticationService: AuthenticationService) {
-    this.authenticationService.isSignedIn.subscribe(
-      (isSignedIn) => this.isSignedIn = isSignedIn
-    )
+    this.authenticationService.isSignedIn.subscribe((isSignedIn) => {
+      this.isSignedIn = isSignedIn;
+      if (isSignedIn) {
+        this.loadRoleAndAssignOptions();
+      } else {
+        this.selectedRole = '';
+        this.menuOptions = [];
+      }
+    });
   }
 
-  SetRoleInStorage(role: string) {
-    if (this.selectedRole !== role) {
-      this.selectedRole = role;
+  ngOnInit() {
+    this.loadRoleAndAssignOptions();
+  }
+
+  private async loadRoleAndAssignOptions() {
+    const role = await this.GetRoleFromStorageWithRetry(5, 50);
+    this.selectedRole = role;
+    this.assignOptionsBasedOnRole();
+  }
+
+  async GetRoleFromStorageWithRetry(retries: number, delayMs: number): Promise<string> {
+    for (let i = 0; i <= retries; i++) {
+      const role = localStorage.getItem('user_role');
+      if (role && role.trim().length > 0) {
+        return role;
+      }
+      if (i < retries) {
+        await new Promise(res => setTimeout(res, delayMs));
+      }
     }
-    localStorage.setItem('user_role', JSON.stringify(role));
+    return ''; // no encontrado
   }
 
-  GetRoleFromStorage(): string {
-    return JSON.parse(localStorage.getItem('user_role') || '"Owner"');
+  assignOptionsBasedOnRole() {
+    if (this.selectedRole === 'ROLE_OWNER') {
+      this.menuOptions = this.ownerOptions;
+    } else if (this.selectedRole === 'ROLE_MECHANIC') {
+      this.menuOptions = this.mechanicOptions;
+    } else {
+      // no mostrar por defecto si no hay rol claro
+      this.menuOptions = [];
+    }
   }
 
+  trackByName(_index: number, option: { name: string }): string {
+    return option.name;
+  }
 
+  signOut() {
+    localStorage.removeItem('user_role');
+    this.authenticationService.signOut();
+    this.selectedRole = '';
+    this.menuOptions = [];
+  }
 }
