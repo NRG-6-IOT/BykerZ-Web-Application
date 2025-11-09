@@ -1,7 +1,6 @@
 import {Injectable, signal} from "@angular/core";
 import {Assignment} from '@app/assignments/domain/model/assignment.entity';
-import {delay} from 'rxjs';
-import {Owner} from '@app/assignments/domain/model/owner.entity';
+import {retry} from 'rxjs';
 import {AssignmentsApi} from '@app/assignments/infrastructure/assignments-api';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 
@@ -20,6 +19,22 @@ export class AssignmentsStore {
   constructor(private assignmentsApi: AssignmentsApi) {
     this.loadActiveAssignments();
     this.loadPendingAssignments()
+  }
+
+  deleteAssignment(id: number): void {
+    this.loadingSignal.set(true);
+    this.errorSignal.set(null);
+    this.assignmentsApi.deleteAssignment(id).pipe(retry(1)).subscribe({
+      next: () => {
+        this.activeAssignmentsSignal.update(assignments => assignments.filter(a => a.id !== id));
+        this.pendingAssignmentsSignal.update(assignments => assignments.filter(a => a.id !== id));
+        this.loadingSignal.set(false);
+      },
+      error: err => {
+        this.errorSignal.set(this.formatError(err, 'Failed to delete assignment'));
+        this.loadingSignal.set(false);
+      }
+    })
   }
 
   private loadActiveAssignments(): void {
