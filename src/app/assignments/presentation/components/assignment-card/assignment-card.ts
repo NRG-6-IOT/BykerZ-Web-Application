@@ -25,7 +25,7 @@ export class AssignmentCard {
 
   redirectToDetails() {
     if (!this.assignment) { return; }
-    // Navega a /assignment/:id y pasa el objeto assignment en navigation state
-    this.router.navigate(['/assignment', this.assignment.id], { state: { assignment: this.assignment } });
+    // Navega a /assignments/:id y pasa el objeto assignment en navigation state
+    this.router.navigate(['/assignments', this.assignment.id], { state: { assignment: this.assignment } });
   }
 }
