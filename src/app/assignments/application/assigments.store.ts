@@ -1,6 +1,6 @@
 import {computed, Injectable, Signal, signal} from "@angular/core";
 import {Assignment} from '@app/assignments/domain/model/assignment.entity';
-import {retry} from 'rxjs';
+import {Observable, retry} from 'rxjs';
 import {AssignmentsApi} from '@app/assignments/infrastructure/assignments-api';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 
@@ -9,12 +9,14 @@ export class AssignmentsStore {
   private activeAssignmentsSignal = signal<Assignment[]>([]);
   private pendingAssignmentsSignal = signal<Assignment[]>([]);
   private createdAssignmentSignal = signal<Assignment | null>(null);
+  private ownerAssignmentSignal = signal<Assignment | null>(null);
   private readonly errorSignal = signal<string | null>(null);
   private readonly loadingSignal = signal<boolean>(false);
 
   readonly activeAssignments = this.activeAssignmentsSignal.asReadonly();
   readonly pendingAssignments = this.pendingAssignmentsSignal.asReadonly();
   readonly createdAssignment = this.createdAssignmentSignal.asReadonly();
+  readonly ownerAssignment = this.ownerAssignmentSignal.asReadonly();
   readonly error = this.errorSignal.asReadonly();
   readonly loading = this.loadingSignal.asReadonly();
 
@@ -91,6 +93,21 @@ export class AssignmentsStore {
 
   getAssignmentById(id: number | null | undefined): Signal<Assignment | undefined> {
     return computed(() => id ? this.activeAssignments().find(c => c.id === id) : undefined);
+  }
+
+  getAssignmentByOwnerId(id: number): void {
+    this.loadingSignal.set(true);
+    this.errorSignal.set(null);
+    this.assignmentsApi.getAssignmentByOwner(id).pipe(retry(2)).subscribe({
+      next: assignment =>{
+        this.ownerAssignmentSignal.set(assignment);
+        this.loadingSignal.set(false);
+      },
+      error: err => {
+        this.errorSignal.set(this.formatError(err, 'Failed to load assignment for owner'));
+        this.loadingSignal.set(false);
+      }
+    });
   }
 
   updateAssignmentType(assignmentId: number, assignmentType: string): void {
