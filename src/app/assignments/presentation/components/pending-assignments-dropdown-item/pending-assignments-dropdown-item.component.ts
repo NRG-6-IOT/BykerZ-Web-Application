@@ -2,13 +2,13 @@ import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {Assignment} from '@app/assignments/domain/model/assignment.entity';
 
 @Component({
-  selector: 'app-notification-dropdown-item',
+  selector: 'app-pending-assignments-dropdown-item',
   imports: [
   ],
-  templateUrl: './notification-dropdown-item.html',
-  styleUrl: './notification-dropdown-item.css'
+  templateUrl: './pending-assignments-dropdown-item.component.html',
+  styleUrl: './pending-assignments-dropdown-item.component.css'
 })
-export class NotificationDropdownItem {
+export class PendingAssignmentsDropdownItem {
   @Input() assignment?: Assignment;
   @Output() select = new EventEmitter<Assignment>();
 

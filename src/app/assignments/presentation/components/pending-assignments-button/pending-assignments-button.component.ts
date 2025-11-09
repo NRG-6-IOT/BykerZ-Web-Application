@@ -1,16 +1,16 @@
 import {Component, ElementRef, HostListener, inject} from '@angular/core';
-import {NotificationDropdown} from '@app/assignments/presentation/components/notification-dropdown/notification-dropdown';
+import {PendingAssignmentsDropdown} from '@app/assignments/presentation/components/pending-assignments-dropdown/pending-assignments-dropdown.component';
 import {AssignmentsStore} from '@app/assignments/application/assigments.store';
 
 @Component({
-  selector: 'app-notification-button',
-  templateUrl: './notification-button.html',
+  selector: 'app-pending-assignments-button',
+  templateUrl: './pending-assignments-button.component.html',
   imports: [
-    NotificationDropdown
+    PendingAssignmentsDropdown
   ],
-  styleUrls: ['./notification-button.css']
+  styleUrls: ['./pending-assignments-button.component.css']
 })
-export class NotificationButton {
+export class PendingAssignmentsButton {
   readonly store = inject(AssignmentsStore);
   open = false;
   constructor(private el: ElementRef<HTMLElement>) {}
