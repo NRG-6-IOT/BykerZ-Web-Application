@@ -23,4 +23,11 @@ export class AssignmentsApiEndpoint extends BaseApiEndpoint<Assignment,Assignmen
       catchError(this.handleError(`Failed to fetch assignments for mechanicId=${mechanicId}, status=${status}`))
     );
   }
+
+  createAssignment(mechanicId: number): Observable<AssignmentsResponse | AssignmentResource> {
+    const url = `${environment.platformProviderApiBaseUrl}${environment.platformProviderMechanicEndpointPath}/${mechanicId}/assignments`;
+    return this.http.post<AssignmentsResponse | AssignmentResource>(url, {}).pipe(
+      catchError(this.handleError(`Failed to create assignment for mechanicId=${mechanicId}`))
+    );
+  }
 }
