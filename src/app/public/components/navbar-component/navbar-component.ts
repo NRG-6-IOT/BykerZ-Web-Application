@@ -2,8 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {MatToolbar} from '@angular/material/toolbar';
 import {MatButtonToggle, MatButtonToggleGroup} from '@angular/material/button-toggle';
 import {FormsModule} from '@angular/forms';
-import {MatButton} from '@angular/material/button';
-import {RouterLink, RouterLinkActive} from '@angular/router';
+import {RouterLink} from '@angular/router';
 import {AuthenticationService} from '@app/iam/services/authentication.service';
 
 @Component({
@@ -32,9 +31,10 @@ export class NavbarComponent implements OnInit {
   ownerOptions = [
     { name: 'Dashboard', route: '/dashboard' },
     { name: 'Vehículos', route: '/vehicles' },
-    { name: 'Mantenimientos', route: '/maintenances' },
+    { name: 'Mantenimientos', route: '/owner/maintenance' },
     { name: 'Comparativas', route: '/compare' },
-    { name: 'Gastos', route: '/expenses' }
+    { name: 'Gastos', route: '/expenses' },
+    { name: 'Maintenance', route: '/owner/maintenance' },
   ];
 
   mechanicOptions = [
