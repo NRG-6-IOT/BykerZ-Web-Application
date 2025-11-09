@@ -1,6 +1,20 @@
-<div>
-  <p>Id consultado: {{assignmentId}}</p>
-  <button (click)="openDialog()">
-    <p>Deshacer Asignación</p>
-  </button>
+<div class="screen">
+  <div class="header">
+    <div class="left">
+      <p>{{assignment?.owner?.completeName}} assigment</p>
+    </div>
+    <div class="right">
+      <p style="font-size: 16px; font-weight: bold">Code:</p>
+      <div class="assigment-code">
+        <p>{{assignment?.assignmentCode}}</p>
+      </div>
+      <p style="font-size: 16px; font-weight: bold">Type:</p>
+      <div>
+        <app-assignment-type-selector [assignmentType]="assignment?.type" (typeChanged)="handleTypeChange($event)"></app-assignment-type-selector>
+      </div>
+    </div>
+  </div>
+  <div style="width: 100%;">
+    <p style="font-weight: bold; font-size: 18px;">Associated motorbikes:</p>
+  </div>
 </div>
