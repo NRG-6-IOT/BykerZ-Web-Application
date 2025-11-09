@@ -1,5 +1,6 @@
-import { Component, ElementRef, HostListener } from '@angular/core';
+import {Component, ElementRef, HostListener, inject} from '@angular/core';
 import {NotificationDropdown} from '@app/assignments/presentation/components/notification-dropdown/notification-dropdown';
+import {AssignmentsStore} from '@app/assignments/application/assigments.store';
 
 @Component({
   selector: 'app-notification-button',
@@ -10,8 +11,13 @@ import {NotificationDropdown} from '@app/assignments/presentation/components/not
   styleUrls: ['./notification-button.css']
 })
 export class NotificationButton {
+  readonly store = inject(AssignmentsStore);
   open = false;
   constructor(private el: ElementRef<HTMLElement>) {}
+
+  get pendingAssignments() {
+    return this.store.pendingAssignments();
+  }
 
   toggle(event: Event) {
     event.stopPropagation();

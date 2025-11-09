@@ -1,0 +1,13 @@
+<li class="notification-item" (click)="onClick()">
+  <div class="item-container">
+    <div class="code">
+      <div class="code-text">Assignment code:</div>
+      <div class="code-value">{{ assignment?.assignmentCode }}</div>
+    </div>
+    <div class="date">
+      <div class="date-text">Emitted on:</div>
+      <div class="date-value">{{formatDate(assignment?.createdAtDate)}}</div>
+    </div>
+
+  </div>
+</li>

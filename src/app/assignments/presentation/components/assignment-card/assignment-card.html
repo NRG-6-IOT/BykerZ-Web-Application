@@ -2,10 +2,18 @@
   <div class="inner-card">
     <div class="row">
       <div class="left">
-        <p>Link details:</p>
+        <p>Assignment type:</p>
       </div>
       <div class="right">
-        <p>{{assignment.id}}</p>
+        <p>{{formattedType}}</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="left">
+        <p>Assignment code:</p>
+      </div>
+      <div class="right">
+        <p>{{assignment?.assignmentCode}}</p>
       </div>
     </div>
     <div class="row">
@@ -13,15 +21,15 @@
         <p>Owner's name:</p>
       </div>
       <div class="right">
-        <p>{{assignment.owner?.completeName}}</p>
+        <p>{{assignment?.owner?.completeName}}</p>
       </div>
     </div>
     <div class="row">
       <div class="left">
-        <p>Number of motorcycles:</p>
+        <p>Assigned on:</p>
       </div>
       <div class="right">
-        <p>{{assignment.assignmentCode}}</p>
+        <p>{{formattedDate}}</p>
       </div>
     </div>
   </div>

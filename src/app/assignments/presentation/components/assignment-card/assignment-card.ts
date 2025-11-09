@@ -13,19 +13,60 @@ import {Router} from '@angular/router';
   styleUrl: './assignment-card.css'
 })
 export class AssignmentCard {
-  @Input() assignment!: Assignment;
+  private _assignment?: Assignment;
+
+  @Input()
+  set assignment(value: Assignment | undefined) {
+    this._assignment = value;
+    this.formattedDate = this.formatDate(value?.createdAtDate);
+    this.formattedType = this.formatType(value?.type);
+  }
+  get assignment(): Assignment | undefined {
+    return this._assignment;
+  }
+
+  formattedDate = '';
+  formattedType = '';
 
   constructor(private dialog: MatDialog, private router: Router) {}
 
   openDialog() {
+    if (!this._assignment) { return; }
     this.dialog.open(AssignmentCardDialog, {
-      data: { assignment: this.assignment }
+      data: { assignment: this._assignment }
     });
   }
 
+  // Formatea la fecha de forma segura y consistente para locale es-ES.
+  formatDate(dateInput?: string | Date | null): string {
+    if (!dateInput) { return ''; }
+    const date = typeof dateInput === 'string' ? new Date(dateInput) : new Date(dateInput);
+    if (isNaN(date.getTime())) { return ''; }
+    return new Intl.DateTimeFormat('en-EN', {
+      day: '2-digit',
+      month: 'long',
+      year: 'numeric'
+    }).format(date);
+  }
+
+  formatType(typeInput?: string | null): string {
+    if (!typeInput) { return ''; }
+    switch (typeInput) {
+      case 'UNCATEGORIZED':
+        return 'Uncategorized Customer';
+      case 'REGULAR':
+        return 'Regular Customer';
+      case 'FREQUENT':
+        return 'Frequent Customer';
+      case 'BUSINESS':
+        return 'Business Customer';
+      default:
+        return typeInput;
+    }
+  }
+
   redirectToDetails() {
-    if (!this.assignment) { return; }
-    // Navega a /assignments/:id y pasa el objeto assignment en navigation state
-    this.router.navigate(['/assignments', this.assignment.id], { state: { assignment: this.assignment } });
+    if (!this._assignment) { return; }
+    this.router.navigate(['/assignments', this._assignment.id], { state: { assignment: this._assignment } });
   }
 }

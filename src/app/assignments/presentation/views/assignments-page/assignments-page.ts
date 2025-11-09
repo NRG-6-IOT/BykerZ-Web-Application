@@ -20,8 +20,9 @@ import {MatError} from '@angular/material/form-field';
 export class AssignmentsPage {
   readonly store = inject(AssignmentsStore);
 
-  get assignments() {
-    return this.store.assignments();
+  get activeAssignments() {
+    return this.store.activeAssignments();
   }
+
 
 }
