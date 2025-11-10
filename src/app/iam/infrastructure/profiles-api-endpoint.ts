@@ -4,11 +4,19 @@ import {Profile} from '../domain/model/profile.entity';
 import {HttpClient} from '@angular/common/http';
 import {ProfileResource, ProfileResponse} from './profiles-response';
 import {ProfilesAssembler} from '@app/iam/infrastructure/profiles-assembler';
+import {catchError, Observable} from 'rxjs';
 
 const profilesApiEndpointUrl = `${environment.platformProviderApiBaseUrl}${environment.platformProviderProfileEndpointPath}`;
 
 export class ProfilesApiEndpoint extends BaseApiEndpoint<Profile, ProfileResource, ProfileResponse, ProfilesAssembler> {
   constructor(http: HttpClient) {
     super( http, profilesApiEndpointUrl, new ProfilesAssembler());
+  }
+
+  getByUserId(userId: number): Observable<ProfileResponse | ProfileResource> {
+    const url = `${environment.platformProviderApiBaseUrl}${environment.platformProviderProfileEndpointPath}/user/${userId}`;
+    return this.http.get<ProfileResponse | ProfileResource>(url).pipe(
+      catchError(this.handleError('Failed to fetch profile for current user'))
+    );
   }
 }
