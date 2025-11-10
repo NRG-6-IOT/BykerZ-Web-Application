@@ -16,8 +16,13 @@ export class Profile implements BaseEntity {
   }
 
   get id(): number { return this._id; }
+  set id(value: number) { this._id = value; }
   get firstName(): string { return this._firstName; }
+  set firstName(value: string) { this._firstName = value; }
   get lastName(): string { return this._lastName; }
+  set lastName(value: string) { this._lastName = value; }
   get emailAddress(): string { return this._emailAddress; }
+  set emailAddress(value: string) { this._emailAddress = value; }
   get photoUrl(): string { return this._photoUrl; }
+  set photoUrl(value: string) { this._photoUrl = value; }
 }
