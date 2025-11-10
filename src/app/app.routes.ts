@@ -5,8 +5,8 @@ import {ExpensesPageComponent} from '@app/wellness/pages/expenses-page/expenses-
 import {ExpenseItemComponent} from '@app/wellness/components/expense-item/expense-item.component';
 import {VehiclesPage} from './vehiclemanagement/pages/vehicles-page/vehicles-page';
 import {VehicleDetailsPage} from './vehiclemanagement/pages/vehicle-details-page/vehicle-details-page';
-import {SignInPage} from '@app/iam/pages/sign-in/sign-in.page';
-import {SignUpPage} from '@app/iam/pages/sign-up/sign-up.page';
+import {SignInPage} from '@app/iam/presentation/views/sign-in/sign-in.page';
+import {SignUpPage} from '@app/iam/presentation/views/sign-up/sign-up.page';
 import {DashboardMechanicPage} from '@app/public/presentation/views/dashboard-mechanic-page/dashboard-mechanic-page';
 
 const assignmentsRoutes = () => import('@app/assignments/presentation/assignments.routes').then(m => m.assignmentsRoutes);
