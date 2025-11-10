@@ -5,7 +5,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {BaseFormComponent} from '@app/shared/presentation/components/base-form.component';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
-import {SignUpRequest} from '@app/iam/model/sign-up.request';
+import {SignUpRequest} from '@app/iam/domain/model/sign-up.request';
 import {AuthenticationService} from '@app/iam/services/authentication.service';
 
 @Component({
