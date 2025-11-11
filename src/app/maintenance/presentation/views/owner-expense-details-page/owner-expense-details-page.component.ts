@@ -15,11 +15,7 @@ import {Expense} from '@app/maintenance/domain/model/expense.entity';
             <h1 class="text-3xl font-bold">{{expense.name}}</h1>
             <p class="text-lg font-medium">{{expense.expenseType}}</p>
           </div>
-          <button
-            (click)="goBack()"
-            class="text-white bg-[#FF6B35] px-6 py-2 rounded-2xl hover:bg-[#ff9169] transition-colors font-bold">
-            Back to Expenses
-          </button>
+
         </div>
 
         <div class="bg-[#FF6B35] p-6 rounded-2xl">
@@ -98,5 +94,13 @@ export class OwnerExpenseDetailsPageComponent implements OnInit {
 
   goBack(): void {
     this.router.navigate(['/expenses']);
+    /*
+    * <button
+            (click)="goBack()"
+            class="text-white bg-[#FF6B35] px-6 py-2 rounded-2xl hover:bg-[#ff9169] transition-colors font-bold">
+            Back to Expenses
+          </button>
+    * */
+
   }
 }
