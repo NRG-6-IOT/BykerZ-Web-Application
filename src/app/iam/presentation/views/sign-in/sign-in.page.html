@@ -26,8 +26,8 @@
           }
         </mat-form-field>
 
-        <button mat-flat-button class="w-full !bg-[#380800]">Sign In</button>
-        <button matButton routerLink="/selection">
+        <button mat-flat-button class="w-full !bg-[#380800]" type="submit" [disabled]="signInFormGroup.invalid">Sign In</button>
+        <button matButton routerLink="/selection" type="button">
           <p class="text-black">Sign Up</p>
         </button>
       </form>
