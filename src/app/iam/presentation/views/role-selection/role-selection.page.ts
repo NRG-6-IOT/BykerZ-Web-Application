@@ -17,11 +17,11 @@ export class RoleSelectionPage {
   registerAsOwner() {
     const value = this.invitationCode?.trim();
     if (!value) return;
-    this.router.navigate(['/sign-up'], { queryParams: { invitationCode: value } });
-  }
+    this.router.navigate(['/sign-up'], {queryParams: {invitationCode: value}}).then();
+   }
 
   registerAsMechanic(): void {
-    this.router.navigate(['/sign-up']);
+    this.router.navigate(['/sign-up']).then();
   }
 
 }
