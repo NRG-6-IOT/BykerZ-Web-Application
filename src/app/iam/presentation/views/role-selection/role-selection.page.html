@@ -1,8 +1,31 @@
+<!-- html -->
 <div class="h-screen flex divide-x divide-gray-300">
-  <div class="flex-1 flex items-center justify-center bg-white">
-    <span class="text-xl font-semibold">half 1</span>
+  <div class="flex-1 flex flex-col items-center justify-center bg-white space-y-4 p-6">
+    <span class="text-3xl font-semibold">Register as an Owner</span>
+    <input
+      type="text"
+      class="border rounded px-3 py-2 w-64"
+      placeholder="Enter owner identifier"
+      [(ngModel)]="invitationCode"
+      aria-label="Owner code"
+    />
+    <button
+      class="bg-[#ff6b35] text-white px-4 py-2 rounded disabled:opacity-50"
+      [disabled]="!invitationCode?.trim()"
+      (click)="registerAsOwner()"
+    >
+      Register with code
+    </button>
   </div>
-  <div class="flex-1 flex items-center justify-center bg-white">
-    <span class="text-xl font-semibold">half 2</span>
+
+  <div class="flex-1 flex flex-col items-center justify-center bg-white space-y-4 p-6">
+    <span class="text-3xl font-semibold">Register as a Mechanic</span>
+    <p class="text-xl">Pick between our plans</p>
+    <button
+      class="bg-[#ff6b35] text-white px-6 py-3 rounded"
+      (click)="registerAsMechanic()"
+    >
+      Choose a plan
+    </button>
   </div>
 </div>
