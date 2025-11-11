@@ -1,0 +1,56 @@
+<!-- app-notification-list.html -->
+<div class="notification-badge"
+     [class.has-notifications]="unreadCount > 0"
+     (click)="toggleNotifications()">
+
+  <!-- Icono de campana con contador -->
+  <div class="bell-icon">
+    🔔
+    <span *ngIf="unreadCount > 0" class="badge">
+      {{ unreadCount > 99 ? '99+' : unreadCount }}
+    </span>
+  </div>
+
+  <!-- Panel desplegable de notificaciones -->
+  <div *ngIf="showPanel" class="notifications-panel">
+    <div class="panel-header">
+      <h4>Alertas - Vehículo {{vehicleId}}</h4>
+      <button (click)="markAllAsRead()" *ngIf="unreadCount > 0" class="mark-all-btn">
+        Marcar todas
+      </button>
+      <button (click)="toggleNotifications()" class="close-btn">×</button>
+    </div>
+
+    <div class="connection-status" [class.connected]="isConnected">
+      {{ isConnected ? '🟢 Conectado' : '🔴 Desconectado' }}
+    </div>
+
+    <div class="notifications-list">
+      <div *ngFor="let notif of vehicleNotifications"
+           class="notification-item"
+           [class.unread]="!notif.read"
+           [class]="'severity-' + notif.severity.toLowerCase()">
+
+        <div class="notification-content">
+          <div class="notification-header">
+            <strong>{{ notif.title }}</strong>
+            <span class="notification-time">
+              {{ notif.createdAt | date:'shortTime' }}
+            </span>
+          </div>
+          <p class="notification-message">{{ notif.message }}</p>
+        </div>
+
+        <button *ngIf="!notif.read"
+                (click)="markAsRead(notif.id); $event.stopPropagation()"
+                class="mark-read-btn">
+          ✓
+        </button>
+      </div>
+
+      <div *ngIf="vehicleNotifications.length === 0" class="empty-state">
+        No hay alertas
+      </div>
+    </div>
+  </div>
+</div>
