@@ -49,8 +49,8 @@ export class AuthenticationService {
     console.log(`Using the endpoint ${endpoint}`);
     return this.http.get<any>(endpoint, this.httpOptions).pipe(
       map(res => {
-        if (role === 'ROLE_OWNER') return res.ownerId;      // Adjust to match owner response
-        if (role === 'ROLE_MECHANIC') return res.mechanicId; // Matches your example
+        if (role === 'ROLE_OWNER') return res.ownerId;
+        if (role === 'ROLE_MECHANIC') return res.mechanicId;
         throw new Error('Unknown role');
       }),
       tap(id => {
@@ -64,67 +64,58 @@ export class AuthenticationService {
    * @param signUpRequest
    * @return The sign up response.
    */
-  signUp(signUpRequest: SignUpRequest) {
-    return this.http.post<SignUpResponse>(`${this.baseUrl}/authentication/sign-up`, signUpRequest, this.httpOptions)
-      .subscribe({
-        next: (response) => {
-          console.log(`Signed up as ${response.username}`);
-          this.router.navigate(['/sign-in']).then();
-        },
-        error: (error) => {
-          console.error(`Error while signing up: ${error}`);
-          this.router.navigate(['/sign-up']).then();
-        }
-      });
+  signUp(signUpRequest: SignUpRequest) : Observable<SignUpResponse> {
+    return this.http.post<SignUpResponse>(`${this.baseUrl}/authentication/sign-up`, signUpRequest, this.httpOptions);
   }
 
   /**
    * Sign in an existing user.
    * @param signInRequest
+   * @param redirectToDashboard
    * @return The sign in response.
    */
-  signIn(signInRequest: SignInRequest) {
+  signIn(signInRequest: SignInRequest, redirectToDashboard = true): Observable<SignInResponse> {
     return this.http.post<SignInResponse>(`${this.baseUrl}/authentication/sign-in`, signInRequest, this.httpOptions)
-      .subscribe({
-        next: (response) => {
+      .pipe(
+        tap(response => {
+          console.log('Attempting sign-in with response:', response);
           this.signedIn.next(true);
           this.signedInUserId.next(response.id);
           localStorage.setItem('token', response.token);
 
           if (response.roles.includes('ROLE_MECHANIC')) {
+            console.log('Signing in as mechanic');
             localStorage.setItem('user_role', 'ROLE_MECHANIC');
-
-            this.getRoleSpecificUserId().subscribe({
-              next: (id) => {
-                this.router.navigate(['/mechanic-dashboard']);
-              },
-              error: (err) => {
-                console.error('Failed to fetch mechanic profile id', err);
-                this.router.navigate(['/mechanic-dashboard']);
-              }
-            });
+            if (redirectToDashboard) {
+              this.getRoleSpecificUserId().subscribe({
+                next: () => {
+                  this.router.navigate(['/mechanic-dashboard']).then();
+                },
+                error: (err) => {
+                  console.error('Failed to fetch mechanic profile id', err);
+                  this.signOut()
+                }
+              });
+            }
 
           } else if (response.roles.includes('ROLE_OWNER')) {
+            console.log('Signing in as owner');
             localStorage.setItem('user_role', 'ROLE_OWNER');
-            this.getRoleSpecificUserId().subscribe({
-              next: (id) => {
-                console.log('Stored role_id:', id);
-                this.router.navigate(['/owner-dashboard']);
-              },
-              error: (err) => {
-                console.error('Failed to fetch mechanic profile id', err);
-                this.router.navigate(['/mechanic-dashboard']);
-              }
-            });
+            if (redirectToDashboard) {
+              this.getRoleSpecificUserId().subscribe({
+                next: () => {
+                  this.router.navigate(['/owner-dashboard']).then();
+                },
+                error: (err) => {
+                  console.error('Failed to fetch owner profile id', err);
+                  this.signOut();
+                  this.signOut()
+                }
+              });
+            }
           }
-        },
-        error: (error) => {
-          this.signedIn.next(false);
-          this.signedInUserId.next(0);
-          console.error(`Error while signing in: ${error}`);
-          this.router.navigate(['/sign-in']).then();
-        }
-      });
+        })
+      );
   }
 
   /**

@@ -1,12 +1,15 @@
 import {Component, OnInit} from '@angular/core';
 import {MatButtonModule} from '@angular/material/button';
-import {FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
+import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {BaseFormComponent} from '@app/shared/presentation/components/base-form.component';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import {SignUpRequest} from '@app/iam/domain/model/sign-up.request';
 import {AuthenticationService} from '@app/iam/services/authentication.service';
+import {ActivatedRoute, Router} from '@angular/router';
+import {SignInRequest} from '@app/iam/domain/model/sign-in.request';
+import {catchError, of, switchMap, tap} from 'rxjs';
 
 @Component({
   selector: 'app-sign-up.component',
@@ -16,23 +19,31 @@ import {AuthenticationService} from '@app/iam/services/authentication.service';
     FormsModule,
     ReactiveFormsModule,
     MatFormFieldModule,
-    MatInputModule],
+    MatInputModule
+  ],
   templateUrl: './sign-up.page.html'
 })
 export class SignUpPage extends BaseFormComponent implements OnInit {
   signUpForm!: FormGroup;
-  submitted = false;
+  invitationCode: string | null = null;
 
-  constructor(private builder: FormBuilder, private authenticationService: AuthenticationService) {
+  constructor(
+    private route: ActivatedRoute,
+    private builder: FormBuilder,
+    private authenticationService: AuthenticationService,
+    private router: Router
+  ) {
     super();
   }
 
   ngOnInit() {
+    this.invitationCode = this.route.snapshot.queryParamMap.get('invitationCode');
+
     this.signUpForm = this.builder.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
       username: ['', Validators.required],
-      email: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
       photoUrl: ['', Validators.required],
       password: ['', Validators.required],
       confirmPassword: ['', Validators.required]
@@ -48,17 +59,26 @@ export class SignUpPage extends BaseFormComponent implements OnInit {
   onSubmit() {
     if (this.signUpForm.invalid) return;
 
-    let firstName = this.signUpForm.value.firstName;
-    let lastName = this.signUpForm.value.lastName;
-    let username = this.signUpForm.value.username;
-    let email = this.signUpForm.value.email;
-    let photoUrl = this.signUpForm.value.photoUrl;
-    let password = this.signUpForm.value.password;
-    let roles = ['ROLE_MECHANIC'];
-
+    const { firstName, lastName, username, email, photoUrl, password } = this.signUpForm.value;
+    const roles = this.invitationCode === null ? ['ROLE_MECHANIC'] : ['ROLE_OWNER'];
     const signUpRequest = new SignUpRequest(firstName, lastName, username, email, photoUrl, password, roles);
-    console.log(`Requesting sign up`);
-    this.authenticationService.signUp(signUpRequest);
-    this.submitted = true;
+    const signInRequest: SignInRequest = { username, password };
+
+    this.authenticationService.signUp(signUpRequest).pipe(
+      tap(() => console.log('Account created successfully')),
+      switchMap(() => this.authenticationService.signIn(signInRequest, false)),
+      tap(() => console.log('Auto sign-in successful')),
+      switchMap(() => this.authenticationService.getRoleSpecificUserId()),
+      tap(id => console.log('Stored role-specific user ID:', id)),
+      tap(() => {
+        this.router.navigate(['/verify'], {
+          queryParams: {invitationCode: this.invitationCode}
+        }).then();
+      }),
+      catchError(err => {
+        console.error('Error in sign-up:', err);
+        return of(null); // Continue gracefully
+      })
+    ).subscribe();
   }
 }

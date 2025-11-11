@@ -18,7 +18,7 @@ export class CreateAssignmentButton {
   showDialog = false;
 
   openDialog() {
-    this.store.createAssignment(1);
+    this.store.createAssignment(Number(localStorage.getItem('role_id')));
     this.showDialog = true;
   }
 
