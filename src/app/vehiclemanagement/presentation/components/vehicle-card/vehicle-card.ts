@@ -1,11 +1,15 @@
-import {Component, Input} from '@angular/core';
+import {Component, inject, Input} from '@angular/core';
 import {MatCard, MatCardContent} from '@angular/material/card';
 import {NgOptimizedImage} from '@angular/common';
 import {Vehicle} from '../../../domain/model/vehicle.entity';
 import {RouterLink} from '@angular/router';
+
 import {
   NotificationListComponent
 } from '@app/notifications/presentation/components/app-notification-list/app-notification-list';
+
+import {AssignmentsStore} from "@app/assignments/application/assigments.store";
+
 
 @Component({
   selector: 'app-vehicle-card',
@@ -21,35 +25,15 @@ import {
   styleUrl: './vehicle-card.css'
 })
 export class VehicleCard {
-
   @Input() vehicle!: Vehicle;
 
-  GetOwnerNameById(id: number): string {
-    switch (id) {
-      case 10:
-        return "Carlos Mendoza";
-      case 11:
-        return "Lucía Fernández";
-      case 12:
-        return "Andrés Rivas";
-      default:
-        return "Desconocido";
-    }
-    return "Desconocido";
+  private store = inject(AssignmentsStore);
+
+  constructor() {
+    this.store.getAssignmentByOwnerId(+localStorage.getItem('role_id')!);
   }
 
-  GetMechanicNameById(id: number): string {
-    switch (id) {
-      case 20:
-        return "Jorge Ramírez";
-      case 21:
-        return "María López";
-      case 22:
-        return "Raúl Castillo";
-      default:
-        return "Desconocido";
-    }
-    return "Desconocido";
+  get ownerAssignment() {
+    return this.store.ownerAssignment();
   }
-
 }
