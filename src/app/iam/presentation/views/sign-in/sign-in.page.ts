@@ -42,7 +42,15 @@ export class SignInPage extends BaseFormComponent implements OnInit {
     let username = this.signInFormGroup.value.username;
     let password = this.signInFormGroup.value.password;
     const signInRequest = new SignInRequest(username, password);
-    this.authenticationService.signIn(signInRequest);
+    console.log('Trying to sign-in with request:', signInRequest);
+    this.authenticationService.signIn(signInRequest).subscribe({
+      next: () => {
+        console.log('Sign in successful');
+      },
+      error: (err) => {
+        console.error('Sign in failed:', err);
+      }
+    });
     this.submitted = true;
   }
 }
