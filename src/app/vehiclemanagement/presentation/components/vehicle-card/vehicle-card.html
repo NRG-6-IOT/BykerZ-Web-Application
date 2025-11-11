@@ -19,7 +19,7 @@
       <span class="item" style="display: inline-block;height: 200px; background-color: white; width: 1%; border-radius: 10px"></span>
 
       <div class="item">
-        <h2>Associated with:</h2>
+        <h2>Associated with: {{ownerAssignment?.mechanic?.completeName || "Unknown"}}</h2>
       </div>
 
       <img class="selection-arrow" style="margin-left: 10px" [routerLink]="['/vehicle',vehicle.id]" ngSrc="/assets/images/selection_arrow.png" height="68" width="39" alt="">
