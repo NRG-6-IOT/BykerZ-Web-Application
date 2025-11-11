@@ -3,8 +3,8 @@ import {DashboardOwnerPage} from '@app/public/presentation/views/dashboard-owner
 import {MaintenanceComponent} from '@app/wellness/pages/maintenence/maintenance.component';
 import {ExpensesPageComponent} from '@app/wellness/pages/expenses-page/expenses-page.component';
 import {ExpenseItemComponent} from '@app/wellness/components/expense-item/expense-item.component';
-import {VehiclesPage} from './vehiclemanagement/pages/vehicles-page/vehicles-page';
-import {VehicleDetailsPage} from './vehiclemanagement/pages/vehicle-details-page/vehicle-details-page';
+import {VehiclesPage} from '@app/vehiclemanagement/presentation/views/vehicles-page/vehicles-page';
+import {VehicleDetailsPage} from '@app/vehiclemanagement/presentation/views/vehicle-details-page/vehicle-details-page';
 import {SignInPage} from '@app/iam/presentation/views/sign-in/sign-in.page';
 import {SignUpPage} from '@app/iam/presentation/views/sign-up/sign-up.page';
 import {DashboardMechanicPage} from '@app/public/presentation/views/dashboard-mechanic-page/dashboard-mechanic-page';
@@ -13,7 +13,7 @@ import {RoleSelectionPage} from '@app/iam/presentation/views/role-selection/role
 const assignmentsRoutes = () => import('@app/assignments/presentation/assignments.routes').then(m => m.assignmentsRoutes);
 
 export const routes: Routes = [
-  { path: '', redirectTo: "/dashboard", pathMatch: 'full' },
+  { path: '', redirectTo: "/sign-in", pathMatch: 'full' },
   { path: "selection", component: RoleSelectionPage },
   { path: "sign-in", component: SignInPage },
   { path: "sign-up", component: SignUpPage },
