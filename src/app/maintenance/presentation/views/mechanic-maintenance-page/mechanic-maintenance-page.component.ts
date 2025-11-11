@@ -14,8 +14,17 @@ import {UserService} from '@app/iam/services/user.service';
   imports: [CommonModule, FormsModule, MatDialogModule],
   template: `
     <div class="w-full h-full p-10 relative">
+      <!-- Header with Create Button -->
+      <div class="flex justify-between items-center mb-6">
+        <h1 class="text-3xl font-bold">Scheduled Maintenances</h1>
+        <button
+          (click)="navigateToCreateMaintenance()"
+          class="bg-[#FF6B35] text-white px-6 py-2 rounded-lg hover:bg-[#ff9169] transition-colors font-semibold">
+          Create Maintenance
+        </button>
+      </div>
+
       <!-- Scheduled Maintenances Section -->
-      <h1 class="text-3xl font-bold mb-4">Scheduled Maintenances</h1>
       <div class="flex flex-col gap-4 mb-8">
         @if (scheduledMaintenances().length === 0) {
           <p class="text-gray-500">No scheduled maintenances</p>
@@ -140,134 +149,6 @@ export class MechanicMaintenancePageComponent implements OnInit {
   scheduledMaintenances = signal<Maintenance[]>([]);
   completedMaintenances = signal<Maintenance[]>([]);
 
-  // Mock data
-  private mockMaintenances: Maintenance[] = [
-    {
-      id: 1,
-      details: 'Oil change and filter replacement',
-      vehicleId: 101,
-      dateOfService: '2025-11-15T10:00:00',
-      location: 'Av. Javier Prado 2050, San Isidro 15036',
-      description: 'Regular maintenance service',
-      state: 'PENDING',
-      expense: null,
-      mechanicId: 1
-    },
-    {
-      id: 2,
-      details: 'Brake inspection and pad replacement',
-      vehicleId: 102,
-      dateOfService: '2025-11-12T14:30:00',
-      location: 'Av. Universitaria 1801, San Miguel 15088',
-      description: 'Brake system maintenance',
-      state: 'IN_PROGRESS',
-      expense: null,
-      mechanicId: 1
-    },
-    {
-      id: 3,
-      details: 'Engine diagnostic and tune-up',
-      vehicleId: 103,
-      dateOfService: '2025-11-08T09:00:00',
-      location: 'Jr. Talambo 135, San Miguel 15087',
-      description: 'Complete engine service',
-      state: 'COMPLETED',
-      expense: {
-        id: 1,
-        name: 'Engine Service Expense',
-        finalPrice: 450.50,
-        expenseType: 'MAINTENANCE',
-        items: [
-          {
-            id: 1,
-            name: 'Engine Oil',
-            amount: 4,
-            unitPrice: 25.00,
-            totalPrice: 100.00,
-            itemType: 'SUPPLIES'
-          },
-          {
-            id: 2,
-            name: 'Oil Filter',
-            amount: 1,
-            unitPrice: 15.50,
-            totalPrice: 15.50,
-            itemType: 'SUPPLIES'
-          },
-          {
-            id: 3,
-            name: 'Labor',
-            amount: 3,
-            unitPrice: 45.00,
-            totalPrice: 135.00,
-            itemType: 'PAYMENT'
-          },
-          {
-            id: 4,
-            name: 'Diagnostic Tools',
-            amount: 1,
-            unitPrice: 200.00,
-            totalPrice: 200.00,
-            itemType: 'TOOLS'
-          }
-        ]
-      },
-      mechanicId: 1
-    },
-    {
-      id: 4,
-      details: 'Tire rotation and alignment',
-      vehicleId: 104,
-      dateOfService: '2025-11-05T11:00:00',
-      location: 'Av. La Marina 2000, San Miguel 15087',
-      description: 'Tire maintenance',
-      state: 'CANCELLED',
-      expense: null,
-      mechanicId: 1
-    },
-    {
-      id: 5,
-      details: 'Transmission fluid change',
-      vehicleId: 105,
-      dateOfService: '2025-11-10T13:00:00',
-      location: 'Av. Arequipa 4800, Miraflores 15048',
-      description: 'Transmission service',
-      state: 'COMPLETED',
-      expense: {
-        id: 2,
-        name: 'Transmission Service',
-        finalPrice: 320.00,
-        expenseType: 'MAINTENANCE',
-        items: [
-          {
-            id: 5,
-            name: 'Transmission Fluid',
-            amount: 5,
-            unitPrice: 30.00,
-            totalPrice: 150.00,
-            itemType: 'SUPPLIES'
-          },
-          {
-            id: 6,
-            name: 'Filter',
-            amount: 1,
-            unitPrice: 20.00,
-            totalPrice: 20.00,
-            itemType: 'SUPPLIES'
-          },
-          {
-            id: 7,
-            name: 'Labor',
-            amount: 3,
-            unitPrice: 50.00,
-            totalPrice: 150.00,
-            itemType: 'PAYMENT'
-          }
-        ]
-      },
-      mechanicId: 1
-    }
-  ];
 
   constructor(
     private router: Router,
@@ -302,29 +183,13 @@ export class MechanicMaintenancePageComponent implements OnInit {
           },
           error: (error) => {
             console.error('Error loading maintenances:', error);
-            // Fallback to mock data on error
-            this.loadMockMaintenances();
           }
         });
       },
       error: (error) => {
         console.error('Error getting mechanic ID:', error);
-        // Fallback to mock data on error
-        this.loadMockMaintenances();
       }
     });
-  }
-
-  private loadMockMaintenances(): void {
-    const scheduled = this.mockMaintenances.filter(m =>
-      m.state === 'PENDING' || m.state === 'IN_PROGRESS'
-    );
-    const completed = this.mockMaintenances.filter(m =>
-      m.state === 'COMPLETED' || m.state === 'CANCELLED'
-    );
-
-    this.scheduledMaintenances.set(scheduled);
-    this.completedMaintenances.set(completed);
   }
 
   saveMaintenanceState(maintenance: Maintenance): void {
@@ -433,5 +298,9 @@ export class MechanicMaintenancePageComponent implements OnInit {
 
   navigateToExpenseDetails(expenseId: number): void {
     this.router.navigate(['/expenses', expenseId]);
+  }
+
+  navigateToCreateMaintenance(): void {
+    this.router.navigate(['/mechanic/maintenance/create']);
   }
 }

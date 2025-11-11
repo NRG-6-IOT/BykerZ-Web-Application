@@ -19,6 +19,9 @@ import {
 import {
   MechanicMaintenancePageComponent
 } from '@app/maintenance/presentation/views/mechanic-maintenance-page/mechanic-maintenance-page.component';
+import {
+  CreateMaintenancePageComponent
+} from '@app/maintenance/presentation/views/create-maintenance-page/create-maintenance-page.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: "/dashboard", pathMatch: 'full' },
@@ -35,4 +38,5 @@ export const routes: Routes = [
   { path: "expenses/:expenseId", component: OwnerExpenseDetailsPageComponent, canActivate: [authenticationGuard]},
   { path: "owner/maintenance" ,component: OwnerMaintenancePageComponent , canActivate: [authenticationGuard] },
   { path: "mechanic/maintenance" , component: MechanicMaintenancePageComponent , canActivate: [authenticationGuard] },
+  { path: "mechanic/maintenance/create" , component: CreateMaintenancePageComponent , canActivate: [authenticationGuard] },
 ];
