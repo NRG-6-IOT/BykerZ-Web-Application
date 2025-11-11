@@ -49,8 +49,8 @@ export class AuthenticationService {
     console.log(`Using the endpoint ${endpoint}`);
     return this.http.get<any>(endpoint, this.httpOptions).pipe(
       map(res => {
-        if (role === 'ROLE_OWNER') return res.ownerId;      // Adjust to match owner response
-        if (role === 'ROLE_MECHANIC') return res.mechanicId; // Matches your example
+        if (role === 'ROLE_OWNER') return res.ownerId;
+        if (role === 'ROLE_MECHANIC') return res.mechanicId;
         throw new Error('Unknown role');
       }),
       tap(id => {
@@ -59,23 +59,24 @@ export class AuthenticationService {
     );
   }
 
+  // TODO: Endpoints should be moved to the API
+  verifyAssignmentCode(assignmentCode: string): Observable<any> {
+    const url = `${this.baseUrl}/assignments/code/${encodeURIComponent(assignmentCode)}`;
+    return this.http.get<any>(url, this.httpOptions);
+  }
+
+  assignOwnerToAssignment(assignmentCode: string, ownerId: Observable<number>): Observable<any> {
+    const url = `${this.baseUrl}/assignments/code/${encodeURIComponent(assignmentCode)}/assign-owner/${ownerId}`;
+    return this.http.patch<any>(url, null, this.httpOptions);
+  }
+
   /**
    * Sign up a new user.
    * @param signUpRequest
    * @return The sign up response.
    */
-  signUp(signUpRequest: SignUpRequest) {
-    return this.http.post<SignUpResponse>(`${this.baseUrl}/authentication/sign-up`, signUpRequest, this.httpOptions)
-      .subscribe({
-        next: (response) => {
-          console.log(`Signed up as ${response.username}`);
-          this.router.navigate(['/sign-in']).then();
-        },
-        error: (error) => {
-          console.error(`Error while signing up: ${error}`);
-          this.router.navigate(['/sign-up']).then();
-        }
-      });
+  signUp(signUpRequest: SignUpRequest) : Observable<SignUpResponse> {
+    return this.http.post<SignUpResponse>(`${this.baseUrl}/authentication/sign-up`, signUpRequest, this.httpOptions);
   }
 
   /**
