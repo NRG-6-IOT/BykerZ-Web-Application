@@ -59,8 +59,6 @@ export class AuthenticationService {
     );
   }
 
-
-
   /**
    * Sign up a new user.
    * @param signUpRequest
