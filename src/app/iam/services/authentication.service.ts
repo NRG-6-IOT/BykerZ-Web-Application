@@ -1,6 +1,6 @@
 import {environment} from '../../../environments/environment';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {BehaviorSubject} from 'rxjs';
+import {BehaviorSubject, map, Observable, tap, throwError} from 'rxjs';
 import {Router} from '@angular/router';
 import {SignUpRequest} from '@app/iam/domain/model/sign-up.request';
 import {SignUpResponse} from '@app/iam/domain/model/sign-up.response';
@@ -17,9 +17,15 @@ export class AuthenticationService {
 
   private signedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   private signedInUserId: BehaviorSubject<number> = new BehaviorSubject<number>(0);
-  private signedInUsername: BehaviorSubject<string> = new BehaviorSubject<string>('');
 
   constructor(private router: Router, private http: HttpClient) { }
+
+  tryAutoSignIn(): void {
+    const token = localStorage.getItem('token');
+    if (!token) return;
+    this.signedIn.next(true);
+    return;
+  }
 
   get isSignedIn() {
     return this.signedIn.asObservable();
@@ -29,11 +35,29 @@ export class AuthenticationService {
     return this.signedInUserId.asObservable();
   }
 
-  get currentUsername() {
-    return this.signedInUsername.asObservable();
-  }
+  getRoleSpecificUserId(): Observable<number> {
+    const role = localStorage.getItem('user_role') || '';
+    const endpoint =
+      role === 'ROLE_OWNER' ? `${this.baseUrl}/users/owner`
+        : role === 'ROLE_MECHANIC' ? `${this.baseUrl}/users/mechanic`
+          : null;
 
-  // TODO: Implement profile retrieval method
+    if (!endpoint) {
+      return throwError(() => new Error('No user role found for profile lookup'));
+    }
+
+    console.log(`Using the endpoint ${endpoint}`);
+    return this.http.get<any>(endpoint, this.httpOptions).pipe(
+      map(res => {
+        if (role === 'ROLE_OWNER') return res.ownerId;      // Adjust to match owner response
+        if (role === 'ROLE_MECHANIC') return res.mechanicId; // Matches your example
+        throw new Error('Unknown role');
+      }),
+      tap(id => {
+        localStorage.setItem('role_id', String(id));
+      })
+    );
+  }
 
   /**
    * Sign up a new user.
@@ -65,20 +89,38 @@ export class AuthenticationService {
         next: (response) => {
           this.signedIn.next(true);
           this.signedInUserId.next(response.id);
-          this.signedInUsername.next(response.username);
           localStorage.setItem('token', response.token);
+
           if (response.roles.includes('ROLE_MECHANIC')) {
             localStorage.setItem('user_role', 'ROLE_MECHANIC');
-            this.router.navigate(['/mechanic-dashboard']);
+
+            this.getRoleSpecificUserId().subscribe({
+              next: (id) => {
+                this.router.navigate(['/mechanic-dashboard']);
+              },
+              error: (err) => {
+                console.error('Failed to fetch mechanic profile id', err);
+                this.router.navigate(['/mechanic-dashboard']);
+              }
+            });
+
           } else if (response.roles.includes('ROLE_OWNER')) {
             localStorage.setItem('user_role', 'ROLE_OWNER');
-            this.router.navigate(['/owner-dashboard']);
+            this.getRoleSpecificUserId().subscribe({
+              next: (id) => {
+                console.log('Stored role_id:', id);
+                this.router.navigate(['/owner-dashboard']);
+              },
+              error: (err) => {
+                console.error('Failed to fetch mechanic profile id', err);
+                this.router.navigate(['/mechanic-dashboard']);
+              }
+            });
           }
         },
         error: (error) => {
           this.signedIn.next(false);
           this.signedInUserId.next(0);
-          this.signedInUsername.next('');
           console.error(`Error while signing in: ${error}`);
           this.router.navigate(['/sign-in']).then();
         }
@@ -91,8 +133,9 @@ export class AuthenticationService {
   signOut() {
     this.signedIn.next(false);
     this.signedInUserId.next(0);
-    this.signedInUsername.next('');
     localStorage.removeItem('token');
+    localStorage.removeItem('role_id');
+    localStorage.removeItem('user_role');
     this.router.navigate(['/sign-in']).then();
   }
 }

@@ -34,7 +34,7 @@ export class NavbarComponent implements OnInit {
   ];
 
   mechanicOptions = [
-    { name: 'Dashboard', route: '/dashboard' },
+    { name: 'Dashboard', route: '/mechanic-dashboard' },
     { name: 'Assignments', route: '/assignments' },
     { name: 'Maintenance', route: '/maintenances' },
     { name: 'Comparatives', route: '/compare' },

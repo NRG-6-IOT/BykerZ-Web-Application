@@ -1,6 +1,7 @@
-import { Component, signal } from '@angular/core';
+import {Component, OnInit, signal} from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import {NavbarComponent} from '@app/public/presentation/components/navbar-component/navbar-component';
+import {AuthenticationService} from '@app/iam/services/authentication.service';
 
 @Component({
   selector: 'app-root',
@@ -9,6 +10,11 @@ import {NavbarComponent} from '@app/public/presentation/components/navbar-compon
   standalone: true,
   styleUrl: './app.css'
 })
-export class App {
+export class App implements OnInit {
+  constructor(private authService: AuthenticationService) {}
+
   protected readonly title = signal('BykerZ');
+  ngOnInit(): void {
+    this.authService.tryAutoSignIn();
+  }
 }
