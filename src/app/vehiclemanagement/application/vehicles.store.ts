@@ -10,15 +10,18 @@ export class VehiclesStore {
   private readonly loadingSignal = signal<boolean>(false);
   private readonly vehiclesSignal = signal<Vehicle[]>([]);
   private readonly brandsSignal = signal<String[]>([]);
+  private readonly modelsSignal = signal<Model[]>([]);
 
   readonly vehicles = this.vehiclesSignal.asReadonly();
   readonly brands = this.brandsSignal.asReadonly();
+  readonly models = this.modelsSignal.asReadonly();
   readonly error = this.errorSignal.asReadonly();
   readonly loading = this.loadingSignal.asReadonly();
 
   constructor(private vehiclesApi: VehiclesApi) {
     this.loadVehiclesByOwner(localStorage.getItem('role_id') ? +localStorage.getItem('role_id')! : 0);
     this.loadAllBrands();
+    this.loadAllModels();
   }
 
   loadVehiclesByOwner(ownerId: number): void {
@@ -51,6 +54,21 @@ export class VehiclesStore {
     });
   }
 
+  loadAllModels(): void {
+    this.loadingSignal.set(true);
+    this.errorSignal.set(null);
+    this.vehiclesApi.getAllModels().subscribe({
+      next: models => {
+        this.modelsSignal.set(models);
+        this.loadingSignal.set(false);
+      },
+      error: err => {
+        this.errorSignal.set(this.formatError(err, 'Failed to load models'));
+        this.loadingSignal.set(false);
+      }
+    });
+  }
+
   addVehicleToOwner(ownerId: number, vehicleData: {plate: string; year: string; modelId: number}): void {
     this.loadingSignal.set(true);
     this.errorSignal.set(null);
@@ -66,21 +84,10 @@ export class VehiclesStore {
     });
   }
 
-  getModelsByBrand(brand: string): Model[] {
-    let models: Model[] = [];
-    this.loadingSignal.set(true);
-    this.errorSignal.set(null);
-    this.vehiclesApi.getModelsByBrand(brand).subscribe({
-      next: response => {
-        models = response;
-        this.loadingSignal.set(false);
-      },
-      error: err => {
-        this.errorSignal.set(this.formatError(err, 'Failed to load models'));
-        this.loadingSignal.set(false);
-      }
+  getModelsByBrand(brand: string): Signal<Model[]> {
+    return computed(() => {
+      return this.models().filter(model => model.brand === brand);
     });
-    return models;
   }
 
   getVehicleById(vehicleId: number): Signal<Vehicle | undefined> {

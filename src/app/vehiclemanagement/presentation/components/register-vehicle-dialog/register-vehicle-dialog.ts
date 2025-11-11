@@ -1,10 +1,12 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import {MatDialogContent, MatDialogModule, MatDialogRef} from '@angular/material/dialog';
 import {NgOptimizedImage} from '@angular/common';
 import {MatOption, MatSelect, MatSelectModule} from '@angular/material/select';
 import {FormsModule} from '@angular/forms';
 import {MatInputModule} from '@angular/material/input';
 import {MatButton} from '@angular/material/button';
+import {VehiclesStore} from '@app/vehiclemanagement/application/vehicles.store';
+import {Model} from '@app/vehiclemanagement/domain/model/vehicle.entity';
 
 @Component({
   selector: 'app-register-vehicle-dialog',
@@ -23,15 +25,16 @@ import {MatButton} from '@angular/material/button';
   standalone: true,
   styleUrl: './register-vehicle-dialog.css'
 })
-export class RegisterVehicleDialog implements OnInit {
+export class RegisterVehicleDialog{
 
-  brandOptions: string[];
+  private store = inject(VehiclesStore);
+
   brand: string = "";
 
-  modelOptions: string[];
-  model: string = "";
+  modelOptions: Model[];
+  model: Model | null = null;
 
-  yearOptions: string[];
+  yearOptions: String[];
   year: string = "";
 
   plate: string = "";
@@ -39,51 +42,43 @@ export class RegisterVehicleDialog implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<RegisterVehicleDialog>
   ) {
-    this.brandOptions = []
-    this.modelOptions = []
-    this.yearOptions = []
-  }
-
-  ngOnInit() {
-    this.GetBrandOptions()
-    this.GetYearOptions()
-  }
-
-  GetBrandOptions(): void {
-    this.brandOptions = [
-      "Honda",
-      "Yamaha",
-      "KTM"
-    ];
-  }
-
-  GetModelOptions(): void {
-    this.model = '';
-
-    switch (this.brand) {
-      case 'Honda':
-        this.modelOptions = ['CB190R', 'CB125F', 'XR150'];
-        break;
-      case 'Yamaha':
-        this.modelOptions = ['FZS 25', 'MT-03', 'R15'];
-        break;
-      case 'KTM':
-        this.modelOptions = ['Duke 200', 'RC 125'];
-        break;
-      default:
-        this.modelOptions = [];
-        break;
-    }
-  }
-
-  GetYearOptions(): void {
+    this.modelOptions = [];
     this.yearOptions = [
       "2024",
       "2023",
       "2022",
       "2021",
       "2020",
+      "2019",
+      "2018",
+      "2017",
+      "2016",
+      "2015",
+      "2014",
+      "2013",
+      "2012",
+      "2011",
+      "2010",
+      "2009",
+      "2008",
+      "2007",
+      "2006",
+      "2005",
+      "2004",
+      "2003",
+      "2002",
+      "2001",
+      "2000"
     ];
+  }
+
+  get brandOptions() {
+    return this.store.brands();
+  }
+
+  GetModelOptions(): void {
+    this.model = null;
+    this.modelOptions = this.store.getModelsByBrand(this.brand)();
   }
 
   CloseDialog() {
@@ -91,11 +86,20 @@ export class RegisterVehicleDialog implements OnInit {
   }
 
   IsValid(): boolean {
-    return (this.brand != "" && this.model != "" && this.year != "" && this.IsValidPlate(this.plate))
+    return (this.brand != "" && this.model != null && this.year != "" && this.IsValidPlate(this.plate))
   }
 
   IsValidPlate(plate: string): boolean {
     const pattern = /^[0-9]{4}-[A-Z]{2}$/;
     return pattern.test(plate);
+  }
+
+  RegisterVehicle() {
+    this.store.addVehicleToOwner(localStorage.getItem('role_id') ? +localStorage.getItem('role_id')! : 0, {
+      plate: this.plate,
+      year: this.year,
+      modelId: this.model!.id
+    });
+    this.dialogRef.close();
   }
 }

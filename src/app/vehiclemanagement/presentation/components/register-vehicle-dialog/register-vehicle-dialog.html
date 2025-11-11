@@ -20,7 +20,7 @@
         <mat-label>Model</mat-label>
         <mat-select [(ngModel)]="model" [disabled]="!brand">
           @for (model of modelOptions; track model) {
-            <mat-option [value]="model">{{model}}</mat-option>
+            <mat-option [value]="model">{{model.name}}</mat-option>
           }
         </mat-select>
       </mat-form-field>
@@ -51,7 +51,7 @@
       </mat-form-field>
     </div>
 
-    <button mat-flat-button [disabled]="!IsValid()">Register</button>
+    <button mat-flat-button [disabled]="!IsValid()" (click)="RegisterVehicle()">Register</button>
   </div>
 
 </mat-dialog-content>

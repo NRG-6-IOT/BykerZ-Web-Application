@@ -41,6 +41,16 @@ export class VehiclesApi extends BaseApi {
     return this.modelsApiEndpoint.getAllBrands();
   }
 
+  getAllModels(): Observable<Model[]> {
+    return this.modelsApiEndpoint.getAll().pipe(
+      map(response =>
+        Array.isArray(response)
+          ? response.map(resource => this.modelsAssembler.toEntityFromResource(resource))
+          : this.modelsAssembler.toEntitiesFromResponse(response)
+      )
+    );
+  }
+
   getModelsByBrand(brand: string): Observable<Model[]> {
     return this.modelsApiEndpoint.getModelsByBrand(brand).pipe(
       map(response =>
