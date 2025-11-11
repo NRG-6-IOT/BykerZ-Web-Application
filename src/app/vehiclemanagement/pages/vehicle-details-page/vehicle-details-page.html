@@ -1,7 +1,7 @@
 <div class="main-container">
   <div class="straight-line">
     <h1>{{vehicle?.model?.name}}</h1>
-    <img class="vehicle-image" ngSrc="/assets/images/vehicle_dark.png" width="198" height="101" alt="">
+    <img class="vehicle-image" ngSrc="/assets/images/vehicle_dark.png" width="198" height="101" alt="" priority>
   </div>
 </div>
 <div class="data-container">
@@ -77,6 +77,7 @@
       <!-- Added compare actions area -->
       <div class="actions">
         <button class="compare-button" (click)="compare()" type="button">Compare</button>
+        <button class="export-button" (click)="exportReport()" type="button">Exportar</button>
       </div>
 
     </div>

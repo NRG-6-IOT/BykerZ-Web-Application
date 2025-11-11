@@ -3,6 +3,8 @@ import {Model, Vehicle} from '../../model/vehicle.entity';
 import {ActivatedRoute, Router} from '@angular/router';
 import {NgOptimizedImage} from '@angular/common';
 import {MatCard} from '@angular/material/card';
+import {HttpClient} from '@angular/common/http';
+import {environment} from '../../../../environments/environment';
 
 @Component({
   selector: 'app-vehicle-details-page',
@@ -21,7 +23,8 @@ export class VehicleDetailsPage implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private http: HttpClient
   ) {
 
   }
@@ -31,6 +34,27 @@ export class VehicleDetailsPage implements OnInit {
     if (vehicleId) {
       this.GetVehicleById(+vehicleId)
     }
+  }
+
+  exportReport() {
+    if (!this.vehicle?.id) return;
+
+    const url = `${environment.serverBaseUrl}/reports/vehicle/${this.vehicle.id}/export`;
+
+    this.http.get(url, { responseType: 'text' }).subscribe({
+      next: (data) => {
+        const blob = new Blob([data], { type: 'text/csv' });
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = `vehicle-report-${this.vehicle?.id}.csv`;
+        a.click();
+        URL.revokeObjectURL(a.href);
+      },
+      error: (err) => {
+        console.error('Error exporting report', err);
+        alert('Error al exportar el reporte.');
+      }
+    });
   }
 
   GetVehicleById(id: number) {
