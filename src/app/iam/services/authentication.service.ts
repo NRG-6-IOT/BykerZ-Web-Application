@@ -59,16 +59,7 @@ export class AuthenticationService {
     );
   }
 
-  // TODO: Endpoints should be moved to the API
-  verifyAssignmentCode(assignmentCode: string): Observable<any> {
-    const url = `${this.baseUrl}/assignments/code/${encodeURIComponent(assignmentCode)}`;
-    return this.http.get<any>(url, this.httpOptions);
-  }
 
-  assignOwnerToAssignment(assignmentCode: string, ownerId: number): Observable<any> {
-    const url = `${this.baseUrl}/assignments/code/${encodeURIComponent(assignmentCode)}/assign-owner/${ownerId}`;
-    return this.http.patch<any>(url, null, this.httpOptions);
-  }
 
   /**
    * Sign up a new user.
@@ -82,48 +73,50 @@ export class AuthenticationService {
   /**
    * Sign in an existing user.
    * @param signInRequest
+   * @param redirectToDashboard
    * @return The sign in response.
    */
-  signIn(signInRequest: SignInRequest) {
+  signIn(signInRequest: SignInRequest, redirectToDashboard = true): Observable<SignInResponse> {
     return this.http.post<SignInResponse>(`${this.baseUrl}/authentication/sign-in`, signInRequest, this.httpOptions)
-      .subscribe({
-        next: (response) => {
+      .pipe(
+        tap(response => {
           this.signedIn.next(true);
           this.signedInUserId.next(response.id);
           localStorage.setItem('token', response.token);
 
           if (response.roles.includes('ROLE_MECHANIC')) {
             localStorage.setItem('user_role', 'ROLE_MECHANIC');
+            if (redirectToDashboard) {
+              this.getRoleSpecificUserId().subscribe({
+                next: () => {
+                  this.router.navigate(['/mechanic-dashboard']).then();
+                },
+                error: (err) => {
+                  console.error('Failed to fetch mechanic profile id', err);
+                  this.signOut()
+                }
+              });
+            }
 
-            this.getRoleSpecificUserId().subscribe({
-              next: (id) => {
-                this.router.navigate(['/mechanic-dashboard']);
-              },
-              error: (err) => {
-                console.error('Failed to fetch mechanic profile id', err);
-              }
-            });
+
 
           } else if (response.roles.includes('ROLE_OWNER')) {
             localStorage.setItem('user_role', 'ROLE_OWNER');
-            this.getRoleSpecificUserId().subscribe({
-              next: (id) => {
-                console.log('Stored role_id:', id);
-                this.router.navigate(['/owner-dashboard']);
-              },
-              error: (err) => {
-                console.error('Failed to fetch mechanic profile id', err);
-              }
-            });
+            if (redirectToDashboard) {
+              this.getRoleSpecificUserId().subscribe({
+                next: () => {
+                  this.router.navigate(['/owner-dashboard']).then();
+                },
+                error: (err) => {
+                  console.error('Failed to fetch owner profile id', err);
+                  this.signOut();
+                  this.signOut()
+                }
+              });
+            }
           }
-        },
-        error: (error) => {
-          this.signedIn.next(false);
-          this.signedInUserId.next(0);
-          console.error(`Error while signing in: ${error}`);
-          this.router.navigate(['/sign-in']).then();
-        }
-      });
+        })
+      );
   }
 
   /**
