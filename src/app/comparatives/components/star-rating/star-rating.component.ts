@@ -30,7 +30,7 @@ import { CommonModule } from '@angular/common';
   `]
 })
 export class StarRatingComponent {
-  @Input() score: number = 0; // 0..10
+  @Input() score: number = 0;
 
   get starsArray(): ('full'|'half'|'empty')[] {
     const normalized = Math.max(0, Math.min(10, this.score));
@@ -45,4 +45,3 @@ export class StarRatingComponent {
     ] as any;
   }
 }
-

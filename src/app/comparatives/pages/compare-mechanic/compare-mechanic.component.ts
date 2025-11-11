@@ -14,22 +14,22 @@ import {AuthenticationService} from '@app/iam/services/authentication.service';
   template: `
     <div class="page">
       <div class="header">
-        <div class="badge">Mecánico</div>
-        <h1 class="page-title">Comparativa de Modelos</h1>
-        <p class="subtitle">Compara especificaciones técnicas entre todos los modelos disponibles</p>
+        <div class="badge">Mechanic</div>
+        <h1 class="page-title">Model Comparison</h1>
+        <p class="subtitle">Compare technical specifications across available models</p>
       </div>
 
       <div *ngIf="loading" class="loading-container">
         <div class="spinner"></div>
-        <p>Cargando modelos...</p>
+        <p>Loading models...</p>
       </div>
 
       <div *ngIf="!loading && availableVehicles.length === 0" class="empty-state">
         <svg width="120" height="120" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
           <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
         </svg>
-        <h3>No hay modelos disponibles</h3>
-        <p>No se encontraron modelos para comparar.</p>
+        <h3>No models available</h3>
+        <p>No models found to compare.</p>
       </div>
 
       <div *ngIf="!loading && availableVehicles.length > 0" class="content">
@@ -310,8 +310,7 @@ export class CompareMechanicComponent implements OnInit {
 
         this.loading = false;
       },
-      error: (err) => {
-        console.error('Error loading models:', err);
+      error: (_) => {
         this.loading = false;
       }
     });

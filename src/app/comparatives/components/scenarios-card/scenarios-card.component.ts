@@ -9,8 +9,8 @@ import { Vehicle } from '../../model/model';
   template: `
     <div class="scenarios-card">
       <div class="card-header">
-        <h2 class="section-title">Escenarios de Uso</h2>
-        <p class="section-subtitle">Desempeño en diferentes condiciones</p>
+        <h2 class="section-title">Usage Scenarios</h2>
+        <p class="section-subtitle">Performance in different conditions</p>
       </div>
 
       <div class="scenarios-grid" *ngIf="owner && compare">
@@ -46,7 +46,7 @@ import { Vehicle } from '../../model/model';
             <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
               <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
             </svg>
-            <span>Mejor para {{ scenario.ownerScore > scenario.compareScore ? owner.model.name : compare.model.name }}</span>
+            <span>Better for {{ scenario.ownerScore > scenario.compareScore ? owner.model.name : compare.model.name }}</span>
           </div>
         </div>
       </div>

@@ -34,15 +34,15 @@ import { Vehicle } from '../../model/model';
           <h2 class="vehicle-name">{{ vehicle.model.brand }} {{ vehicle.model.name }}</h2>
           <div class="vehicle-details">
             <div class="detail-item">
-              <span class="detail-label">Año</span>
+              <span class="detail-label">Year</span>
               <span class="detail-value">{{ vehicle.year }}</span>
             </div>
             <div class="detail-item">
-              <span class="detail-label">Placa</span>
+              <span class="detail-label">Plate</span>
               <span class="detail-value">{{ vehicle.plate }}</span>
             </div>
             <div class="detail-item">
-              <span class="detail-label">Tipo</span>
+              <span class="detail-label">Type</span>
               <span class="detail-value">{{ vehicle.model.type }}</span>
             </div>
           </div>
@@ -51,15 +51,15 @@ import { Vehicle } from '../../model/model';
         <div class="specs-preview">
           <div class="spec-badge">
             <div class="spec-value">{{ vehicle.model.displacement }}</div>
-            <div class="spec-label">Cilindrada</div>
+            <div class="spec-label">Displacement</div>
           </div>
           <div class="spec-badge">
             <div class="spec-value">{{ vehicle.model.potency }}</div>
-            <div class="spec-label">Potencia</div>
+            <div class="spec-label">Power</div>
           </div>
           <div class="spec-badge">
             <div class="spec-value">{{ vehicle.model.consumption }}</div>
-            <div class="spec-label">Consumo</div>
+            <div class="spec-label">Consumption</div>
           </div>
         </div>
       </div>

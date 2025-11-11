@@ -9,8 +9,8 @@ import { Vehicle } from '../../model/model';
   template: `
     <div class="specs-card">
       <div class="card-header">
-        <h2 class="section-title">Especificaciones Técnicas</h2>
-        <p class="section-subtitle">Comparación detallada de características</p>
+        <h2 class="section-title">Technical Specifications</h2>
+        <p class="section-subtitle">Detailed comparison of features</p>
       </div>
 
       <div class="specs-grid" *ngIf="owner && compare">
@@ -190,16 +190,16 @@ export class SpecsCardComponent {
   @Input() compare!: Vehicle | null;
 
   specs = [
-    { key: 'displacement', label: 'Cilindrada' },
-    { key: 'potency', label: 'Potencia' },
-    { key: 'engineTorque', label: 'Par Motor' },
-    { key: 'weight', label: 'Peso' },
-    { key: 'transmission', label: 'Transmisión' },
-    { key: 'brakes', label: 'Frenos' },
-    { key: 'tank', label: 'Tanque' },
-    { key: 'seatHeight', label: 'Altura del asiento' },
-    { key: 'consumption', label: 'Consumo' },
-    { key: 'price', label: 'Precio aprox.' }
+    { key: 'displacement', label: 'Displacement' },
+    { key: 'potency', label: 'Power' },
+    { key: 'engineTorque', label: 'Engine Torque' },
+    { key: 'weight', label: 'Weight' },
+    { key: 'transmission', label: 'Transmission' },
+    { key: 'brakes', label: 'Brakes' },
+    { key: 'tank', label: 'Tank' },
+    { key: 'seatHeight', label: 'Seat Height' },
+    { key: 'consumption', label: 'Consumption' },
+    { key: 'price', label: 'Approx. Price' }
   ];
 
   getSpecValue(vehicle: Vehicle | null, key: string) {

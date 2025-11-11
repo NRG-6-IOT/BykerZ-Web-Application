@@ -15,21 +15,21 @@ import {AuthenticationService} from '@app/iam/services/authentication.service';
   template: `
     <div class="page">
       <div class="header">
-        <h1 class="page-title">Comparativa de Vehículos</h1>
-        <p class="subtitle">Compara las especificaciones técnicas de tus motocicletas</p>
+        <h1 class="page-title">Vehicle Comparison</h1>
+        <p class="subtitle">Compare the technical specifications of your motorcycles</p>
       </div>
 
       <div *ngIf="loading" class="loading-container">
         <div class="spinner"></div>
-        <p>Cargando vehículos...</p>
+        <p>Loading vehicles...</p>
       </div>
 
       <div *ngIf="!loading && availableVehicles.length === 0" class="empty-state">
         <svg width="120" height="120" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
           <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
         </svg>
-        <h3>No hay vehículos disponibles</h3>
-        <p>No tienes vehículos registrados para comparar.</p>
+        <h3>No vehicles available</h3>
+        <p>You have no registered vehicles to compare.</p>
       </div>
 
       <div *ngIf="!loading && availableVehicles.length > 0" class="content">
@@ -280,11 +280,9 @@ export class ComparePageComponent implements OnInit {
           this.loadOwnerVehicles();
         } else {
           this.loading = false;
-          console.error('No authenticated user found');
         }
       },
-      error: (err) => {
-        console.error('Error getting user ID:', err);
+      error: () => {
         this.loading = false;
       }
     });
@@ -297,7 +295,6 @@ export class ComparePageComponent implements OnInit {
         this.availableVehicles = vehicles.map(v => this.mapToVehicle(v));
 
         if (this.availableVehicles.length > 0) {
-          // Check if ownerId query param is provided
           const ownerIdParam = this.route.snapshot.queryParamMap.get('ownerId');
           const vehicleId = ownerIdParam ? Number(ownerIdParam) : NaN;
 
@@ -308,7 +305,6 @@ export class ComparePageComponent implements OnInit {
             this.ownerVehicle = this.availableVehicles[0];
           }
 
-          // Set compare vehicle to second available vehicle or first if only one
           if (this.availableVehicles.length > 1) {
             this.compareVehicle = this.availableVehicles[1];
           } else {
@@ -319,14 +315,10 @@ export class ComparePageComponent implements OnInit {
         this.loading = false;
       },
       error: (err) => {
-        console.error('Error loading vehicles:', err);
-
-        // If 404, user might be a mechanic or have no vehicles
-        if (err.status === 404) {
-          console.warn('No vehicles found for this user. Redirecting to mechanic view.');
+        // Redirect to mechanic view if not found
+        if (err?.status === 404) {
           this.router.navigate(['/compare-mechanic']);
         }
-
         this.loading = false;
       }
     });
