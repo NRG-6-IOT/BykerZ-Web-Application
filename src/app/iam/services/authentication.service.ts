@@ -78,11 +78,13 @@ export class AuthenticationService {
     return this.http.post<SignInResponse>(`${this.baseUrl}/authentication/sign-in`, signInRequest, this.httpOptions)
       .pipe(
         tap(response => {
+          console.log('Attempting sign-in with response:', response);
           this.signedIn.next(true);
           this.signedInUserId.next(response.id);
           localStorage.setItem('token', response.token);
 
           if (response.roles.includes('ROLE_MECHANIC')) {
+            console.log('Signing in as mechanic');
             localStorage.setItem('user_role', 'ROLE_MECHANIC');
             if (redirectToDashboard) {
               this.getRoleSpecificUserId().subscribe({
@@ -96,9 +98,8 @@ export class AuthenticationService {
               });
             }
 
-
-
           } else if (response.roles.includes('ROLE_OWNER')) {
+            console.log('Signing in as owner');
             localStorage.setItem('user_role', 'ROLE_OWNER');
             if (redirectToDashboard) {
               this.getRoleSpecificUserId().subscribe({
