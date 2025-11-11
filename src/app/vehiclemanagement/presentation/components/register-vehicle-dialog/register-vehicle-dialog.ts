@@ -30,17 +30,14 @@ export class RegisterVehicleDialog{
   private store = inject(VehiclesStore);
 
   brand: string = "";
-
   modelOptions: Model[];
   model: Model | null = null;
-
   yearOptions: String[];
   year: string = "";
-
   plate: string = "";
 
   constructor(
-    public dialogRef: MatDialogRef<RegisterVehicleDialog>
+      public dialogRef: MatDialogRef<RegisterVehicleDialog>
   ) {
     this.modelOptions = [];
     this.yearOptions = [
@@ -100,6 +97,11 @@ export class RegisterVehicleDialog{
       year: this.year,
       modelId: this.model!.id
     });
+    if (this.store.error() != null) {
+      alert(this.store.error());
+      return;
+    }
+    alert('Vehicle registered successfully');
     this.dialogRef.close();
   }
 }
