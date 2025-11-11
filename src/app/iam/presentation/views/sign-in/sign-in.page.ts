@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {BaseFormComponent} from '@app/shared/presentation/components/base-form.component';
 import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import {AuthenticationService} from '@app/iam/services/authentication.service';
-import {SignInRequest} from '@app/iam/model/sign-in.request';
+import {SignInRequest} from '@app/iam/domain/model/sign-in.request';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatButtonModule} from '@angular/material/button';
 import {MatInputModule} from '@angular/material/input';

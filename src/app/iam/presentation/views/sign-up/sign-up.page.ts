@@ -5,7 +5,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {BaseFormComponent} from '@app/shared/presentation/components/base-form.component';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
-import {SignUpRequest} from '@app/iam/model/sign-up.request';
+import {SignUpRequest} from '@app/iam/domain/model/sign-up.request';
 import {AuthenticationService} from '@app/iam/services/authentication.service';
 
 @Component({
@@ -35,8 +35,7 @@ export class SignUpPage extends BaseFormComponent implements OnInit {
       email: ['', Validators.required],
       photoUrl: ['', Validators.required],
       password: ['', Validators.required],
-      confirmPassword: ['', Validators.required],
-      role: ['', Validators.required]
+      confirmPassword: ['', Validators.required]
     }, {validator: this.passwordMatchValidator});
   }
 
@@ -55,7 +54,7 @@ export class SignUpPage extends BaseFormComponent implements OnInit {
     let email = this.signUpForm.value.email;
     let photoUrl = this.signUpForm.value.photoUrl;
     let password = this.signUpForm.value.password;
-    let roles = [this.signUpForm.value.role];
+    let roles = ['ROLE_MECHANIC'];
 
     const signUpRequest = new SignUpRequest(firstName, lastName, username, email, photoUrl, password, roles);
     console.log(`Requesting sign up`);
