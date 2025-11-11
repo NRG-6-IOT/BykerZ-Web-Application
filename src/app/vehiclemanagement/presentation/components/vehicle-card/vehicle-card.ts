@@ -3,6 +3,9 @@ import {MatCard, MatCardContent} from '@angular/material/card';
 import {NgOptimizedImage} from '@angular/common';
 import {Vehicle} from '../../../domain/model/vehicle.entity';
 import {RouterLink} from '@angular/router';
+import {
+  NotificationListComponent
+} from '@app/notifications/presentation/components/app-notification-list/app-notification-list';
 
 @Component({
   selector: 'app-vehicle-card',
@@ -10,7 +13,8 @@ import {RouterLink} from '@angular/router';
     MatCard,
     NgOptimizedImage,
     MatCardContent,
-    RouterLink
+    RouterLink,
+    NotificationListComponent
   ],
   templateUrl: './vehicle-card.html',
   standalone: true,

@@ -1,222 +1,229 @@
-import {Client, IMessage} from '@stomp/stompjs';
-import {BehaviorSubject} from 'rxjs';
-import {Injectable} from '@angular/core';
+// websocket.service.ts
+import { Injectable } from '@angular/core';
+import { Client } from '@stomp/stompjs';
+import { BehaviorSubject } from 'rxjs';
+import { NotificationEntity } from '@app/notifications/domain/model/notification-entity.entity';
 
 @Injectable({
   providedIn: 'root'
 })
 export class WebSocketService {
-  private stompClient: Client | null = null;
-  private isConnected = new BehaviorSubject<boolean>(false);
-  private notifications = new BehaviorSubject<Notification[]>([]);
-  private subscriptions = new Map<number, any>(); // Para manejar múltiples suscripciones
+  private client: Client | null = null;
+  public notifications = new BehaviorSubject<NotificationEntity[]>([]);
+  public isConnected = new BehaviorSubject<boolean>(false);
+  private connectionAttempted = false;
+  private activeSubscriptions = new Map<number, any>();
+  private pendingSubscriptions = new Set<number>(); // ← Para evitar duplicados durante reconexión
 
-  public connectionStatus$ = this.isConnected.asObservable();
-  public notifications$ = this.notifications.asObservable();
+  constructor() {}
 
-  constructor() {
-    console.log('🎯 WebSocketService CONSTRUCTOR ejecutado');
-    this.initializeWebSocket();
-  }
+  private connect() {
+    if (this.connectionAttempted) return;
+    this.connectionAttempted = true;
 
-  private initializeWebSocket(): void {
-    console.log('🎯 initializeWebSocket ejecutado');
+    console.log('🔄 Iniciando conexión WebSocket...');
 
-    const websocketUrl = `ws://localhost:8080/ws-wellness/websocket`;
-    console.log('🔌 Conectando WebSocket nativo a:', websocketUrl);
-
-    this.stompClient = new Client({
-      brokerURL: websocketUrl,
+    this.client = new Client({
+      brokerURL: 'ws://localhost:8080/ws-wellness',
       reconnectDelay: 5000,
-      heartbeatIncoming: 4000,
-      heartbeatOutgoing: 4000,
+      connectionTimeout: 5000,
 
       onConnect: () => {
-        console.log('✅ WebSocket conectado exitosamente');
+        console.log('✅ WebSocket Conectado exitosamente');
         this.isConnected.next(true);
-
-        // Re-suscribir todas las suscripciones activas después de reconexión
-        this.reconnectSubscriptions();
+        // NO llamar reconnectSubscriptions aquí - ya se maneja en setupSubscription
       },
 
       onDisconnect: () => {
-        console.log('❌ WebSocket desconectado');
+        console.log('❌ WebSocket Desconectado');
         this.isConnected.next(false);
       },
 
       onStompError: (error) => {
-        console.error('❌ Error en WebSocket STOMP:', error);
+        console.error('❌ Error STOMP:', error);
+        this.isConnected.next(false);
+      },
+
+      onWebSocketError: (event) => {
+        console.error('🔌 Error WebSocket:', event);
         this.isConnected.next(false);
       }
     });
 
-    console.log('🎯 stompClient creado, activando...');
-    this.stompClient.activate();
+    try {
+      this.client.activate();
+      console.log('🎯 Cliente WebSocket activado');
+    } catch (error) {
+      console.error('❌ Error activando WebSocket:', error);
+    }
   }
 
-  /**
-   * Suscribirse a alertas de un vehículo específico (versión mejorada)
-   */
-  subscribeToVehicleAlerts(vehicleId: number): void {
-    console.log('🎯 subscribeToVehicleAlerts llamado con vehicleId:', vehicleId);
+  subscribeToVehicle(vehicleId: number) {
+    console.log('📡 Intentando suscribirse a vehicle:', vehicleId);
 
-    // Si ya estamos suscritos a este vehicleId, no hacer nada
-    if (this.subscriptions.has(vehicleId)) {
-      console.log('ℹ️ Ya suscrito a vehicleId:', vehicleId);
+    // ✅ VERIFICACIÓN MÁS ESTRICTA
+    if (this.activeSubscriptions.has(vehicleId) || this.pendingSubscriptions.has(vehicleId)) {
+      console.log('ℹ️ Ya suscrito o pendiente de suscripción a vehicle:', vehicleId);
       return;
     }
 
-    if (!this.stompClient) {
-      console.error('❌ stompClient no inicializado');
+    // Marcar como pendiente
+    this.pendingSubscriptions.add(vehicleId);
+
+    // Si no hay cliente, conectarse primero
+    if (!this.client) {
+      console.log('🔄 Cliente no existe, conectando...');
+      this.connect();
+    }
+
+    this.setupSubscription(vehicleId);
+  }
+
+  private setupSubscription(vehicleId: number) {
+    // Si ya está conectado, suscribir inmediatamente
+    if (this.isConnected.value && this.client) {
+      console.log('✅ Ya conectado, suscribiendo inmediatamente');
+      this.doSubscription(vehicleId);
       return;
     }
 
-    const subscription = this.connectionStatus$.subscribe(connected => {
-      if (connected) {
-        console.log('✅ Conectado, suscribiendo a vehicleId:', vehicleId);
-        this.doVehicleSubscription(vehicleId);
-        subscription.unsubscribe();
+    // Si no está conectado, esperar la conexión
+    console.log('⏳ Esperando conexión para vehicle:', vehicleId);
+
+    const connectionSub = this.isConnected.subscribe(connected => {
+      if (connected && this.client) {
+        console.log('✅ Conectado, suscribiendo a vehicle:', vehicleId);
+        this.doSubscription(vehicleId);
+        connectionSub.unsubscribe(); // ← Limpiar después de usar
       }
     });
 
-    // Si ya estamos conectados, suscribir inmediatamente
-    if (this.isConnected.value) {
-      console.log('✅ Ya conectado, suscribiendo inmediatamente');
-      this.doVehicleSubscription(vehicleId);
-      subscription.unsubscribe();
-    }
+    // Limpiar suscripción después de 30 segundos por si acaso
+    setTimeout(() => {
+      connectionSub.unsubscribe();
+      this.pendingSubscriptions.delete(vehicleId);
+    }, 30000);
   }
 
-  private doVehicleSubscription(vehicleId: number): void {
-    console.log('🎯 doVehicleSubscription ejecutado para vehicleId:', vehicleId);
+  private doSubscription(vehicleId: number) {
+    if (!this.client) {
+      console.error('❌ Cliente WebSocket no disponible');
+      this.pendingSubscriptions.delete(vehicleId);
+      return;
+    }
 
-    if (!this.stompClient) {
-      console.error('❌ stompClient es null');
+    // ✅ VERIFICACIÓN FINAL ANTES DE SUSCRIBIR
+    if (this.activeSubscriptions.has(vehicleId)) {
+      console.log('ℹ️ Ya existe suscripción activa para vehicle:', vehicleId);
+      this.pendingSubscriptions.delete(vehicleId);
       return;
     }
 
     const topic = `/topic/vehicle/${vehicleId}/alerts`;
-    console.log('📡 Suscribiendo a topic:', topic);
+    console.log('🎯 Creando suscripción ÚNICA a:', topic);
 
     try {
-      const stompSubscription = this.stompClient.subscribe(topic, (message: IMessage) => {
-        console.log('🎯 MENSAJE WEBSOCKET RECIBIDO EN FRONTEND:');
-        console.log('📦 Body completo:', message.body);
+      const stompSubscription = this.client.subscribe(topic, (message) => {
+        console.log('🔔 Mensaje WebSocket recibido (SOLO UNA VEZ):', message.body);
 
         try {
-          const notification = JSON.parse(message.body);
-          console.log('🚗 Nueva alerta parseada:', notification);
-          this.handleNotification(notification);
-        } catch (parseError) {
-          console.error('❌ Error parseando mensaje JSON:', parseError);
-          console.log('📄 Contenido del mensaje:', message.body);
+          const data = JSON.parse(message.body);
+          const notification = new NotificationEntity(
+            Date.now(),
+            data.vehicleId || vehicleId,
+            data.title || 'Alerta',
+            data.message || data.body,
+            data.type,
+            data.severity
+          );
+
+          // Agregar a la lista
+          const current = this.notifications.value;
+          this.notifications.next([notification, ...current]);
+
+          this.showBrowserNotification(notification);
+        } catch (error) {
+          console.error('❌ Error parseando mensaje:', error);
         }
       });
 
-      // Guardar la suscripción para posible reconexión
-      this.subscriptions.set(vehicleId, stompSubscription);
-      console.log(`✅ SUSCRITO EXITOSAMENTE a ${topic}`);
+      // ✅ MARCAR COMO SUSCRITO
+      this.activeSubscriptions.set(vehicleId, stompSubscription);
+      this.pendingSubscriptions.delete(vehicleId);
+
+      console.log(`✅ Suscrito EXITOSAMENTE a ${topic}`);
 
     } catch (error) {
-      console.error('❌ Error en suscripción STOMP:', error);
+      console.error('❌ Error en suscripción:', error);
+      this.pendingSubscriptions.delete(vehicleId);
     }
   }
 
-  /**
-   * Reconectar suscripciones después de reconexión
-   */
-  private reconnectSubscriptions(): void {
-    console.log('🔄 Reconectando suscripciones...');
-    const vehicleIds = Array.from(this.subscriptions.keys());
-
-    this.subscriptions.clear();
-
-    vehicleIds.forEach(vehicleId => {
-      console.log('🔄 Re-suscribiendo a vehicleId:', vehicleId);
-      this.doVehicleSubscription(vehicleId);
-    });
-  }
-
-  /**
-   * Desuscribirse de alertas de un vehículo
-   */
-  unsubscribeFromVehicleAlerts(vehicleId: number): void {
-    const subscription = this.subscriptions.get(vehicleId);
+  unsubscribeFromVehicle(vehicleId: number) {
+    const subscription = this.activeSubscriptions.get(vehicleId);
     if (subscription) {
       subscription.unsubscribe();
-      this.subscriptions.delete(vehicleId);
-      console.log('✅ Desuscrito de vehicleId:', vehicleId);
+      this.activeSubscriptions.delete(vehicleId);
+      console.log('✅ Desuscrito de vehicle:', vehicleId);
     }
+    this.pendingSubscriptions.delete(vehicleId);
   }
 
-  /**
-   * Manejar notificaciones recibidas
-   */
-  private handleNotification(notification: Notification): void {
-    console.log('🔔 Notificación recibida en handleNotification:', notification);
-
-    // Agregar timestamp si no existe
-    if (!notification.createdAt) {
-      notification.createdAt = new Date().toISOString();
-    }
-
-    const currentNotifications = this.notifications.value;
-    this.notifications.next([notification, ...currentNotifications]);
-
-    // Mostrar notificación del navegador
-    this.showBrowserNotification(notification);
-  }
-
-  /**
-   * Mostrar notificación del navegador
-   */
-  private showBrowserNotification(notification: Notification): void {
+  private showBrowserNotification(notification: NotificationEntity) {
     if ('Notification' in window) {
       if (Notification.permission === 'granted') {
+        // Usar un icono por defecto si no existe el personalizado
+        const iconUrl = '/assets/icons/alert.png';
         new Notification(notification.title, {
-          body: `${notification.message} - Vehículo ${notification.vehicleId}`,
-          icon: '/assets/icons/alert.png',
-          tag: `vehicle-${notification.vehicleId}`
-        });
+          body: notification.message,
+          icon: iconUrl
+        }).onerror = () => {
+          // Si falla el icono, crear sin icono
+          new Notification(notification.title, {
+            body: notification.message
+          });
+        };
       } else if (Notification.permission === 'default') {
-        Notification.requestPermission().then(permission => {
-          if (permission === 'granted') {
-            this.showBrowserNotification(notification);
-          }
-        });
+        Notification.requestPermission();
       }
     }
   }
 
-  /**
-   * Obtener notificaciones del vehículo actual
-   */
-  getVehicleNotifications(vehicleId: number): Notification[] {
-    return this.notifications.value.filter(notification =>
-      notification.vehicleId === vehicleId
+  markAsRead(notificationId: number) {
+    const notifications = this.notifications.value.map(notif =>
+      notif.id === notificationId ? { ...notif, read: true } : notif
     );
+    this.notifications.next(notifications);
   }
 
-  /**
-   * Limpiar notificaciones del vehículo
-   */
-  clearVehicleNotifications(vehicleId: number): void {
-    const filteredNotifications = this.notifications.value.filter(
-      notification => notification.vehicleId !== vehicleId
-    );
-    this.notifications.next(filteredNotifications);
+  getVehicleNotifications(vehicleId: number): NotificationEntity[] {
+    return this.notifications.value.filter(notif => notif.vehicleId === vehicleId);
   }
 
-  /**
-   * Desconectar WebSocket
-   */
-  disconnect(): void {
-    if (this.stompClient) {
-      this.stompClient.deactivate();
-      this.stompClient = null;
+  disconnect() {
+    if (this.client) {
+      this.client.deactivate();
+      this.client = null;
       this.isConnected.next(false);
-      this.subscriptions.clear();
-      console.log('🔌 WebSocket desconectado');
+
+      // Limpiar todas las suscripciones
+      this.activeSubscriptions.forEach((sub, vehicleId) => {
+        sub.unsubscribe();
+      });
+      this.activeSubscriptions.clear();
+      this.pendingSubscriptions.clear();
+
+      console.log('🔌 WebSocket desconectado y limpiado');
     }
+  }
+
+  // ✅ MÉTODO PARA DEBUG: Ver estado actual
+  getSubscriptionStatus() {
+    return {
+      activeSubscriptions: Array.from(this.activeSubscriptions.keys()),
+      pendingSubscriptions: Array.from(this.pendingSubscriptions.keys()),
+      isConnected: this.isConnected.value,
+      totalNotifications: this.notifications.value.length
+    };
   }
 }

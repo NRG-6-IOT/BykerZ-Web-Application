@@ -87,3 +87,12 @@ mat-card h1 {
   color: #555;
   white-space: normal;
 }
+
+.metrics-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  padding: 8px 16px;
+}
+

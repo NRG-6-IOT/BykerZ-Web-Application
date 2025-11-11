@@ -9,6 +9,7 @@ import {SignInPage} from '@app/iam/presentation/views/sign-in/sign-in.page';
 import {SignUpPage} from '@app/iam/presentation/views/sign-up/sign-up.page';
 import {DashboardMechanicPage} from '@app/public/presentation/views/dashboard-mechanic-page/dashboard-mechanic-page';
 import {RoleSelectionPage} from '@app/iam/presentation/views/role-selection/role-selection.page';
+import {WellnessMetricPage} from '@app/metrics/presentation/views/wellness-metric-page/wellness-metric-page';
 
 const assignmentsRoutes = () => import('@app/assignments/presentation/assignments.routes').then(m => m.assignmentsRoutes);
 
@@ -27,4 +28,5 @@ export const routes: Routes = [
   { path: "membership", component: DashboardOwnerPage },
   { path: "vehicles", component: VehiclesPage },
   { path: "vehicle/:vehicleId", component: VehicleDetailsPage },
+  {path: 'wellness-metrics',component: WellnessMetricPage}
 ];

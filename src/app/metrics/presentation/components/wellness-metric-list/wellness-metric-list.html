@@ -1,0 +1,18 @@
+<div class="list-container">
+  <h1>Métricas de Wellness</h1>
+
+  <!-- Estado vacío -->
+  <div *ngIf="metrics().length === 0" class="empty-state">
+    <p>No hay métricas cargadas</p>
+    <button (click)="store.loadAllMetrics()">Cargar Métricas</button>
+  </div>
+
+  <!-- Grid de cards -->
+  <div *ngIf="metrics().length > 0" class="metrics-grid">
+    <app-wellness-metric-item
+      *ngFor="let metric of metrics()"
+      [wellnessMetric]="metric"
+      (wellnessMetricSelected)="onMetricSelected($event)">
+    </app-wellness-metric-item>
+  </div>
+</div>

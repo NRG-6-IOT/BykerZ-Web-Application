@@ -5,6 +5,7 @@ export const environment = {
   platformProviderMechanicEndpointPath: '/mechanic',
   platformProviderOwnerEndpointPath: '/owner',
   platformProviderProfileEndpointPath: '/profiles',
+  platformProviderWellnessMetricEndpointPath: '/metrics',
   platformProviderVehiclesEndpointPath: '/vehicles',
   platformProviderModelsEndpointPath: '/models',
 };
