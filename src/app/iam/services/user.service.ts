@@ -21,5 +21,25 @@ export class UserService {
 
     return this.http.get<User>(`${this.baseUrl}/users/${userId}`, { headers });
   }
+
+  getOwnerId(): Observable<{ ownerId: number }> {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    });
+
+    return this.http.get<{ ownerId: number }>(`${this.baseUrl}/users/owner`, { headers });
+  }
+
+  getMechanicId(): Observable<{ mechanicId: number }> {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    });
+
+    return this.http.get<{ mechanicId: number }>(`${this.baseUrl}/users/mechanic`, { headers });
+  }
 }
 

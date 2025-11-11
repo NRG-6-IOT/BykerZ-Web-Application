@@ -21,5 +21,14 @@ export class VehicleService {
 
     return this.http.get<Vehicle>(`${this.baseUrl}/${vehicleId}`, { headers });
   }
-}
 
+  getVehiclesByOwnerId(ownerId: number): Observable<Vehicle[]> {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`,
+      'accept': '*/*'
+    });
+
+    return this.http.get<Vehicle[]>(`${this.baseUrl}/owner/${ownerId}`, { headers });
+  }
+}

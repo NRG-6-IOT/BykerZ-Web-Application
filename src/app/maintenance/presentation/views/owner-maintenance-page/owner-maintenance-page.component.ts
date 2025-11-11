@@ -1,11 +1,16 @@
 import {Component, OnInit} from '@angular/core';
 import {CommonModule} from '@angular/common';
+import {Router} from '@angular/router';
 import {Maintenance} from '@app/maintenance/domain/model/maintenance.entity';
 import {MaintenanceService} from '@app/maintenance/infrastructure/maintenance.service';
 import {VehicleService} from '@app/vehiclemanagement/services/vehicle.service';
 import {UserService} from '@app/iam/services/user.service';
 import {Vehicle} from '@app/vehiclemanagement/model/vehicle.entity';
 import {User} from '@app/iam/model/user.entity';
+import {forkJoin, of} from 'rxjs';
+import {catchError, switchMap} from 'rxjs/operators';
+import {TokenService} from "@app/shared/infrastructure/token.service";
+import {AuthenticationService} from '@app/iam/services/authentication.service';
 
 interface MaintenanceCard {
   maintenance: Maintenance;
@@ -30,7 +35,7 @@ interface MaintenanceCard {
               <div class="grid grid-cols-2 gap-4">
                 <div>
                   <p class="font-semibold">Date & Time:</p>
-                  <p>{{card.maintenance.dateOfService}}</p>
+                  <p>{{card.maintenance.dateOfService | date:'medium'}}</p>
                 </div>
                 <div>
                   <p class="font-semibold">Location:</p>
@@ -76,7 +81,7 @@ interface MaintenanceCard {
               <div class="grid grid-cols-2 gap-4">
                 <div>
                   <p class="font-semibold">Date & Time:</p>
-                  <p>{{card.maintenance.dateOfService}}</p>
+                  <p>{{card.maintenance.dateOfService | date:'medium'}}</p>
                 </div>
                 <div>
                   <p class="font-semibold">Location:</p>
@@ -109,6 +114,13 @@ interface MaintenanceCard {
                     <p class="font-semibold">Expense:</p>
                     <p>{{card.maintenance.expense.name}} - $ {{card.maintenance.expense.finalPrice | number:'1.2-2'}}</p>
                   </div>
+                  <div class="col-span-2">
+                    <button
+                      (click)="navigateToExpenseDetails(card.maintenance.expense.id)"
+                      class="bg-[#FF6B35] text-white px-4 py-2 rounded-lg hover:bg-[#ff9169] transition-colors font-semibold">
+                      See Expense Details
+                    </button>
+                  </div>
                 }
               </div>
             </div>
@@ -122,92 +134,64 @@ interface MaintenanceCard {
 export class OwnerMaintenancePageComponent implements OnInit {
   scheduledMaintenances: MaintenanceCard[] = [];
   completedMaintenances: MaintenanceCard[] = [];
-
-  // Mock data for testing
-  private mockMaintenances: Maintenance[] = [
-    {
-      id: 1,
-      details: "Regular oil change and filter replacement",
-      vehicleId: 1,
-      dateOfService: "2025-11-15 10:00 AM",
-      location: "Talambo 135, San Miguel 15087",
-      description: "Scheduled maintenance",
-      state: "PENDING",
-      expense: null
-    },
-    {
-      id: 2,
-      details: "Brake inspection and tire rotation",
-      vehicleId: 1,
-      dateOfService: "2025-11-10 02:00 PM",
-      location: "Av. Universitaria 456, Los Olivos 15304",
-      description: "Preventive maintenance",
-      state: "IN_PROGRESS",
-      expense: null
-    },
-    {
-      id: 3,
-      details: "Complete engine overhaul",
-      vehicleId: 1,
-      dateOfService: "2025-10-20 09:00 AM",
-      location: "Talambo 135, San Miguel 15087",
-      description: "Major repair work",
-      state: "COMPLETED",
-      expense: {
-        id: 1,
-        name: "Engine Overhaul Expense",
-        finalPrice: 1500.00,
-        expenseType: "MAINTENANCE",
-        items: [
-          {
-            id: 1,
-            name: "Engine parts",
-            amount: 10,
-            unitPrice: 100,
-            totalPrice: 1000,
-            itemType: "SUPPLIES"
-          },
-          {
-            id: 2,
-            name: "Labor",
-            amount: 5,
-            unitPrice: 100,
-            totalPrice: 500,
-            itemType: "PAYMENT"
-          }
-        ]
-      }
-    }
-  ];
+  private userId: number | null = null;
 
   constructor(
     private maintenanceService: MaintenanceService,
     private vehicleService: VehicleService,
-    private userService: UserService
+    private userService: UserService,
+    private tokenService: TokenService,
+    private authService: AuthenticationService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
-    this.loadMaintenances();
+    this.userService.getOwnerId().subscribe( ({ownerId}) => {
+      this.userId = ownerId;
+      console.log('User ID:', this.userId);
+
+      if (this.userId) {
+        this.loadMaintenancesForOwner(this.userId);
+      } else {
+        console.error('User ID not found');
+      }
+    })
+
   }
 
-  loadMaintenances(): void {
-    // Using mock data for now
-    // TODO: Replace with actual API call when backend is ready
-    // this.maintenanceService.getMaintenances().subscribe({
-    //   next: (maintenances) => {
-    //     this.processMaintenances(maintenances);
-    //   },
-    //   error: (error) => {
-    //     console.error('Error loading maintenances:', error);
-    //   }
-    // });
-
-    // Using mock data
-    this.processMaintenances(this.mockMaintenances);
+  loadMaintenancesForOwner(ownerId: number): void {
+    this.vehicleService.getVehiclesByOwnerId(ownerId).pipe(
+      switchMap(vehicles => {
+        if (vehicles.length === 0) {
+          return of([]);
+        }
+        const maintenanceRequests = vehicles.map(vehicle =>
+          this.maintenanceService.getMaintenancesByVehicleId(vehicle.id).pipe(
+            catchError(error => {
+              console.error(`Error loading maintenances for vehicle ${vehicle.id}:`, error);
+              return of([]); // Return an empty array on error to not break the forkJoin
+            })
+          )
+        );
+        return forkJoin(maintenanceRequests);
+      }),
+      switchMap(maintenancesArray => {
+        // Flatten the array of arrays into a single array of maintenances
+        const allMaintenances = maintenancesArray.flat();
+        return of(allMaintenances);
+      })
+    ).subscribe({
+      next: (maintenances) => {
+        this.processMaintenances(maintenances);
+      },
+      error: (error) => {
+        console.error('Error loading vehicles or maintenances:', error);
+      }
+    });
   }
+
 
   processMaintenances(maintenances: Maintenance[]): void {
-    // Separate scheduled and completed maintenances
     const scheduled = maintenances.filter(m =>
       m.state === 'PENDING' || m.state === 'IN_PROGRESS'
     );
@@ -215,14 +199,12 @@ export class OwnerMaintenancePageComponent implements OnInit {
       m.state === 'COMPLETED' || m.state === 'CANCELLED'
     );
 
-    // Load vehicle and mechanic data for scheduled maintenances
     scheduled.forEach(maintenance => {
       const card: MaintenanceCard = { maintenance };
       this.scheduledMaintenances.push(card);
       this.loadAdditionalData(card);
     });
 
-    // Load vehicle and mechanic data for completed maintenances
     completed.forEach(maintenance => {
       const card: MaintenanceCard = { maintenance };
       this.completedMaintenances.push(card);
@@ -231,27 +213,30 @@ export class OwnerMaintenancePageComponent implements OnInit {
   }
 
   loadAdditionalData(card: MaintenanceCard): void {
-    // Load vehicle data
-    this.vehicleService.getVehicleById(card.maintenance.vehicleId).subscribe({
-      next: (vehicle) => {
-        card.vehicle = vehicle;
-        // Load mechanic data using the mechanicId from the vehicle
-        if (vehicle.mechanicId) {
-          this.userService.getUserById(vehicle.mechanicId).subscribe({
-            next: (mechanic: User) => {
-              card.mechanic = mechanic;
-            },
-            error: (error: any) => {
-              console.error('Error loading mechanic:', error);
-              // Set a fallback mechanic name
-              card.mechanic = { id: vehicle.mechanicId, username: 'Unknown Mechanic' };
-            }
-          });
-        }
-      },
-      error: (error) => {
+    const vehicleRequest = this.vehicleService.getVehicleById(card.maintenance.vehicleId).pipe(
+      catchError(error => {
         console.error('Error loading vehicle:', error);
-      }
+        return of(undefined);
+      })
+    );
+
+    const mechanicRequest = this.userService.getUserById(card.maintenance.mechanicId).pipe(
+      catchError(error => {
+        console.error('Error loading mechanic:', error);
+        return of({ id: card.maintenance.mechanicId, username: 'Unknown Mechanic' } as User);
+      })
+    );
+
+    forkJoin({
+      vehicle: vehicleRequest,
+      mechanic: mechanicRequest
+    }).subscribe(({ vehicle, mechanic }) => {
+      card.vehicle = vehicle;
+      card.mechanic = mechanic;
     });
+  }
+
+  navigateToExpenseDetails(expenseId: number): void {
+    this.router.navigate(['/expenses', expenseId]);
   }
 }

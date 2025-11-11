@@ -31,6 +31,5 @@ export const routes: Routes = [
   { path: "expenses" ,component: OwnerExpensesPageComponent , canActivate: [authenticationGuard] },
   { path: "expenses/:expenseId", component: OwnerExpenseDetailsPageComponent, canActivate: [authenticationGuard]},
   { path: "owner/maintenance" ,component: OwnerMaintenancePageComponent , canActivate: [authenticationGuard] },
-  //{ path: "owner/maintenance"},
   //{ path: "mechanic/maintenance" },
 ];

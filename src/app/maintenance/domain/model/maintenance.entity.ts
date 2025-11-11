@@ -1,19 +1,5 @@
-export interface ExpenseItem {
-  id: number;
-  name: string;
-  amount: number;
-  unitPrice: number;
-  totalPrice: number;
-  itemType: string;
-}
+import {Expense} from '@app/maintenance/domain/model/expense.entity';
 
-export interface Expense {
-  id: number;
-  name: string;
-  finalPrice: number;
-  expenseType: string;
-  items: ExpenseItem[];
-}
 
 export interface Maintenance {
   id: number;
@@ -24,5 +10,6 @@ export interface Maintenance {
   description: string;
   state: 'PENDING' | 'IN_PROGRESS' | 'COMPLETED' | 'CANCELLED';
   expense: Expense | null;
+  mechanicId: number;
 }
 
