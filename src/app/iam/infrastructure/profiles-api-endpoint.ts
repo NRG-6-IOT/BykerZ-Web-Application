@@ -14,7 +14,7 @@ export class ProfilesApiEndpoint extends BaseApiEndpoint<Profile, ProfileResourc
   }
 
   getByUserId(userId: number): Observable<ProfileResponse | ProfileResource> {
-    const url = `${environment.platformProviderApiBaseUrl}${environment.platformProviderProfileEndpointPath}/user/${userId}`;
+    const url = `${profilesApiEndpointUrl}/user/${userId}`;
     return this.http.get<ProfileResponse | ProfileResource>(url).pipe(
       catchError(this.handleError('Failed to fetch profile for current user'))
     );
