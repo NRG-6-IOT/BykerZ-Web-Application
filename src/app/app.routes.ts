@@ -9,6 +9,7 @@ import {SignInPage} from '@app/iam/presentation/views/sign-in/sign-in.page';
 import {SignUpPage} from '@app/iam/presentation/views/sign-up/sign-up.page';
 import {DashboardMechanicPage} from '@app/public/presentation/views/dashboard-mechanic-page/dashboard-mechanic-page';
 import {RoleSelectionPage} from '@app/iam/presentation/views/role-selection/role-selection.page';
+import {VerifyOwner} from '@app/iam/presentation/views/verify-owner/verify-owner';
 
 const assignmentsRoutes = () => import('@app/assignments/presentation/assignments.routes').then(m => m.assignmentsRoutes);
 
@@ -17,6 +18,7 @@ export const routes: Routes = [
   { path: "selection", component: RoleSelectionPage },
   { path: "sign-in", component: SignInPage },
   { path: "sign-up", component: SignUpPage },
+  { path: "verify", component: VerifyOwner },
   { path: "owner-dashboard", component: DashboardOwnerPage},
   { path: "mechanic-dashboard", component: DashboardMechanicPage},
   { path: "maintenances", component: MaintenanceComponent },
