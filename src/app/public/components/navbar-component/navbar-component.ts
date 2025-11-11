@@ -1,18 +1,11 @@
 import {Component, OnInit} from '@angular/core';
-import {MatToolbar} from '@angular/material/toolbar';
-import {MatButtonToggle, MatButtonToggleGroup} from '@angular/material/button-toggle';
 import {FormsModule} from '@angular/forms';
-import {MatButton} from '@angular/material/button';
-import {RouterLink, RouterLinkActive} from '@angular/router';
+
 
 @Component({
   selector: 'app-navbar-component',
   imports: [
-    MatToolbar,
-    MatButtonToggleGroup,
-    MatButtonToggle,
     FormsModule,
-    RouterLink,
   ],
   templateUrl: './navbar-component.html',
   standalone: true,
