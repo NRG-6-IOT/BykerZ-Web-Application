@@ -7,6 +7,7 @@ import {BaseFormComponent} from '@app/shared/presentation/components/base-form.c
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import {SignUpRequest} from '@app/iam/domain/model/sign-up.request';
 import {AuthenticationService} from '@app/iam/services/authentication.service';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-sign-up.component',
@@ -22,12 +23,15 @@ import {AuthenticationService} from '@app/iam/services/authentication.service';
 export class SignUpPage extends BaseFormComponent implements OnInit {
   signUpForm!: FormGroup;
   submitted = false;
+  invitationCode: string | null = null;
 
-  constructor(private builder: FormBuilder, private authenticationService: AuthenticationService) {
+  constructor(private route: ActivatedRoute, private builder: FormBuilder, private authenticationService: AuthenticationService) {
     super();
   }
 
   ngOnInit() {
+    this.invitationCode = this.route.snapshot.queryParamMap.get('invitationCode')
+
     this.signUpForm = this.builder.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
@@ -54,7 +58,7 @@ export class SignUpPage extends BaseFormComponent implements OnInit {
     let email = this.signUpForm.value.email;
     let photoUrl = this.signUpForm.value.photoUrl;
     let password = this.signUpForm.value.password;
-    let roles = ['ROLE_MECHANIC'];
+    let roles = this.invitationCode === null ? ['ROLE_MECHANIC'] : ['ROLE_OWNER'];
 
     const signUpRequest = new SignUpRequest(firstName, lastName, username, email, photoUrl, password, roles);
     console.log(`Requesting sign up`);
