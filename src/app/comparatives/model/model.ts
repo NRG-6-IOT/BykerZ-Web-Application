@@ -22,6 +22,9 @@ export class Model {
   durability?: string;
   octane?: string;
 
+  // Add index signature to allow string indexing
+  [key: string]: any;
+
   constructor(data: Partial<Model> = {}) {
     Object.assign(this, data);
   }

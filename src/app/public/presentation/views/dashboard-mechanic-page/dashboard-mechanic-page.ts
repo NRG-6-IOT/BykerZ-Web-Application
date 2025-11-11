@@ -5,11 +5,8 @@ import {
 
 @Component({
   selector: 'app-dashboard-mechanic-page',
-  imports: [
-    AssignmentTypeSelector
-  ],
-  templateUrl: './dashboard-mechanic-page.html',
   standalone: true,
+  templateUrl: './dashboard-mechanic-page.html',
   styleUrl: './dashboard-mechanic-page.css'
 })
 export class DashboardMechanicPage {

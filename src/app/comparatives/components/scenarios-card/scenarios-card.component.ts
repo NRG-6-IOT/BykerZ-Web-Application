@@ -1,65 +1,275 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Vehicle } from '../../model/model';
-import { StarRatingComponent } from '../star-rating/star-rating.component';
 
 @Component({
-  standalone: true,
-  imports: [CommonModule, StarRatingComponent],
   selector: 'app-scenarios-card',
+  standalone: true,
+  imports: [CommonModule],
   template: `
-    <div class="card">
-      <div class="card-header">Scenarios:</div>
-      <div class="grid">
-        <div class="scen-names">
-          <div *ngFor="let s of scenarios" class="row">{{ s }}</div>
-        </div>
-        <!-- both scenario columns use orange background -->
-        <div class="scen-col orange">
-          <div *ngFor="let s of scenarios" class="row">
-            <!-- override star color to black while cell text stays white -->
-            <app-star-rating [score]="getOwnerScenarioScore(s)" style="color: #000;"></app-star-rating>
+    <div class="scenarios-card">
+      <div class="card-header">
+        <h2 class="section-title">Escenarios de Uso</h2>
+        <p class="section-subtitle">Desempeño en diferentes condiciones</p>
+      </div>
+
+      <div class="scenarios-grid" *ngIf="owner && compare">
+        <div class="scenario-card" *ngFor="let scenario of scenarios">
+          <div class="scenario-header">
+            <div class="scenario-icon">{{ scenario.icon }}</div>
+            <h3 class="scenario-title">{{ scenario.name }}</h3>
           </div>
-        </div>
-        <div class="scen-col orange">
-          <div *ngFor="let s of scenarios" class="row">
-            <app-star-rating [score]="getCompareScenarioScore(s)" style="color: #000;"></app-star-rating>
+
+          <div class="scenario-comparison">
+            <div class="scenario-bar-container">
+              <div class="scenario-label">
+                <span class="vehicle-name">{{ owner.model.name }}</span>
+                <div class="stars-container">
+                  <span *ngFor="let star of getStarsArray(scenario.ownerScore)" class="star filled">★</span>
+                  <span *ngFor="let star of getStarsArray(10 - scenario.ownerScore)" class="star empty">★</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="scenario-bar-container">
+              <div class="scenario-label">
+                <span class="vehicle-name">{{ compare.model.name }}</span>
+                <div class="stars-container">
+                  <span *ngFor="let star of getStarsArray(scenario.compareScore)" class="star filled">★</span>
+                  <span *ngFor="let star of getStarsArray(10 - scenario.compareScore)" class="star empty">★</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="scenario-winner" *ngIf="scenario.ownerScore !== scenario.compareScore">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+            <span>Mejor para {{ scenario.ownerScore > scenario.compareScore ? owner.model.name : compare.model.name }}</span>
           </div>
         </div>
       </div>
     </div>
   `,
   styles: [`
-    .card { background:#fff; border-radius:8px; padding:14px; color:#000; box-shadow:0 1px 6px rgba(0,0,0,0.04); }
-    .card-header { font-weight:700; margin-bottom:10px; }
-    .grid { display:grid; grid-template-columns: 160px 1fr 1fr; gap:8px; align-items:center; }
-    .scen-names .row { padding:12px 8px; }
-    .scen-col .row { padding:10px 12px; }
-    .scen-col.orange .row { background:#FF6B35; color:#fff; border-radius:6px; display:flex; align-items:center; }
-    /* ensure star size and spacing are appropriate */
-    app-star-rating { font-size:18px; }
+    .scenarios-card {
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+      overflow: hidden;
+    }
+
+    .card-header {
+      background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+      padding: 2rem;
+      text-align: center;
+    }
+
+    .section-title {
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: white;
+      margin: 0 0 0.5rem 0;
+      letter-spacing: -0.3px;
+    }
+
+    .section-subtitle {
+      font-size: 0.95rem;
+      color: rgba(255, 255, 255, 0.7);
+      margin: 0;
+      font-weight: 400;
+    }
+
+    .scenarios-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+      padding: 2rem;
+    }
+
+    .scenario-card {
+      background: #fafafa;
+      border-radius: 12px;
+      padding: 1.75rem;
+      transition: all 0.3s ease;
+      border: 2px solid transparent;
+    }
+
+    .scenario-card:hover {
+      background: white;
+      border-color: #ff6b35;
+      box-shadow: 0 4px 12px rgba(255, 107, 53, 0.1);
+      transform: translateY(-2px);
+    }
+
+    .scenario-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .scenario-icon {
+      font-size: 2rem;
+      width: 56px;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(255, 107, 53, 0.25);
+    }
+
+    .scenario-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #1a1a1a;
+      margin: 0;
+      letter-spacing: -0.2px;
+    }
+
+    .scenario-comparison {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .scenario-bar-container {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .scenario-label {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .vehicle-name {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #333;
+      flex-shrink: 0;
+    }
+
+    .stars-container {
+      display: flex;
+      gap: 0.15rem;
+      font-size: 1.1rem;
+      line-height: 1;
+    }
+
+    .star {
+      transition: all 0.2s ease;
+    }
+
+    .star.filled {
+      color: #ff6b35;
+      text-shadow: 0 0 4px rgba(255, 107, 53, 0.3);
+    }
+
+    .star.empty {
+      color: #e0e0e0;
+    }
+
+    .scenario-winner {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1rem;
+      background: linear-gradient(135deg, #fff5f0 0%, #ffe8dc 100%);
+      border-radius: 8px;
+      color: #ff6b35;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-top: 1rem;
+    }
+
+    .scenario-winner svg {
+      flex-shrink: 0;
+    }
+
+    @media (max-width: 640px) {
+      .section-title {
+        font-size: 1.5rem;
+      }
+
+      .card-header {
+        padding: 1.5rem;
+      }
+
+      .scenarios-grid {
+        grid-template-columns: 1fr;
+        padding: 1.5rem;
+        gap: 1.25rem;
+      }
+
+      .scenario-card {
+        padding: 1.5rem;
+      }
+
+      .scenario-title {
+        font-size: 1rem;
+      }
+
+      .scenario-icon {
+        font-size: 1.5rem;
+        width: 48px;
+        height: 48px;
+      }
+
+      .scenario-label {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+      }
+
+      .stars-container {
+        font-size: 1rem;
+      }
+    }
   `]
 })
 export class ScenariosCardComponent {
   @Input() owner!: Vehicle | null;
   @Input() compare!: Vehicle | null;
 
-  scenarios = ['Traffic','Trips','Maintenance','Resale'];
+  scenarios = [
+    { name: 'Traffic', icon: '🚦', ownerScore: 0, compareScore: 0 },
+    { name: 'Trips', icon: '🚗', ownerScore: 0, compareScore: 0 },
+    { name: 'Maintenance', icon: '🔧', ownerScore: 0, compareScore: 0 },
+    { name: 'Resale', icon: '💰', ownerScore: 0, compareScore: 0 }
+  ];
 
-  // Mock scoring: derive some values from model ids as example. In real app replace with logic.
+  ngOnChanges() {
+    this.scenarios = this.scenarios.map(scenario => ({
+      ...scenario,
+      ownerScore: this.getOwnerScenarioScore(scenario.name),
+      compareScore: this.getCompareScenarioScore(scenario.name)
+    }));
+  }
+
   getOwnerScenarioScore(s: string) {
     if (!this.owner) return 0;
     return this.mockScore(this.owner.id, s);
   }
+
   getCompareScenarioScore(s: string) {
     if (!this.compare) return 0;
     return this.mockScore(this.compare.id, s);
   }
 
   mockScore(vehicleId: number, scenario: string) {
-    // produce a repeatable 1-10 value with halves
-    const base = (vehicleId * 3 + scenario.length) % 10 + 1; // 1..10
-    const half = ((vehicleId + scenario.length) % 2) ? 0.5 : 0; // sometimes halves
-    return Math.min(10, base + half);
+    const base = (vehicleId * 3 + scenario.length) % 10 + 1;
+    return Math.min(10, base);
+  }
+
+  getStarsArray(count: number): number[] {
+    return Array(Math.floor(count)).fill(0);
   }
 }

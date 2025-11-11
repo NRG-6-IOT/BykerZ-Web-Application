@@ -3,79 +3,216 @@ import { CommonModule } from '@angular/common';
 import { Vehicle } from '../../model/model';
 
 @Component({
+  selector: 'app-specs-card',
   standalone: true,
   imports: [CommonModule],
-  selector: 'app-specs-card',
   template: `
-    <div class="card">
-      <div class="card-header">Specs:</div>
-      <div class="grid">
-        <div class="specs-names">
-          <div *ngFor="let r of rows" class="row">{{ r }}</div>
-        </div>
-        <!-- both columns -> orange background -->
-        <div class="specs-col orange">
-          <div *ngFor="let r of rows" class="row">{{ getOwnerSpec(r) }}</div>
-        </div>
-        <div class="specs-col orange">
-          <div *ngFor="let r of rows" class="row">{{ getCompareSpec(r) }}</div>
+    <div class="specs-card">
+      <div class="card-header">
+        <h2 class="section-title">Especificaciones Técnicas</h2>
+        <p class="section-subtitle">Comparación detallada de características</p>
+      </div>
+
+      <div class="specs-grid" *ngIf="owner && compare">
+        <div class="spec-row" *ngFor="let spec of specs">
+          <div class="spec-name">{{ spec.label }}</div>
+          <div class="spec-comparison">
+            <div class="spec-value left" [class.winner]="isWinner(spec.key, 'owner')">
+              {{ getSpecValue(owner, spec.key) }}
+              <span class="winner-badge" *ngIf="isWinner(spec.key, 'owner')">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+              </span>
+            </div>
+            <div class="spec-divider"></div>
+            <div class="spec-value right" [class.winner]="isWinner(spec.key, 'compare')">
+              {{ getSpecValue(compare, spec.key) }}
+              <span class="winner-badge" *ngIf="isWinner(spec.key, 'compare')">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+              </span>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   `,
   styles: [`
-    .card { background:#fff; border-radius:8px; padding:14px; color:#000; box-shadow:0 1px 6px rgba(0,0,0,0.04); }
-    .card-header { font-weight:700; margin-bottom:10px; }
-    .grid { display:grid; grid-template-columns: 160px 1fr 1fr; gap:8px; align-items:start; }
-    .specs-names .row { padding:10px 8px; border-bottom:1px solid #f0f0f0; color:#000; }
-    .specs-col { padding:0; }
-    .specs-col .row { padding:10px 12px; border-bottom:1px solid rgba(0,0,0,0.04); background:#fff; color:#000; }
-    /* orange for both data columns */
-    .specs-col.orange .row { background:#FF6B35; color:#fff; }
-    .row { font-size:13px; }
+    .specs-card {
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+      overflow: hidden;
+    }
+
+    .card-header {
+      background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+      padding: 2rem;
+      text-align: center;
+    }
+
+    .section-title {
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: white;
+      margin: 0 0 0.5rem 0;
+      letter-spacing: -0.3px;
+    }
+
+    .section-subtitle {
+      font-size: 0.95rem;
+      color: rgba(255, 255, 255, 0.7);
+      margin: 0;
+      font-weight: 400;
+    }
+
+    .specs-grid {
+      padding: 1.5rem;
+    }
+
+    .spec-row {
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 2rem;
+      padding: 1.25rem;
+      border-bottom: 2px solid #f5f5f5;
+      transition: background-color 0.2s ease;
+    }
+
+    .spec-row:last-child {
+      border-bottom: none;
+    }
+
+    .spec-row:hover {
+      background-color: #fafafa;
+    }
+
+    .spec-name {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #333;
+      display: flex;
+      align-items: center;
+      text-transform: capitalize;
+    }
+
+    .spec-comparison {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      gap: 1.5rem;
+      align-items: center;
+    }
+
+    .spec-value {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #666;
+      padding: 0.75rem 1.25rem;
+      background: #f8f8f8;
+      border-radius: 10px;
+      text-align: center;
+      transition: all 0.3s ease;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+
+    .spec-value.winner {
+      background: linear-gradient(135deg, #fff5f0 0%, #ffe8dc 100%);
+      color: #ff6b35;
+      font-weight: 700;
+      box-shadow: 0 2px 8px rgba(255, 107, 53, 0.15);
+    }
+
+    .winner-badge {
+      color: #ff6b35;
+      display: flex;
+      align-items: center;
+    }
+
+    .spec-divider {
+      width: 2px;
+      height: 24px;
+      background: linear-gradient(to bottom, transparent, #e0e0e0, transparent);
+    }
+
+    @media (max-width: 968px) {
+      .spec-row {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+
+      .spec-name {
+        font-size: 0.9rem;
+        padding-bottom: 0.5rem;
+        border-bottom: 1px solid #f0f0f0;
+      }
+
+      .spec-comparison {
+        grid-template-columns: 1fr;
+        gap: 0.75rem;
+      }
+
+      .spec-divider {
+        display: none;
+      }
+
+      .spec-value {
+        font-size: 0.95rem;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .section-title {
+        font-size: 1.5rem;
+      }
+
+      .card-header {
+        padding: 1.5rem;
+      }
+
+      .specs-grid {
+        padding: 1rem;
+      }
+
+      .spec-row {
+        padding: 1rem;
+      }
+    }
   `]
 })
 export class SpecsCardComponent {
   @Input() owner!: Vehicle | null;
   @Input() compare!: Vehicle | null;
 
-  rows = [
-    'Displacement',
-    'Power',
-    'Engine Torque',
-    'Weight',
-    'Transmission',
-    'Brakes',
-    'Tank',
-    'Seat Height',
-    'Consumption',
-    'Price approx.'
+  specs = [
+    { key: 'displacement', label: 'Cilindrada' },
+    { key: 'potency', label: 'Potencia' },
+    { key: 'engineTorque', label: 'Par Motor' },
+    { key: 'weight', label: 'Peso' },
+    { key: 'transmission', label: 'Transmisión' },
+    { key: 'brakes', label: 'Frenos' },
+    { key: 'tank', label: 'Tanque' },
+    { key: 'seatHeight', label: 'Altura del asiento' },
+    { key: 'consumption', label: 'Consumo' },
+    { key: 'price', label: 'Precio aprox.' }
   ];
 
-  getOwnerSpec(row: string) {
-    if (!this.owner) return '-';
-    const m = this.owner.model;
-    return this.mapRow(row, m);
-  }
-  getCompareSpec(row: string) {
-    if (!this.compare) return '-';
-    const m = this.compare.model;
-    return this.mapRow(row, m);
+  getSpecValue(vehicle: Vehicle | null, key: string) {
+    if (!vehicle) return '-';
+    const value = (vehicle.model as any)[key];
+    return value !== undefined && value !== null ? value : '-';
   }
 
-  mapRow(row: string, m: any) {
-    switch (row) {
-      case 'Displacement': return m.displacement || '-';
-      case 'Power': return m.potency || '-';
-      case 'Engine Torque': return m.engineTorque || '-';
-      case 'Weight': return m.weight || '-';
-      case 'Transmission': return m.transmission || '-';
-      case 'Brakes': return m.brakes || '-';
-      case 'Tank': return m.tank || '-';
-      case 'Seat Height': return m.seatHeight || '-';
-      case 'Consumption': return m.consumption || '-';
-      case 'Price approx.': return m.price || '-';
-      default: return '-';
-    }
+  isWinner(key: string, type: 'owner' | 'compare') {
+    if (!this.owner || !this.compare) return false;
+    const ownerValue = (this.owner.model as any)[key];
+    const compareValue = (this.compare.model as any)[key];
+    if (ownerValue === compareValue) return false;
+    return ownerValue > compareValue ? type === 'owner' : type === 'compare';
   }
 }
