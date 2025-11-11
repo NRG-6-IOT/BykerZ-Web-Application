@@ -3,7 +3,7 @@ import {Model, Vehicle} from '../../model/vehicle.entity';
 import {ActivatedRoute, Router} from '@angular/router';
 import {NgOptimizedImage} from '@angular/common';
 import {MatCard} from '@angular/material/card';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {environment} from '../../../../environments/environment';
 
 @Component({
@@ -40,8 +40,15 @@ export class VehicleDetailsPage implements OnInit {
     if (!this.vehicle?.id) return;
 
     const url = `${environment.serverBaseUrl}/reports/vehicle/${this.vehicle.id}/export`;
+    const token = localStorage.getItem('token')?.replace(/^"|"$/g, '');
+    console.log('🔑 Token enviado:', token);
 
-    this.http.get(url, { responseType: 'text' }).subscribe({
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json'
+    });
+
+    this.http.get(url, { responseType: 'text', headers }).subscribe({
       next: (data) => {
         const blob = new Blob([data], { type: 'text/csv' });
         const a = document.createElement('a');
