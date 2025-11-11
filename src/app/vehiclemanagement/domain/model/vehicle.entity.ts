@@ -1,22 +1,13 @@
 export class Vehicle {
   id: number;
   ownerId: number;
-  mechanicId: number;
-  model: Model;
+  model: Model | null;
   year: string;
   plate: string;
 
-  constructor(vehicle: {
-    id?: number,
-    ownerId: number,
-    mechanicId: number,
-    model: Model,
-    year: string,
-    plate: string,
-  }) {
+  constructor(vehicle: { year: string; model: Model | null; plate: string; id: number; ownerId: number }) {
     this.id = vehicle.id || 0;
     this.ownerId = vehicle.ownerId;
-    this.mechanicId = vehicle.mechanicId;
     this.model = vehicle.model;
     this.year = vehicle.year;
     this.plate = vehicle.plate;
