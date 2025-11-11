@@ -11,6 +11,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {map, Observable, tap, throwError} from 'rxjs';
 import {environment} from '../../../../../environments/environment';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {SignInRequest} from '@app/iam/domain/model/sign-in.request';
 
 @Component({
   selector: 'app-sign-up.component',
@@ -87,8 +88,13 @@ export class SignUpPage extends BaseFormComponent implements OnInit {
     console.log(`Requesting sign up`);
     this.authenticationService.signUp(signUpRequest).subscribe({
       next: (response) => {
+        const signInRequest: SignInRequest = {
+          username: signUpRequest.username,
+          password: signUpRequest.password
+        };
+        this.authenticationService.signIn(signInRequest);
         // assuming response contains the created user id as 'id'
-        const ownerId = this.getOwnerIdOnCreation();
+        const ownerId = Number(this.getOwnerIdOnCreation());
         if (this.invitationCode && ownerId) {
           // verify code exists first
           this.authenticationService.verifyAssignmentCode(this.invitationCode).subscribe({
