@@ -1,7 +1,6 @@
 ﻿import {BaseResponse} from '@app/shared/infrastructure/base-response';
 
 export interface WellnessMetricsResponse extends BaseResponse {
-  status: string;
   wellnessMetrics: WellnessMetricResource[];
 }
 

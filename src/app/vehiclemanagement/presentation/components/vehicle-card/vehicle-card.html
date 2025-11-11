@@ -5,6 +5,11 @@
 
       <div class="vertical item">
         <h1>{{ vehicle.model?.brand }} - {{ vehicle.model?.name }}</h1>
+
+        <!-- Icono de notificaciones para este vehículo -->
+        <app-notification-list [vehicleId]="vehicle.id"></app-notification-list>
+
+
         <div class="white-box">
           <b>Model Year:</b> {{vehicle.model?.modelYear}}<br>
           <b>Plate:</b> {{vehicle.plate}}<br>
