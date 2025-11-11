@@ -65,7 +65,7 @@ export class AuthenticationService {
     return this.http.get<any>(url, this.httpOptions);
   }
 
-  assignOwnerToAssignment(assignmentCode: string, ownerId: Observable<number>): Observable<any> {
+  assignOwnerToAssignment(assignmentCode: string, ownerId: number): Observable<any> {
     const url = `${this.baseUrl}/assignments/code/${encodeURIComponent(assignmentCode)}/assign-owner/${ownerId}`;
     return this.http.patch<any>(url, null, this.httpOptions);
   }
@@ -101,7 +101,6 @@ export class AuthenticationService {
               },
               error: (err) => {
                 console.error('Failed to fetch mechanic profile id', err);
-                this.router.navigate(['/mechanic-dashboard']);
               }
             });
 
@@ -114,7 +113,6 @@ export class AuthenticationService {
               },
               error: (err) => {
                 console.error('Failed to fetch mechanic profile id', err);
-                this.router.navigate(['/mechanic-dashboard']);
               }
             });
           }
