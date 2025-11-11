@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {Model, Vehicle} from '../../model/vehicle.entity';
+import {Model, Vehicle} from '../../../domain/model/vehicle.entity';
 import {ActivatedRoute} from '@angular/router';
 import {NgOptimizedImage} from '@angular/common';
 import {MatCard} from '@angular/material/card';
@@ -39,7 +39,6 @@ export class VehicleDetailsPage implements OnInit {
         this.vehicle = new Vehicle({
           id: 1,
           ownerId: 10,
-          mechanicId: 20,
           model: new Model({
             id: 1,
             name: "CB190R",
@@ -72,7 +71,6 @@ export class VehicleDetailsPage implements OnInit {
         this.vehicle = new Vehicle({
           id: 2,
           ownerId: 11,
-          mechanicId: 21,
           model: new Model({
             id: 2,
             name: "FZS 25",
@@ -105,7 +103,6 @@ export class VehicleDetailsPage implements OnInit {
         this.vehicle = new Vehicle({
           id: 3,
           ownerId: 12,
-          mechanicId: 22,
           model: new Model({
             id: 3,
             name: "NT 200",
@@ -138,7 +135,6 @@ export class VehicleDetailsPage implements OnInit {
         this.vehicle = new Vehicle({
           id: 1,
           ownerId: 10,
-          mechanicId: 20,
           model: new Model({
             id: 1,
             name: "CB190R",

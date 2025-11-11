@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {Model, Vehicle} from '../../model/vehicle.entity';
-import {VehicleCard} from '../../components/vehicle-card/vehicle-card';
+import {Model, Vehicle} from '../../../domain/model/vehicle.entity';
+import {VehicleCard} from '@app/vehiclemanagement/presentation/components/vehicle-card/vehicle-card';
 import {MatFabButton} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
 import {MatDialog} from '@angular/material/dialog';
-import {RegisterVehicleDialog} from '../../components/register-vehicle-dialog/register-vehicle-dialog';
+import {RegisterVehicleDialog} from '@app/vehiclemanagement/presentation/components/register-vehicle-dialog/register-vehicle-dialog';
 
 @Component({
   selector: 'app-vehicles-page',
@@ -35,7 +35,6 @@ export class VehiclesPage implements OnInit {
       new Vehicle({
         id: 1,
         ownerId: 10,
-        mechanicId: 20,
         model: new Model({
           id: 1,
           name: "CB190R",
@@ -67,7 +66,6 @@ export class VehiclesPage implements OnInit {
       new Vehicle({
         id: 2,
         ownerId: 11,
-        mechanicId: 21,
         model: new Model({
           id: 2,
           name: "FZS 25",
@@ -99,7 +97,6 @@ export class VehiclesPage implements OnInit {
       new Vehicle({
         id: 3,
         ownerId: 12,
-        mechanicId: 22,
         model: new Model({
           id: 3,
           name: "NT 200",
