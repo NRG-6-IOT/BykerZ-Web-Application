@@ -1,7 +1,6 @@
 <mat-card [routerLink]="['/vehicle',vehicle.id]">
   <mat-card-content>
     <div class="horizontal">
-      <img class="item" ngSrc="/assets/images/vehicle.png" height="104" width="204" alt=""/>
 
       <div class="vertical item">
         <h1>{{ vehicle.model?.brand }} - {{ vehicle.model?.name }}</h1>
@@ -33,7 +32,7 @@
 
           <div class="data-row">
             <span><b>Produced At:</b></span>
-            <span>{{ formatDate(vehicle.model?.producedAt) }}</span>
+            <span>{{ formatDate(vehicle.model?.producedAt!) }}</span>
           </div>
 
           <div class="data-row">
@@ -47,14 +46,6 @@
           </div>
         </div>
       </div>
-
-      <span class="item" style="display: inline-block;height: 200px; background-color: white; width: 1%; border-radius: 10px"></span>
-
-      <div class="item">
-        <h2>Associated with: {{ownerAssignment?.mechanic?.completeName || "Unknown"}}</h2>
-      </div>
-
-      <img class="selection-arrow" style="margin-left: 10px" ngSrc="/assets/images/selection_arrow.png" height="68" width="39" alt="">
     </div>
   </mat-card-content>
 </mat-card>
