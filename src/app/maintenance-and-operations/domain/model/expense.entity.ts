@@ -1,6 +1,7 @@
 import {ExpenseItem} from '@app/maintenance-and-operations/domain/model/expense-item.entity';
+import {BaseEntity} from '@app/shared/domain/model/base-entity';
 
-export class Expense {
+export class Expense implements BaseEntity {
   id: number;
   name: string;
   finalPrice: number;

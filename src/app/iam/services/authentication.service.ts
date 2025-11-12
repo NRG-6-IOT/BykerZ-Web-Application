@@ -6,7 +6,8 @@ import {SignUpRequest} from '@app/iam/domain/model/sign-up.request';
 import {SignUpResponse} from '@app/iam/domain/model/sign-up.response';
 import {SignInRequest} from '@app/iam/domain/model/sign-in.request';
 import {SignInResponse} from '@app/iam/domain/model/sign-in-response';
-import {Injectable} from '@angular/core';
+import {inject, Injectable} from '@angular/core';
+import {ExpenseStore} from '@app/maintenance-and-operations/application/expense.store';
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +18,8 @@ export class AuthenticationService {
 
   private signedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   private signedInUserId: BehaviorSubject<number> = new BehaviorSubject<number>(0);
+
+  private expenseStore = inject(ExpenseStore);
 
   constructor(private router: Router, private http: HttpClient) { }
 
@@ -127,6 +130,11 @@ export class AuthenticationService {
     localStorage.removeItem('token');
     localStorage.removeItem('role_id');
     localStorage.removeItem('user_role');
+
+    // Reset all stores to clear cached data
+    this.expenseStore.reset();
+
+
     this.router.navigate(['/sign-in']).then();
   }
 }

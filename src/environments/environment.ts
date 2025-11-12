@@ -8,4 +8,6 @@ export const environment = {
   platformProviderWellnessMetricEndpointPath: '/metrics',
   platformProviderVehiclesEndpointPath: '/vehicles',
   platformProviderModelsEndpointPath: '/models',
+  platformProviderExpenseEndpointPath: '/expense',
+  platformProviderMaintenanceEndpointPath: '/maintenance',
 };

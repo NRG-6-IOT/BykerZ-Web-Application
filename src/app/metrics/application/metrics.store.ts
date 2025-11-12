@@ -74,4 +74,11 @@ export class MetricsStore {
       );
     });
   }
+
+  /**
+   * Resets the entire store state (useful for sign-out)
+   */
+  reset(): void {
+    this.metricsSignal.set([]);
+  }
 }

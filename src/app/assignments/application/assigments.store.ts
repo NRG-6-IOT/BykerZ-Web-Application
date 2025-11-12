@@ -130,6 +130,18 @@ export class AssignmentsStore {
     });
   }
 
+  /**
+   * Resets the entire store state (useful for sign-out)
+   */
+  reset(): void {
+    this.activeAssignmentsSignal.set([]);
+    this.pendingAssignmentsSignal.set([]);
+    this.createdAssignmentSignal.set(null);
+    this.ownerAssignmentSignal.set(null);
+    this.errorSignal.set(null);
+    this.loadingSignal.set(false);
+  }
+
   private formatError(error: any, fallback: string): string {
     if(error instanceof Error) {
       return error.message.includes('Resource not found') ? `${fallback}: Not found` : error.message;
