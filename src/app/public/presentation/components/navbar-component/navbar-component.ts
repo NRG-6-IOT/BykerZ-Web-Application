@@ -28,15 +28,16 @@ export class NavbarComponent implements OnInit {
   ownerOptions = [
     { name: 'Dashboard', route: '/owner-dashboard' },
     { name: 'Vehicles', route: '/vehicles' },
-    { name: 'Maintenance', route: '/maintenances' },
     { name: 'Comparatives', route: '/compare' },
-    { name: 'Expenses', route: '/expenses' }
+    { name: 'Expenses', route: '/expenses' },
+    { name: 'Maintenance', route: '/maintenance/owner' },
+
   ];
 
   mechanicOptions = [
     { name: 'Dashboard', route: '/mechanic-dashboard' },
     { name: 'Assignments', route: '/assignments' },
-    { name: 'Maintenance', route: '/maintenances' },
+    { name: 'Maintenance', route: '/maintenances/mechanic' },
     { name: 'Comparatives', route: '/compare' },
     { name: 'Membership', route: '/membership' }
   ];
