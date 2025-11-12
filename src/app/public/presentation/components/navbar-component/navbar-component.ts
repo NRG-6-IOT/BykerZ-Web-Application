@@ -30,7 +30,7 @@ export class NavbarComponent implements OnInit {
     { name: 'Vehicles', route: '/vehicles' },
     { name: 'Comparatives', route: '/compare' },
     { name: 'Expenses', route: '/expenses' },
-    { name: 'Maintenance', route: '/maintenance/owner' },
+    { name: 'Maintenance', route: '/maintenances/owner' },
 
   ];
 

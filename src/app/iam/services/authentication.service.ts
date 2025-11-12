@@ -1,4 +1,4 @@
-import {environment} from '../../../environments/environment';
+import {environment} from '@env/environment';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {BehaviorSubject, map, Observable, tap, throwError} from 'rxjs';
 import {Router} from '@angular/router';
@@ -8,6 +8,8 @@ import {SignInRequest} from '@app/iam/domain/model/sign-in.request';
 import {SignInResponse} from '@app/iam/domain/model/sign-in-response';
 import {inject, Injectable} from '@angular/core';
 import {ExpenseStore} from '@app/maintenance-and-operations/application/expense.store';
+import {MaintenanceStore} from '@app/maintenance-and-operations/application/maintenance.store';
+
 
 @Injectable({
   providedIn: 'root'
@@ -20,6 +22,7 @@ export class AuthenticationService {
   private signedInUserId: BehaviorSubject<number> = new BehaviorSubject<number>(0);
 
   private expenseStore = inject(ExpenseStore);
+  private maintenanceStore = inject(MaintenanceStore);
 
   constructor(private router: Router, private http: HttpClient) { }
 
@@ -133,7 +136,7 @@ export class AuthenticationService {
 
     // Reset all stores to clear cached data
     this.expenseStore.reset();
-
+    this.maintenanceStore.reset();
 
     this.router.navigate(['/sign-in']).then();
   }
