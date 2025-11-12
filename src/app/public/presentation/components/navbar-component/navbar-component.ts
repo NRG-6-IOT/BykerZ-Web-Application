@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+  import {Component, OnInit} from '@angular/core';
 import {MatToolbar} from '@angular/material/toolbar';
 import {FormsModule} from '@angular/forms';
 import {Router, RouterLink, RouterLinkActive} from '@angular/router';
@@ -28,15 +28,16 @@ export class NavbarComponent implements OnInit {
   ownerOptions = [
     { name: 'Dashboard', route: '/owner-dashboard' },
     { name: 'Vehicles', route: '/vehicles' },
-    { name: 'Maintenance', route: '/maintenances' },
     { name: 'Comparatives', route: '/compare' },
-    { name: 'Expenses', route: '/expenses' }
+    { name: 'Expenses', route: '/expenses' },
+    { name: 'Maintenance', route: '/maintenances/owner' },
+
   ];
 
   mechanicOptions = [
     { name: 'Dashboard', route: '/mechanic-dashboard' },
     { name: 'Assignments', route: '/assignments' },
-    { name: 'Maintenance', route: '/maintenances' },
+    { name: 'Maintenance', route: '/maintenances/mechanic' },
     { name: 'Comparatives', route: '/compare' },
     { name: 'Membership', route: '/membership' }
   ];

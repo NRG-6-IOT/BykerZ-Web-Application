@@ -94,6 +94,17 @@ export class VehiclesStore {
     return computed(() => this.vehicles().find(v => v.id === vehicleId));
   }
 
+  /**
+   * Resets the entire store state (useful for sign-out)
+   */
+  reset(): void {
+    this.vehiclesSignal.set([]);
+    this.brandsSignal.set([]);
+    this.modelsSignal.set([]);
+    this.errorSignal.set(null);
+    this.loadingSignal.set(false);
+  }
+
   private formatError(error: any, fallback: string): string {
     if(error instanceof Error) {
       return error.message.includes('Resource not found') ? `${fallback}: Not found` : error.message;

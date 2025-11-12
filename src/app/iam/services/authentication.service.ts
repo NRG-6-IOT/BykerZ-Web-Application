@@ -1,4 +1,4 @@
-import {environment} from '../../../environments/environment';
+import {environment} from '@env/environment';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {BehaviorSubject, map, Observable, tap, throwError} from 'rxjs';
 import {Router} from '@angular/router';
@@ -6,7 +6,10 @@ import {SignUpRequest} from '@app/iam/domain/model/sign-up.request';
 import {SignUpResponse} from '@app/iam/domain/model/sign-up.response';
 import {SignInRequest} from '@app/iam/domain/model/sign-in.request';
 import {SignInResponse} from '@app/iam/domain/model/sign-in-response';
-import {Injectable} from '@angular/core';
+import {inject, Injectable} from '@angular/core';
+import {ExpenseStore} from '@app/maintenance-and-operations/application/expense.store';
+import {MaintenanceStore} from '@app/maintenance-and-operations/application/maintenance.store';
+
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +20,9 @@ export class AuthenticationService {
 
   private signedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   private signedInUserId: BehaviorSubject<number> = new BehaviorSubject<number>(0);
+
+  private expenseStore = inject(ExpenseStore);
+  private maintenanceStore = inject(MaintenanceStore);
 
   constructor(private router: Router, private http: HttpClient) { }
 
@@ -127,6 +133,11 @@ export class AuthenticationService {
     localStorage.removeItem('token');
     localStorage.removeItem('role_id');
     localStorage.removeItem('user_role');
+
+    // Reset all stores to clear cached data
+    this.expenseStore.reset();
+    this.maintenanceStore.reset();
+
     this.router.navigate(['/sign-in']).then();
   }
 }
