@@ -10,6 +10,8 @@ mat-card {
   min-height: 22vh;
   display: flex;
   justify-content: center;
+  max-width: 600px;
+  min-width: 300px;
   cursor: pointer;
 }
 
@@ -18,6 +20,13 @@ mat-card {
   flex-direction: row;
   width: 100%;
   align-items: center;
+}
+
+.vehicle-image {
+  width: 100%;
+  max-width: 180px;
+  height: auto;
+  object-fit: contain;
 }
 
 .item {
@@ -47,4 +56,8 @@ mat-card {
 
 .data-row b {
   font-weight: 600;
+}
+
+.selection-arrow {
+  cursor: pointer;
 }

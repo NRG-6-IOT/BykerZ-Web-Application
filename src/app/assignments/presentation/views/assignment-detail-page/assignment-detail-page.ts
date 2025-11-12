@@ -9,12 +9,15 @@ import {AssignmentsStore} from '@app/assignments/application/assigments.store';
 import {
   AssignmentTypeSelector
 } from '@app/assignments/presentation/components/assignment-type-selector/assignment-type-selector';
+import {VehiclesStore} from '@app/vehiclemanagement/application/vehicles.store';
+import {VehicleCard} from '@app/vehiclemanagement/presentation/components/vehicle-card/vehicle-card';
+import {AssignVehicleCard} from '@app/assignments/presentation/components/assign-vehicle-card/assign-vehicle-card';
 
 @Component({
   selector: 'app-assignment-detail-page',
   imports: [
-    AssignmentTypeSelector
-
+    AssignmentTypeSelector,
+    AssignVehicleCard
   ],
   templateUrl: './assignment-detail-page.html',
   styleUrl: './assignment-detail-page.css'
@@ -22,6 +25,7 @@ import {
 export class AssignmentDetailPage{
   private route = inject(ActivatedRoute);
   private store = inject(AssignmentsStore);
+  private vehicleStore = inject(VehiclesStore);
 
   activeAssignments = this.store.activeAssignments;
   assignmentId: number | null = null;
@@ -34,6 +38,7 @@ export class AssignmentDetailPage{
         const assignment = this.store.getAssignmentById(this.assignmentId)();
         if(assignment){
           this.assignment = assignment;
+          this.vehicleStore.loadVehiclesByOwner(assignment.owner?.id!);
         }
       }
     })
@@ -41,5 +46,9 @@ export class AssignmentDetailPage{
 
   handleTypeChange($event: string) {
     this.store.updateAssignmentType(this.assignmentId!, $event);
+  }
+
+  get vehicles() {
+    return this.vehicleStore.vehicles();
   }
 }

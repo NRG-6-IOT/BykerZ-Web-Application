@@ -1,7 +1,6 @@
 import {Component, inject, Input} from '@angular/core';
 import {MatCard, MatCardContent} from '@angular/material/card';
 import {NgOptimizedImage} from '@angular/common';
-import {Vehicle} from '../../../domain/model/vehicle.entity';
 import {RouterLink} from '@angular/router';
 
 import {
@@ -9,10 +8,11 @@ import {
 } from '@app/notifications/presentation/components/app-notification-list/app-notification-list';
 
 import {AssignmentsStore} from "@app/assignments/application/assigments.store";
+import {Vehicle} from '@app/vehiclemanagement/domain/model/vehicle.entity';
 
 
 @Component({
-  selector: 'app-vehicle-card',
+  selector: 'app-assign-vehicle-card',
   imports: [
     MatCard,
     NgOptimizedImage,
@@ -20,11 +20,11 @@ import {AssignmentsStore} from "@app/assignments/application/assigments.store";
     RouterLink,
     NotificationListComponent
   ],
-  templateUrl: './vehicle-card.html',
+  templateUrl: './assign-vehicle-card.html',
   standalone: true,
-  styleUrl: './vehicle-card.css'
+  styleUrl: './assign-vehicle-card.css'
 })
-export class VehicleCard {
+export class AssignVehicleCard {
   @Input() vehicle!: Vehicle;
 
   private store = inject(AssignmentsStore);
