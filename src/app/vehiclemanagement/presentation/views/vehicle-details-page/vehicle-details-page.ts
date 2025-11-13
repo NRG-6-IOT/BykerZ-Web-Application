@@ -5,6 +5,8 @@ import {NgOptimizedImage} from '@angular/common';
 import {MatCard} from '@angular/material/card';
 import {VehiclesStore} from "@app/vehiclemanagement/application/vehicles.store";
 import {MatButton} from '@angular/material/button';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { environment } from '@env/environment';
 
 @Component({
   selector: 'app-vehicle-details-page',
@@ -17,16 +19,18 @@ import {MatButton} from '@angular/material/button';
   standalone: true,
   styleUrl: './vehicle-details-page.css'
 })
-export class VehicleDetailsPage {
-  private route = inject(ActivatedRoute);
-  private store = inject(VehiclesStore);
-
-  private router = inject(Router);
-
+export class VehicleDetailsPage implements OnInit {
   vehicleId: number | null = null;
   vehicle: Vehicle | null = null;
 
-  constructor() {
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private store: VehiclesStore,
+    private http: HttpClient
+  ) {}
+
+  ngOnInit() {
     this.route.params.subscribe(params => {
       this.vehicleId = params['vehicleId'] ? +params['vehicleId'] : null;
       if (this.vehicleId) {
@@ -39,13 +43,38 @@ export class VehicleDetailsPage {
   }
 
   navigateToMetrics() {
-    // Opción 1: Si tienes el ID del vehículo
     if (this.vehicle?.id) {
       this.router.navigate(['/wellness-metrics'], {
         queryParams: {vehicleId: this.vehicle.id}
       });
     }
+  }
 
+  exportReport() {
+    if (!this.vehicle?.id) return;
 
+    const url = `${environment.platformProviderApiBaseUrl}/reports/vehicle/${this.vehicle.id}/export`;
+    const token = localStorage.getItem('token')?.replace(/^"|"$/g, '');
+    console.log('🔑 Token enviado:', token);
+
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json'
+    });
+
+    this.http.get(url, { responseType: 'text', headers }).subscribe({
+      next: (data) => {
+        const blob = new Blob([data], { type: 'text/csv' });
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = `vehicle-report-${this.vehicle?.id}.csv`;
+        a.click();
+        URL.revokeObjectURL(a.href);
+      },
+      error: (err) => {
+        console.error('Error exporting report', err);
+        alert('Error al exportar el reporte.');
+      }
+    });
   }
 }
