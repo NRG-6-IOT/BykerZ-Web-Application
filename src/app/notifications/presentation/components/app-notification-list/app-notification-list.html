@@ -14,11 +14,11 @@
   <!-- Panel desplegable de notificaciones -->
   <div *ngIf="showPanel" class="notifications-panel">
     <div class="panel-header">
-      <h4>Alertas - Vehículo {{vehicleId}}</h4>
+      <h4>Alerts - Vehicle {{vehicleId}}</h4>
       <button (click)="markAllAsRead()" *ngIf="unreadCount > 0" class="mark-all-btn">
-        Marcar todas
+        Mark all
       </button>
-      <button (click)="toggleNotifications()" class="close-btn">×</button>
+      <button (click)="toggleNotifications()" class="close-btn"></button>
     </div>
 
     <div class="connection-status" [class.connected]="isConnected">
