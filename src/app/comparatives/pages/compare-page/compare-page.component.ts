@@ -36,7 +36,7 @@ import { AuthenticationService } from '@app/iam/services/authentication.service'
         <div class="comparison-grid">
           <app-vehicle-card
             [vehicle]="ownerVehicle"
-            title="Tu Moto"
+            title="Your Bike"
             [selectable]="true"
             [options]="availableVehicles"
             (selectionChange)="onOwnerSelect($event)"
@@ -49,9 +49,9 @@ import { AuthenticationService } from '@app/iam/services/authentication.service'
 
           <app-vehicle-card
             [vehicle]="compareVehicle"
-            title="Comparar con"
+            title="Compare With"
             [selectable]="true"
-            [options]="availableVehicles"
+            [options]="availableModels"
             (selectionChange)="onCompareSelect($event)"
             [orange]="true">
           </app-vehicle-card>
@@ -261,6 +261,7 @@ export class ComparePageComponent implements OnInit {
   ownerVehicle: Vehicle | null = null;
   compareVehicle: Vehicle | null = null;
   availableVehicles: Vehicle[] = [];
+  availableModels: Vehicle[] = [];
   loading: boolean = true;
   private currentOwnerId: number = 0;
   private readonly STORAGE_KEY = 'compare_page_state';
@@ -288,17 +289,20 @@ export class ComparePageComponent implements OnInit {
     if (userId) {
       this.currentOwnerId = userId;
       this.loadOwnerVehicles();
+      this.loadAllModels();
     } else {
       this.authService.currentUserId.subscribe({
         next: (id) => {
           if (id && id !== this.currentOwnerId) {
             this.currentOwnerId = id;
             this.loadOwnerVehicles();
+            this.loadAllModels();
           } else if (!id) {
             const tokenUserId = this.getUserIdFromToken();
             if (tokenUserId) {
               this.currentOwnerId = tokenUserId;
               this.loadOwnerVehicles();
+              this.loadAllModels();
             } else {
               this.loading = false;
             }
@@ -350,6 +354,22 @@ export class ComparePageComponent implements OnInit {
     return null;
   }
 
+  private loadAllModels(): void {
+    this.vehiclesApi.getAllModels().subscribe({
+      next: (models) => {
+        this.availableModels = models.map((model) => new Vehicle({
+          id: model.id,
+          ownerId: 0,
+          model: model,
+          year: model.modelYear,
+          plate: `MODEL-${model.id}`
+        }));
+      },
+      error: (error) => {
+      }
+    });
+  }
+
   private loadOwnerVehicles(): void {
     if (!this.currentOwnerId) {
       this.loading = false;
@@ -397,19 +417,18 @@ export class ComparePageComponent implements OnInit {
     }
 
     const compareId = saved?.compareVehicleId;
-    if (compareId && this.availableVehicles.length > 1) {
-      const found = this.availableVehicles.find(v =>
-        v.id === compareId && v.id !== this.ownerVehicle?.id
+    if (compareId && this.availableModels.length > 0) {
+      const found = this.availableModels.find(v =>
+        (v.id === compareId || v.model?.id === compareId) &&
+        v.model?.id !== this.ownerVehicle?.model?.id
       );
       this.compareVehicle = found ||
-        this.availableVehicles.find(v => v.id !== this.ownerVehicle?.id) ||
-        this.availableVehicles[1];
-    } else if (this.availableVehicles.length > 1) {
-      this.compareVehicle = this.availableVehicles.find(v =>
-        v.id !== this.ownerVehicle?.id
-      ) || this.availableVehicles[1];
-    } else {
-      this.compareVehicle = this.availableVehicles[0];
+        this.availableModels.find(v => v.model?.id !== this.ownerVehicle?.model?.id) ||
+        this.availableModels[0];
+    } else if (this.availableModels.length > 0) {
+      this.compareVehicle = this.availableModels.find(v =>
+        v.model?.id !== this.ownerVehicle?.model?.id
+      ) || this.availableModels[0];
     }
 
     this.saveState();
@@ -427,9 +446,9 @@ export class ComparePageComponent implements OnInit {
         plate: selected.plate
       });
 
-      if (this.compareVehicle && this.compareVehicle.id === this.ownerVehicle.id) {
-        const alternative = this.availableVehicles.find(v =>
-          v.id !== this.ownerVehicle?.id
+      if (this.compareVehicle && this.compareVehicle.model?.id === this.ownerVehicle.model?.id) {
+        const alternative = this.availableModels.find(v =>
+          v.model?.id !== this.ownerVehicle?.model?.id
         );
         if (alternative) {
           this.compareVehicle = new Vehicle({
@@ -448,7 +467,7 @@ export class ComparePageComponent implements OnInit {
   }
 
   onCompareSelect(id: number) {
-    const selected = this.availableVehicles.find(v => v.id === id);
+    const selected = this.availableModels.find(v => v.id === id);
     if (selected) {
       this.compareVehicle = new Vehicle({
         id: selected.id,
@@ -466,6 +485,7 @@ export class ComparePageComponent implements OnInit {
   get isReady(): boolean {
     return !this.loading &&
            this.availableVehicles.length > 0 &&
+           this.availableModels.length > 0 &&
            this.ownerVehicle !== null &&
            this.compareVehicle !== null &&
            this.ownerVehicle.model !== null &&
