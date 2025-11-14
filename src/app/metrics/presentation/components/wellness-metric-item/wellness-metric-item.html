@@ -2,9 +2,9 @@
 
   <!-- Header -->
   <div class="card-header">
-    <h3 class="vehicle-title">Vehículo {{ wellnessMetric().vehicleId }}</h3>
+    <h3 class="vehicle-title">Vehicle {{ wellnessMetric().vehicleId }}</h3>
     <span class="status-badge" [class.impact]="wellnessMetric().impactDetected">
-      {{ wellnessMetric().impactDetected ? 'Impacto Detectado' : 'Estado Normal' }}
+      {{ wellnessMetric().impactDetected ? 'Impact Detected' : 'Normal State' }}
     </span>
   </div>
 
@@ -13,14 +13,14 @@
 
     <!-- Ubicación -->
     <div class="data-section">
-      <h4 class="section-title">Ubicación GPS</h4>
+      <h4 class="section-title">GPS location:</h4>
       <div class="data-grid">
         <div class="data-item">
-          <span class="data-label">Latitud:</span>
+          <span class="data-label">Latitude:</span>
           <span class="data-value">{{ wellnessMetric().latitude }}°</span>
         </div>
         <div class="data-item">
-          <span class="data-label">Longitud:</span>
+          <span class="data-label">Longitude:</span>
           <span class="data-value">{{ wellnessMetric().longitude }}°</span>
         </div>
       </div>
@@ -28,7 +28,7 @@
 
     <!-- Calidad del Aire -->
     <div class="data-section">
-      <h4 class="section-title">Calidad del Aire</h4>
+      <h4 class="section-title">Air Quality</h4>
       <div class="data-grid">
         <div class="data-item">
           <span class="data-label">CO₂:</span>
@@ -39,7 +39,7 @@
           <span class="data-value">{{ wellnessMetric().NH3Ppm }} ppm</span>
         </div>
         <div class="data-item">
-          <span class="data-label">Benceno:</span>
+          <span class="data-label">Benzene:</span>
           <span class="data-value">{{ wellnessMetric().BenzenePpm }} ppm</span>
         </div>
       </div>
@@ -47,14 +47,14 @@
 
     <!-- Condiciones Ambientales -->
     <div class="data-section">
-      <h4 class="section-title">Condiciones Ambientales</h4>
+      <h4 class="section-title">Environmental Conditions</h4>
       <div class="data-grid">
         <div class="data-item">
-          <span class="data-label">Temperatura:</span>
+          <span class="data-label">Temperature:</span>
           <span class="data-value">{{ wellnessMetric().temperatureCelsius }} °C</span>
         </div>
         <div class="data-item">
-          <span class="data-label">Humedad:</span>
+          <span class="data-label">Humidity:</span>
           <span class="data-value">{{ wellnessMetric().humidityPercentage }} %</span>
         </div>
 
@@ -66,7 +66,7 @@
   <!-- Footer -->
   <div class="card-footer">
     <div class="data-item">
-      <span class="data-label">Presión Atmosférica:</span>
+      <span class="data-label">Pressure:</span>
       <span class="data-value">{{ wellnessMetric().pressureHpa }} hPa</span>
     </div>
   </div>

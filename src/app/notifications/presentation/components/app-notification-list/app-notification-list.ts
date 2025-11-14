@@ -14,6 +14,7 @@ import { WebSocketService } from '@app/notifications/infrastructure/websocket/we
 })
 export class NotificationListComponent implements OnInit, OnDestroy {
   @Input() vehicleId!: number;
+  private shouldDestroy = true;
 
   vehicleNotifications: NotificationEntity[] = [];
   isConnected = false;
@@ -62,12 +63,28 @@ export class NotificationListComponent implements OnInit, OnDestroy {
     }, 1000);
   }
 
-  toggleNotifications() {
+  toggleNotifications(event?: Event) {
+    if (event) {
+      event.stopPropagation();
+    }
     this.showPanel = !this.showPanel;
+
+    // Si el panel se cierra Y no hay notificaciones sin leer, destruir
+    if (!this.showPanel && this.unreadCount === 0) {
+      this.destroyComponent();
+    }
   }
 
   markAsRead(notificationId: number) {
     this.websocketService.markAsRead(notificationId);
+
+    // Verificar si todas están leídas después de marcar
+    setTimeout(() => {
+      const updatedUnreadCount = this.vehicleNotifications.filter(n => !n.read).length;
+      if (updatedUnreadCount === 0 && !this.showPanel) {
+        this.destroyComponent();
+      }
+    }, 100);
   }
 
   markAllAsRead() {
@@ -76,13 +93,30 @@ export class NotificationListComponent implements OnInit, OnDestroy {
         this.markAsRead(notif.id);
       }
     });
+
+    // Destruir después de marcar todas
+    setTimeout(() => {
+      if (!this.showPanel) {
+        this.destroyComponent();
+      }
+    }, 200);
+  }
+
+  private destroyComponent() {
+    if (this.shouldDestroy) {
+      this.ngOnDestroy();
+    }
+  }
+
+  keepAlive() {
+    this.shouldDestroy = false;
   }
 
   ngOnDestroy() {
-    // ✅ DESUSCRIBIRSE CORRECTAMENTE
-    this.websocketService.unsubscribeFromVehicle(this.vehicleId);
-    this.subs.forEach(sub => sub.unsubscribe());
-    console.log('🧹 NotificationList destruido para vehicle:', this.vehicleId);
-    console.log('🔍 Estado final:', this.websocketService.getSubscriptionStatus());
+    if (this.shouldDestroy) {
+      this.websocketService.unsubscribeFromVehicle(this.vehicleId);
+      this.subs.forEach(sub => sub.unsubscribe());
+      console.log('🧹 NotificationList destruido para vehicle:', this.vehicleId);
+    }
   }
 }
