@@ -112,10 +112,20 @@ mat-card h1 {
 }
 
 .metrics-btn,
+.compare-button,
 .export-button {
   font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 0.5px;
+}
+
+.compare-button {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.compare-button:hover {
+  background-color: #45a049;
 }
 
 .export-button {
@@ -139,6 +149,7 @@ mat-card h1 {
   }
 
   .metrics-btn,
+  .compare-button,
   .export-button {
     width: 100%;
   }

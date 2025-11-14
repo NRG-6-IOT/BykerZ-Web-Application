@@ -5,7 +5,7 @@ import { VehicleCardComponent } from '../../components/vehicle-card/vehicle-card
 import { SpecsCardComponent } from '../../components/specs-card/specs-card.component';
 import { ScenariosCardComponent } from '../../components/scenarios-card/scenarios-card.component';
 import { VehiclesApi } from '@app/vehiclemanagement/infrastructure/vehicles-api';
-import { AuthenticationService } from '@app/iam/services/authentication.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   standalone: true,
@@ -285,17 +285,23 @@ export class CompareMechanicComponent implements OnInit {
 
   constructor(
     private vehiclesApi: VehiclesApi,
-    private authService: AuthenticationService
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
+    console.log('[CompareMechanic] Initializing component...');
     this.loadAllModels();
   }
 
   private loadAllModels(): void {
     this.loading = true;
+    console.log('[CompareMechanic] Loading all models...');
+
     this.vehiclesApi.getAllModels().subscribe({
       next: (models) => {
+        console.log('[CompareMechanic] Models received:', models);
+        console.log('[CompareMechanic] Number of models:', models.length);
+
         this.availableVehicles = models.map((model) => new Vehicle({
           id: model.id,
           ownerId: 0,
@@ -304,25 +310,60 @@ export class CompareMechanicComponent implements OnInit {
           plate: `MODEL-${model.id}`
         }));
 
-        if (this.availableVehicles.length > 0) {
-          this.leftVehicle = this.availableVehicles[0];
+        console.log('[CompareMechanic] Available vehicles:', this.availableVehicles);
 
+        if (this.availableVehicles.length > 0) {
+          // Read vehicleId from query params
+          const vehicleIdParam = this.route.snapshot.queryParamMap.get('vehicleId');
+          console.log('[CompareMechanic] Vehicle ID from URL:', vehicleIdParam);
+
+          if (vehicleIdParam) {
+            const vehicleId = Number(vehicleIdParam);
+            console.log('[CompareMechanic] Searching for vehicle/model with ID:', vehicleId);
+
+            const found = this.availableVehicles.find(v => v.id === vehicleId || v.model?.id === vehicleId);
+
+            if (found) {
+              console.log('[CompareMechanic] Found vehicle:', found);
+              this.leftVehicle = found;
+            } else {
+              console.log('[CompareMechanic] Vehicle not found, using first available');
+              this.leftVehicle = this.availableVehicles[0];
+            }
+          } else {
+            console.log('[CompareMechanic] No vehicleId param, using first vehicle');
+            this.leftVehicle = this.availableVehicles[0];
+          }
+
+          // Select second vehicle for comparison
           if (this.availableVehicles.length > 1) {
-            this.rightVehicle = this.availableVehicles[1];
+            const differentVehicle = this.availableVehicles.find(v => v.id !== this.leftVehicle?.id);
+            this.rightVehicle = differentVehicle || this.availableVehicles[1];
           } else {
             this.rightVehicle = this.availableVehicles[0];
           }
+
+          console.log('[CompareMechanic] Left vehicle selected:', this.leftVehicle);
+          console.log('[CompareMechanic] Right vehicle selected:', this.rightVehicle);
         }
 
         this.loading = false;
+        console.log('[CompareMechanic] Loading completed successfully');
       },
-      error: (_) => {
+      error: (error) => {
+        console.error('[CompareMechanic] Error loading models:', error);
+        console.error('[CompareMechanic] Error details:', {
+          message: error.message,
+          status: error.status,
+          url: error.url
+        });
         this.loading = false;
       }
     });
   }
 
   onLeftSelect(id: number) {
+    console.log('[CompareMechanic] Left vehicle selection changed to ID:', id);
     const selected = this.availableVehicles.find(v => v.id === id);
     if (selected) {
       this.leftVehicle = selected;
@@ -335,6 +376,7 @@ export class CompareMechanicComponent implements OnInit {
   }
 
   onRightSelect(id: number) {
+    console.log('[CompareMechanic] Right vehicle selection changed to ID:', id);
     const selected = this.availableVehicles.find(v => v.id === id);
     if (selected) {
       this.rightVehicle = selected;

@@ -21,6 +21,15 @@
           <button
             mat-raised-button
             color="accent"
+            (click)="navigateToCompare()"
+            type="button"
+            class="compare-button">
+            Compare
+          </button>
+
+          <button
+            mat-raised-button
+            color="accent"
             (click)="exportReport()"
             type="button"
             class="export-button">

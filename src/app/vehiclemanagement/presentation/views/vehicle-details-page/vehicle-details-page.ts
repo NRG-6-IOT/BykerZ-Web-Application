@@ -50,6 +50,14 @@ export class VehicleDetailsPage implements OnInit {
     }
   }
 
+  navigateToCompare() {
+    if (this.vehicle?.id) {
+      this.router.navigate(['/compare'], {
+        queryParams: { vehicleId: this.vehicle.id }
+      });
+    }
+  }
+
   exportReport() {
     if (!this.vehicle?.id) return;
 
