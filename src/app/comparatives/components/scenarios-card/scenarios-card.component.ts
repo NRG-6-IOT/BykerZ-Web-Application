@@ -241,10 +241,10 @@ export class ScenariosCardComponent implements OnChanges {
   @Input() compare!: Vehicle | null;
 
   scenarios = [
-    { name: 'Traffic', icon: '🚦', ownerScore: 0, compareScore: 0 },
-    { name: 'Trips', icon: '🚗', ownerScore: 0, compareScore: 0 },
-    { name: 'Maintenance', icon: '🔧', ownerScore: 0, compareScore: 0 },
-    { name: 'Resale', icon: '💰', ownerScore: 0, compareScore: 0 }
+    { name: 'City Traffic', icon: '🚦', ownerScore: 0, compareScore: 0 },
+    { name: 'Long Trips', icon: '🛣️', ownerScore: 0, compareScore: 0 },
+    { name: 'Maintenance Cost', icon: '🔧', ownerScore: 0, compareScore: 0 },
+    { name: 'Resale Value', icon: '💰', ownerScore: 0, compareScore: 0 }
   ];
 
   ngOnChanges(changes: SimpleChanges) {

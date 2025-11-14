@@ -36,7 +36,7 @@ import { ActivatedRoute } from '@angular/router';
         <div class="comparison-grid">
           <app-vehicle-card
             [vehicle]="leftVehicle"
-            title="Modelo A"
+            title="Model A"
             [selectable]="true"
             [options]="availableVehicles"
             (selectionChange)="onLeftSelect($event)"
@@ -49,7 +49,7 @@ import { ActivatedRoute } from '@angular/router';
 
           <app-vehicle-card
             [vehicle]="rightVehicle"
-            title="Modelo B"
+            title="Model B"
             [selectable]="true"
             [options]="availableVehicles"
             (selectionChange)="onRightSelect($event)"
