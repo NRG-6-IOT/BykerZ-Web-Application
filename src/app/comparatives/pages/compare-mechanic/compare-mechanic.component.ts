@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Vehicle } from '../../model/model';
 import { VehicleCardComponent } from '../../components/vehicle-card/vehicle-card.component';
@@ -32,7 +32,7 @@ import { ActivatedRoute } from '@angular/router';
         <p>No models found to compare.</p>
       </div>
 
-      <div *ngIf="!loading && availableVehicles.length > 0" class="content">
+      <div *ngIf="isReady" class="content">
         <div class="comparison-grid">
           <app-vehicle-card
             [vehicle]="leftVehicle"
@@ -282,10 +282,12 @@ export class CompareMechanicComponent implements OnInit {
   rightVehicle: Vehicle | null = null;
   availableVehicles: Vehicle[] = [];
   loading: boolean = true;
+  private readonly STORAGE_KEY = 'compare_mechanic_state';
 
   constructor(
     private vehiclesApi: VehiclesApi,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
@@ -306,27 +308,7 @@ export class CompareMechanicComponent implements OnInit {
         }));
 
         if (this.availableVehicles.length > 0) {
-          const vehicleIdParam = this.route.snapshot.queryParamMap.get('vehicleId');
-
-          if (vehicleIdParam) {
-            const vehicleId = Number(vehicleIdParam);
-            const found = this.availableVehicles.find(v => v.id === vehicleId || v.model?.id === vehicleId);
-
-            if (found) {
-              this.leftVehicle = found;
-            } else {
-              this.leftVehicle = this.availableVehicles[0];
-            }
-          } else {
-            this.leftVehicle = this.availableVehicles[0];
-          }
-
-          if (this.availableVehicles.length > 1) {
-            const differentVehicle = this.availableVehicles.find(v => v.id !== this.leftVehicle?.id);
-            this.rightVehicle = differentVehicle || this.availableVehicles[1];
-          } else {
-            this.rightVehicle = this.availableVehicles[0];
-          }
+          this.initializeSelection();
         }
 
         this.loading = false;
@@ -337,22 +319,115 @@ export class CompareMechanicComponent implements OnInit {
     });
   }
 
+  private initializeSelection(): void {
+    const vehicleIdParam = this.route.snapshot.queryParamMap.get('vehicleId');
+    const saved = this.getSavedState();
+
+    let leftId = vehicleIdParam ? Number(vehicleIdParam) : saved?.leftVehicleId;
+
+    if (leftId) {
+      const found = this.availableVehicles.find(v =>
+        v.id === leftId || v.model?.id === leftId
+      );
+      this.leftVehicle = found || this.availableVehicles[0];
+    } else {
+      this.leftVehicle = this.availableVehicles[0];
+    }
+
+    const rightId = saved?.rightVehicleId;
+    if (rightId && this.availableVehicles.length > 1) {
+      const found = this.availableVehicles.find(v =>
+        (v.id === rightId || v.model?.id === rightId) &&
+        v.id !== this.leftVehicle?.id
+      );
+      this.rightVehicle = found ||
+        this.availableVehicles.find(v => v.id !== this.leftVehicle?.id) ||
+        this.availableVehicles[1];
+    } else if (this.availableVehicles.length > 1) {
+      this.rightVehicle = this.availableVehicles.find(v =>
+        v.id !== this.leftVehicle?.id
+      ) || this.availableVehicles[1];
+    } else {
+      this.rightVehicle = this.availableVehicles[0];
+    }
+
+    this.saveState();
+    this.cdr.detectChanges();
+  }
+
+  private saveState(): void {
+    try {
+      const state = {
+        leftVehicleId: this.leftVehicle?.id,
+        rightVehicleId: this.rightVehicle?.id
+      };
+      localStorage.setItem(this.STORAGE_KEY, JSON.stringify(state));
+    } catch (e) {
+    }
+  }
+
+  private getSavedState(): any {
+    try {
+      const saved = localStorage.getItem(this.STORAGE_KEY);
+      return saved ? JSON.parse(saved) : null;
+    } catch (e) {
+      return null;
+    }
+  }
+
   onLeftSelect(id: number) {
     const selected = this.availableVehicles.find(v => v.id === id);
     if (selected) {
-      this.leftVehicle = selected;
+      this.leftVehicle = new Vehicle({
+        id: selected.id,
+        ownerId: selected.ownerId,
+        model: selected.model,
+        year: selected.year,
+        plate: selected.plate
+      });
 
       if (this.rightVehicle && this.rightVehicle.id === this.leftVehicle.id) {
-        const alternative = this.availableVehicles.find(v => v.id !== this.leftVehicle?.id);
-        this.rightVehicle = alternative || this.leftVehicle;
+        const alternative = this.availableVehicles.find(v =>
+          v.id !== this.leftVehicle?.id
+        );
+        if (alternative) {
+          this.rightVehicle = new Vehicle({
+            id: alternative.id,
+            ownerId: alternative.ownerId,
+            model: alternative.model,
+            year: alternative.year,
+            plate: alternative.plate
+          });
+        }
       }
+
+      this.saveState();
+      this.cdr.detectChanges();
     }
   }
 
   onRightSelect(id: number) {
     const selected = this.availableVehicles.find(v => v.id === id);
     if (selected) {
-      this.rightVehicle = selected;
+      this.rightVehicle = new Vehicle({
+        id: selected.id,
+        ownerId: selected.ownerId,
+        model: selected.model,
+        year: selected.year,
+        plate: selected.plate
+      });
+
+      this.saveState();
+      this.cdr.detectChanges();
     }
+  }
+
+  get isReady(): boolean {
+    return !this.loading &&
+           this.availableVehicles.length > 0 &&
+           this.leftVehicle !== null &&
+           this.rightVehicle !== null &&
+           this.leftVehicle.model !== null &&
+           this.rightVehicle.model !== null;
   }
 }

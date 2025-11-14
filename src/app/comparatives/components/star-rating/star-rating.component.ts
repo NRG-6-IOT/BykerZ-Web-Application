@@ -33,7 +33,8 @@ export class StarRatingComponent {
   @Input() score: number = 0;
 
   get starsArray(): ('full'|'half'|'empty')[] {
-    const normalized = Math.max(0, Math.min(10, this.score));
+    const safeScore = this.score ?? 0;
+    const normalized = Math.max(0, Math.min(10, safeScore));
     const scaled = normalized / 2; // 0..5
     const full = Math.floor(scaled);
     const half = (scaled - full) >= 0.5 ? 1 : 0;

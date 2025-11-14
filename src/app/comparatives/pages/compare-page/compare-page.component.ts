@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Vehicle } from '../../model/model';
 import { VehicleCardComponent } from '../../components/vehicle-card/vehicle-card.component';
@@ -32,7 +32,7 @@ import { AuthenticationService } from '@app/iam/services/authentication.service'
         <p>You have no registered vehicles to compare.</p>
       </div>
 
-      <div *ngIf="!loading && availableVehicles.length > 0" class="content">
+      <div *ngIf="isReady" class="content">
         <div class="comparison-grid">
           <app-vehicle-card
             [vehicle]="ownerVehicle"
@@ -263,31 +263,99 @@ export class ComparePageComponent implements OnInit {
   availableVehicles: Vehicle[] = [];
   loading: boolean = true;
   private currentOwnerId: number = 0;
+  private readonly STORAGE_KEY = 'compare_page_state';
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private vehiclesApi: VehiclesApi,
-    private authService: AuthenticationService
+    private authService: AuthenticationService,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
-    this.authService.currentUserId.subscribe({
-      next: (userId) => {
-        if (userId) {
-          this.currentOwnerId = userId;
-          this.loadOwnerVehicles();
-        } else {
+    let userId = this.authService.getCurrentUserIdSync();
+
+    if (!userId) {
+      const roleId = localStorage.getItem('role_id');
+      userId = roleId ? Number(roleId) : null;
+    }
+
+    if (!userId) {
+      userId = this.getUserIdFromToken();
+    }
+
+    if (userId) {
+      this.currentOwnerId = userId;
+      this.loadOwnerVehicles();
+    } else {
+      this.authService.currentUserId.subscribe({
+        next: (id) => {
+          if (id && id !== this.currentOwnerId) {
+            this.currentOwnerId = id;
+            this.loadOwnerVehicles();
+          } else if (!id) {
+            const tokenUserId = this.getUserIdFromToken();
+            if (tokenUserId) {
+              this.currentOwnerId = tokenUserId;
+              this.loadOwnerVehicles();
+            } else {
+              this.loading = false;
+            }
+          }
+        },
+        error: (err) => {
           this.loading = false;
         }
-      },
-      error: () => {
-        this.loading = false;
+      });
+    }
+  }
+
+  private getUserIdFromToken(): number | null {
+    try {
+      const token = localStorage.getItem('token')?.replace(/^"|"$/g, '');
+      if (token) {
+        const payload = JSON.parse(atob(token.split('.')[1]));
+        const userId = payload.id || payload.userId || payload.sub;
+        return userId ? Number(userId) : null;
       }
-    });
+    } catch (error) {
+      return null;
+    }
+    return null;
+  }
+
+  private saveState(): void {
+    try {
+      const state = {
+        ownerVehicleId: this.ownerVehicle?.id,
+        compareVehicleId: this.compareVehicle?.id,
+        ownerId: this.currentOwnerId
+      };
+      localStorage.setItem(this.STORAGE_KEY, JSON.stringify(state));
+    } catch (e) {
+    }
+  }
+
+  private getSavedState(): any {
+    try {
+      const saved = localStorage.getItem(this.STORAGE_KEY);
+      if (saved) {
+        const state = JSON.parse(saved);
+        return state.ownerId === this.currentOwnerId ? state : null;
+      }
+    } catch (e) {
+      return null;
+    }
+    return null;
   }
 
   private loadOwnerVehicles(): void {
+    if (!this.currentOwnerId) {
+      this.loading = false;
+      return;
+    }
+
     this.loading = true;
 
     this.vehiclesApi.getVehiclesByOwnerId(this.currentOwnerId).subscribe({
@@ -301,27 +369,7 @@ export class ComparePageComponent implements OnInit {
         }));
 
         if (this.availableVehicles.length > 0) {
-          const vehicleIdParam = this.route.snapshot.queryParamMap.get('vehicleId');
-
-          if (vehicleIdParam) {
-            const vehicleId = Number(vehicleIdParam);
-            const found = this.availableVehicles.find(v => v.id === vehicleId);
-
-            if (found) {
-              this.ownerVehicle = found;
-            } else {
-              this.ownerVehicle = this.availableVehicles[0];
-            }
-          } else {
-            this.ownerVehicle = this.availableVehicles[0];
-          }
-
-          if (this.availableVehicles.length > 1) {
-            const differentVehicle = this.availableVehicles.find(v => v.id !== this.ownerVehicle?.id);
-            this.compareVehicle = differentVehicle || this.availableVehicles[1];
-          } else {
-            this.compareVehicle = this.availableVehicles[0];
-          }
+          this.initializeSelection();
         }
 
         this.loading = false;
@@ -335,22 +383,92 @@ export class ComparePageComponent implements OnInit {
     });
   }
 
+  private initializeSelection(): void {
+    const vehicleIdParam = this.route.snapshot.queryParamMap.get('vehicleId');
+    const saved = this.getSavedState();
+
+    let ownerId = vehicleIdParam ? Number(vehicleIdParam) : saved?.ownerVehicleId;
+
+    if (ownerId) {
+      const found = this.availableVehicles.find(v => v.id === ownerId);
+      this.ownerVehicle = found || this.availableVehicles[0];
+    } else {
+      this.ownerVehicle = this.availableVehicles[0];
+    }
+
+    const compareId = saved?.compareVehicleId;
+    if (compareId && this.availableVehicles.length > 1) {
+      const found = this.availableVehicles.find(v =>
+        v.id === compareId && v.id !== this.ownerVehicle?.id
+      );
+      this.compareVehicle = found ||
+        this.availableVehicles.find(v => v.id !== this.ownerVehicle?.id) ||
+        this.availableVehicles[1];
+    } else if (this.availableVehicles.length > 1) {
+      this.compareVehicle = this.availableVehicles.find(v =>
+        v.id !== this.ownerVehicle?.id
+      ) || this.availableVehicles[1];
+    } else {
+      this.compareVehicle = this.availableVehicles[0];
+    }
+
+    this.saveState();
+    this.cdr.detectChanges();
+  }
+
   onOwnerSelect(id: number) {
     const selected = this.availableVehicles.find(v => v.id === id);
     if (selected) {
-      this.ownerVehicle = selected;
+      this.ownerVehicle = new Vehicle({
+        id: selected.id,
+        ownerId: selected.ownerId,
+        model: selected.model,
+        year: selected.year,
+        plate: selected.plate
+      });
 
       if (this.compareVehicle && this.compareVehicle.id === this.ownerVehicle.id) {
-        const alternative = this.availableVehicles.find(v => v.id !== this.ownerVehicle?.id);
-        this.compareVehicle = alternative || this.ownerVehicle;
+        const alternative = this.availableVehicles.find(v =>
+          v.id !== this.ownerVehicle?.id
+        );
+        if (alternative) {
+          this.compareVehicle = new Vehicle({
+            id: alternative.id,
+            ownerId: alternative.ownerId,
+            model: alternative.model,
+            year: alternative.year,
+            plate: alternative.plate
+          });
+        }
       }
+
+      this.saveState();
+      this.cdr.detectChanges();
     }
   }
 
   onCompareSelect(id: number) {
     const selected = this.availableVehicles.find(v => v.id === id);
     if (selected) {
-      this.compareVehicle = selected;
+      this.compareVehicle = new Vehicle({
+        id: selected.id,
+        ownerId: selected.ownerId,
+        model: selected.model,
+        year: selected.year,
+        plate: selected.plate
+      });
+
+      this.saveState();
+      this.cdr.detectChanges();
     }
+  }
+
+  get isReady(): boolean {
+    return !this.loading &&
+           this.availableVehicles.length > 0 &&
+           this.ownerVehicle !== null &&
+           this.compareVehicle !== null &&
+           this.ownerVehicle.model !== null &&
+           this.compareVehicle.model !== null;
   }
 }

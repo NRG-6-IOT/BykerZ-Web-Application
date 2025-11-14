@@ -20,25 +20,62 @@ export class AuthenticationService {
 
   private signedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   private signedInUserId: BehaviorSubject<number> = new BehaviorSubject<number>(0);
+  private userIdSubject = new BehaviorSubject<number | null>(null);
+
+  public currentUserId = this.userIdSubject.asObservable();
 
   private expenseStore = inject(ExpenseStore);
   private maintenanceStore = inject(MaintenanceStore);
 
-  constructor(private router: Router, private http: HttpClient) { }
+  constructor(private router: Router, private http: HttpClient) {
+    // Inicializar userId desde localStorage si existe
+    this.initializeUserId();
+  }
+
+  private initializeUserId(): void {
+    const roleId = localStorage.getItem('role_id');
+    if (roleId) {
+      const id = Number(roleId);
+      if (!isNaN(id) && id > 0) {
+        this.userIdSubject.next(id);
+      }
+    }
+  }
+
+  /**
+   * Get current user ID synchronously
+   */
+  getCurrentUserIdSync(): number | null {
+    return this.userIdSubject.value;
+  }
+
+  /**
+   * Get user ID from token
+   */
+  getUserIdFromToken(): number | null {
+    try {
+      const token = localStorage.getItem('token')?.replace(/^"|"$/g, '');
+      if (token) {
+        const payload = JSON.parse(atob(token.split('.')[1]));
+        const userId = payload.id || payload.userId || payload.sub;
+        return userId ? Number(userId) : null;
+      }
+    } catch (error) {
+      console.error('Error parsing token:', error);
+    }
+    return null;
+  }
 
   tryAutoSignIn(): void {
     const token = localStorage.getItem('token');
     if (!token) return;
     this.signedIn.next(true);
+    this.initializeUserId();
     return;
   }
 
   get isSignedIn() {
     return this.signedIn.asObservable();
-  }
-
-  get currentUserId() {
-    return this.signedInUserId.asObservable();
   }
 
   currentUserRole(): string {
@@ -65,6 +102,7 @@ export class AuthenticationService {
       }),
       tap(id => {
         localStorage.setItem('role_id', String(id));
+        this.userIdSubject.next(id);
       })
     );
   }
@@ -119,7 +157,6 @@ export class AuthenticationService {
                 error: (err) => {
                   console.error('Failed to fetch owner profile id', err);
                   this.signOut();
-                  this.signOut()
                 }
               });
             }
@@ -134,6 +171,7 @@ export class AuthenticationService {
   signOut() {
     this.signedIn.next(false);
     this.signedInUserId.next(0);
+    this.userIdSubject.next(null);
     localStorage.removeItem('token');
     localStorage.removeItem('role_id');
     localStorage.removeItem('user_role');
