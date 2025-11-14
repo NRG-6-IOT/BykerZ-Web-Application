@@ -22,7 +22,7 @@
     </div>
 
     <div class="connection-status" [class.connected]="isConnected">
-      {{ isConnected ? '🟢 Conectado' : '🔴 Desconectado' }}
+      {{ isConnected ? '🟢 Connected' : '🔴 Disconnected' }}
     </div>
 
     <div class="notifications-list">
@@ -49,7 +49,7 @@
       </div>
 
       <div *ngIf="vehicleNotifications.length === 0" class="empty-state">
-        No hay alertas
+        There are no notifications for this vehicle.
       </div>
     </div>
   </div>
