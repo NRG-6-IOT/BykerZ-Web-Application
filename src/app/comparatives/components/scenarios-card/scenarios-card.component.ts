@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Vehicle } from '../../model/model';
 
@@ -6,6 +6,7 @@ import { Vehicle } from '../../model/model';
   selector: 'app-scenarios-card',
   standalone: true,
   imports: [CommonModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="scenarios-card">
       <div class="card-header">
@@ -235,7 +236,7 @@ import { Vehicle } from '../../model/model';
     }
   `]
 })
-export class ScenariosCardComponent {
+export class ScenariosCardComponent implements OnChanges {
   @Input() owner!: Vehicle | null;
   @Input() compare!: Vehicle | null;
 
@@ -246,7 +247,13 @@ export class ScenariosCardComponent {
     { name: 'Resale', icon: '💰', ownerScore: 0, compareScore: 0 }
   ];
 
-  ngOnChanges() {
+  ngOnChanges(changes: SimpleChanges) {
+    if ((changes['owner'] || changes['compare']) && this.owner && this.compare) {
+      this.updateScenarios();
+    }
+  }
+
+  private updateScenarios() {
     this.scenarios = this.scenarios.map(scenario => ({
       ...scenario,
       ownerScore: this.getOwnerScenarioScore(scenario.name),
@@ -255,12 +262,12 @@ export class ScenariosCardComponent {
   }
 
   getOwnerScenarioScore(s: string) {
-    if (!this.owner) return 0;
+    if (!this.owner || !this.owner.id) return 0;
     return this.mockScore(this.owner.id, s);
   }
 
   getCompareScenarioScore(s: string) {
-    if (!this.compare) return 0;
+    if (!this.compare || !this.compare.id) return 0;
     return this.mockScore(this.compare.id, s);
   }
 
@@ -273,4 +280,3 @@ export class ScenariosCardComponent {
     return Array(Math.floor(count)).fill(0);
   }
 }
-

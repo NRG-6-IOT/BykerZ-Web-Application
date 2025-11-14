@@ -23,6 +23,7 @@ import { AuthenticationService } from '@app/iam/services/authentication.service'
 export class VehicleDetailsPage implements OnInit {
   vehicleId: number | null = null;
   vehicle: Vehicle | null = null;
+  loading: boolean = true;
 
   constructor(
     private route: ActivatedRoute,
@@ -36,12 +37,37 @@ export class VehicleDetailsPage implements OnInit {
     this.route.params.subscribe(params => {
       this.vehicleId = params['vehicleId'] ? +params['vehicleId'] : null;
       if (this.vehicleId) {
-        const vehicle = this.store.getVehicleById(this.vehicleId)();
-        if (vehicle) {
-          this.vehicle = vehicle;
-        }
+        this.loadVehicle();
+      } else {
+        this.loading = false;
       }
     })
+  }
+
+  private loadVehicle() {
+    if (!this.vehicleId) return;
+
+    const vehicle = this.store.getVehicleById(this.vehicleId)();
+    if (vehicle) {
+      this.vehicle = vehicle;
+      this.loading = false;
+    } else {
+      // Si no está en el store, recargar desde la API
+      this.http.get(`${environment.platformProviderApiBaseUrl}/vehicles/${this.vehicleId}`, {
+        headers: new HttpHeaders({
+          Authorization: `Bearer ${localStorage.getItem('token')?.replace(/^"|"$/g, '')}`
+        })
+      }).subscribe({
+        next: (data: any) => {
+          this.vehicle = new Vehicle(data);
+          this.loading = false;
+        },
+        error: () => {
+          this.loading = false;
+          this.router.navigate(['/dashboard']);
+        }
+      });
+    }
   }
 
   navigateToMetrics() {
@@ -53,6 +79,8 @@ export class VehicleDetailsPage implements OnInit {
   }
 
   navigateToCompare() {
+    if (!this.vehicle) return;
+
     const isMechanic = this.isMechanic();
 
     if (isMechanic) {

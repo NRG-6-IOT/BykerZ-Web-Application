@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Vehicle } from '../../model/model';
 
@@ -6,6 +6,7 @@ import { Vehicle } from '../../model/model';
   selector: 'app-specs-card',
   standalone: true,
   imports: [CommonModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="specs-card">
       <div class="card-header">
@@ -185,7 +186,7 @@ import { Vehicle } from '../../model/model';
     }
   `]
 })
-export class SpecsCardComponent {
+export class SpecsCardComponent implements OnChanges {
   @Input() owner!: Vehicle | null;
   @Input() compare!: Vehicle | null;
 
@@ -202,18 +203,22 @@ export class SpecsCardComponent {
     { key: 'price', label: 'Approx. Price' }
   ];
 
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['owner'] || changes['compare']) {
+    }
+  }
+
   getSpecValue(vehicle: Vehicle | null, key: string) {
-    if (!vehicle) return '-';
+    if (!vehicle || !vehicle.model) return '-';
     const value = (vehicle.model as any)[key];
-    return value !== undefined && value !== null ? value : '-';
+    return value !== undefined && value !== null && value !== '' ? value : '-';
   }
 
   isWinner(key: string, type: 'owner' | 'compare') {
-    if (!this.owner || !this.compare) return false;
+    if (!this.owner || !this.compare || !this.owner.model || !this.compare.model) return false;
     const ownerValue = (this.owner.model as any)[key];
     const compareValue = (this.compare.model as any)[key];
-    if (ownerValue === compareValue) return false;
+    if (ownerValue === compareValue || ownerValue == null || compareValue == null) return false;
     return ownerValue > compareValue ? type === 'owner' : type === 'compare';
   }
 }
-

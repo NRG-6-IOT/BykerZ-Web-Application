@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnChanges, SimpleChanges, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Vehicle } from '../../model/model';
@@ -7,22 +7,23 @@ import { Vehicle } from '../../model/model';
   selector: 'app-vehicle-card',
   standalone: true,
   imports: [CommonModule, FormsModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="card">
       <div class="card-header">
         <h3 class="card-title">{{ title }}</h3>
         <select
-          *ngIf="selectable && options.length > 0"
+          *ngIf="selectable && options && options.length > 0"
           [(ngModel)]="selectedVehicleId"
           (ngModelChange)="onSelectionChange($event)"
           class="vehicle-select">
           <option *ngFor="let opt of options" [value]="opt.id">
-            {{ opt.model.brand }} {{ opt.model.name }} - {{ opt.plate }}
+            {{ opt.model?.brand || 'N/A' }} {{ opt.model?.name || 'N/A' }} - {{ opt.plate || 'N/A' }}
           </option>
         </select>
       </div>
 
-      <div class="card-body" *ngIf="vehicle">
+      <div class="card-body" *ngIf="vehicle && vehicle.model">
         <div class="vehicle-image-container">
           <div class="vehicle-placeholder">
             <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
@@ -32,36 +33,42 @@ import { Vehicle } from '../../model/model';
         </div>
 
         <div class="vehicle-info">
-          <h2 class="vehicle-name">{{ vehicle.model.brand }} {{ vehicle.model.name }}</h2>
+          <h2 class="vehicle-name">{{ vehicle.model.brand || 'N/A' }} {{ vehicle.model.name || 'N/A' }}</h2>
           <div class="vehicle-details">
             <div class="detail-item">
               <span class="detail-label">Year</span>
-              <span class="detail-value">{{ vehicle.year }}</span>
+              <span class="detail-value">{{ vehicle.year || 'N/A' }}</span>
             </div>
             <div class="detail-item">
               <span class="detail-label">Plate</span>
-              <span class="detail-value">{{ vehicle.plate }}</span>
+              <span class="detail-value">{{ vehicle.plate || 'N/A' }}</span>
             </div>
             <div class="detail-item">
               <span class="detail-label">Type</span>
-              <span class="detail-value">{{ vehicle.model.type }}</span>
+              <span class="detail-value">{{ vehicle.model.type || 'N/A' }}</span>
             </div>
           </div>
         </div>
 
         <div class="specs-preview">
           <div class="spec-badge">
-            <div class="spec-value">{{ vehicle.model.displacement }}</div>
+            <div class="spec-value">{{ vehicle.model.displacement || 'N/A' }}</div>
             <div class="spec-label">Displacement</div>
           </div>
           <div class="spec-badge">
-            <div class="spec-value">{{ vehicle.model.potency }}</div>
+            <div class="spec-value">{{ vehicle.model.potency || 'N/A' }}</div>
             <div class="spec-label">Power</div>
           </div>
           <div class="spec-badge">
-            <div class="spec-value">{{ vehicle.model.consumption }}</div>
+            <div class="spec-value">{{ vehicle.model.consumption || 'N/A' }}</div>
             <div class="spec-label">Consumption</div>
           </div>
+        </div>
+      </div>
+
+      <div class="card-body" *ngIf="!vehicle || !vehicle.model">
+        <div class="empty-message">
+          <p>No vehicle data available</p>
         </div>
       </div>
     </div>
@@ -226,6 +233,12 @@ import { Vehicle } from '../../model/model';
       letter-spacing: 0.3px;
     }
 
+    .empty-message {
+      text-align: center;
+      padding: 2rem;
+      color: #999;
+    }
+
     @media (max-width: 640px) {
       .card-body {
         padding: 1.5rem;
@@ -261,11 +274,13 @@ import { Vehicle } from '../../model/model';
     }
   `]
 })
-export class VehicleCardComponent {
+export class VehicleCardComponent implements OnChanges {
   @Input() set vehicle(value: Vehicle | null) {
     this._vehicle = value;
     if (value?.id) {
       this.selectedVehicleId = value.id;
+    } else {
+      this.selectedVehicleId = null;
     }
   }
   get vehicle(): Vehicle | null {
@@ -281,7 +296,19 @@ export class VehicleCardComponent {
 
   selectedVehicleId: number | null = null;
 
-  onSelectionChange(id: number) {
-    this.selectionChange.emit(id);
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['vehicle'] && changes['vehicle'].currentValue) {
+      const vehicle = changes['vehicle'].currentValue;
+      if (vehicle?.id) {
+        this.selectedVehicleId = vehicle.id;
+      }
+    }
+  }
+
+  onSelectionChange(id: number | string) {
+    const numId = typeof id === 'string' ? Number(id) : id;
+    if (numId && !isNaN(numId)) {
+      this.selectionChange.emit(numId);
+    }
   }
 }
