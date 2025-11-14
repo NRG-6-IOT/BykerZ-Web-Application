@@ -41,6 +41,10 @@ export class AuthenticationService {
     return this.signedInUserId.asObservable();
   }
 
+  currentUserRole(): string {
+    return localStorage.getItem('user_role') || '';
+  }
+
   getRoleSpecificUserId(): Observable<number> {
     const role = localStorage.getItem('user_role') || '';
     const endpoint =

@@ -272,21 +272,16 @@ export class ComparePageComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    console.log('[ComparePageComponent] Initializing...');
-
     this.authService.currentUserId.subscribe({
       next: (userId) => {
         if (userId) {
           this.currentOwnerId = userId;
-          console.log('[ComparePageComponent] User ID:', userId);
           this.loadOwnerVehicles();
         } else {
-          console.log('[ComparePageComponent] No user ID found');
           this.loading = false;
         }
       },
       error: () => {
-        console.error('[ComparePageComponent] Error getting user ID');
         this.loading = false;
       }
     });
@@ -294,13 +289,9 @@ export class ComparePageComponent implements OnInit {
 
   private loadOwnerVehicles(): void {
     this.loading = true;
-    console.log('[ComparePageComponent] Loading vehicles for owner:', this.currentOwnerId);
 
     this.vehiclesApi.getVehiclesByOwnerId(this.currentOwnerId).subscribe({
       next: (vehicleEntities) => {
-        console.log('[ComparePageComponent] Vehicles loaded:', vehicleEntities);
-
-        // Convert from VehicleEntity (domain) to Vehicle (comparatives model)
         this.availableVehicles = vehicleEntities.map(entity => new Vehicle({
           id: entity.id,
           ownerId: entity.ownerId,
@@ -309,49 +300,34 @@ export class ComparePageComponent implements OnInit {
           plate: entity.plate
         }));
 
-        console.log('[ComparePageComponent] Available vehicles:', this.availableVehicles);
-
         if (this.availableVehicles.length > 0) {
-          // Read vehicleId from query params
           const vehicleIdParam = this.route.snapshot.queryParamMap.get('vehicleId');
-          console.log('[ComparePageComponent] Vehicle ID from URL:', vehicleIdParam);
 
           if (vehicleIdParam) {
             const vehicleId = Number(vehicleIdParam);
-            console.log('[ComparePageComponent] Searching for vehicle with ID:', vehicleId);
-
             const found = this.availableVehicles.find(v => v.id === vehicleId);
 
             if (found) {
-              console.log('[ComparePageComponent] Found vehicle:', found);
               this.ownerVehicle = found;
             } else {
-              console.log('[ComparePageComponent] Vehicle not found, using first available');
               this.ownerVehicle = this.availableVehicles[0];
             }
           } else {
-            console.log('[ComparePageComponent] No vehicleId param, using first vehicle');
             this.ownerVehicle = this.availableVehicles[0];
           }
 
-          // Select second vehicle for comparison
           if (this.availableVehicles.length > 1) {
             const differentVehicle = this.availableVehicles.find(v => v.id !== this.ownerVehicle?.id);
             this.compareVehicle = differentVehicle || this.availableVehicles[1];
           } else {
             this.compareVehicle = this.availableVehicles[0];
           }
-
-          console.log('[ComparePageComponent] Owner vehicle selected:', this.ownerVehicle);
-          console.log('[ComparePageComponent] Compare vehicle selected:', this.compareVehicle);
         }
 
         this.loading = false;
       },
       error: (err) => {
-        console.error('[ComparePageComponent] Error loading vehicles:', err);
         if (err?.status === 404) {
-          console.log('[ComparePageComponent] No vehicles found, redirecting to mechanic view');
           this.router.navigate(['/compare-mechanic']);
         }
         this.loading = false;

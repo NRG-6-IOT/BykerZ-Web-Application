@@ -7,6 +7,7 @@ import {VehiclesStore} from "@app/vehiclemanagement/application/vehicles.store";
 import {MatButton} from '@angular/material/button';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '@env/environment';
+import { AuthenticationService } from '@app/iam/services/authentication.service';
 
 @Component({
   selector: 'app-vehicle-details-page',
@@ -27,7 +28,8 @@ export class VehicleDetailsPage implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private store: VehiclesStore,
-    private http: HttpClient
+    private http: HttpClient,
+    private authService: AuthenticationService
   ) {}
 
   ngOnInit() {
@@ -51,11 +53,51 @@ export class VehicleDetailsPage implements OnInit {
   }
 
   navigateToCompare() {
-    if (this.vehicle?.id) {
-      this.router.navigate(['/compare'], {
-        queryParams: { vehicleId: this.vehicle.id }
-      });
+    const isMechanic = this.isMechanic();
+
+    if (isMechanic) {
+      const modelId = this.vehicle?.model?.id;
+
+      if (modelId) {
+        this.router.navigate(['/compare-mechanic'], { queryParams: { vehicleId: modelId } });
+      } else {
+        this.router.navigate(['/compare-mechanic']);
+      }
+    } else {
+      const vehicleId = this.vehicle?.id;
+
+      if (vehicleId) {
+        this.router.navigate(['/compare'], { queryParams: { vehicleId } });
+      } else {
+        this.router.navigate(['/compare']);
+      }
     }
+  }
+
+  private isMechanic(): boolean {
+    const currentUrl = this.router.url;
+    if (currentUrl.includes('mechanic-dashboard') || currentUrl.includes('mechanic')) {
+      return true;
+    }
+
+    const userRole = this.authService.currentUserRole();
+    if (userRole === 'ROLE_MECHANIC') {
+      return true;
+    }
+
+    const token = localStorage.getItem('token')?.replace(/^"|"$/g, '');
+    if (token) {
+      try {
+        const payload = JSON.parse(atob(token.split('.')[1]));
+        const role = payload.role || payload.authorities?.[0] || '';
+        if (role === 'ROLE_MECHANIC') {
+          return true;
+        }
+      } catch (error) {
+      }
+    }
+
+    return false;
   }
 
   exportReport() {
@@ -63,7 +105,6 @@ export class VehicleDetailsPage implements OnInit {
 
     const url = `${environment.platformProviderApiBaseUrl}/reports/vehicle/${this.vehicle.id}/export`;
     const token = localStorage.getItem('token')?.replace(/^"|"$/g, '');
-    console.log('🔑 Token enviado:', token);
 
     const headers = new HttpHeaders({
       Authorization: `Bearer ${token}`,
@@ -80,7 +121,6 @@ export class VehicleDetailsPage implements OnInit {
         URL.revokeObjectURL(a.href);
       },
       error: (err) => {
-        console.error('Error exporting report', err);
         alert('Error al exportar el reporte.');
       }
     });

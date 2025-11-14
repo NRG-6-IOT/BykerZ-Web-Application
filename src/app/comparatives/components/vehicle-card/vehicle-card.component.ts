@@ -1,19 +1,20 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { Vehicle } from '../../model/model';
 
 @Component({
   selector: 'app-vehicle-card',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   template: `
     <div class="card">
       <div class="card-header">
         <h3 class="card-title">{{ title }}</h3>
         <select
           *ngIf="selectable && options.length > 0"
-          (change)="onSelect($event)"
-          [value]="vehicle?.id"
+          [(ngModel)]="selectedVehicleId"
+          (ngModelChange)="onSelectionChange($event)"
           class="vehicle-select">
           <option *ngFor="let opt of options" [value]="opt.id">
             {{ opt.model.brand }} {{ opt.model.name }} - {{ opt.plate }}
@@ -261,17 +262,26 @@ import { Vehicle } from '../../model/model';
   `]
 })
 export class VehicleCardComponent {
-  @Input() vehicle: Vehicle | null = null;
+  @Input() set vehicle(value: Vehicle | null) {
+    this._vehicle = value;
+    if (value?.id) {
+      this.selectedVehicleId = value.id;
+    }
+  }
+  get vehicle(): Vehicle | null {
+    return this._vehicle;
+  }
+  private _vehicle: Vehicle | null = null;
+
   @Input() title: string = '';
   @Input() selectable: boolean = false;
   @Input() options: Vehicle[] = [];
   @Input() orange: boolean = false;
   @Output() selectionChange = new EventEmitter<number>();
 
-  onSelect(event: Event) {
-    const select = event.target as HTMLSelectElement | null;
-    const id = select ? Number(select.value) : NaN;
-    if (!isNaN(id)) this.selectionChange.emit(id);
+  selectedVehicleId: number | null = null;
+
+  onSelectionChange(id: number) {
+    this.selectionChange.emit(id);
   }
 }
-
