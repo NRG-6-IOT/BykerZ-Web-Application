@@ -5,7 +5,6 @@ import {MatListItem} from '@angular/material/list';
 @Component({
   selector: 'app-wellness-metric-item',
   imports: [
-    MatListItem
   ],
   templateUrl: './wellness-metric-item.html',
   styleUrl: './wellness-metric-item.css'
