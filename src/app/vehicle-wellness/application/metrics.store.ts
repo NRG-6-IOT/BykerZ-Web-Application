@@ -1,6 +1,6 @@
 import { computed, inject, Injectable, signal } from '@angular/core';
-import { WellnessMetricApiService } from '@app/metrics/infrastructure/wellness-metric-api.service';
-import { WellnessMetric } from '@app/metrics/domain/model/wellness-metric.entity';
+import { WellnessMetricApiService } from '@app/vehicle-wellness/infrastructure/wellness-metric-api.service';
+import { WellnessMetric } from '@app/vehicle-wellness/domain/model/wellness-metric.entity';
 
 @Injectable({
   providedIn: 'root'
