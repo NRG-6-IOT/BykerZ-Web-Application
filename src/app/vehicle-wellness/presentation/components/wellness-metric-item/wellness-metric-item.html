@@ -60,14 +60,23 @@
 
       </div>
     </div>
+    <div class="data-section">
+      <h4 class="section-title">Status impact</h4>
+      <div class="data-item">
+        <span class="data-label">Pressure:</span>
+        <span class="data-value">{{ wellnessMetric().pressureHpa }} hPa</span>
+      </div>
+    </div>
+
 
   </div>
 
   <!-- Footer -->
   <div class="card-footer">
+
     <div class="data-item">
-      <span class="data-label">Pressure:</span>
-      <span class="data-value">{{ wellnessMetric().pressureHpa }} hPa</span>
+      <span class="data-label">Emitted at:</span>
+      <span class="data-value">{{ wellnessMetric().registeredAt | date:'dd/MM/yyyy HH:mm' }}</span>
     </div>
   </div>
 

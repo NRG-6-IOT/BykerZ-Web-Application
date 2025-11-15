@@ -17,6 +17,8 @@ export class WellnessMetric {
 
   impactDetected: boolean;
 
+  registeredAt: Date;
+
   constructor() {
     this.id = 0;
     this.vehicleId = 0;
@@ -29,6 +31,7 @@ export class WellnessMetric {
     this.humidityPercentage = 0;
     this.pressureHpa = 0;
     this.impactDetected = false;
+    this.registeredAt= new Date();
   }
 
 }

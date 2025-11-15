@@ -22,6 +22,8 @@ export class WellnessMetricAssembler {
       pressureHpa: resource.pressureHpa,
 
       impactDetected: resource.impactDetected,
+
+      registeredAt: resource.registeredAt,
     }
   }
 
@@ -48,6 +50,8 @@ export class WellnessMetricAssembler {
       pressureHpa: entity.pressureHpa,
 
       impactDetected: entity.impactDetected,
+
+      registeredAt: entity.registeredAt,
     }
   }
 

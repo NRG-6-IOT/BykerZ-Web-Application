@@ -22,6 +22,8 @@ export interface WellnessMetricResource {
   pressureHpa: number;
 
   impactDetected: boolean;
+
+  registeredAt: Date;
 }
 
 export interface CreateWellnessMetricResource{
