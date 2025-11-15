@@ -7,15 +7,36 @@
 <div class="data-container">
   <mat-card>
     <div class="card-inside">
-      <h1>Characteristics</h1>
+      <div class="header-section">
+        <h1>Characteristics</h1>
+        <div class="action-buttons">
+          <button
+            mat-raised-button
+            color="primary"
+            (click)="navigateToMetrics()"
+            class="metrics-btn">
+            View Wellness Metrics
+          </button>
 
-      <button
-        mat-raised-button
-        color="primary"
-        (click)="navigateToMetrics()"
-        class="metrics-btn">
-        View Wellness Metrics
-      </button>
+          <button
+            mat-raised-button
+            color="accent"
+            (click)="navigateToCompare()"
+            type="button"
+            class="compare-button">
+            Compare
+          </button>
+
+          <button
+            mat-raised-button
+            color="accent"
+            (click)="exportReport()"
+            type="button"
+            class="export-button">
+            Exportar
+          </button>
+        </div>
+      </div>
 
       <div class="data-box">
         <div class="white-box">

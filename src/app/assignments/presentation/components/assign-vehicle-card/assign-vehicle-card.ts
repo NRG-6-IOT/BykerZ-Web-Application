@@ -1,6 +1,5 @@
 import {Component, inject, Input} from '@angular/core';
 import {MatCard, MatCardContent} from '@angular/material/card';
-import {NgOptimizedImage} from '@angular/common';
 import {RouterLink} from '@angular/router';
 
 import {
@@ -15,7 +14,6 @@ import {Vehicle} from '@app/vehiclemanagement/domain/model/vehicle.entity';
   selector: 'app-assign-vehicle-card',
   imports: [
     MatCard,
-    NgOptimizedImage,
     MatCardContent,
     RouterLink,
     NotificationListComponent
