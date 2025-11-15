@@ -1,8 +1,9 @@
 import {BaseResource, BaseResponse} from '@app/shared/infrastructure/base-response';
+import {OwnerResource} from '@app/assignments/infrastructure/owner-response';
 
 export interface VehicleResource extends BaseResource {
   id: number;
-  ownerId: number;
+  owner: OwnerResource;
   model: ModelResource;
   plate: string;
   year: string;

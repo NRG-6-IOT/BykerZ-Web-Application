@@ -31,6 +31,6 @@ export const routes: Routes = [
   { path : "expenses", loadChildren: expensesRoutes, canActivate: [authenticationGuard]},
   { path: "membership", component: DashboardOwnerPage, canActivate: [authenticationGuard] },
   { path: "vehicles", component: VehiclesPage, canActivate: [authenticationGuard] },
-  { path: "vehicle/:vehicleId", component: VehicleDetailsPage, canActivate: [authenticationGuard] },
+  { path: "vehicle/:vehicleId/:role", component: VehicleDetailsPage, canActivate: [authenticationGuard] },
   {path: 'wellness-metrics',component: WellnessMetricPage, canActivate: [authenticationGuard] }
 ];

@@ -382,7 +382,7 @@ export class ComparePageComponent implements OnInit {
       next: (vehicleEntities) => {
         this.availableVehicles = vehicleEntities.map(entity => new Vehicle({
           id: entity.id,
-          ownerId: entity.ownerId,
+          ownerId: entity.owner?.id,
           model: entity.model,
           year: entity.year,
           plate: entity.plate
