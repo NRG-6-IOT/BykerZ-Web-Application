@@ -2,7 +2,7 @@
 
   <!-- Header -->
   <div class="card-header">
-    <h3 class="vehicle-title">Vehicle {{ wellnessMetric().vehicleId }}</h3>
+    <h3 class="vehicle-title">Vehicle: {{ getVehicle().model?.name }} ({{getVehicle().owner?.completeName}})</h3>
     <span class="status-badge" [class.impact]="wellnessMetric().impactDetected">
       {{ wellnessMetric().impactDetected ? 'Impact Detected' : 'Normal State' }}
     </span>
