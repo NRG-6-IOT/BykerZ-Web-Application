@@ -1,5 +1,6 @@
 import {Component, input, Input, output} from '@angular/core';
-import {WellnessMetric} from '@app/metrics/domain/model/wellness-metric.entity';
+import {WellnessMetric} from '@app/vehicle-wellness/domain/model/wellness-metric.entity';
+import {MatListItem} from '@angular/material/list';
 
 @Component({
   selector: 'app-wellness-metric-item',
