@@ -22,7 +22,7 @@
   grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
   justify-items: center;
   align-items: stretch;
-  margin-top: 16px;
+  margin-top: 32px;
 }
 
 .header{
@@ -52,4 +52,22 @@
   border-radius: 16px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   font-size: 16px;
+}
+
+app-assign-vehicle-card {
+  opacity: 0;
+  animation: appear;
+  animation-duration: 0.5s;
+  animation-timing-function: ease-in-out;
+  animation-fill-mode: forwards;
+}
+
+app-assign-vehicle-card:nth-child(n) {
+  animation-delay: calc((var(--i) * 0.1s));
+}
+
+@keyframes appear {
+  0%{opacity: 0}
+  50%{transform: translateY(10px)}
+  100%{opacity: 100%}
 }

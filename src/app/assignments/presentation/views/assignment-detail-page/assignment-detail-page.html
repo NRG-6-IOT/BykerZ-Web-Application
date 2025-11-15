@@ -17,8 +17,8 @@
   <div style="width: 100%;">
     <p style="font-weight: bold; font-size: 18px;">Associated motorbikes:</p>
     <div class="vehicle-grid">
-      @for (vehicle of vehicles; track vehicle.id) {
-        <app-assign-vehicle-card [vehicle]="vehicle"></app-assign-vehicle-card>
+      @for (vehicle of vehicles; let i = $index; track vehicle.id) {
+        <app-assign-vehicle-card style='--i: {{i}}' [vehicle]="vehicle"></app-assign-vehicle-card>
       }
     </div>
   </div>
