@@ -6,6 +6,7 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatDialog} from '@angular/material/dialog';
 import {RegisterVehicleDialog} from '@app/vehiclemanagement/presentation/components/register-vehicle-dialog/register-vehicle-dialog';
 import {VehiclesStore} from "@app/vehiclemanagement/application/vehicles.store";
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-vehicles-page',
@@ -18,10 +19,17 @@ import {VehiclesStore} from "@app/vehiclemanagement/application/vehicles.store";
   standalone: true,
   styleUrl: './vehicles-page.css'
 })
-export class VehiclesPage {
+export class VehiclesPage implements OnInit {
 
   readonly store = inject(VehiclesStore);
   readonly dialog = inject(MatDialog);
+
+  ngOnInit() {
+    const roleId = localStorage.getItem('role_id');
+    if (roleId) {
+      this.store.loadVehiclesByOwner(+roleId)
+    }
+  }
 
   get vehicles() {
     return this.store.vehicles();
