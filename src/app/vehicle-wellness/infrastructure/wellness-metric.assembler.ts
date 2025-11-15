@@ -1,5 +1,5 @@
-import {WellnessMetricResource, WellnessMetricsResponse} from '@app/metrics/infrastructure/wellness-metrics.response';
-import {WellnessMetric} from '@app/metrics/domain/model/wellness-metric.entity';
+import {WellnessMetricResource, WellnessMetricsResponse} from '@app/vehicle-wellness/infrastructure/wellness-metrics.response';
+import {WellnessMetric} from '@app/vehicle-wellness/domain/model/wellness-metric.entity';
 
 export class WellnessMetricAssembler {
 
@@ -22,6 +22,8 @@ export class WellnessMetricAssembler {
       pressureHpa: resource.pressureHpa,
 
       impactDetected: resource.impactDetected,
+
+      registeredAt: resource.registeredAt,
     }
   }
 
@@ -48,6 +50,8 @@ export class WellnessMetricAssembler {
       pressureHpa: entity.pressureHpa,
 
       impactDetected: entity.impactDetected,
+
+      registeredAt: entity.registeredAt,
     }
   }
 

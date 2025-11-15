@@ -7,7 +7,7 @@ import {SignUpPage} from '@app/iam/presentation/views/sign-up/sign-up.page';
 import {DashboardMechanicPage} from '@app/public/presentation/views/dashboard-mechanic-page/dashboard-mechanic-page';
 import {RoleSelectionPage} from '@app/iam/presentation/views/role-selection/role-selection.page';
 import {VerifyOwner} from '@app/iam/presentation/views/verify-owner/verify-owner';
-import {WellnessMetricPage} from '@app/metrics/presentation/views/wellness-metric-page/wellness-metric-page';
+import {WellnessMetricPage} from '@app/vehicle-wellness/presentation/views/wellness-metric-page/wellness-metric-page';
 import {ComparePageComponent} from '@app/comparatives/pages/compare-page/compare-page.component';
 import {CompareMechanicComponent} from '@app/comparatives/pages/compare-mechanic/compare-mechanic.component';
 import {authenticationGuard} from '@app/iam/services/authentication.guard';

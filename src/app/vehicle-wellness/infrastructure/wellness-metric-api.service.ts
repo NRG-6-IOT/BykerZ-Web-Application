@@ -2,13 +2,13 @@ import {inject, Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {environment} from '../../../environments/environment';
 import {catchError, map, Observable} from 'rxjs';
-import {WellnessMetric} from '@app/metrics/domain/model/wellness-metric.entity';
+import {WellnessMetric} from '@app/vehicle-wellness/domain/model/wellness-metric.entity';
 import {
   CreateWellnessMetricResource, UpdateWellnessMetricResource,
   WellnessMetricResource,
   WellnessMetricsResponse
-} from '@app/metrics/infrastructure/wellness-metrics.response';
-import {WellnessMetricAssembler} from '@app/metrics/infrastructure/wellness-metric.assembler';
+} from '@app/vehicle-wellness/infrastructure/wellness-metrics.response';
+import {WellnessMetricAssembler} from '@app/vehicle-wellness/infrastructure/wellness-metric.assembler';
 
 @Injectable({
   providedIn: 'root'

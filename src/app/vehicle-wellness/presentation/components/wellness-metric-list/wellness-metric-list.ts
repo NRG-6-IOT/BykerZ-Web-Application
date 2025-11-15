@@ -1,8 +1,8 @@
 import {Component, inject, OnInit} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {WellnessMetricItem} from '@app/metrics/presentation/components/wellness-metric-item/wellness-metric-item';
-import {MetricsStore} from '@app/metrics/application/metrics.store';
-import {WellnessMetric} from '@app/metrics/domain/model/wellness-metric.entity';
+import {WellnessMetricItem} from '@app/vehicle-wellness/presentation/components/wellness-metric-item/wellness-metric-item';
+import {MetricsStore} from '@app/vehicle-wellness/application/metrics.store';
+import {WellnessMetric} from '@app/vehicle-wellness/domain/model/wellness-metric.entity';
 import {ActivatedRoute} from '@angular/router';
 
 @Component({
