@@ -52,7 +52,7 @@
       "closeButton": "Cerrar"
     },
     "pendingAssignmentsButton": {
-
+      "title": "Asignaciones Pendientes"
     },
     "pendingAssignmentsDropdown": {
 

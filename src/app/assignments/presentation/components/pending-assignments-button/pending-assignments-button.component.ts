@@ -1,12 +1,14 @@
 import {Component, ElementRef, HostListener, inject} from '@angular/core';
 import {PendingAssignmentsDropdown} from '@app/assignments/presentation/components/pending-assignments-dropdown/pending-assignments-dropdown.component';
 import {AssignmentsStore} from '@app/assignments/application/assigments.store';
+import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-pending-assignments-button',
   templateUrl: './pending-assignments-button.component.html',
   imports: [
-    PendingAssignmentsDropdown
+    PendingAssignmentsDropdown,
+    TranslatePipe
   ],
   styleUrls: ['./pending-assignments-button.component.css']
 })
