@@ -1,21 +1,21 @@
 <div class="screen">
   <div class="header">
     <div class="left">
-      <p>{{assignment?.owner?.completeName}} assigment</p>
+      <p>{{assignment?.owner?.completeName}} {{ 'assignments.assignmentDetailPage.assignment' | translate }}</p>
     </div>
     <div class="right">
-      <p style="font-size: 16px; font-weight: bold">Code:</p>
+      <p style="font-size: 16px; font-weight: bold">{{ 'assignments.assignmentDetailPage.code' | translate }}</p>
       <div class="assigment-code">
         <p>{{assignment?.assignmentCode}}</p>
       </div>
-      <p style="font-size: 16px; font-weight: bold">Type:</p>
+      <p style="font-size: 16px; font-weight: bold">{{ 'assignments.assignmentDetailPage.type' | translate }}</p>
       <div>
         <app-assignment-type-selector [assignmentType]="assignment?.type" (typeChanged)="handleTypeChange($event)"></app-assignment-type-selector>
       </div>
     </div>
   </div>
   <div style="width: 100%;">
-    <p style="font-weight: bold; font-size: 18px;">Associated motorbikes:</p>
+    <p style="font-weight: bold; font-size: 18px;">{{ 'assignments.assignmentDetailPage.associatedMotorbikes' | translate }}</p>
     <div class="vehicle-grid">
       @for (vehicle of vehicles; let i = $index; track vehicle.id) {
         <app-assign-vehicle-card style='--i: {{i}}' [vehicle]="vehicle"></app-assign-vehicle-card>

@@ -62,7 +62,10 @@
       "emittedOn": "Emitted on:"
     },
     "assignmentDetailPage": {
-
+      "assignment": "assignment",
+      "code": "Code:",
+      "type": "Type:",
+      "associatedMotorbikes": "Associated motorbikes:"
     },
     "assignmentsPage": {
 

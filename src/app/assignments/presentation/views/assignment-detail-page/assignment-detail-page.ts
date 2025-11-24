@@ -7,12 +7,14 @@ import {
 } from '@app/assignments/presentation/components/assignment-type-selector/assignment-type-selector';
 import {VehiclesStore} from '@app/vehiclemanagement/application/vehicles.store';
 import {AssignVehicleCard} from '@app/assignments/presentation/components/assign-vehicle-card/assign-vehicle-card';
+import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-assignment-detail-page',
   imports: [
     AssignmentTypeSelector,
-    AssignVehicleCard
+    AssignVehicleCard,
+    TranslatePipe
   ],
   templateUrl: './assignment-detail-page.html',
   styleUrl: './assignment-detail-page.css'
