@@ -45,7 +45,11 @@
       "generateAssignment": "Generate Assignment"
     },
     "createAssignmentDialog": {
-
+      "title": "A new Assignment has been created",
+      "code": "Code:",
+      "loading": "Loading...",
+      "shareMessage": "Share this code with an owner to link it to you",
+      "closeButton": "Close"
     },
     "pendingAssignmentsButton": {
 
