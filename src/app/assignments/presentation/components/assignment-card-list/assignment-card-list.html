@@ -1,6 +1,6 @@
 <div>
   @if (assignments.length === 0) {
-    <p class="no-subscriptions-message">No tienes suscripciones activas.</p>
+    <p class="no-subscriptions-message">{{ 'assignments.assignmentCardList.noAssignments' | translate }}</p>
   }
   @if (assignments.length > 0) {
     <div class = "subscriptions-list">
