@@ -55,7 +55,7 @@
       "title": "Pending Assignments"
     },
     "pendingAssignmentsDropdown": {
-
+      "noPending": "No pending assignments"
     },
     "pendingAssignmentsDropdownItem": {
 

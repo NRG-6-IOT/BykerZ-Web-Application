@@ -55,7 +55,7 @@
       "title": "Asignaciones Pendientes"
     },
     "pendingAssignmentsDropdown": {
-
+      "noPending": "No hay asignaciones pendientes"
     },
     "pendingAssignmentsDropdownItem": {
 
