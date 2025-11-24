@@ -4,6 +4,7 @@ import {FormsModule} from '@angular/forms';
 import {Router, RouterLink, RouterLinkActive} from '@angular/router';
 import {AuthenticationService} from '@app/iam/services/authentication.service';
 import {NgForOf, NgIf} from '@angular/common';
+  import {LanguageSwitcherComponent} from '@app/shared/presentation/components/language-switcher/language-switcher';
 
 @Component({
   selector: 'app-navbar-component',
@@ -13,6 +14,7 @@ import {NgForOf, NgIf} from '@angular/common';
     RouterLink,
     NgIf,
     NgForOf,
+    LanguageSwitcherComponent,
   ],
   templateUrl: './navbar-component.html',
   standalone: true,
