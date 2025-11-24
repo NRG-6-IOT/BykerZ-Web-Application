@@ -11,37 +11,37 @@
 
         <div class="white-box">
           <div class="data-row">
-            <span><b>Model Year:</b></span>
+            <span><b>{{ 'assignments.assignVehicleCard.modelYear' | translate }}:</b></span>
             <span>{{ vehicle.model?.modelYear }}</span>
           </div>
 
           <div class="data-row">
-            <span><b>Plate:</b></span>
+            <span><b>{{ 'assignments.assignVehicleCard.plate' | translate }}:</b></span>
             <span>{{ vehicle.plate }}</span>
           </div>
 
           <div class="data-row">
-            <span><b>Type:</b></span>
+            <span><b>{{ 'assignments.assignVehicleCard.type' | translate }}:</b></span>
             <span>{{ vehicle.model?.type }}</span>
           </div>
 
           <div class="data-row">
-            <span><b>Brand Origin:</b></span>
+            <span><b>{{ 'assignments.assignVehicleCard.brandOrigin' | translate }}:</b></span>
             <span>{{ vehicle.model?.originCountry }}</span>
           </div>
 
           <div class="data-row">
-            <span><b>Produced At:</b></span>
+            <span><b>{{ 'assignments.assignVehicleCard.producedAt' | translate }}:</b></span>
             <span>{{ formatDate(vehicle.model?.producedAt!) }}</span>
           </div>
 
           <div class="data-row">
-            <span><b>Displacement:</b></span>
+            <span><b>{{ 'assignments.assignVehicleCard.displacement' | translate }}:</b></span>
             <span>{{ vehicle.model?.displacement }}</span>
           </div>
 
           <div class="data-row">
-            <span><b>Octane:</b></span>
+            <span><b>{{ 'assignments.assignVehicleCard.octane' | translate }}:</b></span>
             <span>{{ vehicle.model?.octane }}</span>
           </div>
         </div>

@@ -15,5 +15,49 @@
       "expenses": "Expenses",
       "maintenance": "Maintenance"
     }
+  },
+  "assignments": {
+    "assignVehicleCard": {
+      "modelYear": "Model Year",
+      "plate": "Plate",
+      "type": "Type",
+      "brandOrigin": "Brand Origin",
+      "producedAt": "Produced At",
+      "displacement": "Displacement",
+      "octane": "Octane"
+    },
+    "assignmentCard": {
+
+    },
+    "assignmentsCardDialog": {
+
+    },
+    "assignmentCardList": {
+
+    },
+    "assignmentsTypeSelector": {
+
+    },
+    "createAssignmentButton": {
+
+    },
+    "createAssignmentDialog": {
+
+    },
+    "pendingAssignmentsButton": {
+
+    },
+    "pendingAssignmentsDropdown": {
+
+    },
+    "pendingAssignmentsDropdownItem": {
+
+    },
+    "assignmentDetailPage": {
+
+    },
+    "assignmentsPage": {
+
+    }
   }
 }
