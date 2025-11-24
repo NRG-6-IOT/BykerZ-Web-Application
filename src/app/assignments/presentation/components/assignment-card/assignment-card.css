@@ -23,4 +23,8 @@
   .left{
     font-weight: bold;
   }
+  .right{
+    display: flex;
+    text-align: right;
+  }
 }

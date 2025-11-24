@@ -5,10 +5,13 @@ import {
   AssignmentCardDialog
 } from '@app/assignments/presentation/components/assignment-card-dialog/assignment-card-dialog';
 import {Router} from '@angular/router';
+import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-assignment-card',
-  imports: [],
+  imports: [
+    TranslatePipe
+  ],
   templateUrl: './assignment-card.html',
   styleUrl: './assignment-card.css'
 })
