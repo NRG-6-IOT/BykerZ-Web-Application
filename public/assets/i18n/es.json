@@ -33,7 +33,7 @@
       "assignedOn": "Asignado el"
     },
     "assignmentCardList": {
-
+      "noAssignments": "No tienes asignaciones activas."
     },
     "assignmentsTypeSelector": {
 
