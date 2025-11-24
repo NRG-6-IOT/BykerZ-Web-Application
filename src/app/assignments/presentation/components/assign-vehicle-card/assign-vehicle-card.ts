@@ -8,6 +8,7 @@ import {
 
 import {AssignmentsStore} from "@app/assignments/application/assigments.store";
 import {Vehicle} from '@app/vehiclemanagement/domain/model/vehicle.entity';
+import {TranslatePipe} from '@ngx-translate/core';
 
 
 @Component({
@@ -16,7 +17,8 @@ import {Vehicle} from '@app/vehiclemanagement/domain/model/vehicle.entity';
     MatCard,
     MatCardContent,
     RouterLink,
-    NotificationListComponent
+    NotificationListComponent,
+    TranslatePipe
   ],
   templateUrl: './assign-vehicle-card.html',
   standalone: true,

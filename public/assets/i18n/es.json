@@ -15,5 +15,49 @@
       "expenses": "Gastos",
       "maintenance": "Mantenimientos"
     }
+  },
+  "assignments": {
+    "assignVehicleCard": {
+      "modelYear": "Año del Modelo",
+      "plate": "Placa",
+      "type": "Tipo",
+      "brandOrigin": "Origen de la Marca",
+      "producedAt": "Producido En",
+      "displacement": "Desplazamiento",
+      "octane": "Octanaje"
+    },
+    "assignmentCard": {
+
+    },
+    "assignmentsCardDialog": {
+
+    },
+    "assignmentCardList": {
+
+    },
+    "assignmentsTypeSelector": {
+
+    },
+    "createAssignmentButton": {
+
+    },
+    "createAssignmentDialog": {
+
+    },
+    "pendingAssignmentsButton": {
+
+    },
+    "pendingAssignmentsDropdown": {
+
+    },
+    "pendingAssignmentsDropdownItem": {
+
+    },
+    "assignmentDetailPage": {
+
+    },
+    "assignmentsPage": {
+
+    }
   }
 }
