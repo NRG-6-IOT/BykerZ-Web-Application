@@ -1,3 +1,19 @@
 {
-
+  "navbar":{
+    "logout":"Cerrar Sesión",
+    "mechanic": {
+      "dashboard": "Panel de Control",
+      "assignments": "Asignaciones",
+      "maintenance": "Mantenimientos",
+      "comparatives": "Comparaciones",
+      "Membership": "Membresia"
+    },
+    "owner": {
+      "dashboard": "Panel de Control",
+      "vehicles": "Vehiculos",
+      "comparatives": "Comparaciones",
+      "expenses": "Gastos",
+      "maintenance": "Mantenimientos"
+    }
+  }
 }
