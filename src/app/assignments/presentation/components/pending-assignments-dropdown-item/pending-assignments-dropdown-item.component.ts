@@ -1,10 +1,12 @@
 import {Component, EventEmitter, inject, Input, Output} from '@angular/core';
 import {Assignment} from '@app/assignments/domain/model/assignment.entity';
 import {AssignmentsStore} from '@app/assignments/application/assigments.store';
+import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-pending-assignments-dropdown-item',
   imports: [
+    TranslatePipe
   ],
   templateUrl: './pending-assignments-dropdown-item.component.html',
   styleUrl: './pending-assignments-dropdown-item.component.css'

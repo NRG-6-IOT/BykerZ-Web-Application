@@ -58,7 +58,8 @@
       "noPending": "No pending assignments"
     },
     "pendingAssignmentsDropdownItem": {
-
+      "assignmentCode": "Assignment code:",
+      "emittedOn": "Emitted on:"
     },
     "assignmentDetailPage": {
 
