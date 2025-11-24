@@ -36,7 +36,10 @@
       "noAssignments": "You have no active assignments."
     },
     "assignmentsTypeSelector": {
-
+      "uncategorized": "Uncategorized Customer",
+      "regular": "Regular Customer",
+      "frequent": "Frequent Customer",
+      "business": "Business Customer"
     },
     "createAssignmentButton": {
 

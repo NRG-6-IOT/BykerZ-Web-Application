@@ -1,12 +1,14 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {NgForOf} from '@angular/common';
+import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-assignment-type-selector',
   imports: [
     FormsModule,
-    NgForOf
+    NgForOf,
+    TranslatePipe
   ],
   templateUrl: './assignment-type-selector.html',
   styleUrl: './assignment-type-selector.css'
