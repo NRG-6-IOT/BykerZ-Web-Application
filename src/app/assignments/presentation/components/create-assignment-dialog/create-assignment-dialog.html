@@ -1,27 +1,27 @@
 <div class="dialog-backdrop">
   <div class="dialog">
     <div class="title">
-      <p>A new Assignment has been created</p>
+      <p>{{ 'assignments.createAssignmentDialog.title' | translate }}</p>
     </div>
 
     <div class="code">
       @if (createdAssigment){
         <ng-container>
-          <p class="code-highlight">Code: {{ createdAssigment.assignmentCode }}</p>
+          <p class="code-highlight">{{ 'assignments.createAssignmentDialog.code' | translate }} {{ createdAssigment.assignmentCode }}</p>
         </ng-container>
       } @else {
         <ng-template>
-          <p class="loading">Loading...</p>
+          <p class="loading">{{ 'assignments.createAssignmentDialog.loading' | translate }}</p>
         </ng-template>
       }
     </div>
 
     <div class="code" style="margin-top: 10px">
-      <p>Share this code with an owner to link it to you</p>
+      <p>{{ 'assignments.createAssignmentDialog.shareMessage' | translate }}</p>
     </div>
 
     <div class="btn-container">
-      <button (click)="onClose()" class="close-btn">Close</button>
+      <button (click)="onClose()" class="close-btn">{{ 'assignments.createAssignmentDialog.closeButton' | translate }}</button>
     </div>
   </div>
 </div>
