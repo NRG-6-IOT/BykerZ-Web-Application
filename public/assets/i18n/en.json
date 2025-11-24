@@ -27,7 +27,10 @@
       "octane": "Octane"
     },
     "assignmentCard": {
-
+      "assignmentType": "Assignment type",
+      "assignmentCode": "Assignment code",
+      "ownerName": "Owner's name",
+      "assignedOn": "Assigned on"
     },
     "assignmentsCardDialog": {
 

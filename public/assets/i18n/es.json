@@ -27,7 +27,10 @@
       "octane": "Octanaje"
     },
     "assignmentCard": {
-
+      "assignmentType": "Tipo de asignación",
+      "assignmentCode": "Código de asignación",
+      "ownerName": "Nombre del propietario",
+      "assignedOn": "Asignado el"
     },
     "assignmentsCardDialog": {
 
