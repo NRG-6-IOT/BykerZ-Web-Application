@@ -7,6 +7,7 @@ import {MatError} from '@angular/material/form-field';
 import {
   CreateAssignmentButton
 } from '@app/assignments/presentation/components/create-assignment-button/create-assignment-button';
+import {TranslatePipe} from '@ngx-translate/core';
 
 
 @Component({
@@ -16,7 +17,8 @@ import {
     AssignmentCardList,
     MatProgressSpinner,
     MatError,
-    CreateAssignmentButton
+    CreateAssignmentButton,
+    TranslatePipe
   ],
   templateUrl: './assignments-page.html',
   styleUrl: './assignments-page.css'
