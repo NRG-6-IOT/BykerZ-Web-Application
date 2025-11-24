@@ -4,13 +4,15 @@ import {Assignment} from '@app/assignments/domain/model/assignment.entity';
 import {
   PendingAssignmentsDropdownItem
 } from '@app/assignments/presentation/components/pending-assignments-dropdown-item/pending-assignments-dropdown-item.component';
+import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-pending-assignments-dropdown',
   templateUrl: './pending-assignments-dropdown.component.html',
   imports: [
     NgForOf,
-    PendingAssignmentsDropdownItem
+    PendingAssignmentsDropdownItem,
+    TranslatePipe
   ],
   styleUrls: ['./pending-assignments-dropdown.component.css']
 })
