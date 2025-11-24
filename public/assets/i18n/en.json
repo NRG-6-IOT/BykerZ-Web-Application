@@ -1,3 +1,19 @@
 {
-
+  "navbar":{
+    "logout":"Log Out",
+    "mechanic": {
+      "dashboard": "Dashboard",
+      "assignments": "Assignments",
+      "maintenance": "Maintenance",
+      "comparatives": "Comparatives",
+      "Membership": "Membership"
+    },
+    "owner": {
+      "dashboard": "Dashboard",
+      "vehicles": "Vehicles",
+      "comparatives": "Comparatives",
+      "expenses": "Expenses",
+      "maintenance": "Maintenance"
+    }
+  }
 }

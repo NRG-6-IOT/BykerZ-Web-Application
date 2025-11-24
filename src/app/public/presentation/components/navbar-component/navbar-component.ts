@@ -5,6 +5,7 @@ import {Router, RouterLink, RouterLinkActive} from '@angular/router';
 import {AuthenticationService} from '@app/iam/services/authentication.service';
 import {NgForOf, NgIf} from '@angular/common';
   import {LanguageSwitcherComponent} from '@app/shared/presentation/components/language-switcher/language-switcher';
+  import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-navbar-component',
@@ -15,6 +16,7 @@ import {NgForOf, NgIf} from '@angular/common';
     NgIf,
     NgForOf,
     LanguageSwitcherComponent,
+    TranslatePipe,
   ],
   templateUrl: './navbar-component.html',
   standalone: true,
@@ -22,26 +24,25 @@ import {NgForOf, NgIf} from '@angular/common';
 })
 export class NavbarComponent implements OnInit {
 
-  menuOptions: { name: string; route: string }[] = [];
+  menuOptions: { name: string; route: string; translationKey: string }[] = [];
 
   selectedRole: string = '';
   isSignedIn: boolean = false;
 
   ownerOptions = [
-    { name: 'Dashboard', route: '/owner-dashboard' },
-    { name: 'Vehicles', route: '/vehicles' },
-    { name: 'Comparatives', route: '/compare' },
-    { name: 'Expenses', route: '/expenses' },
-    { name: 'Maintenance', route: '/maintenances/owner' },
-
+    { name: 'Dashboard', route: '/owner-dashboard', translationKey: 'navbar.owner.dashboard' },
+    { name: 'Vehicles', route: '/vehicles', translationKey: 'navbar.owner.vehicles' },
+    { name: 'Comparatives', route: '/compare', translationKey: 'navbar.owner.comparatives' },
+    { name: 'Expenses', route: '/expenses', translationKey: 'navbar.owner.expenses' },
+    { name: 'Maintenance', route: '/maintenances/owner', translationKey: 'navbar.owner.maintenance' },
   ];
 
   mechanicOptions = [
-    { name: 'Dashboard', route: '/mechanic-dashboard' },
-    { name: 'Assignments', route: '/assignments' },
-    { name: 'Maintenance', route: '/maintenances/mechanic' },
-    { name: 'Comparatives', route: '/compare-mechanic' },
-    { name: 'Membership', route: '/membership' }
+    { name: 'Dashboard', route: '/mechanic-dashboard', translationKey: 'navbar.mechanic.dashboard' },
+    { name: 'Assignments', route: '/assignments', translationKey: 'navbar.mechanic.assignments' },
+    { name: 'Maintenance', route: '/maintenances/mechanic', translationKey: 'navbar.mechanic.maintenance' },
+    { name: 'Comparatives', route: '/compare-mechanic', translationKey: 'navbar.mechanic.comparatives' },
+    { name: 'Membership', route: '/membership', translationKey: 'navbar.mechanic.Membership' }
   ];
 
   constructor(private authenticationService: AuthenticationService) {
