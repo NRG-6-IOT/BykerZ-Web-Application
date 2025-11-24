@@ -36,7 +36,10 @@
       "noAssignments": "No tienes asignaciones activas."
     },
     "assignmentsTypeSelector": {
-
+      "uncategorized": "Cliente Sin categoría",
+      "regular": "Cliente Regular",
+      "frequent": "Cliente Frecuente",
+      "business": "Cliente Empresarial"
     },
     "createAssignmentButton": {
 
