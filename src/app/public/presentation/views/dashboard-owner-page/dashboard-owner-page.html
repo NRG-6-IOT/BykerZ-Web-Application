@@ -15,16 +15,25 @@
       <div class="box-header">
         <p>Vehicles</p>
       </div>
+      <div class="box-content vehicles">
+        @for (vehicle of ownerVehicles(); track vehicle.id) {
+          <div class="white-box vehicle-card">
+            <p>{{vehicle.owner?.completeName}}</p>
+          </div>
+        }
+      </div>
     </div>
     <div style="grid-area: box-2" class="orange-box">
       <div class="box-header">
         <p>Bills</p>
       </div>
+      <div class="box-content"></div>
     </div>
     <div style="grid-area: box-3" class="orange-box">
       <div class="box-header">
         <p>Scheduled Maintenances</p>
       </div>
+      <div class="box-content"></div>
     </div>
   </div>
 </div>
