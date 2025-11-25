@@ -43,3 +43,28 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   font-size: 16px;
 }
+
+.grid-container {
+  height: 40em;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 3fr 4fr;
+  grid-template-rows: 3fr 2fr;
+  gap: 1em;
+  grid-template-areas:
+    "box-1 box-2"
+    "box-3 box-3";
+}
+
+.orange-box {
+  background-color: #FF6B35;
+  border-radius: 10px;
+}
+
+.box-header {
+  color: white;
+  padding-top: 1.5em;
+  padding-left: 1.5em;
+  font-weight: bold;
+  font-size: 20px;
+}
