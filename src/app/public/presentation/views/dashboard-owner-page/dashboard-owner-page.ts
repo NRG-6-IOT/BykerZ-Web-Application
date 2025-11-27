@@ -5,6 +5,7 @@ import {MaintenanceStore} from '@app/maintenance-and-operations/application/main
 import {ExpenseStore} from '@app/maintenance-and-operations/application/expense.store';
 import {NgOptimizedImage} from '@angular/common';
 import {RouterLink} from '@angular/router';
+import {Vehicle} from '@app/comparatives/model/model';
 
 @Component({
   selector: 'app-dashboard-owner-page',
@@ -19,20 +20,32 @@ import {RouterLink} from '@angular/router';
 export class DashboardOwnerPage implements OnInit {
   private store = inject(AssignmentsStore);
 
-  private vehicleStore = inject(VehiclesStore);
+  private vehiclesStore = inject(VehiclesStore);
   private maintenanceStore = inject(MaintenanceStore);
   private expenseStore = inject(ExpenseStore);
 
   ngOnInit() {
-    this.store.getAssignmentByOwnerId(1);
+    const roleId = localStorage.getItem("role_id");
+    if (roleId) {
+      setTimeout(() => {
+        this.store.getAssignmentByOwnerId(+roleId);
+        this.vehiclesStore.loadVehiclesByOwner(+roleId);
+        const vehicles = this.vehiclesStore.vehicles();
+        console.log(vehicles);
+        vehicles.forEach((vehicle) => {
+          this.maintenanceStore.loadMaintenancesByVehicleId(vehicle.id);
+        })
+      }, 500)
+    }
   }
+
 
   get ownerAssignment() {
     return this.store.ownerAssignment;
   }
 
   get ownerVehicles() {
-    return this.vehicleStore.vehicles;
+    return this.vehiclesStore.vehicles;
   }
 
   get ownerExpenses() {
@@ -44,6 +57,6 @@ export class DashboardOwnerPage implements OnInit {
   }
 
   getVehicleById(id: number) {
-    return this.vehicleStore.getVehicleById(id)
+    return this.vehiclesStore.getVehicleById(id)
   }
 }
