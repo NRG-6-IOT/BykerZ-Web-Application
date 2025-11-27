@@ -63,14 +63,12 @@
   flex-direction: column;
   min-height: 0;
   justify-content: start;
-  box-shadow: rgba(0, 0, 0, 0.38) 10px 10px 15px;
 }
 
 .white-box {
   background-color: white;
   border-radius: 10px;
   color: black;
-  box-shadow: rgb(149, 55, 22) 10px 10px 15px;
   cursor: pointer;
 }
 
