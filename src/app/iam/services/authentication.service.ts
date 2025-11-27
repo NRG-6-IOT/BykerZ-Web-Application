@@ -130,6 +130,7 @@ export class AuthenticationService {
           this.signedIn.next(true);
           this.signedInUserId.next(response.id);
           localStorage.setItem('token', response.token);
+          localStorage.setItem('user_id', response.id.toString())
 
           if (response.roles.includes('ROLE_MECHANIC')) {
             console.log('Signing in as mechanic');
