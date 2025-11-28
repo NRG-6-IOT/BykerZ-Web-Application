@@ -7,36 +7,37 @@ import { ScenariosCardComponent } from '../../components/scenarios-card/scenario
 import { ActivatedRoute, Router } from '@angular/router';
 import { VehiclesApi } from '@app/vehiclemanagement/infrastructure/vehicles-api';
 import { AuthenticationService } from '@app/iam/services/authentication.service';
+import {TranslateModule} from '@ngx-translate/core';
 
 @Component({
   standalone: true,
-  imports: [CommonModule, VehicleCardComponent, SpecsCardComponent, ScenariosCardComponent],
+  imports: [CommonModule, VehicleCardComponent, SpecsCardComponent, ScenariosCardComponent, TranslateModule], // AGREGADO
   selector: 'app-compare-page',
   template: `
     <div class="page">
       <div class="header">
-        <h1 class="page-title">Vehicle Comparison</h1>
-        <p class="subtitle">Compare the technical specifications of your motorcycles</p>
+        <h1 class="page-title">{{ 'comparative.comparePage.title' | translate }}</h1>
+        <p class="subtitle">{{ 'comparative.comparePage.subtitle' | translate }}</p>
       </div>
 
       <div *ngIf="loading" class="loading-container">
         <div class="spinner"></div>
-        <p>Loading vehicles...</p>
+        <p>{{ 'comparative.common.loadingVehicles' | translate }}</p>
       </div>
 
       <div *ngIf="!loading && availableVehicles.length === 0" class="empty-state">
         <svg width="120" height="120" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
           <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
         </svg>
-        <h3>No vehicles available</h3>
-        <p>You have no registered vehicles to compare.</p>
+        <h3>{{ 'comparative.common.noVehiclesTitle' | translate }}</h3>
+        <p>{{ 'comparative.common.noVehiclesMsg' | translate }}</p>
       </div>
 
       <div *ngIf="isReady" class="content">
         <div class="comparison-grid">
           <app-vehicle-card
             [vehicle]="ownerVehicle"
-            title="Your Bike"
+            [title]="'comparative.comparePage.yourBike' | translate"
             [selectable]="true"
             [options]="availableVehicles"
             (selectionChange)="onOwnerSelect($event)"
@@ -44,12 +45,12 @@ import { AuthenticationService } from '@app/iam/services/authentication.service'
           </app-vehicle-card>
 
           <div class="vs-divider">
-            <span class="vs-text">VS</span>
+            <span class="vs-text">{{ 'comparative.common.vs' | translate }}</span>
           </div>
 
           <app-vehicle-card
             [vehicle]="compareVehicle"
-            title="Compare With"
+            [title]="'comparative.comparePage.compareWith' | translate"
             [selectable]="true"
             [options]="availableModels"
             (selectionChange)="onCompareSelect($event)"
