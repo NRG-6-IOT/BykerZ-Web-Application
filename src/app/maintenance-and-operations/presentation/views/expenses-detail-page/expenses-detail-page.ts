@@ -88,15 +88,14 @@ export class ExpensesDetailPage implements OnInit {
   readonly router = inject(Router);
   readonly expenseStore = inject(ExpenseStore);
 
-  expense = this.expenseStore.getExpenseById(null);
+  expense = this.expenseStore.selectedExpense;
 
   ngOnInit(): void {
     const expenseIdStr = this.route.snapshot.paramMap.get('id');
     if (expenseIdStr) {
       const expenseId = parseInt(expenseIdStr, 10);
-      this.expense = this.expenseStore.getExpenseById(expenseId);
 
-      // Load the expense if not already in the store
+      // Load the expense from the API
       this.expenseStore.loadExpenseById(expenseId);
     }
   }
