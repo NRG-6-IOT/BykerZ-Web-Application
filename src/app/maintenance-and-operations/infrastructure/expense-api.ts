@@ -20,16 +20,16 @@ export class ExpenseApi extends BaseApi {
   }
 
   /**
-   * Creates a new expense for a user
-   * @param userId - The ID of the user
+   * Creates a new expense for an owner
+   * @param ownerId - The ID of the owner
    * @param expense - The expense to create (without ID)
    * @returns Observable of the created Expense entity
    */
-  createExpense(userId: number, expense: Omit<Expense, 'id'>): Observable<Expense> {
+  createExpense(ownerId: number, expense: Omit<Expense, 'id'>): Observable<Expense> {
     const resource = this.assembler.toResourceFromEntity(expense as Expense);
     const { id, ...resourceWithoutId } = resource;
 
-    return this.expenseEndpoint.createExpenseForUser(userId, resourceWithoutId).pipe(
+    return this.expenseEndpoint.createExpenseForOwner(ownerId, resourceWithoutId).pipe(
       map(createdResource => this.assembler.toEntityFromResource(createdResource))
     );
   }

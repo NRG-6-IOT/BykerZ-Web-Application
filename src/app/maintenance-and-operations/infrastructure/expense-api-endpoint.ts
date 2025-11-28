@@ -14,13 +14,13 @@ export class ExpenseApiEndpoint extends BaseApiEndpoint<Expense, ExpenseResource
   }
 
   /**
-   * Low-level HTTP call for: POST /api/v1/expense/{userId}
-   * Creates a new expense for a user
+   * Low-level HTTP call for: POST /api/v1/expense/owner/{ownerId}
+   * Creates a new expense for an owner
    */
-  createExpenseForUser(userId: number, expenseResource: Omit<ExpenseResource, 'id'>): Observable<ExpenseResource> {
-    const url = `${this.endpointUrl}/${userId}`;
+  createExpenseForOwner(ownerId: number, expenseResource: Omit<ExpenseResource, 'id'>): Observable<ExpenseResource> {
+    const url = `${this.endpointUrl}/owner/${ownerId}`;
     return this.http.post<ExpenseResource>(url, expenseResource).pipe(
-      catchError(this.handleError(`Failed to create expense for userId=${userId}`))
+      catchError(this.handleError(`Failed to create expense for ownerId=${ownerId}`))
     );
   }
 

@@ -220,7 +220,7 @@ export class MechanicMaintenancePage implements OnInit {
 
     // Get owner ID via vehicle endpoint
     this.getOwnerIdByVehicleId(maintenance.vehicleId).subscribe({
-      next: ({ownerId}) => {
+      next: ({id , completeName}) => {
         // Ensure expenseType is MAINTENANCE for mechanic-created expenses
         const expenseToCreate = {
           ...expenseData,
@@ -228,7 +228,7 @@ export class MechanicMaintenancePage implements OnInit {
         };
 
         // Create expense
-        this.expenseStore.createExpense(ownerId, expenseToCreate);
+        this.expenseStore.createExpense(id, expenseToCreate);
 
         // Wait a bit for the expense to be created, then get the latest expense
         setTimeout(() => {
@@ -261,7 +261,7 @@ export class MechanicMaintenancePage implements OnInit {
       'Accept': '*/*'
     });
 
-    return this.http.get<{ownerId: number, completeName: string}>(
+    return this.http.get<{id: number, completeName: string}>(
       `${environment.platformProviderApiBaseUrl}/owners/vehicle/${vehicleId}`,
       { headers }
     );
