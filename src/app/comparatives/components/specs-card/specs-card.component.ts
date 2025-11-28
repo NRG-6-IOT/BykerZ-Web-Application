@@ -1,22 +1,23 @@
 import { Component, Input, OnChanges, SimpleChanges, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Vehicle } from '../../model/model';
+import {TranslateModule, TranslatePipe} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-specs-card',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, TranslateModule, TranslatePipe], // AGREGADO
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="specs-card">
       <div class="card-header">
-        <h2 class="section-title">Technical Specifications</h2>
-        <p class="section-subtitle">Detailed comparison of features</p>
+        <h2 class="section-title">{{ 'comparative.specs.title' | translate }}</h2>
+        <p class="section-subtitle">{{ 'comparative.specs.subtitle' | translate }}</p>
       </div>
 
       <div class="specs-grid" *ngIf="owner && compare">
         <div class="spec-row" *ngFor="let spec of specs">
-          <div class="spec-name">{{ spec.label }}</div>
+          <div class="spec-name">{{ spec.label | translate }}</div>
           <div class="spec-comparison">
             <div class="spec-value left" [class.winner]="isWinner(spec.key, 'owner')">
               {{ getSpecValue(owner, spec.key) }}
@@ -191,16 +192,16 @@ export class SpecsCardComponent implements OnChanges {
   @Input() compare!: Vehicle | null;
 
   specs = [
-    { key: 'displacement', label: 'Displacement' },
-    { key: 'potency', label: 'Power' },
-    { key: 'engineTorque', label: 'Engine Torque' },
-    { key: 'weight', label: 'Weight' },
-    { key: 'transmission', label: 'Transmission' },
-    { key: 'brakes', label: 'Brakes' },
-    { key: 'tank', label: 'Tank' },
-    { key: 'seatHeight', label: 'Seat Height' },
-    { key: 'consumption', label: 'Consumption' },
-    { key: 'price', label: 'Approx. Price' }
+    { key: 'displacement', label: 'comparative.specs.labels.displacement' },
+    { key: 'potency', label: 'comparative.specs.labels.power' },
+    { key: 'engineTorque', label: 'comparative.specs.labels.engineTorque' },
+    { key: 'weight', label: 'comparative.specs.labels.weight' },
+    { key: 'transmission', label: 'comparative.specs.labels.transmission' },
+    { key: 'brakes', label: 'comparative.specs.labels.brakes' },
+    { key: 'tank', label: 'comparative.specs.labels.tank' },
+    { key: 'seatHeight', label: 'comparative.specs.labels.seatHeight' },
+    { key: 'consumption', label: 'comparative.specs.labels.consumption' },
+    { key: 'price', label: 'comparative.specs.labels.price' }
   ];
 
   ngOnChanges(changes: SimpleChanges) {

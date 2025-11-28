@@ -70,5 +70,66 @@
     "assignmentsPage": {
       "title": "Assignments"
     }
+  },
+  "comparative": {
+    "common": {
+      "loadingModels": "Loading models...",
+      "loadingVehicles": "Loading vehicles...",
+      "noModelsTitle": "No models available",
+      "noModelsMsg": "No models found to compare.",
+      "noVehiclesTitle": "No vehicles available",
+      "noVehiclesMsg": "You have no registered vehicles to compare.",
+      "vs": "VS",
+      "noData": "N/A"
+    },
+    "vehicleCard": {
+      "noDataTitle": "No vehicle data available",
+      "year": "Year",
+      "plate": "Plate",
+      "type": "Type",
+      "displacement": "Displacement",
+      "power": "Power",
+      "consumption": "Consumption"
+    },
+    "specs": {
+      "title": "Technical Specifications",
+      "subtitle": "Detailed comparison of features",
+      "labels": {
+        "displacement": "Displacement",
+        "power": "Power",
+        "engineTorque": "Engine Torque",
+        "weight": "Weight",
+        "transmission": "Transmission",
+        "brakes": "Brakes",
+        "tank": "Tank",
+        "seatHeight": "Seat Height",
+        "consumption": "Consumption",
+        "price": "Approx. Price"
+      }
+    },
+    "scenarios": {
+      "title": "Usage Scenarios",
+      "subtitle": "Performance in different conditions",
+      "betterFor": "Better for {{vehicle}}",
+      "types": {
+        "cityTraffic": "City Traffic",
+        "longTrips": "Long Trips",
+        "maintenanceCost": "Maintenance Cost",
+        "resaleValue": "Resale Value"
+      }
+    },
+    "mechanicPage": {
+      "badge": "Mechanic",
+      "title": "Model Comparison",
+      "subtitle": "Compare technical specifications across available models",
+      "modelA": "Model A",
+      "modelB": "Model B"
+    },
+    "comparePage": {
+      "title": "Vehicle Comparison",
+      "subtitle": "Compare the technical specifications of your motorcycles",
+      "yourBike": "Your Bike",
+      "compareWith": "Compare With"
+    }
   }
 }

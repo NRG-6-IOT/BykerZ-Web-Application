@@ -1,24 +1,25 @@
 import { Component, Input, OnChanges, SimpleChanges, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Vehicle } from '../../model/model';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-scenarios-card',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, TranslateModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="scenarios-card">
       <div class="card-header">
-        <h2 class="section-title">Usage Scenarios</h2>
-        <p class="section-subtitle">Performance in different conditions</p>
+        <h2 class="section-title">{{ 'comparative.scenarios.title' | translate }}</h2>
+        <p class="section-subtitle">{{ 'comparative.scenarios.subtitle' | translate }}</p>
       </div>
 
       <div class="scenarios-grid" *ngIf="owner && compare">
         <div class="scenario-card" *ngFor="let scenario of scenarios">
           <div class="scenario-header">
             <div class="scenario-icon">{{ scenario.icon }}</div>
-            <h3 class="scenario-title">{{ scenario.name }}</h3>
+            <h3 class="scenario-title">{{ scenario.name | translate }}</h3>
           </div>
 
           <div class="scenario-comparison">
@@ -47,7 +48,7 @@ import { Vehicle } from '../../model/model';
             <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
               <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
             </svg>
-            <span>Better for {{ scenario.ownerScore > scenario.compareScore ? owner.model.name : compare.model.name }}</span>
+            <span>{{ 'comparative.scenarios.betterFor' | translate: { vehicle: (scenario.ownerScore > scenario.compareScore ? owner.model.name : compare.model.name) } }}</span>
           </div>
         </div>
       </div>
@@ -241,10 +242,10 @@ export class ScenariosCardComponent implements OnChanges {
   @Input() compare!: Vehicle | null;
 
   scenarios = [
-    { name: 'City Traffic', icon: '🚦', ownerScore: 0, compareScore: 0 },
-    { name: 'Long Trips', icon: '🛣️', ownerScore: 0, compareScore: 0 },
-    { name: 'Maintenance Cost', icon: '🔧', ownerScore: 0, compareScore: 0 },
-    { name: 'Resale Value', icon: '💰', ownerScore: 0, compareScore: 0 }
+    { name: 'comparative.scenarios.types.cityTraffic', icon: '🚦', ownerScore: 0, compareScore: 0 },
+    { name: 'comparative.scenarios.types.longTrips', icon: '🛣️', ownerScore: 0, compareScore: 0 },
+    { name: 'comparative.scenarios.types.maintenanceCost', icon: '🔧', ownerScore: 0, compareScore: 0 },
+    { name: 'comparative.scenarios.types.resaleValue', icon: '💰', ownerScore: 0, compareScore: 0 }
   ];
 
   ngOnChanges(changes: SimpleChanges) {
