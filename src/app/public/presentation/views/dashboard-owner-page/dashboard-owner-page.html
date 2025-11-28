@@ -10,4 +10,47 @@
       </div>
     </div>
   </div>
+  <div class="grid-container">
+    <div style="grid-area: box-1" class="orange-box">
+      <div class="box-header">
+        <p>Vehicles</p>
+      </div>
+      <div class="box-content vehicles">
+        @for (vehicle of ownerVehicles(); track vehicle.id) {
+          <div class="white-box vehicle-card" [routerLink]="['/vehicle',vehicle.id,'owner']">
+            <img ngSrc="/assets/images/vehicle_dark.png" height="45" width="90" alt="" style="margin-right: 10px"/><p>{{vehicle.model?.name}}</p>
+          </div>
+        }
+      </div>
+    </div>
+    <div style="grid-area: box-2" class="orange-box">
+      <div class="box-header">
+        <p>Bills</p>
+      </div>
+      <div class="box-content bills">
+        @for (expense of ownerExpenses(); track expense.id) {
+          <div class="white-box expense-card" [routerLink]="['/expenses',expense.id]">
+            <p>{{expense.name}}</p>
+            <p>Type: {{expense.expenseType}}</p>
+            <p>Total Price: {{expense.finalPrice}}</p>
+          </div>
+        }
+      </div>
+    </div>
+    <div style="grid-area: box-3" class="orange-box">
+      <div class="box-header">
+        <p>Scheduled Maintenances</p>
+      </div>
+      <div class="box-content maintenances">
+        @for (maintenance of ownerMaintenances(); track maintenance.id) {
+          <div class="white-box maintenance-card" [routerLink]="['/maintenances','owner']">
+            <p>Date and Time: {{maintenance.dateOfService}}</p>
+            <p>Location: {{maintenance.location}}</p>
+            <p>Motorcycle: {{getVehicleById(maintenance.vehicleId)()?.model?.name}}</p>
+            <p>Reason: {{maintenance.description}}</p>
+          </div>
+        }
+      </div>
+    </div>
+  </div>
 </div>
