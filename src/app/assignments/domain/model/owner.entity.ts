@@ -8,14 +8,18 @@ export class Owner implements BaseEntity {
    * Constructor
    * @param owner - Object containing owner properties
    * @param owner.ownerId - Owner ID from API
-   * @param owner.profileId - Profile ID from API
+   * @param owner.completeName - Complete name from API
    *
    * @example
-   * const owner = new Owner({ ownerId: 1, profileId: 2 });
+   * const owner = new Owner({ ownerId: 1, completeName: "John Doe" });
    */
-  constructor(owner: { ownerId: number; completeName: string }) {
-    this._id = owner.ownerId;
-    this._completeName = owner.completeName;
+  constructor(owner: any) {
+    // Handle both ownerId and id properties for flexibility
+    this._id = owner.ownerId || owner.id || 0;
+    this._completeName = owner.completeName || owner.name || '';
+
+    console.log('Owner constructor called with:', owner);
+    console.log('Mapped owner ID:', this._id, 'name:', this._completeName);
   }
 
   get id(): number {

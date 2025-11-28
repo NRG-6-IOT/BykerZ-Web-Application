@@ -1,6 +1,6 @@
-import {Component, computed, effect, inject, OnInit, signal} from '@angular/core';
+import {Component, effect, inject, OnInit} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, NgForm} from '@angular/forms';
 import {Router} from '@angular/router';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
@@ -13,6 +13,7 @@ import {AssignmentsStore} from '@app/assignments/application/assigments.store';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {environment} from '@env/environment';
 import {Vehicle} from '@app/vehiclemanagement/domain/model/vehicle.entity';
+import {Assignment} from '@app/assignments/domain/model/assignment.entity';
 
 @Component({
   selector: 'app-create-maintenance-page',
@@ -45,7 +46,7 @@ import {Vehicle} from '@app/vehiclemanagement/domain/model/vehicle.entity';
       }
 
       <div class="bg-[#380800] rounded-2xl p-6">
-        <form (ngSubmit)="onSubmit()" #maintenanceForm="ngForm" class="space-y-4">
+        <form (ngSubmit)="onSubmit(maintenanceForm)" #maintenanceForm="ngForm" class="space-y-4">
           <!-- Details -->
           <mat-form-field appearance="fill" class="w-full">
             <mat-label>Details</mat-label>
@@ -81,26 +82,20 @@ import {Vehicle} from '@app/vehiclemanagement/domain/model/vehicle.entity';
           <!-- Owner Selector -->
           <mat-form-field appearance="fill" class="w-full">
             <mat-label>Select Owner</mat-label>
-            <mat-select [(ngModel)]="selectedOwnerId" name="owner" (selectionChange)="onOwnerChange()" required>
-              @for (assignment of activeAssignments(); track assignment.id) {
-                @if (assignment.owner) {
-                  <mat-option [value]="assignment.owner.id">
-                    {{ assignment.owner.completeName }}
-                  </mat-option>
-                }
-              }
+            <mat-select [(ngModel)]="selectedOwnerIdValue" (ngModelChange)="onOwnerChange($event)" name="owner" required>
+              <mat-option *ngFor="let assignment of getValidAssignments()" [value]="assignment.owner?.id">
+                {{ assignment.owner?.completeName }}
+              </mat-option>
             </mat-select>
           </mat-form-field>
 
           <!-- Vehicle Selector -->
           <mat-form-field appearance="fill" class="w-full">
             <mat-label>Select Vehicle</mat-label>
-            <mat-select [(ngModel)]="formData.vehicleId" name="vehicle" [disabled]="!selectedOwnerId" required>
-              @for (vehicle of ownerVehicles(); track vehicle.id) {
-                <mat-option [value]="vehicle.id">
-                  {{getVehicleDisplay(vehicle)}}
-                </mat-option>
-              }
+            <mat-select [(ngModel)]="formData.vehicleId" name="vehicle" [disabled]="!selectedOwnerIdValue" required>
+              <mat-option *ngFor="let vehicle of ownerVehicles" [value]="vehicle.id">
+                {{getVehicleDisplay(vehicle)}}
+              </mat-option>
             </mat-select>
           </mat-form-field>
 
@@ -110,9 +105,9 @@ import {Vehicle} from '@app/vehiclemanagement/domain/model/vehicle.entity';
               Go Back
             </button>
             <button type="submit"
-                    [disabled]="!maintenanceForm.form.valid || isSubmitting() || maintenanceStore.loading()"
+                    [disabled]="!maintenanceForm.form.valid || isSubmitting || maintenanceStore.loading()"
                     class="bg-[#FF6B35] text-white px-6 py-2 rounded-lg hover:bg-[#ff9169] transition-colors font-semibold disabled:opacity-50 disabled:cursor-not-allowed">
-              {{ isSubmitting() ? 'Creating...' : 'Create Maintenance' }}
+              {{ isSubmitting ? 'Creating...' : 'Create Maintenance' }}
             </button>
           </div>
         </form>
@@ -127,13 +122,11 @@ export class CreateMaintenancePage implements OnInit {
   readonly router = inject(Router);
   readonly http = inject(HttpClient);
 
-  mechanicId = signal<number>(0);
-  selectedOwnerId = signal<number | null>(null);
-  isSubmitting = signal(false);
-  ownerVehicles = signal<Vehicle[]>([]);
-
-  // Computed signal for active assignments
-  readonly activeAssignments = computed(() => this.assignmentsStore.activeAssignments());
+  mechanicId = 0;
+  selectedOwnerIdValue: number | null = null;
+  isSubmitting = false;
+  ownerVehicles: Vehicle[] = [];
+  activeAssignments: Assignment[] = [];
 
   formData = {
     details: '',
@@ -148,7 +141,7 @@ export class CreateMaintenancePage implements OnInit {
     // Effect to automatically navigate on successful creation
     effect(() => {
       if (!this.maintenanceStore.loading() &&
-          this.isSubmitting() &&
+          this.isSubmitting &&
           !this.maintenanceStore.error() &&
           this.maintenanceStore.maintenances().length > 0) {
         // Navigate after successful creation
@@ -171,9 +164,10 @@ export class CreateMaintenancePage implements OnInit {
     }
 
     const mechanicId = parseInt(roleId, 10);
-    this.mechanicId.set(mechanicId);
+    this.mechanicId = mechanicId;
+    console.log('Loaded mechanic ID:', mechanicId);
 
-    // Load active assignments via HTTP (since store method might not exist yet)
+    // Load active assignments via HTTP
     this.loadAssignments(mechanicId);
   }
 
@@ -183,50 +177,83 @@ export class CreateMaintenancePage implements OnInit {
       'Authorization': `Bearer ${localStorage.getItem('token')}`
     });
 
+    console.log('Loading assignments for mechanic:', mechanicId);
+
     this.http.get<any[]>(`${baseUrl}/mechanic/${mechanicId}/assignments/ACTIVE`, { headers })
       .subscribe({
         next: (assignments) => {
-          // Store assignments in the assignments store if needed
-          console.log('Active assignments loaded:', assignments);
+          console.log('Raw assignments from API:', assignments);
+
+          // Map raw API data to Assignment entities and store locally for the selector
+          const mapped = (assignments || []).map(a => {
+            console.log('Mapping assignment:', a);
+            return new Assignment(a);
+          });
+
+          this.activeAssignments = mapped;
+          console.log('Mapped assignments:', this.activeAssignments);
+
+          // Log owner information for debugging
+          this.activeAssignments.forEach((assignment, index) => {
+            console.log(`Assignment ${index}:`, {
+              id: assignment.id,
+              owner: assignment.owner,
+              ownerId: assignment.owner?.id,
+              ownerName: assignment.owner?.completeName
+            });
+          });
         },
         error: (error) => {
           console.error('Error loading assignments:', error);
+          this.activeAssignments = [];
         }
       });
   }
 
-  onOwnerChange(): void {
-    const ownerId = this.selectedOwnerId();
-    if (ownerId) {
+  onOwnerChange(ownerId: number | string | null): void {
+    console.log('Owner change triggered with value:', ownerId, 'type:', typeof ownerId);
+
+    const parsedId = ownerId ? Number(ownerId) : null;
+
+    console.log('Parsed owner ID:', parsedId);
+
+    this.selectedOwnerIdValue = parsedId;
+
+    if (parsedId !== null && !isNaN(parsedId)) {
+      console.log('Loading vehicles for owner ID:', parsedId);
+
       // Load vehicles for the selected owner
       const baseUrl = environment.platformProviderApiBaseUrl;
       const headers = new HttpHeaders({
         'Authorization': `Bearer ${localStorage.getItem('token')}`
       });
 
-      this.http.get<Vehicle[]>(`${baseUrl}/vehicles/owner/${ownerId}`, { headers })
+      this.http.get<Vehicle[]>(`${baseUrl}/vehicles/owner/${parsedId}`, { headers })
         .subscribe({
           next: (vehicles) => {
-            this.ownerVehicles.set(vehicles);
+            console.log('Loaded vehicles:', vehicles);
+            this.ownerVehicles = vehicles;
             this.formData.vehicleId = null; // Reset vehicle selection
           },
           error: (error) => {
             console.error('Error loading vehicles:', error);
-            this.ownerVehicles.set([]);
+            this.ownerVehicles = [];
           }
         });
     } else {
-      this.ownerVehicles.set([]);
+      console.log('No valid owner ID, clearing vehicles');
+      this.ownerVehicles = [];
       this.formData.vehicleId = null;
     }
   }
 
-  onSubmit(): void {
-    if (!this.formData.dateOfService || !this.formData.hourOfService || !this.formData.vehicleId) {
+  onSubmit(form: NgForm): void {
+    if (form.invalid || !this.formData.dateOfService || !this.formData.hourOfService || !this.formData.vehicleId) {
+      this.logFormErrors(form);
       return;
     }
 
-    this.isSubmitting.set(true);
+    this.isSubmitting = true;
 
     // Combine date and time into ISO string
     const date = new Date(this.formData.dateOfService);
@@ -240,7 +267,7 @@ export class CreateMaintenancePage implements OnInit {
       dateOfService: dateOfService,
       location: this.formData.location,
       description: this.formData.description,
-      mechanicId: this.mechanicId()
+      mechanicId: this.mechanicId
     };
 
     // Use the store to create maintenance
@@ -249,7 +276,7 @@ export class CreateMaintenancePage implements OnInit {
     // Check for errors after a short delay
     setTimeout(() => {
       if (this.maintenanceStore.error()) {
-        this.isSubmitting.set(false);
+        this.isSubmitting = false;
       }
     }, 1000);
   }
@@ -263,5 +290,32 @@ export class CreateMaintenancePage implements OnInit {
       return vehicle.plate || 'Unknown Vehicle';
     }
     return `${vehicle.model.brand} ${vehicle.model.name} - ${vehicle.plate}`;
+  }
+
+  private logFormErrors(form: NgForm): void {
+    if (!form || !form.controls) {
+      console.error('Form reference missing or invalid.');
+      return;
+    }
+
+    Object.entries(form.controls).forEach(([controlName, control]) => {
+      if (control.invalid) {
+        console.error(`Validation error in "${controlName}":`, control.errors);
+      }
+    });
+
+    if (!this.formData.dateOfService) {
+      console.error('Validation error: dateOfService is required.');
+    }
+    if (!this.formData.hourOfService) {
+      console.error('Validation error: hourOfService is required.');
+    }
+    if (!this.formData.vehicleId) {
+      console.error('Validation error: vehicleId is required.');
+    }
+  }
+
+  getValidAssignments(): Assignment[] {
+    return this.activeAssignments.filter(assignment => assignment.owner && assignment.owner.id);
   }
 }
