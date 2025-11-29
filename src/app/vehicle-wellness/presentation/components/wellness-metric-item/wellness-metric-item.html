@@ -2,25 +2,24 @@
 
   <!-- Header -->
   <div class="card-header">
-    <h3 class="vehicle-title">Vehicle: {{ getVehicle().model?.name }} ({{getVehicle().owner?.completeName}})</h3>
+    <h3 class="vehicle-title">{{ 'metrics.vehicle' | translate }}: {{ getVehicle().model?.name }} ({{getVehicle().owner?.completeName}})</h3>
     <span class="status-badge" [class.impact]="wellnessMetric().impactDetected">
-      {{ wellnessMetric().impactDetected ? 'Impact Detected' : 'Normal State' }}
+      {{ wellnessMetric().impactDetected ? ('metrics.impactDetected' | translate) : ('metrics.normalState' | translate) }}
     </span>
   </div>
 
   <!-- Content -->
   <div class="card-content">
-
     <!-- Ubicación -->
     <div class="data-section">
-      <h4 class="section-title">GPS location:</h4>
+      <h4 class="section-title">{{ 'metrics.gpsLocation' | translate }}:</h4>
       <div class="data-grid">
         <div class="data-item">
-          <span class="data-label">Latitude:</span>
+          <span class="data-label">{{ 'metrics.latitude' | translate }}:</span>
           <span class="data-value">{{ wellnessMetric().latitude }}°</span>
         </div>
         <div class="data-item">
-          <span class="data-label">Longitude:</span>
+          <span class="data-label">{{ 'metrics.longitude' | translate }}:</span>
           <span class="data-value">{{ wellnessMetric().longitude }}°</span>
         </div>
       </div>
@@ -28,18 +27,18 @@
 
     <!-- Calidad del Aire -->
     <div class="data-section">
-      <h4 class="section-title">Air Quality</h4>
+      <h4 class="section-title">{{ 'metrics.airQuality' | translate }}</h4>
       <div class="data-grid">
         <div class="data-item">
-          <span class="data-label">CO₂:</span>
+          <span class="data-label">{{ 'metrics.co2' | translate }}:</span>
           <span class="data-value">{{ wellnessMetric().CO2Ppm }} ppm</span>
         </div>
         <div class="data-item">
-          <span class="data-label">NH₃:</span>
+          <span class="data-label">{{ 'metrics.nh3' | translate }}:</span>
           <span class="data-value">{{ wellnessMetric().NH3Ppm }} ppm</span>
         </div>
         <div class="data-item">
-          <span class="data-label">Benzene:</span>
+          <span class="data-label">{{ 'metrics.benzene' | translate }}:</span>
           <span class="data-value">{{ wellnessMetric().BenzenePpm }} ppm</span>
         </div>
       </div>
@@ -47,35 +46,32 @@
 
     <!-- Condiciones Ambientales -->
     <div class="data-section">
-      <h4 class="section-title">Environmental Conditions</h4>
+      <h4 class="section-title">{{ 'metrics.environmentalConditions' | translate }}</h4>
       <div class="data-grid">
         <div class="data-item">
-          <span class="data-label">Temperature:</span>
+          <span class="data-label">{{ 'metrics.temperature' | translate }}:</span>
           <span class="data-value">{{ wellnessMetric().temperatureCelsius }} °C</span>
         </div>
         <div class="data-item">
-          <span class="data-label">Humidity:</span>
+          <span class="data-label">{{ 'metrics.humidity' | translate }}:</span>
           <span class="data-value">{{ wellnessMetric().humidityPercentage }} %</span>
         </div>
-
       </div>
     </div>
+
     <div class="data-section">
-      <h4 class="section-title">Status impact</h4>
+      <h4 class="section-title">{{ 'metrics.statusImpact' | translate }}</h4>
       <div class="data-item">
-        <span class="data-label">Pressure:</span>
+        <span class="data-label">{{ 'metrics.pressure' | translate }}:</span>
         <span class="data-value">{{ wellnessMetric().pressureHpa }} hPa</span>
       </div>
     </div>
-
-
   </div>
 
   <!-- Footer -->
   <div class="card-footer">
-
     <div class="data-item">
-      <span class="data-label">Emitted at:</span>
+      <span class="data-label">{{ 'metrics.emittedAt' | translate }}:</span>
       <span class="data-value">{{ wellnessMetric().registeredAt | date:'dd/MM/yyyy HH:mm' }}</span>
     </div>
   </div>

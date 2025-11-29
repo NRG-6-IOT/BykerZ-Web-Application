@@ -160,5 +160,35 @@
       "yourBike": "Your Bike",
       "compareWith": "Compare With"
     }
+  },
+  "notifications": {
+    "severity": "Severity",
+    "type": "Type",
+    "connected":"Connected",
+    "disconnected":"Disconnected",
+    "noVehicles": "There are no notifications for this vehicle.",
+    "title": "Title",
+    "message": "Message",
+    "markAll": "Mark all as read",
+    "alerts": "Alerts",
+    "vehicle": "Vehicle"
+  },
+  "metrics": {
+    "gpsLocation": "GPS Location",
+    "airQuality": "Air Quality",
+    "environmentalConditions": "Environmental Conditions",
+    "statusImpact":"Status Impact",
+    "emittedAt":"Emitted At",
+    "vehicle": "Vehicle",
+    "impactDetected": "Impact Detected",
+    "normalState": "Normal State",
+    "latitude": "Latitude",
+    "longitude": "Longitude",
+    "co2": "CO₂",
+    "nh3": "NH₃",
+    "benzene": "Benzene",
+    "temperature": "Temperature",
+    "humidity": "Humidity",
+    "pressure": "Pressure"
   }
 }

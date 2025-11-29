@@ -160,5 +160,35 @@
       "yourBike": "Tu Moto",
       "compareWith": "Comparar Con"
     }
+  },
+  "notifications": {
+    "severity": "Severidad",
+    "type": "Tipo",
+    "connected":"Conectado",
+    "disconnected":"Desconectado",
+    "noVehicles": "No hay notificaciones para este vehículo.",
+    "title": "Título",
+    "message": "Mensaje",
+    "markAll": "Marcar todo como leído",
+    "alerts": "Alertas",
+    "vehicle": "Vehiculo"
+  },
+  "metrics": {
+    "gpsLocation": "Ubicación GPS",
+    "airQuality": "Calidad de aire",
+    "environmentalConditions": "Condiciones Ambientales",
+    "statusImpact":"Estado de impacto",
+    "emittedAt":"Emitido a las",
+    "vehicle": "Vehículo",
+    "impactDetected": "Impacto Detectado",
+    "normalState": "Estado Normal",
+    "latitude": "Latitud",
+    "longitude": "Longitud",
+    "co2": "CO₂",
+    "nh3": "NH₃",
+    "benzene": "Benceno",
+    "temperature": "Temperatura",
+    "humidity": "Humedad",
+    "pressure": "Presión"
   }
 }
