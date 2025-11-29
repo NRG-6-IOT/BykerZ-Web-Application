@@ -25,6 +25,7 @@ export class VehicleDetailsPage implements OnInit {
   vehicle: Vehicle | null = null;
   loading: boolean = true;
 
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,

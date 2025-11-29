@@ -1,3 +1,4 @@
+
 import {Component, inject, OnInit} from '@angular/core';
 import {NgOptimizedImage} from "@angular/common";
 import {AssignmentsStore} from '@app/assignments/application/assigments.store';

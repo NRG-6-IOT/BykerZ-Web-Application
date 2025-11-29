@@ -5,6 +5,7 @@ import {DatePipe} from '@angular/common';
 import {VehiclesStore} from '@app/vehiclemanagement/application/vehicles.store';
 import {Vehicle} from '@app/vehiclemanagement/domain/model/vehicle.entity';
 
+
 @Component({
   selector: 'app-wellness-metric-item',
   imports: [
