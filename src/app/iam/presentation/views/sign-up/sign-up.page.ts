@@ -10,6 +10,8 @@ import {AuthenticationService} from '@app/iam/services/authentication.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {SignInRequest} from '@app/iam/domain/model/sign-in.request';
 import {catchError, of, switchMap, tap} from 'rxjs';
+import {TranslatePipe} from '@ngx-translate/core';
+import {LanguageSwitcherComponent} from '@app/shared/presentation/components/language-switcher/language-switcher';
 
 @Component({
   selector: 'app-sign-up.component',
@@ -19,7 +21,9 @@ import {catchError, of, switchMap, tap} from 'rxjs';
     FormsModule,
     ReactiveFormsModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    TranslatePipe,
+    LanguageSwitcherComponent
   ],
   templateUrl: './sign-up.page.html'
 })

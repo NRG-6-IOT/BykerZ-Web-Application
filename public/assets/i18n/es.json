@@ -17,6 +17,17 @@
       "button": "Elegir un plan"
     }
   },
+  "register": {
+    "signUp": "Registro",
+    "firstName": "Nombre",
+    "lastName": "Apellido",
+    "username": "Nombre de usuario",
+    "email": "Correo electrónico",
+    "photoUrl": "url de la foto",
+    "password": "Contraseña",
+    "confirmPassword": "Confirmar Contraseña",
+    "button": "Registrarse"
+  },
   "navbar":{
     "logout":"Cerrar Sesión",
     "mechanic": {

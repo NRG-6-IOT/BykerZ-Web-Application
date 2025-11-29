@@ -1,21 +1,24 @@
-<div class="min-h-screen flex items-center justify-center">
-  <div class="min-w-1/2">
+<div class="min-h-screen flex flex-col">
+  <div class="flex w-full justify-end p-4">
+    <app-language-switcher></app-language-switcher>
+  </div>
+  <div class="flex flex-col items-center justify-center min-w-1/2">
     <div class="flex justify-center p-5">
-      <p class="font-bold text-4xl">Sign Up</p>
+      <p class="font-bold text-4xl">{{'register.signUp'|translate}}</p>
     </div>
-    <div>
+    <div class="w-full max-w-2xl px-4">
       <form [formGroup]="signUpForm" (ngSubmit)="onSubmit()"
             class="flex flex-col items-center gap-2">
         <div class="flex w-full ">
           <mat-form-field class="w-full">
-            <mat-label>First Name</mat-label>
+            <mat-label>{{'register.firstName'|translate}}</mat-label>
             <input matInput formControlName="firstName" required />
             @if (isInvalidControl(signUpForm, 'firstName')) {
               {{ errorMessagesForControl(signUpForm, 'firstName') }}
             }
           </mat-form-field>
           <mat-form-field class="w-full">
-            <mat-label>Last Name</mat-label>
+            <mat-label>{{'register.lastName'|translate}}</mat-label>
             <input matInput formControlName="lastName" required />
             @if (isInvalidControl(signUpForm, 'lastName')) {
               {{ errorMessagesForControl(signUpForm, 'lastName') }}
@@ -23,42 +26,42 @@
           </mat-form-field>
         </div>
         <mat-form-field class="w-full">
-          <mat-label>Username</mat-label>
+          <mat-label>{{'register.username'|translate}}</mat-label>
           <input matInput formControlName="username" required />
           @if (isInvalidControl(signUpForm, 'username')) {
             {{ errorMessagesForControl(signUpForm, 'username') }}
           }
         </mat-form-field>
         <mat-form-field class="w-full">
-          <mat-label>E-mail</mat-label>
+          <mat-label>{{'register.email'|translate}}</mat-label>
           <input matInput formControlName="email" required />
           @if (isInvalidControl(signUpForm, 'email')) {
             {{ errorMessagesForControl(signUpForm, 'email') }}
           }
         </mat-form-field>
         <mat-form-field class="w-full">
-          <mat-label>Photo URL</mat-label>
+          <mat-label>{{'register.photoUrl'|translate}}</mat-label>
           <input matInput formControlName="photoUrl" required />
           @if (isInvalidControl(signUpForm, 'photoUrl')) {
             {{ errorMessagesForControl(signUpForm, 'photoUrl') }}
           }
         </mat-form-field>
         <mat-form-field class="w-full">
-          <mat-label>Password</mat-label>
+          <mat-label>{{'register.password'|translate}}</mat-label>
           <input matInput type="password" formControlName="password" required />
           @if (isInvalidControl(signUpForm, 'password')) {
             {{ errorMessagesForControl(signUpForm, 'password') }}
           }
         </mat-form-field>
         <mat-form-field class="w-full">
-          <mat-label>Confirm Password</mat-label>
+          <mat-label>{{'register.confirmPassword'|translate}}</mat-label>
           <input matInput type="password" formControlName="confirmPassword" required />
           @if (isInvalidControl(signUpForm, 'confirmPassword')) {
             {{ errorMessagesForControl(signUpForm, 'confirmPassword') }}
           }
         </mat-form-field>
 
-        <button type="submit" mat-flat-button class="w-full !bg-[#380800]">Register</button>
+        <button type="submit" mat-flat-button class="w-full !bg-[#380800]">{{'register.button'|translate}}</button>
       </form>
     </div>
 

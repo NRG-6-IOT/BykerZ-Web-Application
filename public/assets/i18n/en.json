@@ -17,6 +17,17 @@
       "button": "Choose a plan"
     }
   },
+  "register": {
+    "signUp": "Sign Up",
+    "firstName": "First Name",
+    "lastName": "Sur Name",
+    "username": "Username",
+    "email": "Email",
+    "photoUrl": "Photo URL",
+    "password": "Password",
+    "confirmPassword": "Confirm Password",
+    "button": "Register"
+  },
   "navbar":{
     "logout":"Log Out",
     "mechanic": {
