@@ -5,6 +5,18 @@
     "signIn": "Iniciar Sesión",
     "signUp": "Registrarse"
   },
+  "selection": {
+    "owner": {
+      "title": "Registrate como Dueño",
+      "label": "Ingresa el código de asignación proporcionado",
+      "button": "Registrate con código"
+    },
+    "mechanic": {
+      "title": "Registrate como Mecánico",
+      "label": "Elige entre nuestros planes",
+      "button": "Elegir un plan"
+    }
+  },
   "navbar":{
     "logout":"Cerrar Sesión",
     "mechanic": {

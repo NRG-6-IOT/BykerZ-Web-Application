@@ -5,6 +5,18 @@
     "signIn": "Sign In",
     "signUp": "Sign Up"
   },
+  "selection": {
+    "owner": {
+      "title": "Register as an Owner",
+      "label": "Enter the assignment code provided",
+      "button": "Register with code"
+    },
+    "mechanic": {
+      "title": "Register as a Mechanic",
+      "label": "Pick between our plans",
+      "button": "Choose a plan"
+    }
+  },
   "navbar":{
     "logout":"Log Out",
     "mechanic": {
