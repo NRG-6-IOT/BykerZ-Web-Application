@@ -4,6 +4,8 @@
       <div class="text-center">
         <p class="font-bold text-6xl pb-6">BykerZ</p>
         <img ngSrc="/assets/images/logo-bykerz.png" alt="Logo" width="180" height="100" />
+        <div style="height: 30px"></div>
+        <app-language-switcher></app-language-switcher>
       </div>
     </div>
 
@@ -11,7 +13,7 @@
       <form [formGroup]="signInFormGroup" (ngSubmit)="signIn()"
             class="w-11/12 max-w-xs space-y-4 flex flex-col items-center ">
         <mat-form-field class="w-full ">
-          <mat-label>Username</mat-label>
+          <mat-label>{{'login.username'|translate}}</mat-label>
           <input matInput formControlName="username" required />
           @if (isInvalidControl(signInFormGroup, 'username')) {
             <mat-error>{{ errorMessagesForControl(signInFormGroup, 'username') }}</mat-error>
@@ -19,16 +21,16 @@
         </mat-form-field>
 
         <mat-form-field class="w-full">
-          <mat-label>Password</mat-label>
+          <mat-label>{{'login.password'|translate}}</mat-label>
           <input matInput type="password" formControlName="password" required />
           @if (isInvalidControl(signInFormGroup, 'password')) {
             <mat-error>{{ errorMessagesForControl(signInFormGroup, 'password') }}</mat-error>
           }
         </mat-form-field>
 
-        <button mat-flat-button class="w-full !bg-[#380800]" type="submit" [disabled]="signInFormGroup.invalid">Sign In</button>
+        <button mat-flat-button class="w-full !bg-[#380800]" type="submit" [disabled]="signInFormGroup.invalid">{{'login.signIn'|translate}}</button>
         <button matButton routerLink="/selection" type="button">
-          <p class="text-black">Sign Up</p>
+          <p class="text-black">{{'login.signUp'|translate}}</p>
         </button>
       </form>
     </div>

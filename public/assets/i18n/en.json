@@ -1,4 +1,10 @@
 {
+  "login": {
+    "username": "Username",
+    "password": "Password",
+    "signIn": "Sign In",
+    "signUp": "Sign Up"
+  },
   "navbar":{
     "logout":"Log Out",
     "mechanic": {

@@ -8,6 +8,8 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatInputModule} from '@angular/material/input';
 import {RouterLink} from '@angular/router';
 import {NgOptimizedImage} from '@angular/common';
+import {LanguageSwitcherComponent} from '@app/shared/presentation/components/language-switcher/language-switcher';
+import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-sign-in',
@@ -18,7 +20,9 @@ import {NgOptimizedImage} from '@angular/common';
     MatFormFieldModule,
     MatInputModule,
     RouterLink,
-    NgOptimizedImage
+    NgOptimizedImage,
+    LanguageSwitcherComponent,
+    TranslatePipe
   ],
   templateUrl: './sign-in.page.html'
 })

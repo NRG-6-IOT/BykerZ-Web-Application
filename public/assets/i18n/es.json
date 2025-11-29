@@ -1,4 +1,10 @@
 {
+  "login": {
+    "username": "Nombre de usuario",
+    "password": "Contraseña",
+    "signIn": "Iniciar Sesión",
+    "signUp": "Registrarse"
+  },
   "navbar":{
     "logout":"Cerrar Sesión",
     "mechanic": {
