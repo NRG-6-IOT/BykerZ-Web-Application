@@ -73,15 +73,15 @@ export class ExpenseStore {
   }
 
   /**
-   * Creates a new expense for a user
-   * @param userId - The ID of the user creating the expense
+   * Creates a new expense for an owner
+   * @param ownerId - The ID of the owner creating the expense
    * @param expense - The expense to create (without ID)
    */
-  createExpense(userId: number, expense: Omit<Expense, 'id'>): void {
+  createExpense(ownerId: number, expense: Omit<Expense, 'id'>): void {
     this.loadingSignal.set(true);
     this.errorSignal.set(null);
 
-    this.expenseApi.createExpense(userId, expense).pipe(retry(2)).subscribe({
+    this.expenseApi.createExpense(ownerId, expense).pipe(retry(2)).subscribe({
       next: createdExpense => {
         this.expensesSignal.update(expenses => [createdExpense, ...expenses]);
         this.selectedExpenseSignal.set(createdExpense);

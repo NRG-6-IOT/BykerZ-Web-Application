@@ -21,8 +21,12 @@ export class AssignmentsStore {
   readonly loading = this.loadingSignal.asReadonly();
 
   constructor(private assignmentsApi: AssignmentsApi) {
+    this.reload()
+  }
+
+  reload() {
     this.loadActiveAssignments();
-    this.loadPendingAssignments()
+    this.loadPendingAssignments();
   }
 
   deleteAssignment(id: number): void {
@@ -60,35 +64,44 @@ export class AssignmentsStore {
   private loadActiveAssignments(): void {
     this.loadingSignal.set(true);
     this.errorSignal.set(null);
-    this.assignmentsApi.getAssignmentsByMechanicAndStatus(1,'ACTIVE').pipe(takeUntilDestroyed()).subscribe(
-      {
-        next: assignments =>{
-         this.activeAssignmentsSignal.set(assignments);
-          this.loadingSignal.set(false);
-        },
-        error: err => {
-          this.errorSignal.set(this.formatError(err, 'Failed to load courses'));
-          this.loadingSignal.set(false);
+    const mechanicId = localStorage.getItem('role_id')
+    if (mechanicId) {
+      this.assignmentsApi.getAssignmentsByMechanicAndStatus(+mechanicId, 'ACTIVE').subscribe(
+        {
+          next: assignments => {
+            this.activeAssignmentsSignal.set(assignments);
+            this.loadingSignal.set(false);
+          },
+          error: err => {
+            this.errorSignal.set(this.formatError(err, 'Failed to load courses'));
+            this.loadingSignal.set(false);
+          }
         }
-      }
-    )
+      )
+    }
   }
 
   private loadPendingAssignments(): void {
     this.loadingSignal.set(true);
     this.errorSignal.set(null);
-    this.assignmentsApi.getAssignmentsByMechanicAndStatus(1,'PENDING').pipe(takeUntilDestroyed()).subscribe(
-      {
-        next: assignments =>{
-          this.pendingAssignmentsSignal.set(assignments);
-          this.loadingSignal.set(false);
-        },
-        error: err => {
-          this.errorSignal.set(this.formatError(err, 'Failed to load courses'));
-          this.loadingSignal.set(false);
+    const mechanicId = localStorage.getItem('role_id')
+    if (mechanicId)
+    {
+      this.assignmentsApi.getAssignmentsByMechanicAndStatus(+mechanicId,'PENDING').subscribe(
+        {
+          next: assignments =>{
+            this.pendingAssignmentsSignal.set(assignments);
+            this.loadingSignal.set(false);
+          },
+          error: err => {
+            this.errorSignal.set(this.formatError(err, 'Failed to load courses'));
+            this.loadingSignal.set(false);
+          }
         }
-      }
-    )
+      )
+    }
+
+
   }
 
   getAssignmentById(id: number | null | undefined): Signal<Assignment | undefined> {

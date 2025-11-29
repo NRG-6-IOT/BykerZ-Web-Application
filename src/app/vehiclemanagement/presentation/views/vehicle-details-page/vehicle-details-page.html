@@ -1,7 +1,11 @@
 <div class="main-container">
-  <div class="straight-line">
+  <div class="straight-line" style="margin-left: auto; margin-right: auto">
     <h1>{{vehicle?.model?.name}}</h1>
     <img class="vehicle-image" ngSrc="/assets/images/vehicle_dark.png" width="198" height="101" alt="">
+    @if (isMechanic())
+    {
+      <h1 style="margin-left: 20px">({{vehicle?.owner?.completeName}})</h1>
+    }
   </div>
 </div>
 <div class="data-container">
@@ -33,7 +37,7 @@
             (click)="exportReport()"
             type="button"
             class="export-button">
-            Exportar
+            Export
           </button>
         </div>
       </div>

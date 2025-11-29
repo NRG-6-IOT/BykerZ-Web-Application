@@ -1,11 +1,12 @@
-import {Component, inject, OnInit} from '@angular/core';
+import {Component, inject, OnDestroy, OnInit} from '@angular/core';
 import {MatIconModule} from '@angular/material/icon';
 import {CreateExpenseDialog} from '@app/maintenance-and-operations/presentation/components/create-expense-dialog/create-expense-dialog';
 import {MatDialog} from '@angular/material/dialog';
-import {Router} from '@angular/router';
+import {NavigationEnd, Router} from '@angular/router';
 import {CommonModule} from '@angular/common';
 import {ExpenseStore} from '@app/maintenance-and-operations/application/expense.store';
 import {AuthenticationService} from '@app/iam/services/authentication.service';
+import {filter, Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-owner-expenses-page',
@@ -75,14 +76,28 @@ import {AuthenticationService} from '@app/iam/services/authentication.service';
   `,
   styles: ``,
 })
-export class OwnerExpensesPage implements OnInit {
+export class OwnerExpensesPage implements OnInit, OnDestroy {
   readonly dialog = inject(MatDialog);
   readonly router = inject(Router);
   readonly expenseStore = inject(ExpenseStore);
   readonly authService = inject(AuthenticationService);
 
+  private routerSubscription?: Subscription;
+
   ngOnInit(): void {
     this.loadExpenses();
+
+    // Subscribe to router events to reload expenses when navigating back
+    this.routerSubscription = this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd),
+      filter((event: NavigationEnd) => event.url === '/expenses' || event.url === '/expenses/')
+    ).subscribe(() => {
+      this.loadExpenses();
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.routerSubscription?.unsubscribe();
   }
 
   loadExpenses(): void {
@@ -109,16 +124,16 @@ export class OwnerExpensesPage implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        // Get the current user ID to create the expense
-        this.authService.currentUserId.subscribe(userId => {
-          if (userId) {
+        // Get the owner ID to create the expense
+        this.authService.getRoleSpecificUserId().subscribe(ownerId => {
+          if (ownerId) {
             // Ensure expenseType is always PERSONAL
             const expenseToCreate = {
               ...result,
               expenseType: 'PERSONAL'
             };
 
-            this.expenseStore.createExpense(userId, expenseToCreate);
+            this.expenseStore.createExpense(ownerId, expenseToCreate);
           }
         });
       }

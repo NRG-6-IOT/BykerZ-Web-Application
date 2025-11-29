@@ -22,7 +22,7 @@ import {AssignVehicleCard} from '@app/assignments/presentation/components/assign
   templateUrl: './assignment-detail-page.html',
   styleUrl: './assignment-detail-page.css'
 })
-export class AssignmentDetailPage{
+export class AssignmentDetailPage implements OnInit{
   private route = inject(ActivatedRoute);
   private store = inject(AssignmentsStore);
   private vehicleStore = inject(VehiclesStore);
@@ -31,7 +31,7 @@ export class AssignmentDetailPage{
   assignmentId: number | null = null;
   assignment: Assignment | null = null;
 
-  constructor() {
+  ngOnInit() {
     this.route.params.subscribe(params => {
       this.assignmentId = params['id'] ? +params['id'] : null;
       if(this.assignmentId){

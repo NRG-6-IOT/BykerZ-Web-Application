@@ -13,6 +13,15 @@ mat-card {
   max-width: 600px;
   min-width: 300px;
   cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+mat-card:active {
+  background-color: #ffa050;
+}
+
+mat-card:hover {
+  transform: scale(1.05);
 }
 
 .horizontal {

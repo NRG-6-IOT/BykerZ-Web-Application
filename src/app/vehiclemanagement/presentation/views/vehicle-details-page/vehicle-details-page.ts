@@ -25,6 +25,7 @@ export class VehicleDetailsPage implements OnInit {
   vehicle: Vehicle | null = null;
   loading: boolean = true;
 
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -52,7 +53,6 @@ export class VehicleDetailsPage implements OnInit {
       this.vehicle = vehicle;
       this.loading = false;
     } else {
-      // Si no está en el store, recargar desde la API
       this.http.get(`${environment.platformProviderApiBaseUrl}/vehicles/${this.vehicleId}`, {
         headers: new HttpHeaders({
           Authorization: `Bearer ${localStorage.getItem('token')?.replace(/^"|"$/g, '')}`
@@ -102,11 +102,7 @@ export class VehicleDetailsPage implements OnInit {
     }
   }
 
-  private isMechanic(): boolean {
-    const currentUrl = this.router.url;
-    if (currentUrl.includes('mechanic-dashboard') || currentUrl.includes('mechanic')) {
-      return true;
-    }
+  protected isMechanic(): boolean {
 
     const userRole = this.authService.currentUserRole();
     if (userRole === 'ROLE_MECHANIC') {

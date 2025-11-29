@@ -1,4 +1,4 @@
-import {Component, inject} from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import {PendingAssignmentsButton} from '@app/assignments/presentation/components/pending-assignments-button/pending-assignments-button.component';
 import {AssignmentCardList} from '@app/assignments/presentation/components/assignment-card-list/assignment-card-list';
 import {AssignmentsStore} from '@app/assignments/application/assigments.store';
@@ -21,8 +21,12 @@ import {
   templateUrl: './assignments-page.html',
   styleUrl: './assignments-page.css'
 })
-export class AssignmentsPage {
+export class AssignmentsPage implements OnInit{
   readonly store = inject(AssignmentsStore);
+
+  ngOnInit() {
+    this.store.reload()
+  }
 
   get activeAssignments() {
     return this.store.activeAssignments();

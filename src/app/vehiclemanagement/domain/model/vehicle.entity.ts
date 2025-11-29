@@ -1,13 +1,15 @@
+import {Owner} from '@app/assignments/domain/model/owner.entity';
+
 export class Vehicle {
   id: number;
-  ownerId: number;
+  owner: Owner | null;
   model: Model | null;
   year: string;
   plate: string;
 
-  constructor(vehicle: { year: string; model: Model | null; plate: string; id: number; ownerId: number }) {
+  constructor(vehicle: { year: string; model: Model | null; plate: string; id: number; owner: Owner | null }) {
     this.id = vehicle.id || 0;
-    this.ownerId = vehicle.ownerId;
+    this.owner = vehicle.owner;
     this.model = vehicle.model;
     this.year = vehicle.year;
     this.plate = vehicle.plate;
