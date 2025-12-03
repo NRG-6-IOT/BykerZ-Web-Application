@@ -16,7 +16,6 @@ import {TranslatePipe} from '@ngx-translate/core';
     PendingAssignmentsButton,
     AssignmentCardList,
     MatProgressSpinner,
-    MatError,
     CreateAssignmentButton,
     TranslatePipe
   ],

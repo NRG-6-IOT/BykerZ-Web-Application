@@ -5,15 +5,17 @@
       <p class="subtitle">Overview of your vehicles and services</p>
     </div>
 
-    <div class="mechanic-badge" *ngIf="ownerAssignment()">
-      <span class="badge-label">Assigned Mechanic</span>
-      <div class="badge-content">
-        <div class="mechanic-avatar">
-          <span class="initial">{{ ownerAssignment()?.mechanic?.completeName?.charAt(0) }}</span>
+    @if (ownerAssignment()) {
+      <div class="mechanic-badge">
+        <span class="badge-label">Assigned Mechanic</span>
+        <div class="badge-content">
+          <div class="mechanic-avatar">
+            <span class="initial">{{ ownerAssignment()?.mechanic?.completeName?.charAt(0) }}</span>
+          </div>
+          <span class="mechanic-name">{{ ownerAssignment()?.mechanic?.completeName }}</span>
         </div>
-        <span class="mechanic-name">{{ ownerAssignment()?.mechanic?.completeName }}</span>
       </div>
-    </div>
+    }
   </div>
 
   <div class="dashboard-grid">

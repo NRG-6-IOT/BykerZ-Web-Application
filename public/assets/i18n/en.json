@@ -3,24 +3,29 @@
     "username": "Username",
     "password": "Password",
     "signIn": "Sign In",
-    "signUp": "Sign Up"
+    "signUp": "Sign Up",
+    "slogan": "Premium Motorcycle Management"
   },
   "selection": {
+    "mainTitle": "Choose your role",
+    "divider": "OR",
     "owner": {
       "title": "Register as an Owner",
-      "label": "Enter the assignment code provided",
-      "button": "Register with code"
+      "label": "Manage your vehicles and expenses",
+      "placeholder": "Enter invitation code",
+      "button": "Register"
     },
     "mechanic": {
       "title": "Register as a Mechanic",
-      "label": "Pick between our plans",
+      "label": "Manage clients and assignments",
       "button": "Choose a plan"
     }
   },
   "register": {
     "signUp": "Sign Up",
+    "subtitle": "Join BykerZ today",
     "firstName": "First Name",
-    "lastName": "Sur Name",
+    "lastName": "Last Name",
     "username": "Username",
     "email": "Email",
     "photoUrl": "Photo URL",
@@ -28,8 +33,27 @@
     "confirmPassword": "Confirm Password",
     "button": "Register"
   },
-  "navbar":{
-    "logout":"Log Out",
+  "dashboard": {
+    "owner": {
+      "title": "Owner Dashboard",
+      "subtitle": "Overview of your vehicles and services",
+      "assignedMechanic": "Assigned Mechanic",
+      "myVehicles": "My Vehicles",
+      "recentExpenses": "Recent Expenses",
+      "scheduledMaintenances": "Scheduled Maintenances"
+    },
+    "mechanic": {
+      "title": "Mechanic Dashboard",
+      "subtitle": "Manage your clients and work",
+      "activeSubscriptions": "Active Subscriptions",
+      "membershipStatus": "Membership Status",
+      "upcomingWork": "Upcoming Work",
+      "plan": "PLAN",
+      "remaining": "Remaining"
+    }
+  },
+  "navbar": {
+    "logout": "Log Out",
     "mechanic": {
       "dashboard": "Dashboard",
       "assignments": "Assignments",
@@ -43,6 +67,27 @@
       "comparatives": "Comparatives",
       "expenses": "Expenses",
       "maintenance": "Maintenance"
+    }
+  },
+  "vehicle": {
+    "card": {
+      "associatedWith": "Associated with"
+    },
+    "register": {
+      "title": "Add a Vehicle",
+      "brand": "Brand",
+      "model": "Model",
+      "year": "Year",
+      "plate": "Plate (e.g. 1234-XY)",
+      "submit": "Register Vehicle",
+      "success": "Vehicle registered successfully",
+      "errorPlate": "Invalid plate format"
+    },
+    "details": {
+      "client": "Client",
+      "metrics": "Metrics",
+      "compare": "Compare",
+      "export": "Export"
     }
   },
   "assignments": {
@@ -74,7 +119,7 @@
       "generateAssignment": "Generate Assignment"
     },
     "createAssignmentDialog": {
-      "title": "A new Assignment has been created",
+      "title": "New Assignment Created",
       "code": "Code:",
       "loading": "Loading...",
       "shareMessage": "Share this code with an owner to link it to you",
@@ -92,9 +137,9 @@
     },
     "assignmentDetailPage": {
       "assignment": "assignment",
-      "code": "Code:",
-      "type": "Type:",
-      "associatedMotorbikes": "Associated motorbikes:",
+      "code": "Code",
+      "type": "Type",
+      "associatedMotorbikes": "Associated Motorbikes",
       "noAssociatedMotorbikes": "No motorbikes associated yet."
     },
     "assignmentsPage": {
@@ -165,8 +210,8 @@
   "notifications": {
     "severity": "Severity",
     "type": "Type",
-    "connected":"Connected",
-    "disconnected":"Disconnected",
+    "connected": "Connected",
+    "disconnected": "Disconnected",
     "noVehicles": "There are no notifications for this vehicle.",
     "title": "Title",
     "message": "Message",
@@ -178,8 +223,8 @@
     "gpsLocation": "GPS Location",
     "airQuality": "Air Quality",
     "environmentalConditions": "Environmental Conditions",
-    "statusImpact":"Status Impact",
-    "emittedAt":"Emitted At",
+    "statusImpact": "Status Impact",
+    "emittedAt": "Emitted At",
     "vehicle": "Vehicle",
     "impactDetected": "Impact Detected",
     "normalState": "Normal State",
@@ -198,6 +243,7 @@
     "save": "Save",
     "create": "Create",
     "delete": "Delete",
+    "close": "Close",
     "saving": "Saving...",
     "loading": "Loading...",
     "confirmDelete": "Are you sure you want to delete this item?"

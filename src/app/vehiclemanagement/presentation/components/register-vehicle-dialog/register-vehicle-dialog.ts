@@ -13,7 +13,6 @@ import { CommonModule } from '@angular/common'; // Agregado para *ngIf
   selector: 'app-register-vehicle-dialog',
   imports: [
     CommonModule,
-    MatDialogContent,
     MatDialogModule,
     NgOptimizedImage,
     MatSelect,
@@ -21,7 +20,6 @@ import { CommonModule } from '@angular/common'; // Agregado para *ngIf
     FormsModule,
     MatSelectModule,
     MatInputModule,
-    MatButton
   ],
   templateUrl: './register-vehicle-dialog.html',
   standalone: true,

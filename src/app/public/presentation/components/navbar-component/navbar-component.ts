@@ -10,7 +10,6 @@ import {NgForOf, NgIf} from '@angular/common';
 @Component({
   selector: 'app-navbar-component',
   imports: [
-    MatToolbar,
     FormsModule,
     RouterLink,
     NgIf,

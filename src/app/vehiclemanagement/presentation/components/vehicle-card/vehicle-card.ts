@@ -14,9 +14,7 @@ import {AssignmentsStore} from "@app/assignments/application/assigments.store";
 @Component({
   selector: 'app-vehicle-card',
   imports: [
-    MatCard,
     NgOptimizedImage,
-    MatCardContent,
     RouterLink,
     NotificationListComponent
   ],

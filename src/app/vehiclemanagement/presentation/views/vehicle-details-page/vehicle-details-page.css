@@ -7,10 +7,10 @@
 .hero-header {
   background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
   color: white;
-  /* AUMENTADO: Padding top para evitar que la navbar tape el título */
-  padding: 6rem 2rem 5rem;
+  /* CORRECCIÓN IMPORTANTE: Aumentar padding inferior */
+  padding: 6rem 2rem 8rem; /* Aumentado a 8rem para dar espacio antes de que la tarjeta blanca suba */
   position: relative;
-  overflow: hidden; /* Para contener efectos */
+  overflow: hidden;
 }
 
 .hero-content {
@@ -33,13 +33,17 @@
 }
 
 .model-name {
-  font-size: 3.5rem; /* Más grande */
+  font-size: 3.5rem;
   font-weight: 800;
   margin: 0.5rem 0;
-  color: white; /* Blanco puro para mejor contraste */
-  text-shadow: 0 4px 12px rgba(0,0,0,0.3); /* Sombra para resaltar */
-  line-height: 1.1;
+  color: white;
+  text-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  /* CORRECCIÓN: Altura de línea segura */
+  line-height: 1.3;
+  padding-bottom: 10px;
 }
+
+
 
 .owner-badge {
   display: inline-block; margin-top: 1rem;
@@ -67,7 +71,8 @@
 
 /* Main Content */
 .content-container {
-  max-width: 1000px; margin: -3rem auto 2rem; /* Efecto de superposición */
+  max-width: 1000px;
+  margin: -4rem auto 2rem;
   padding: 0 1.5rem;
   position: relative; z-index: 3;
 }

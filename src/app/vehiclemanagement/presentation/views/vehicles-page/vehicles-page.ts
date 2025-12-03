@@ -12,9 +12,7 @@ import {ActivatedRoute} from '@angular/router';
   selector: 'app-vehicles-page',
   imports: [
     VehicleCard,
-    MatIconModule,
-    MatFabButton
-  ],
+    MatIconModule],
   templateUrl: './vehicles-page.html',
   standalone: true,
   styleUrl: './vehicles-page.css'
