@@ -257,6 +257,67 @@
     "humidity": "Humidity",
     "pressure": "Pressure"
   },
+  "membership": {
+    "title": "Choose Your Membership Plan",
+    "subtitle": "Select the perfect plan for your workshop. Upgrade or downgrade at any time.",
+    "plans": {
+      "bronze": "Bronze",
+      "silver": "Silver",
+      "black": "Black"
+    },
+    "bronze": {
+      "name": "Bronze",
+      "idealFor": "Beginning independent mechanics",
+      "maxClients": "Max. clients",
+      "storage": "Storage"
+    },
+    "silver": {
+      "name": "Silver",
+      "idealFor": "Established workshops",
+      "maxClients": "Max. clients",
+      "storage": "Storage"
+    },
+    "black": {
+      "name": "Black",
+      "idealFor": "Workshops with multiple mechanics",
+      "maxClients": "Max. clients",
+      "storage": "Storage"
+    },
+    "common": {
+      "idealFor": "Ideal for:",
+      "perMonth": "/month",
+      "processing": "Processing...",
+      "selectPlan": "Select {{plan}} Plan",
+      "popularBadge": "MOST POPULAR",
+      "features": {
+        "clients": "Max. clients:",
+        "storage": "Storage:"
+      }
+    },
+    "success": {
+      "title": "Congratulations!",
+      "message": "You now have {{plan}} membership",
+      "redirecting": "Redirecting to dashboard..."
+    },
+    "error": {
+      "noMechanic": "Could not identify the mechanic. Please log in again.",
+      "mechanicsOnly": "This page is only available for mechanics.",
+      "invalidMechanic": "Invalid mechanic ID.",
+      "updating": "Error updating membership. Please try again.",
+      "notFound": "Mechanic not found.",
+      "invalidData": "Invalid data.",
+      "unauthorized": "Session expired. Please log in again.",
+      "connection": "Could not connect to server. Check your connection."
+    },
+    "footer": {
+      "guarantee": "All plans include 24/7 support, regular updates, and a 30-day money-back guarantee."
+    },
+    "loading": {
+      "title": "Updating membership",
+      "message": "Please wait while we update your plan."
+    },
+    "confirmation": "Are you sure you want to upgrade to {{plan}} for S/ {{price}}/month?"
+  },
   "common": {
     "back": "Back",
     "cancel": "Cancel",

@@ -257,6 +257,66 @@
     "humidity": "Humedad",
     "pressure": "Presión"
   },
+  "membership": {
+    "title": "Elige Tu Plan de Membresía",
+    "subtitle": "Selecciona el plan perfecto para tu taller. Actualiza o cambia en cualquier momento.",
+    "plans": {
+      "bronze": "Bronce",
+      "silver": "Plata",
+      "black": "Negro"
+    },
+    "bronze": {
+      "name": "Bronce",
+      "idealFor": "Para mecánicos independientes que empiezan",
+      "maxClients": "Clientes máx.",
+      "storage": "Almacenamiento"
+    },
+    "silver": {
+      "name": "Plata",
+      "idealFor": "Para talleres establecidos",
+      "maxClients": "Clientes máx.",
+      "storage": "Almacenamiento"
+    },
+    "black": {
+      "name": "Negro",
+      "idealFor": "Para talleres con múltiples mecánicos",
+      "maxClients": "Clientes máx.",
+      "storage": "Almacenamiento"
+    },
+    "common": {
+      "idealFor": "Ideal para:",
+      "perMonth": "/mes",
+      "processing": "Procesando...",
+      "selectPlan": "Seleccionar Plan {{plan}}",
+      "popularBadge": "MÁS POPULAR",
+      "features": {
+        "clients": "Máx. clientes:",
+        "storage": "Almacenamiento:"
+      }
+    },
+    "success": {
+      "title": "¡Felicidades!",
+      "message": "Ahora tienes membresía {{plan}}",
+      "redirecting": "Redirigiendo al dashboard..."
+    },
+    "error": {
+      "noMechanic": "No se pudo identificar al mecánico. Por favor, inicie sesión nuevamente.",
+      "mechanicsOnly": "Esta página solo está disponible para mecánicos.",
+      "invalidMechanic": "ID de mecánico no válido.",
+      "updating": "Error al actualizar la membresía. Por favor, intente nuevamente.",
+      "notFound": "Mecánico no encontrado.",
+      "invalidData": "Datos inválidos.",
+      "unauthorized": "Sesión expirada. Por favor, inicie sesión nuevamente.",
+      "connection": "No se pudo conectar con el servidor. Verifique su conexión."
+    },
+    "footer": {
+      "guarantee": "Todos los planes incluyen soporte 24/7, actualizaciones regulares y garantía de devolución de 30 días."
+    },
+    "loading": {
+      "title": "Actualizando membresía",
+      "message": "Por favor, espere mientras actualizamos su plan."
+    }
+  },
   "common": {
     "back": "Volver",
     "cancel": "Cancelar",
