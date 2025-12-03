@@ -1,6 +1,4 @@
-
 import {Component, inject, OnInit} from '@angular/core';
-import {NgOptimizedImage} from "@angular/common";
 import {AssignmentsStore} from '@app/assignments/application/assigments.store';
 import {MaintenanceStore} from '@app/maintenance-and-operations/application/maintenance.store';
 import {MatIcon} from '@angular/material/icon';
@@ -9,7 +7,6 @@ import {RouterLink} from '@angular/router';
 @Component({
   selector: 'app-dashboard-mechanic-page',
   imports: [
-    NgOptimizedImage,
     MatIcon,
     RouterLink
   ],

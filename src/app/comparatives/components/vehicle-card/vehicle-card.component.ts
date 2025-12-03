@@ -19,7 +19,7 @@ import {TranslateModule} from '@ngx-translate/core';
           (ngModelChange)="onSelectionChange($event)"
           class="vehicle-select">
           <option *ngFor="let opt of options" [value]="opt.id">
-            {{ opt.model?.brand || 'N/A' }} {{ opt.model?.name || 'N/A' }} - {{ opt.plate || 'N/A' }}
+            {{ opt.model.brand || 'N/A' }} {{ opt.model.name || 'N/A' }} - {{ opt.plate || 'N/A' }}
           </option>
         </select>
       </div>
