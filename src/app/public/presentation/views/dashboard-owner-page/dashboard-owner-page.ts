@@ -6,13 +6,15 @@ import {ExpenseStore} from '@app/maintenance-and-operations/application/expense.
 import {DatePipe, NgOptimizedImage} from '@angular/common';
 import {RouterLink} from '@angular/router';
 import {Vehicle} from '@app/comparatives/model/model';
+import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-dashboard-owner-page',
   imports: [
     NgOptimizedImage,
     RouterLink,
-    DatePipe
+    DatePipe,
+    TranslatePipe
   ],
   templateUrl: './dashboard-owner-page.html',
   standalone: true,
