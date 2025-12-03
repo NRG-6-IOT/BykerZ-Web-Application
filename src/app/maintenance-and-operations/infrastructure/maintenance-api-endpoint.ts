@@ -1,4 +1,4 @@
-import {environment} from '../../../environments/environment';
+import {environment} from '@env/environment';
 import {BaseApiEndpoint} from '@app/shared/infrastructure/base-api-endpoint';
 import {Maintenance} from '@app/maintenance-and-operations/domain/model/mainteance.entity';
 import {MaintenanceResource, MaintenancesResponse} from '@app/maintenance-and-operations/infrastructure/maintenance-response';
@@ -86,6 +86,15 @@ export class MaintenanceApiEndpoint extends BaseApiEndpoint<Maintenance, Mainten
     const url = `${this.endpointUrl}/${maintenanceId}/expense/assign/${expenseId}`;
     return this.http.put<MaintenanceResource>(url, null).pipe(
       catchError(this.handleError(`Failed to assign expense ${expenseId} to maintenance ${maintenanceId}`))
+    );
+  }
+
+
+
+  getMaintenancesByOwnerId(ownerId: number): Observable<MaintenancesResponse | MaintenanceResource[]> {
+    const url = `${this.endpointUrl}/owner/${ownerId}`;
+    return this.http.get<MaintenancesResponse | MaintenanceResource[]>(url).pipe(
+      catchError(this.handleError(`Failed to fetch maintenances for ownerId=${ownerId}`))
     );
   }
 }

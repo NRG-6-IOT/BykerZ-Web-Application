@@ -1,4 +1,4 @@
-import {computed, inject, Injectable, signal, Signal} from '@angular/core';
+import {inject, Injectable, signal} from '@angular/core';
 import {Maintenance} from '@app/maintenance-and-operations/domain/model/mainteance.entity';
 import {MaintenanceApi} from '@app/maintenance-and-operations/infrastructure/maintenance-api';
 import {retry} from 'rxjs';
@@ -12,22 +12,42 @@ export class MaintenanceStore {
   private readonly loadingSignal = signal<boolean>(false);
 
   // Public readonly signals
-  readonly maintenances = computed(() => this.maintenancesSignal());
-  readonly selectedMaintenance = computed(() => this.selectedMaintenanceSignal());
+  readonly maintenances = this.maintenancesSignal.asReadonly();
   readonly error = this.errorSignal.asReadonly();
   readonly loading = this.loadingSignal.asReadonly();
 
-  // Computed signals for filtering maintenances by state
-  readonly scheduledMaintenances = computed(() =>
-    this.maintenancesSignal().filter(m => m.state === 'PENDING' || m.state === 'IN_PROGRESS')
-  );
 
-  readonly completedMaintenances = computed(() =>
-    this.maintenancesSignal().filter(m => m.state === 'COMPLETED' || m.state === 'CANCELLED')
-  );
+  scheduledMaintenances(): Maintenance[] {
+    const list = this.maintenancesSignal();
+    return list.filter(m => m.state === 'PENDING' || m.state === 'IN_PROGRESS');
+  }
 
-  // Dependency injection
+  completedMaintenances(): Maintenance[] {
+    const list = this.maintenancesSignal();
+    return list.filter(m => m.state === 'COMPLETED' || m.state === 'CANCELLED');
+  }
+
   private maintenanceApi = inject(MaintenanceApi);
+
+  constructor() {
+    this.reload();
+  }
+
+  reload(): void {
+    const roleId = localStorage.getItem('role_id');
+    const role = localStorage.getItem('user_role');
+
+    if (!roleId || !role) {
+      return;
+    }
+
+    const id = +roleId;
+    if (role === 'ROLE_MECHANIC') {
+      this.loadMaintenancesByMechanicId(id);
+    } else if (role === 'ROLE_OWNER') {
+      this.loadMaintenancesByOwnerId(id);
+    }
+  }
 
   /**
    * Loads a specific maintenance by ID
@@ -71,6 +91,22 @@ export class MaintenanceStore {
     this.errorSignal.set(null);
 
     this.maintenanceApi.getMaintenancesByMechanicId(mechanicId).pipe(retry(2)).subscribe({
+      next: maintenances => {
+        this.maintenancesSignal.set(maintenances);
+        this.loadingSignal.set(false);
+      },
+      error: err => {
+        this.errorSignal.set(this.formatError(err, 'Failed to load maintenances by mechanic'));
+        this.loadingSignal.set(false);
+      }
+    });
+  }
+
+  loadMaintenancesByOwnerId(ownerId: number): void {
+    this.loadingSignal.set(true);
+    this.errorSignal.set(null);
+
+    this.maintenanceApi.getMaintenancesByOwnerId(ownerId).pipe(retry(2)).subscribe({
       next: maintenances => {
         this.maintenancesSignal.set(maintenances);
         this.loadingSignal.set(false);
@@ -224,28 +260,6 @@ export class MaintenanceStore {
     });
   }
 
-  /**
-   * Gets a maintenance by ID from the current state
-   * @param id - The ID of the maintenance
-   * @returns A computed signal with the maintenance or undefined
-   */
-  getMaintenanceById(id: number | null | undefined): Signal<Maintenance | undefined> {
-    return computed(() => id ? this.maintenancesSignal().find(m => m.id === id) : undefined);
-  }
-
-  /**
-   * Clears the selected maintenance
-   */
-  clearSelectedMaintenance(): void {
-    this.selectedMaintenanceSignal.set(null);
-  }
-
-  /**
-   * Clears any error message
-   */
-  clearError(): void {
-    this.errorSignal.set(null);
-  }
 
   /**
    * Resets the entire store state (useful for sign-out)

@@ -34,7 +34,7 @@ export class DashboardMechanicPage implements OnInit {
   }
 
   get mechanicMaintenances() {
-    return this.maintenancesStore.scheduledMaintenances;
+    return this.maintenancesStore.maintenances;
   }
 
   getVehicleById(id: number) {

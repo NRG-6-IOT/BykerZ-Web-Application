@@ -1,4 +1,4 @@
-import {Component, computed, inject, OnInit} from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {Router} from '@angular/router';
 import {FormsModule} from '@angular/forms';
@@ -41,10 +41,10 @@ import {environment} from '@env/environment';
 
       <!-- Scheduled Maintenances Section -->
       <div class="flex flex-col gap-4 mb-8">
-        @if (scheduledMaintenances().length === 0 && !maintenanceStore.loading()) {
+        @if (maintenanceStore.scheduledMaintenances().length === 0 && !maintenanceStore.loading()) {
           <p class="text-gray-500">No scheduled maintenances</p>
         }
-        @for (maintenance of scheduledMaintenances(); track maintenance.id) {
+        @for (maintenance of maintenanceStore.scheduledMaintenances(); track maintenance.id) {
           <div class="bg-[#FF6B35] rounded-2xl p-2">
             <div class="bg-white text-black rounded-xl p-4">
               <div class="grid grid-cols-2 gap-4">
@@ -102,10 +102,10 @@ import {environment} from '@env/environment';
       <!-- Completed Maintenances Section -->
       <h1 class="text-3xl font-bold mb-4">Maintenances Done</h1>
       <div class="flex flex-col gap-4 mb-4">
-        @if (completedMaintenances().length === 0 && !maintenanceStore.loading()) {
+        @if (maintenanceStore.completedMaintenances().length === 0 && !maintenanceStore.loading()) {
           <p class="text-gray-500">No completed maintenances</p>
         }
-        @for (maintenance of completedMaintenances(); track maintenance.id) {
+        @for (maintenance of maintenanceStore.completedMaintenances(); track maintenance.id) {
           <div class="bg-[#FF6B35] rounded-2xl p-2">
             <div class="bg-white text-black rounded-xl p-4">
               <div class="grid grid-cols-2 gap-4">
@@ -161,16 +161,13 @@ import {environment} from '@env/environment';
   `,
   styles: ``,
 })
-export class MechanicMaintenancePage implements OnInit {
+export class MechanicMaintenancePage {
   readonly maintenanceStore = inject(MaintenanceStore);
   readonly expenseStore = inject(ExpenseStore);
   readonly router = inject(Router);
   readonly dialog = inject(MatDialog);
   readonly http = inject(HttpClient);
 
-  // Computed signals from the store
-  readonly scheduledMaintenances = computed(() => this.maintenanceStore.scheduledMaintenances());
-  readonly completedMaintenances = computed(() => this.maintenanceStore.completedMaintenances());
 
   ngOnInit(): void {
     this.loadMaintenances();

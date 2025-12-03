@@ -30,11 +30,6 @@ export class DashboardOwnerPage implements OnInit {
       setTimeout(() => {
         this.store.getAssignmentByOwnerId(+roleId);
         this.vehiclesStore.loadVehiclesByOwner(+roleId);
-        const vehicles = this.vehiclesStore.vehicles();
-        console.log(vehicles);
-        vehicles.forEach((vehicle) => {
-          this.maintenanceStore.loadMaintenancesByVehicleId(vehicle.id);
-        })
       }, 500)
     }
   }

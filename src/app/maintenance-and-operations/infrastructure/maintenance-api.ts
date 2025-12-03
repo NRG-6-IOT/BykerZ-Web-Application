@@ -106,5 +106,16 @@ export class MaintenanceApi extends BaseApi {
       map(resource => this.assembler.toEntityFromResource(resource))
     );
   }
+
+
+  getMaintenancesByOwnerId(ownerId: number): Observable<Maintenance[]> {
+    return this.maintenanceEndpoint.getMaintenancesByOwnerId(ownerId).pipe(
+      map(response =>
+        Array.isArray(response)
+          ? response.map(resource => this.assembler.toEntityFromResource(resource))
+          : this.assembler.toEntitiesFromResponse(response as MaintenancesResponse)
+      )
+    );
+  }
 }
 

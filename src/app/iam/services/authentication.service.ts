@@ -175,6 +175,7 @@ export class AuthenticationService {
     localStorage.removeItem('token');
     localStorage.removeItem('role_id');
     localStorage.removeItem('user_role');
+    localStorage.removeItem('compare_page_state');
 
     // Reset all stores to clear cached data
     this.expenseStore.reset();
