@@ -18,19 +18,19 @@ import {TranslateModule} from '@ngx-translate/core';
   template: `
     <div class="page">
       <div class="header">
-        <div class="badge">{{ 'mechanic' | translate }}</div>
+        <div class="badge">{{ 'roles.mechanic' | translate }}</div>
         <h1 class="page-title">{{ 'navbar.mechanic.maintenance' | translate }}</h1>
         <button class="btn-primary" (click)="navigateToCreateMaintenance()">
-          + Create Maintenance
+          + {{ 'maintenance.createButton' | translate }}
         </button>
       </div>
 
-      <div *ngIf="maintenanceStore.loading()" class="status-msg">Loading...</div>
+      <div *ngIf="maintenanceStore.loading()" class="status-msg">{{ 'common.loading' | translate }}</div>
       <div *ngIf="maintenanceStore.error()" class="status-msg error">{{maintenanceStore.error()}}</div>
 
-      <h2 class="section-title">Active Requests</h2>
+      <h2 class="section-title">{{ 'maintenance.activeRequests' | translate }}</h2>
       <div class="grid-container">
-        <div class="empty-state" *ngIf="scheduledMaintenances().length === 0">No scheduled maintenances</div>
+        <div class="empty-state" *ngIf="scheduledMaintenances().length === 0">{{ 'maintenance.noScheduled' | translate }}</div>
 
         <div class="card" *ngFor="let maintenance of scheduledMaintenances(); trackBy: trackById">
           <div class="card-header-gradient">
@@ -40,26 +40,26 @@ import {TranslateModule} from '@ngx-translate/core';
           <div class="card-body">
             <div class="info-grid">
               <div class="info-item">
-                <span class="label">Vehicle ID</span>
+                <span class="label">{{ 'maintenance.vehicleIdLabel' | translate }}</span>
                 <span class="value">#{{maintenance.vehicleId}}</span>
               </div>
               <div class="info-item">
-                <span class="label">Details</span>
+                <span class="label">{{ 'maintenance.detailsLabel' | translate }}</span>
                 <span class="value">{{maintenance.details}}</span>
               </div>
             </div>
 
             <div class="status-control">
-              <span class="label">Update Status:</span>
+              <span class="label">{{ 'maintenance.updateStatusLabel' | translate }}:</span>
               <div class="control-row">
                 <select [(ngModel)]="maintenance.state" class="status-select" [ngClass]="maintenance.state">
-                  <option value="PENDING">PENDING</option>
-                  <option value="IN_PROGRESS">IN PROGRESS</option>
-                  <option value="COMPLETED">COMPLETED</option>
-                  <option value="CANCELLED">CANCELLED</option>
+                  <option value="PENDING">{{ 'maintenance.status.pending' | translate | uppercase }}</option>
+                  <option value="IN_PROGRESS">{{ 'maintenance.status.in_progress' | translate | uppercase }}</option>
+                  <option value="COMPLETED">{{ 'maintenance.status.completed' | translate | uppercase }}</option>
+                  <option value="CANCELLED">{{ 'maintenance.status.cancelled' | translate | uppercase }}</option>
                 </select>
                 <button class="btn-save" (click)="saveMaintenanceState(maintenance)" [disabled]="maintenanceStore.loading()">
-                  Save
+                  {{ 'common.save' | translate }}
                 </button>
               </div>
             </div>
@@ -67,9 +67,9 @@ import {TranslateModule} from '@ngx-translate/core';
         </div>
       </div>
 
-      <h2 class="section-title mt-5">History</h2>
+      <h2 class="section-title mt-5">{{ 'maintenance.historyTitle' | translate }}</h2>
       <div class="grid-container">
-        <div class="empty-state" *ngIf="completedMaintenances().length === 0">No completed maintenances</div>
+        <div class="empty-state" *ngIf="completedMaintenances().length === 0">{{ 'maintenance.noHistory' | translate }}</div>
 
         <div class="card done" *ngFor="let maintenance of completedMaintenances(); trackBy: trackById">
           <div class="card-header-gradient dark">
@@ -79,9 +79,9 @@ import {TranslateModule} from '@ngx-translate/core';
           <div class="card-body">
             <p class="summary-text">{{maintenance.details}}</p>
             <div class="expense-preview" *ngIf="maintenance.expense">
-              <span class="label">Total Cost</span>
+              <span class="label">{{ 'maintenance.totalCostLabel' | translate }}</span>
               <span class="cost">$ {{maintenance.expense.finalPrice | number:'1.2-2'}}</span>
-              <button class="link-btn" (click)="navigateToExpenseDetails(maintenance.expense.id)">View Details</button>
+              <button class="link-btn" (click)="navigateToExpenseDetails(maintenance.expense.id)">{{ 'maintenance.viewDetailsLink' | translate }}</button>
             </div>
           </div>
         </div>

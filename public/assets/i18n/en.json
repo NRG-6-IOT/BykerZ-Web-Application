@@ -281,6 +281,7 @@
       "selectVehicle": "Select Vehicle",
       "serviceDetails": "Service Details",
       "titlePlaceholder": "Title / Short Details",
+      "titleExample": "Ex: Oil Change",
       "date": "Date",
       "time": "Time",
       "location": "Location",

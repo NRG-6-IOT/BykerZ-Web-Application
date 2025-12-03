@@ -18,7 +18,7 @@ import {TranslateModule} from '@ngx-translate/core';
       <div class="header-action-row">
         <h1 class="page-title">{{ 'navbar.owner.expenses' | translate }}</h1>
         <button class="btn-create" (click)="openDialog()" [disabled]="expenseStore.loading()">
-          <span class="icon">+</span> {{ 'Create Expense' | translate }}
+          <span class="icon">+</span> {{ 'expenses.createButton' | translate }}
         </button>
       </div>
 
@@ -32,7 +32,7 @@ import {TranslateModule} from '@ngx-translate/core';
 
       <div class="expenses-grid" *ngIf="!expenseStore.loading()">
         <div class="empty-state" *ngIf="expenseStore.expenses().length === 0">
-          <p>No expenses found. Create one to get started.</p>
+          <p>{{ 'expenses.emptyState' | translate }}</p>
         </div>
 
         <div class="expense-card" *ngFor="let expense of expenseStore.expenses(); trackBy: trackById">

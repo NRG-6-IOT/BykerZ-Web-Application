@@ -23,12 +23,12 @@ interface MaintenanceCard {
     <div class="page">
       <div class="header">
         <h1 class="page-title">{{ 'navbar.owner.maintenance' | translate }}</h1>
-        <p class="subtitle">{{ 'comparative.comparePage.subtitle' | translate }}</p>
+        <p class="subtitle">{{ 'dashboard.owner.subtitle' | translate }}</p>
       </div>
 
       <div *ngIf="maintenanceStore.loading() || vehiclesStore.loading()" class="loading-container">
         <div class="spinner"></div>
-        <p>{{ 'comparative.common.loadingVehicles' | translate }}</p>
+        <p>{{ 'common.loading' | translate }}</p>
       </div>
 
       <div *ngIf="maintenanceStore.error()" class="empty-state">
@@ -36,10 +36,10 @@ interface MaintenanceCard {
       </div>
 
       <div *ngIf="!maintenanceStore.loading()" class="content">
-        <h2 class="section-title">Scheduled Maintenances</h2>
+        <h2 class="section-title">{{ 'maintenance.scheduledTitle' | translate }}</h2>
 
         <div *ngIf="scheduledCards().length === 0" class="empty-state">
-          <p>{{ 'notifications.noVehicles' | translate }}</p>
+          <p>{{ 'maintenance.noScheduled' | translate }}</p>
         </div>
 
         <div class="grid-container">
@@ -52,11 +52,11 @@ interface MaintenanceCard {
               <h3 class="vehicle-title">{{ getVehicleDisplay(card.vehicle) }}</h3>
 
               <div class="detail-row">
-                <span class="label">Mechanic</span>
-                <span class="value">{{ card.mechanicName || 'Loading...' }}</span>
+                <span class="label">{{ 'maintenance.mechanicLabel' | translate }}</span>
+                <span class="value">{{ card.mechanicName || ('common.loading' | translate) }}</span>
               </div>
               <div class="detail-row">
-                <span class="label">Location</span>
+                <span class="label">{{ 'maintenance.locationLabel' | translate }}</span>
                 <span class="value">{{ card.maintenance.location }}</span>
               </div>
 
@@ -67,7 +67,7 @@ interface MaintenanceCard {
           </div>
         </div>
 
-        <h2 class="section-title mt-5">History</h2>
+        <h2 class="section-title mt-5">{{ 'maintenance.historyTitle' | translate }}</h2>
 
         <div class="grid-container">
           <div class="card" *ngFor="let card of completedCards()">
@@ -79,8 +79,8 @@ interface MaintenanceCard {
               <h3 class="vehicle-title">{{ getVehicleDisplay(card.vehicle) }}</h3>
 
               <div class="detail-row">
-                <span class="label">Mechanic</span>
-                <span class="value">{{ card.mechanicName || 'Loading...' }}</span>
+                <span class="label">{{ 'maintenance.mechanicLabel' | translate }}</span>
+                <span class="value">{{ card.mechanicName || ('common.loading' | translate) }}</span>
               </div>
 
               <div class="description-box">
@@ -89,7 +89,7 @@ interface MaintenanceCard {
 
               <div class="actions" *ngIf="card.maintenance.expense">
                 <button class="btn-primary" (click)="navigateToExpenseDetails(card.maintenance.expense.id)">
-                  See Expense ($ {{card.maintenance.expense.finalPrice | number:'1.2-2'}})
+                  {{ 'maintenance.seeExpenseButton' | translate }} ($ {{card.maintenance.expense.finalPrice | number:'1.2-2'}})
                 </button>
               </div>
             </div>

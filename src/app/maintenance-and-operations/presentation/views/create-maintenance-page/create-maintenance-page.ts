@@ -28,17 +28,17 @@ import {TranslateModule} from '@ngx-translate/core';
     <div class="page">
       <div class="form-card">
         <div class="card-header">
-          <h1 class="card-title">New Maintenance</h1>
-          <p class="card-subtitle">Register a new service for a client</p>
+          <h1 class="card-title">{{ 'maintenance.create.title' | translate }}</h1>
+          <p class="card-subtitle">{{ 'maintenance.create.subtitle' | translate }}</p>
         </div>
 
         <form (ngSubmit)="onSubmit(maintenanceForm)" #maintenanceForm="ngForm" class="card-body">
 
           <div class="form-section">
-            <h3 class="section-label">Vehicle Information</h3>
+            <h3 class="section-label">{{ 'maintenance.create.vehicleInfo' | translate }}</h3>
             <div class="grid-2">
               <mat-form-field appearance="outline" class="custom-field">
-                <mat-label>Select Owner</mat-label>
+                <mat-label>{{ 'maintenance.create.selectOwner' | translate }}</mat-label>
                 <mat-select [(ngModel)]="selectedOwnerIdValue" (ngModelChange)="onOwnerChange($event)" name="owner" required>
                   <mat-option *ngFor="let assignment of getValidAssignments()" [value]="assignment.owner?.id">
                     {{ assignment.owner?.completeName }}
@@ -47,7 +47,7 @@ import {TranslateModule} from '@ngx-translate/core';
               </mat-form-field>
 
               <mat-form-field appearance="outline" class="custom-field">
-                <mat-label>Select Vehicle</mat-label>
+                <mat-label>{{ 'maintenance.create.selectVehicle' | translate }}</mat-label>
                 <mat-select [(ngModel)]="formData.vehicleId" name="vehicle" [disabled]="!selectedOwnerIdValue" required>
                   <mat-option *ngFor="let vehicle of ownerVehicles" [value]="vehicle.id">
                     {{getVehicleDisplay(vehicle)}}
@@ -58,43 +58,43 @@ import {TranslateModule} from '@ngx-translate/core';
           </div>
 
           <div class="form-section">
-            <h3 class="section-label">Service Details</h3>
+            <h3 class="section-label">{{ 'maintenance.create.serviceDetails' | translate }}</h3>
             <mat-form-field appearance="outline" class="custom-field w-full">
-              <mat-label>Title / Short Details</mat-label>
-              <input matInput [(ngModel)]="formData.details" name="details" required placeholder="Ex: Oil Change">
+              <mat-label>{{ 'maintenance.create.titlePlaceholder' | translate }}</mat-label>
+              <input matInput [(ngModel)]="formData.details" name="details" required placeholder="{{ 'maintenance.create.titleExample' | translate }}">
             </mat-form-field>
 
             <div class="grid-2">
               <mat-form-field appearance="outline" class="custom-field">
-                <mat-label>Date</mat-label>
+                <mat-label>{{ 'maintenance.create.date' | translate }}</mat-label>
                 <input matInput [matDatepicker]="picker" [(ngModel)]="formData.dateOfService" name="dateOfService" required>
                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-datepicker #picker></mat-datepicker>
               </mat-form-field>
 
               <mat-form-field appearance="outline" class="custom-field">
-                <mat-label>Time</mat-label>
+                <mat-label>{{ 'maintenance.create.time' | translate }}</mat-label>
                 <input matInput type="time" [(ngModel)]="formData.hourOfService" name="hourOfService" required>
               </mat-form-field>
             </div>
 
             <mat-form-field appearance="outline" class="custom-field w-full">
-              <mat-label>Location</mat-label>
+              <mat-label>{{ 'maintenance.create.location' | translate }}</mat-label>
               <input matInput [(ngModel)]="formData.location" name="location" required>
             </mat-form-field>
 
             <mat-form-field appearance="outline" class="custom-field w-full">
-              <mat-label>Description / Notes</mat-label>
+              <mat-label>{{ 'maintenance.create.description' | translate }}</mat-label>
               <textarea matInput [(ngModel)]="formData.description" name="description" rows="4" required></textarea>
             </mat-form-field>
           </div>
 
           <div class="actions">
-            <button type="button" (click)="goBack()" class="btn-secondary">Cancel</button>
+            <button type="button" (click)="goBack()" class="btn-secondary">{{ 'common.cancel' | translate }}</button>
             <button type="submit"
                     [disabled]="!maintenanceForm.form.valid || isSubmitting || maintenanceStore.loading()"
                     class="btn-primary">
-              {{ isSubmitting ? 'Saving...' : 'Create Maintenance' }}
+              {{ isSubmitting ? ('common.saving' | translate) : ('maintenance.create.submitButton' | translate) }}
             </button>
           </div>
 

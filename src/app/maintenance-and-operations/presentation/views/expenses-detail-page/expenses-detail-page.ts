@@ -10,24 +10,24 @@ import {TranslateModule} from '@ngx-translate/core';
   imports: [CommonModule, TranslateModule],
   template: `
     <div class="page">
-      <div *ngIf="expenseStore.loading()" class="loading">Loading...</div>
+      <div *ngIf="expenseStore.loading()" class="loading">{{ 'common.loading' | translate }}</div>
 
       <div *ngIf="expense() as exp" class="specs-card">
         <div class="card-header">
           <h2 class="section-title">{{exp.name}}</h2>
           <p class="section-subtitle">{{exp.expenseType}}</p>
           <button class="back-btn" (click)="isOwner() ? goBack() : goToMaintenances()">
-            ← Back
+            ← {{ 'common.back' | translate }}
           </button>
         </div>
 
         <div class="specs-grid">
            <div class="spec-row header">
-             <div class="col">Item</div>
-             <div class="col">Type</div>
-             <div class="col right">Qty</div>
-             <div class="col right">Unit</div>
-             <div class="col right">Total</div>
+             <div class="col">{{ 'expenses.table.item' | translate }}</div>
+             <div class="col">{{ 'expenses.table.type' | translate }}</div>
+             <div class="col right">{{ 'expenses.table.qty' | translate }}</div>
+             <div class="col right">{{ 'expenses.table.unit' | translate }}</div>
+             <div class="col right">{{ 'expenses.table.total' | translate }}</div>
            </div>
 
            <div class="spec-row" *ngFor="let item of exp.items">
@@ -39,13 +39,13 @@ import {TranslateModule} from '@ngx-translate/core';
            </div>
 
            <div class="total-section">
-             <span class="total-label">Final Price</span>
+             <span class="total-label">{{ 'expenses.finalPrice' | translate }}</span>
              <span class="total-value">{{exp.finalPrice | number:'1.2-2'}}</span>
            </div>
         </div>
       </div>
 
-      <div *ngIf="!expenseStore.loading() && !expense()" class="error-state">Expense not found</div>
+      <div *ngIf="!expenseStore.loading() && !expense()" class="error-state">{{ 'expenses.notFound' | translate }}</div>
     </div>
   `,
   styles: [`

@@ -275,12 +275,13 @@
     },
     "create": {
       "title": "Nuevo Mantenimiento",
-      "subtitle": "Registrar un nuevo servicio",
+      "subtitle": "Registrar un nuevo servicio para un cliente",
       "vehicleInfo": "Información del Vehículo",
       "selectOwner": "Seleccionar Propietario",
       "selectVehicle": "Seleccionar Vehículo",
       "serviceDetails": "Detalles del Servicio",
       "titlePlaceholder": "Título / Detalles Breves",
+      "titleExample": "Ej: Cambio de Aceite",
       "date": "Fecha",
       "time": "Hora",
       "location": "Ubicación",
@@ -293,7 +294,7 @@
     "emptyState": "No se encontraron gastos. Crea uno para comenzar.",
     "finalPrice": "Precio Final",
     "notFound": "Gasto no encontrado",
-    "deleteConfirm": "¿Eliminar este gasto?",
+    "deleteConfirm": "¿Estás seguro de que deseas eliminar este gasto?",
     "table": {
       "item": "Ítem",
       "type": "Tipo",
