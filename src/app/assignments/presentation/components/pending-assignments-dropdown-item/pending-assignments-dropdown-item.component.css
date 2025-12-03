@@ -1,88 +1,46 @@
-/* Pequeño ajuste visual del contenedor (complementa reglas existentes) */
-.notification-item{
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-.item-container{
+.item-row {
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 12px;
-  border-bottom: 1px solid #9f9f9f;
+  padding: 12px 16px;
+  border-bottom: 1px solid #f5f5f5;
+  transition: background-color 0.2s;
   cursor: pointer;
-  transition: background-color .12s ease, transform .06s ease;
-  outline: none;
 }
 
-/* Layout del bloque de código */
-.code{
+.item-row:hover {
+  background-color: #fff5f0;
+}
+
+.item-content {
+  flex: 1;
   display: flex;
-  flex-direction: column;
-  min-width: 0; /* permite ellipsis en hijos */
-  gap: 2px;
+  justify-content: space-between;
+  align-items: center;
+  margin-right: 12px;
 }
 
-/* etiqueta/label pequeña encima del valor */
-.code-text{
-  font-size: 0.78rem;
-  line-height: 1;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  opacity: 0.95;
+.info-block { display: flex; flex-direction: column; gap: 2px; }
+
+.label { font-size: 0.7rem; color: #999; text-transform: uppercase; }
+.value-code { font-weight: 700; color: #333; font-family: monospace; font-size: 1rem; }
+
+.date-block { text-align: right; }
+.date-val { font-size: 0.8rem; color: #666; font-weight: 500; }
+
+.btn-delete {
+  background: transparent;
+  border: 1px solid transparent;
+  color: #ccc;
+  width: 32px; height: 32px;
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s;
 }
 
-/* valor principal (ej: código) */
-.code-value{
-  font-size: 0.95rem;
-  font-weight: 600;
-  color: #111827;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  line-height: 1.1;
-}
-
-/* fecha alineada a la derecha */
-.date{
-  margin-left: auto;
-  margin-right: auto;
-  font-size: 0.82rem;
-  flex-shrink: 0; /* evita que la fecha colapse */
-  flex-direction: column;
-  min-width: 0; /* permite ellipsis en hijos */
-  gap: 2px;
-}
-
-.date-text{
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-/* valor principal (ej: código) */
-.date-value{
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.delete-button{
-  background-color: #FF6B35;
-  border: none;
-  padding: 4px;
-  border-radius: 6px;
-  transition: background-color .12s ease;
-}
-
-/* Mobile: compactar y permitir que la fecha pase a segunda línea si hace falta */
-@media (max-width: 420px){
-  .code-text{ font-size: 0.72rem; }
-  .code-value{ font-size: 0.9rem; }
-  .date{
-    font-size: 0.78rem;
-    padding-left: 8px;
-  }
+.btn-delete:hover {
+  background: white;
+  border-color: #fee2e2;
+  color: #ef4444;
+  box-shadow: 0 2px 8px rgba(239, 68, 68, 0.1);
 }

@@ -1,68 +1,72 @@
 .dialog-backdrop {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+  background-color: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(4px);
+  display: flex; justify-content: center; align-items: center;
   z-index: 1000;
+  animation: fadeIn 0.3s ease-out;
 }
 
-.dialog {
-  background: white;
-  border-radius: 8px;
-  padding: 20px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  max-width: 400px;
-  width: 100%;
+.dialog-card {
+  background: white; border-radius: 16px;
+  width: 90%; max-width: 450px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+  overflow: hidden;
+  animation: slideUp 0.3s ease-out;
 }
 
-.title p {
-  font-size: 1.4rem;
-  font-weight: 700;
-  margin: 0 0 12px 0;
-  color: #222;
+.dialog-header {
+  background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+  padding: 1.5rem; display: flex; justify-content: space-between; align-items: center;
 }
 
-.code .code-highlight {
-  display: inline-block;
-  width: 100%;
-  background: linear-gradient(90deg, #f8b490, #faa37a);
-  border-left: 4px solid #FF6B35;
-  padding: 10px 12px;
-  border-radius: 4px;
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", monospace;
-  font-weight: bold;
-  color: black;
-  font-size: 1.2rem;
-  margin: 0;
+.dialog-title {
+  margin: 0; font-size: 1.25rem; font-weight: 700; color: white;
 }
 
-.loading {
-  color: #777;
-  margin: 0;
+.close-icon {
+  background: rgba(255,255,255,0.1); border: none; color: white;
+  width: 30px; height: 30px; border-radius: 50%; font-size: 1.5rem;
+  display: flex; justify-content: center; align-items: center; cursor: pointer;
+  line-height: 1; transition: background 0.2s;
+}
+.close-icon:hover { background: rgba(255,255,255,0.2); }
+
+.dialog-body { padding: 2rem; text-align: center; }
+
+.instruction { color: #666; margin-bottom: 1.5rem; font-size: 0.95rem; }
+
+.code-box {
+  background: #fff5f0; border: 2px dashed #ff6b35;
+  padding: 1.5rem; border-radius: 12px;
+  display: flex; flex-direction: column; gap: 0.5rem; align-items: center;
 }
 
-.btn-container {
-  display: flex;
-  justify-content: flex-end;
-  margin-top: 16px;
+.label { font-size: 0.75rem; font-weight: 700; color: #ff6b35; letter-spacing: 1px; }
+
+.code-value {
+  font-family: 'Courier New', monospace; font-size: 2rem;
+  font-weight: 800; color: #1a1a1a; letter-spacing: 2px;
 }
 
-.close-btn {
-  background-color: #e53935;
-  color: #ffffff;
-  border: none;
-  padding: 8px 14px;
-  border-radius: 6px;
-  cursor: pointer;
-  font-weight: 600;
-  transition: background-color 0.12s ease;
+.loading-state { display: flex; flex-direction: column; align-items: center; gap: 1rem; color: #999; }
+.spinner {
+  width: 30px; height: 30px; border: 3px solid #eee; border-top-color: #ff6b35;
+  border-radius: 50%; animation: spin 1s infinite linear;
 }
 
-.close-btn:hover {
-  background-color: #c62828;
+.dialog-footer {
+  padding: 1rem 1.5rem; background: #fafafa; border-top: 1px solid #eee;
+  display: flex; justify-content: flex-end;
 }
+
+.btn-primary {
+  background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+  color: white; border: none; padding: 0.75rem 1.5rem; border-radius: 8px;
+  font-weight: 600; cursor: pointer; transition: transform 0.2s;
+}
+.btn-primary:hover { transform: translateY(-2px); }
+
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+@keyframes spin { 100% { transform: rotate(360deg); } }

@@ -1,113 +1,75 @@
-<div class="main-container">
-  <div class="straight-line" style="margin-left: auto; margin-right: auto">
-    <h1>{{vehicle?.model?.name}}</h1>
-    <img class="vehicle-image" ngSrc="/assets/images/vehicle_dark.png" width="198" height="101" alt="">
-    @if (isMechanic())
-    {
-      <h1 style="margin-left: 20px">({{vehicle?.owner?.completeName}})</h1>
-    }
+<div class="details-page">
+  <div class="hero-header">
+    <div class="hero-content">
+      <div class="hero-text">
+        <h1 class="brand-title">{{ vehicle?.model?.brand }}</h1>
+        <h2 class="model-name">{{ vehicle?.model?.name }}</h2>
+        <div class="owner-badge" *ngIf="isMechanic()">
+          Client: {{ vehicle?.owner?.completeName }}
+        </div>
+      </div>
+      <div class="hero-image">
+        <img ngSrc="/assets/images/vehicle_dark.png" width="300" height="150" alt="Vehicle" class="img-responsive">
+      </div>
+    </div>
   </div>
-</div>
-<div class="data-container">
-  <mat-card>
-    <div class="card-inside">
-      <div class="header-section">
-        <h1>Characteristics</h1>
-        <div class="action-buttons">
-          <button
-            mat-raised-button
-            color="primary"
-            (click)="navigateToMetrics()"
-            class="metrics-btn">
-            View Wellness Metrics
-          </button>
 
-          <button
-            mat-raised-button
-            color="accent"
-            (click)="navigateToCompare()"
-            type="button"
-            class="compare-button">
+  <div class="content-container">
+    <div class="specs-card">
+      <div class="card-header-row">
+        <h3>Technical Specifications</h3>
+
+        <div class="actions-group">
+          <button class="btn-action primary" (click)="navigateToMetrics()">
+            Metrics
+          </button>
+          <button class="btn-action secondary" (click)="navigateToCompare()">
             Compare
           </button>
-
-          <button
-            mat-raised-button
-            color="accent"
-            (click)="exportReport()"
-            type="button"
-            class="export-button">
+          <button class="btn-action outline" (click)="exportReport()">
             Export
           </button>
         </div>
       </div>
 
-      <div class="data-box">
-        <div class="white-box">
-          <div class="spec-grid">
-            <div class="spec">
-              <div class="label">Model year:</div>
-              <div class="value">{{ vehicle?.model?.modelYear || '-' }}</div>
-            </div>
-
-            <div class="spec">
-              <div class="label">Brand:</div>
-              <div class="value">{{ vehicle?.model?.brand || '-' }}</div>
-            </div>
-
-            <div class="spec">
-              <div class="label">Motorcycle type:</div>
-              <div class="value">{{ vehicle?.model?.type || '-' }}</div>
-            </div>
-
-            <div class="spec">
-              <div class="label">Displacement:</div>
-              <div class="value">{{ vehicle?.model?.displacement || '-' }}</div>
-            </div>
-
-            <div class="spec">
-              <div class="label">Engine type:</div>
-              <div class="value">{{ vehicle?.model?.engineType || '-' }}</div>
-            </div>
-
-            <div class="spec">
-              <div class="label">Fuel capacity:</div>
-              <div class="value">{{ vehicle?.model?.tank || '-' }}</div>
-            </div>
-
-            <div class="spec">
-              <div class="label">Maximum power:</div>
-              <div class="value">{{ vehicle?.model?.potency || '-' }}</div>
-            </div>
-
-            <div class="spec">
-              <div class="label">Maximum torque:</div>
-              <div class="value">{{ vehicle?.model?.engineTorque || '-' }}</div>
-            </div>
-
-            <div class="spec">
-              <div class="label">Connectivity:</div>
-              <div class="value">{{ vehicle?.model?.connectivity || '-' }}</div>
-            </div>
-
-            <div class="spec">
-              <div class="label">Weight:</div>
-              <div class="value">{{ vehicle?.model?.weight || '-' }}</div>
-            </div>
-
-            <div class="spec">
-              <div class="label">Oil capacity:</div>
-              <div class="value">{{ vehicle?.model?.oilCapacity || '-' }}</div>
-            </div>
-
-            <div class="spec">
-              <div class="label">Gasoline consumption:</div>
-              <div class="value">{{ vehicle?.model?.consumption || '-' }}</div>
-            </div>
-          </div>
+      <div class="grid-specs">
+        <div class="spec-cell">
+          <span class="spec-label">Year</span>
+          <span class="spec-value">{{ vehicle?.model?.modelYear || '-' }}</span>
+        </div>
+        <div class="spec-cell">
+          <span class="spec-label">Type</span>
+          <span class="spec-value">{{ vehicle?.model?.type || '-' }}</span>
+        </div>
+        <div class="spec-cell">
+          <span class="spec-label">Displacement</span>
+          <span class="spec-value">{{ vehicle?.model?.displacement || '-' }}</span>
+        </div>
+        <div class="spec-cell">
+          <span class="spec-label">Power</span>
+          <span class="spec-value">{{ vehicle?.model?.potency || '-' }}</span>
+        </div>
+        <div class="spec-cell">
+          <span class="spec-label">Torque</span>
+          <span class="spec-value">{{ vehicle?.model?.engineTorque || '-' }}</span>
+        </div>
+        <div class="spec-cell">
+          <span class="spec-label">Fuel Tank</span>
+          <span class="spec-value">{{ vehicle?.model?.tank || '-' }}</span>
+        </div>
+        <div class="spec-cell">
+          <span class="spec-label">Weight</span>
+          <span class="spec-value">{{ vehicle?.model?.weight || '-' }}</span>
+        </div>
+        <div class="spec-cell">
+          <span class="spec-label">Consumption</span>
+          <span class="spec-value">{{ vehicle?.model?.consumption || '-' }}</span>
+        </div>
+        <div class="spec-cell full-width">
+          <span class="spec-label">Connectivity</span>
+          <span class="spec-value">{{ vehicle?.model?.connectivity || '-' }}</span>
         </div>
       </div>
     </div>
-
-  </mat-card>
+  </div>
 </div>

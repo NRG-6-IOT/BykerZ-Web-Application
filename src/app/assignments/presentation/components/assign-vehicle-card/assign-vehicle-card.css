@@ -1,72 +1,99 @@
-h1 {
-  color: white;
+:host {
+  display: block;
+  animation: fadeIn 0.5s ease-out;
 }
 
-h2 {
-  color: white;
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
-mat-card {
-  min-height: 22vh;
-  display: flex;
-  justify-content: center;
-  max-width: 600px;
-  min-width: 300px;
+.vehicle-card {
+  background: white;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
   cursor: pointer;
-  transition: transform 0.3s ease;
-}
-
-mat-card:active {
-  background-color: #ffa050;
-}
-
-mat-card:hover {
-  transform: scale(1.05);
-}
-
-.horizontal {
-  display: flex;
-  flex-direction: row;
-  width: 100%;
-  align-items: center;
-}
-
-.vehicle-image {
-  width: 100%;
-  max-width: 180px;
-  height: auto;
-  object-fit: contain;
-}
-
-.item {
-  margin-left: 20px;
-  margin-right: 20px;
-}
-
-.white-box {
+  height: 100%;
   display: flex;
   flex-direction: column;
-  gap: 6px;
-  background-color: #fff;
-  border-radius: 8px;
-  padding: 12px 16px;
 }
 
-.data-row {
+.vehicle-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(255, 107, 53, 0.15);
+}
+
+.card-header {
+  background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+  padding: 1.25rem 1.5rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.data-row span {
-  font-size: 14px;
-  color: #333;
+.vehicle-title {
+  margin: 0;
+  color: white;
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: 0.3px;
 }
 
-.data-row b {
+.card-body {
+  padding: 1.5rem;
+  flex: 1;
+}
+
+.specs-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.spec-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #f5f5f5;
+  padding-bottom: 0.5rem;
+}
+
+.spec-row:last-child {
+  border-bottom: none;
+}
+
+.label {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  color: #999;
   font-weight: 600;
 }
 
-.selection-arrow {
-  cursor: pointer;
+.value {
+  font-size: 0.95rem;
+  color: #333;
+  font-weight: 500;
 }
+
+.highlight-row {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 2px solid #f0f0f0;
+}
+
+.mini-stat {
+  flex: 1;
+  background: #fff5f0;
+  padding: 0.5rem;
+  border-radius: 8px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.stat-label { font-size: 0.7rem; color: #ff6b35; font-weight: 700; text-transform: uppercase; }
+.stat-value { font-size: 0.9rem; color: #333; font-weight: 600; }

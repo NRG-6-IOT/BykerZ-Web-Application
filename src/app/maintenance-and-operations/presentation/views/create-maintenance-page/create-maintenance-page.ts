@@ -14,107 +14,154 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {environment} from '@env/environment';
 import {Vehicle} from '@app/vehiclemanagement/domain/model/vehicle.entity';
 import {Assignment} from '@app/assignments/domain/model/assignment.entity';
+import {TranslateModule} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-create-maintenance-page',
+  standalone: true,
   imports: [
-    CommonModule,
-    FormsModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatSelectModule,
-    MatButtonModule,
-    MatDatepickerModule,
-    MatNativeDateModule
+    CommonModule, FormsModule, MatFormFieldModule, MatInputModule,
+    MatSelectModule, MatButtonModule, MatDatepickerModule, MatNativeDateModule,
+    TranslateModule
   ],
   template: `
-    <div class="screen p-10 relative">
-      <h1 class="text-3xl font-bold mb-6">Create Maintenance</h1>
-
-      <!-- Loading State -->
-      @if (maintenanceStore.loading() || assignmentsStore.loading()) {
-        <div class="text-center text-gray-500 py-8">
-          Loading...
+    <div class="page">
+      <div class="form-card">
+        <div class="card-header">
+          <h1 class="card-title">New Maintenance</h1>
+          <p class="card-subtitle">Register a new service for a client</p>
         </div>
-      }
 
-      <!-- Error State -->
-      @if (maintenanceStore.error()) {
-        <div class="text-center text-red-500 py-8 mb-4">
-          {{maintenanceStore.error()}}
-        </div>
-      }
+        <form (ngSubmit)="onSubmit(maintenanceForm)" #maintenanceForm="ngForm" class="card-body">
 
-      <div class="bg-[#380800] rounded-2xl p-6">
-        <form (ngSubmit)="onSubmit(maintenanceForm)" #maintenanceForm="ngForm" class="space-y-4">
-          <!-- Details -->
-          <mat-form-field appearance="fill" class="w-full">
-            <mat-label>Details</mat-label>
-            <input matInput [(ngModel)]="formData.details" class="bg-white text-black" name="details" required>
-          </mat-form-field>
+          <div class="form-section">
+            <h3 class="section-label">Vehicle Information</h3>
+            <div class="grid-2">
+              <mat-form-field appearance="outline" class="custom-field">
+                <mat-label>Select Owner</mat-label>
+                <mat-select [(ngModel)]="selectedOwnerIdValue" (ngModelChange)="onOwnerChange($event)" name="owner" required>
+                  <mat-option *ngFor="let assignment of getValidAssignments()" [value]="assignment.owner?.id">
+                    {{ assignment.owner?.completeName }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
 
-          <!-- Date of Service -->
-          <mat-form-field appearance="fill" class="w-full">
-            <mat-label>Date of Service</mat-label>
-            <input matInput [matDatepicker]="picker" [(ngModel)]="formData.dateOfService" name="dateOfService" required>
-            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-            <mat-datepicker #picker></mat-datepicker>
-          </mat-form-field>
+              <mat-form-field appearance="outline" class="custom-field">
+                <mat-label>Select Vehicle</mat-label>
+                <mat-select [(ngModel)]="formData.vehicleId" name="vehicle" [disabled]="!selectedOwnerIdValue" required>
+                  <mat-option *ngFor="let vehicle of ownerVehicles" [value]="vehicle.id">
+                    {{getVehicleDisplay(vehicle)}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
 
-          <!-- Hour of Service -->
-          <mat-form-field appearance="fill" class="w-full">
-            <mat-label>Hour of Service</mat-label>
-            <input matInput type="time" [(ngModel)]="formData.hourOfService" name="hourOfService" required>
-          </mat-form-field>
+          <div class="form-section">
+            <h3 class="section-label">Service Details</h3>
+            <mat-form-field appearance="outline" class="custom-field w-full">
+              <mat-label>Title / Short Details</mat-label>
+              <input matInput [(ngModel)]="formData.details" name="details" required placeholder="Ex: Oil Change">
+            </mat-form-field>
 
-          <!-- Location -->
-          <mat-form-field appearance="fill" class="w-full">
-            <mat-label>Location</mat-label>
-            <input matInput [(ngModel)]="formData.location" name="location" required>
-          </mat-form-field>
+            <div class="grid-2">
+              <mat-form-field appearance="outline" class="custom-field">
+                <mat-label>Date</mat-label>
+                <input matInput [matDatepicker]="picker" [(ngModel)]="formData.dateOfService" name="dateOfService" required>
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+              </mat-form-field>
 
-          <!-- Description -->
-          <mat-form-field appearance="fill" class="w-full">
-            <mat-label>Description</mat-label>
-            <textarea matInput [(ngModel)]="formData.description" name="description" rows="3" required></textarea>
-          </mat-form-field>
+              <mat-form-field appearance="outline" class="custom-field">
+                <mat-label>Time</mat-label>
+                <input matInput type="time" [(ngModel)]="formData.hourOfService" name="hourOfService" required>
+              </mat-form-field>
+            </div>
 
-          <!-- Owner Selector -->
-          <mat-form-field appearance="fill" class="w-full">
-            <mat-label>Select Owner</mat-label>
-            <mat-select [(ngModel)]="selectedOwnerIdValue" (ngModelChange)="onOwnerChange($event)" name="owner" required>
-              <mat-option *ngFor="let assignment of getValidAssignments()" [value]="assignment.owner?.id">
-                {{ assignment.owner?.completeName }}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
+            <mat-form-field appearance="outline" class="custom-field w-full">
+              <mat-label>Location</mat-label>
+              <input matInput [(ngModel)]="formData.location" name="location" required>
+            </mat-form-field>
 
-          <!-- Vehicle Selector -->
-          <mat-form-field appearance="fill" class="w-full">
-            <mat-label>Select Vehicle</mat-label>
-            <mat-select [(ngModel)]="formData.vehicleId" name="vehicle" [disabled]="!selectedOwnerIdValue" required>
-              <mat-option *ngFor="let vehicle of ownerVehicles" [value]="vehicle.id">
-                {{getVehicleDisplay(vehicle)}}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
+            <mat-form-field appearance="outline" class="custom-field w-full">
+              <mat-label>Description / Notes</mat-label>
+              <textarea matInput [(ngModel)]="formData.description" name="description" rows="4" required></textarea>
+            </mat-form-field>
+          </div>
 
-          <!-- Buttons -->
-          <div class="flex gap-4 justify-end mt-6">
-            <button type="button" (click)="goBack()" class="bg-white text-black px-6 py-2 rounded-lg">
-              Go Back
-            </button>
+          <div class="actions">
+            <button type="button" (click)="goBack()" class="btn-secondary">Cancel</button>
             <button type="submit"
                     [disabled]="!maintenanceForm.form.valid || isSubmitting || maintenanceStore.loading()"
-                    class="bg-[#FF6B35] text-white px-6 py-2 rounded-lg hover:bg-[#ff9169] transition-colors font-semibold disabled:opacity-50 disabled:cursor-not-allowed">
-              {{ isSubmitting ? 'Creating...' : 'Create Maintenance' }}
+                    class="btn-primary">
+              {{ isSubmitting ? 'Saving...' : 'Create Maintenance' }}
             </button>
           </div>
+
+          <div class="error-msg" *ngIf="maintenanceStore.error()">{{maintenanceStore.error()}}</div>
         </form>
       </div>
     </div>
   `,
-  styles: ``
+  styles: [`
+    .page {
+      display: flex; justify-content: center; padding: 2rem;
+      min-height: 100vh; background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+    }
+
+    .form-card {
+      width: 100%; max-width: 700px;
+      background: white; border-radius: 16px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08); overflow: hidden;
+      animation: fadeIn 0.5s ease-in;
+    }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+    .card-header {
+      background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+      padding: 2rem; text-align: center; color: white;
+    }
+
+    .card-title {
+      font-size: 1.75rem; font-weight: 700; margin: 0;
+      background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .card-subtitle { color: rgba(255,255,255,0.7); margin: 0.5rem 0 0; }
+
+    .card-body { padding: 2rem; }
+
+    .form-section { margin-bottom: 2rem; }
+    .section-label {
+      font-size: 0.85rem; text-transform: uppercase; color: #ff6b35;
+      font-weight: 700; margin-bottom: 1rem; letter-spacing: 0.5px;
+      border-bottom: 1px solid #ffefe5; padding-bottom: 0.5rem;
+    }
+
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .w-full { width: 100%; }
+
+    /* Custom Material Overrides */
+    ::ng-deep .custom-field .mat-mdc-form-field-flex { background-color: #fcfcfc !important; }
+    ::ng-deep .custom-field .mat-mdc-form-field-outline { color: #e0e0e0; }
+    ::ng-deep .custom-field.mat-focused .mat-mdc-form-field-outline { color: #ff6b35; }
+
+    .actions { display: flex; justify-content: flex-end; gap: 1rem; margin-top: 2rem; }
+
+    .btn-secondary {
+      background: transparent; border: 1px solid #ddd; padding: 0.75rem 1.5rem;
+      border-radius: 10px; font-weight: 600; cursor: pointer; color: #666;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+      border: none; padding: 0.75rem 2rem; border-radius: 10px;
+      color: white; font-weight: 600; cursor: pointer;
+      box-shadow: 0 4px 12px rgba(255, 107, 53, 0.25);
+    }
+    .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    .error-msg { color: red; text-align: center; margin-top: 1rem; }
+  `]
 })
 export class CreateMaintenancePage implements OnInit {
   readonly maintenanceStore = inject(MaintenanceStore);
@@ -129,193 +176,70 @@ export class CreateMaintenancePage implements OnInit {
   activeAssignments: Assignment[] = [];
 
   formData = {
-    details: '',
-    dateOfService: null as Date | null,
-    hourOfService: '',
-    location: '',
-    description: '',
-    vehicleId: null as number | null
+    details: '', dateOfService: null as Date | null,
+    hourOfService: '', location: '', description: '', vehicleId: null as number | null
   };
 
   constructor() {
-    // Effect to automatically navigate on successful creation
     effect(() => {
-      if (!this.maintenanceStore.loading() &&
-          this.isSubmitting &&
-          !this.maintenanceStore.error() &&
-          this.maintenanceStore.maintenances().length > 0) {
-        // Navigate after successful creation
-        setTimeout(() => {
-          this.router.navigate(['/maintenances/mechanic']);
-        }, 100);
+      if (!this.maintenanceStore.loading() && this.isSubmitting && !this.maintenanceStore.error()) {
+        setTimeout(() => this.router.navigate(['/maintenances/mechanic']), 100);
       }
     });
   }
 
   ngOnInit(): void {
-    this.loadMechanicData();
-  }
-
-  private loadMechanicData(): void {
     const roleId = localStorage.getItem('role_id');
-    if (!roleId) {
-      console.error('Mechanic ID not found');
-      return;
+    if (roleId) {
+      this.mechanicId = parseInt(roleId, 10);
+      this.loadAssignments(this.mechanicId);
     }
-
-    const mechanicId = parseInt(roleId, 10);
-    this.mechanicId = mechanicId;
-    console.log('Loaded mechanic ID:', mechanicId);
-
-    // Load active assignments via HTTP
-    this.loadAssignments(mechanicId);
   }
 
   private loadAssignments(mechanicId: number): void {
-    const baseUrl = environment.platformProviderApiBaseUrl;
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${localStorage.getItem('token')}`
-    });
-
-    console.log('Loading assignments for mechanic:', mechanicId);
-
-    this.http.get<any[]>(`${baseUrl}/mechanic/${mechanicId}/assignments/ACTIVE`, { headers })
+    const headers = new HttpHeaders({ 'Authorization': `Bearer ${localStorage.getItem('token')}` });
+    this.http.get<any[]>(`${environment.platformProviderApiBaseUrl}/mechanic/${mechanicId}/assignments/ACTIVE`, { headers })
       .subscribe({
-        next: (assignments) => {
-          console.log('Raw assignments from API:', assignments);
-
-          // Map raw API data to Assignment entities and store locally for the selector
-          const mapped = (assignments || []).map(a => {
-            console.log('Mapping assignment:', a);
-            return new Assignment(a);
-          });
-
-          this.activeAssignments = mapped;
-          console.log('Mapped assignments:', this.activeAssignments);
-
-          // Log owner information for debugging
-          this.activeAssignments.forEach((assignment, index) => {
-            console.log(`Assignment ${index}:`, {
-              id: assignment.id,
-              owner: assignment.owner,
-              ownerId: assignment.owner?.id,
-              ownerName: assignment.owner?.completeName
-            });
-          });
-        },
-        error: (error) => {
-          console.error('Error loading assignments:', error);
-          this.activeAssignments = [];
-        }
+        next: (assignments) => this.activeAssignments = (assignments || []).map(a => new Assignment(a)),
+        error: () => this.activeAssignments = []
       });
   }
 
   onOwnerChange(ownerId: number | string | null): void {
-    console.log('Owner change triggered with value:', ownerId, 'type:', typeof ownerId);
-
     const parsedId = ownerId ? Number(ownerId) : null;
-
-    console.log('Parsed owner ID:', parsedId);
-
     this.selectedOwnerIdValue = parsedId;
-
-    if (parsedId !== null && !isNaN(parsedId)) {
-      console.log('Loading vehicles for owner ID:', parsedId);
-
-      // Load vehicles for the selected owner
-      const baseUrl = environment.platformProviderApiBaseUrl;
-      const headers = new HttpHeaders({
-        'Authorization': `Bearer ${localStorage.getItem('token')}`
-      });
-
-      this.http.get<Vehicle[]>(`${baseUrl}/vehicles/owner/${parsedId}`, { headers })
+    if (parsedId) {
+      const headers = new HttpHeaders({ 'Authorization': `Bearer ${localStorage.getItem('token')}` });
+      this.http.get<Vehicle[]>(`${environment.platformProviderApiBaseUrl}/vehicles/owner/${parsedId}`, { headers })
         .subscribe({
-          next: (vehicles) => {
-            console.log('Loaded vehicles:', vehicles);
-            this.ownerVehicles = vehicles;
-            this.formData.vehicleId = null; // Reset vehicle selection
-          },
-          error: (error) => {
-            console.error('Error loading vehicles:', error);
-            this.ownerVehicles = [];
-          }
+          next: (vehicles) => { this.ownerVehicles = vehicles; this.formData.vehicleId = null; },
+          error: () => this.ownerVehicles = []
         });
     } else {
-      console.log('No valid owner ID, clearing vehicles');
-      this.ownerVehicles = [];
-      this.formData.vehicleId = null;
+      this.ownerVehicles = []; this.formData.vehicleId = null;
     }
   }
 
   onSubmit(form: NgForm): void {
-    if (form.invalid || !this.formData.dateOfService || !this.formData.hourOfService || !this.formData.vehicleId) {
-      this.logFormErrors(form);
-      return;
-    }
-
+    if (form.invalid || !this.formData.dateOfService || !this.formData.hourOfService || !this.formData.vehicleId) return;
     this.isSubmitting = true;
-
-    // Combine date and time into ISO string
     const date = new Date(this.formData.dateOfService);
-    const [hours, minutes] = this.formData.hourOfService.split(':');
-    date.setHours(parseInt(hours), parseInt(minutes), 0, 0);
-    const dateOfService = date.toISOString();
+    const [h, m] = this.formData.hourOfService.split(':');
+    date.setHours(parseInt(h), parseInt(m), 0, 0);
 
-    const maintenanceData = {
+    this.maintenanceStore.createMaintenance({
       details: this.formData.details,
       vehicleId: this.formData.vehicleId,
-      dateOfService: dateOfService,
+      dateOfService: date.toISOString(),
       location: this.formData.location,
       description: this.formData.description,
       mechanicId: this.mechanicId
-    };
+    } as any);
 
-    // Use the store to create maintenance
-    this.maintenanceStore.createMaintenance(maintenanceData as any);
-
-    // Check for errors after a short delay
-    setTimeout(() => {
-      if (this.maintenanceStore.error()) {
-        this.isSubmitting = false;
-      }
-    }, 1000);
+    setTimeout(() => { if (this.maintenanceStore.error()) this.isSubmitting = false; }, 1000);
   }
 
-  goBack(): void {
-    this.router.navigate(['/maintenances/mechanic']);
-  }
-
-  getVehicleDisplay(vehicle: Vehicle): string {
-    if (!vehicle.model) {
-      return vehicle.plate || 'Unknown Vehicle';
-    }
-    return `${vehicle.model.brand} ${vehicle.model.name} - ${vehicle.plate}`;
-  }
-
-  private logFormErrors(form: NgForm): void {
-    if (!form || !form.controls) {
-      console.error('Form reference missing or invalid.');
-      return;
-    }
-
-    Object.entries(form.controls).forEach(([controlName, control]) => {
-      if (control.invalid) {
-        console.error(`Validation error in "${controlName}":`, control.errors);
-      }
-    });
-
-    if (!this.formData.dateOfService) {
-      console.error('Validation error: dateOfService is required.');
-    }
-    if (!this.formData.hourOfService) {
-      console.error('Validation error: hourOfService is required.');
-    }
-    if (!this.formData.vehicleId) {
-      console.error('Validation error: vehicleId is required.');
-    }
-  }
-
-  getValidAssignments(): Assignment[] {
-    return this.activeAssignments.filter(assignment => assignment.owner && assignment.owner.id);
-  }
+  goBack(): void { this.router.navigate(['/maintenances/mechanic']); }
+  getValidAssignments(): Assignment[] { return this.activeAssignments.filter(a => a.owner?.id); }
+  getVehicleDisplay(v: Vehicle): string { return v.model ? `${v.model.brand} ${v.model.name} - ${v.plate}` : (v.plate || 'Vehicle'); }
 }

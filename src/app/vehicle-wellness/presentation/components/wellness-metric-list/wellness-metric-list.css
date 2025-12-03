@@ -1,28 +1,32 @@
 .list-container {
-  padding: 20px;
-  max-width: 1200px;
-  margin: 0 auto;
+  padding: 1rem 0;
 }
 
 .metrics-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 16px;
-  margin-top: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1.5rem;
+  animation: fadeIn 0.5s ease-out;
 }
+
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
 .empty-state {
   text-align: center;
-  padding: 40px;
-  color: #666;
+  padding: 4rem 2rem;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.05);
+  display: flex; flex-direction: column; align-items: center;
 }
 
-.empty-state button {
-  background: #007bff;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 5px;
-  cursor: pointer;
-  margin-top: 10px;
+.icon-box { font-size: 3rem; margin-bottom: 1rem; }
+h3 { margin: 0 0 0.5rem 0; color: #333; }
+p { color: #666; margin-bottom: 1.5rem; }
+
+.btn-reload {
+  background: #ff6b35; color: white; border: none; padding: 0.75rem 1.5rem;
+  border-radius: 8px; font-weight: 600; cursor: pointer;
+  transition: background 0.2s;
 }
+.btn-reload:hover { background: #e55a2b; }

@@ -7,10 +7,12 @@ import {MatInputModule} from '@angular/material/input';
 import {MatButton} from '@angular/material/button';
 import {VehiclesStore} from '@app/vehiclemanagement/application/vehicles.store';
 import {Model} from '@app/vehiclemanagement/domain/model/vehicle.entity';
+import { CommonModule } from '@angular/common'; // Agregado para *ngIf
 
 @Component({
   selector: 'app-register-vehicle-dialog',
   imports: [
+    CommonModule,
     MatDialogContent,
     MatDialogModule,
     NgOptimizedImage,
@@ -25,7 +27,7 @@ import {Model} from '@app/vehiclemanagement/domain/model/vehicle.entity';
   standalone: true,
   styleUrl: './register-vehicle-dialog.css'
 })
-export class RegisterVehicleDialog{
+export class RegisterVehicleDialog {
 
   private store = inject(VehiclesStore);
 
@@ -37,35 +39,12 @@ export class RegisterVehicleDialog{
   plate: string = "";
 
   constructor(
-      public dialogRef: MatDialogRef<RegisterVehicleDialog>
+    public dialogRef: MatDialogRef<RegisterVehicleDialog>
   ) {
     this.modelOptions = [];
     this.yearOptions = [
-      "2024",
-      "2023",
-      "2022",
-      "2021",
-      "2020",
-      "2019",
-      "2018",
-      "2017",
-      "2016",
-      "2015",
-      "2014",
-      "2013",
-      "2012",
-      "2011",
-      "2010",
-      "2009",
-      "2008",
-      "2007",
-      "2006",
-      "2005",
-      "2004",
-      "2003",
-      "2002",
-      "2001",
-      "2000"
+      "2024", "2023", "2022", "2021", "2020", "2019", "2018", "2017",
+      "2016", "2015", "2014", "2013", "2012", "2011", "2010"
     ];
   }
 
@@ -83,25 +62,43 @@ export class RegisterVehicleDialog{
   }
 
   IsValid(): boolean {
-    return (this.brand != "" && this.model != null && this.year != "" && this.IsValidPlate(this.plate))
+    // Verificación más robusta
+    const validBrand = this.brand && this.brand.trim() !== "";
+    const validModel = this.model != null;
+    const validYear = this.year && this.year.trim() !== "";
+    const validPlate = this.IsValidPlate(this.plate);
+
+    return !!(validBrand && validModel && validYear && validPlate);
   }
 
   IsValidPlate(plate: string): boolean {
-    const pattern = /^[0-9]{4}-[A-Z]{2}$/;
+    if (!plate) return false;
+    // Permitir a-z minúsculas también para mejor UX
+    const pattern = /^[0-9]{4}-[a-zA-Z]{2}$/;
     return pattern.test(plate);
   }
 
   RegisterVehicle() {
+    if (!this.IsValid()) return;
+
+    // Convertir placa a mayúsculas antes de enviar
+    const formattedPlate = this.plate.toUpperCase();
+
     this.store.addVehicleToOwner(localStorage.getItem('role_id') ? +localStorage.getItem('role_id')! : 0, {
-      plate: this.plate,
+      plate: formattedPlate,
       year: this.year,
       modelId: this.model!.id
     });
-    if (this.store.error() != null) {
-      alert(this.store.error());
-      return;
-    }
-    alert('Vehicle registered successfully');
-    this.dialogRef.close();
+
+    // Pequeño timeout para verificar errores del store, aunque idealmente el store manejaría esto reactivamente
+    setTimeout(() => {
+      if (this.store.error() != null) {
+        alert(this.store.error());
+      } else {
+        // Asumimos éxito si no hay error inmediato (o puedes suscribirte al store success)
+        alert('Vehicle registered successfully');
+        this.dialogRef.close();
+      }
+    }, 200);
   }
 }

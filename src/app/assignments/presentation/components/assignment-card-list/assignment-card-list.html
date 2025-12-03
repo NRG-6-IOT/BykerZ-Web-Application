@@ -1,13 +1,16 @@
-<div>
+<div class="container">
   @if (assignments.length === 0) {
-    <p class="no-subscriptions-message">{{ 'assignments.assignmentCardList.noAssignments' | translate }}</p>
+    <div class="empty-state">
+      <div class="icon-circle">📂</div>
+      <p class="no-data-msg">{{ 'assignments.assignmentCardList.noAssignments' | translate }}</p>
+    </div>
   }
   @if (assignments.length > 0) {
-    <div class = "subscriptions-list">
+    <div class="assignments-grid">
       @for (assignment of assignments; track assignment.id) {
         <app-assignment-card
           [assignment]="assignment"
-          class="subscription-card"
+          class="grid-item"
         ></app-assignment-card>
       }
     </div>

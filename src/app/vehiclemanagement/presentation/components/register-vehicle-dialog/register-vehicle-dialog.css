@@ -1,36 +1,161 @@
-mat-dialog-content {
+/* Contenedor Principal */
+.dialog-container {
+  background: white;
+  border-radius: 20px;
+  overflow: hidden;
+  max-width: 500px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+/* Header Oscuro */
+.dialog-header {
+  background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+  padding: 1.5rem 2rem;
+  color: white;
+  text-align: center;
+}
+
+.dialog-title {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #ff6b35;
+}
+
+.dialog-body {
+  padding: 2rem 2.5rem;
+}
+
+/* Header Visual (Imagen) */
+.visual-header {
   display: flex;
-  flex-direction: column;
   justify-content: center;
+  margin-bottom: 2rem;
+  background: #ffffff; /* Fondo blanco explícito */
+  padding: 1rem;
+  border-radius: 12px;
+  border: 2px dashed #e0e0e0; /* Borde un poco más visible */
 }
 
-.main-container {
+.vehicle-img {
+  max-width: 100%;
+  height: auto;
+  /* TRUCO: Esto convierte la imagen a NEGRO PURO si era blanca o de color */
+  filter: brightness(0) !important;
+  opacity: 0.8;
+}
+
+.form-grid {
   display: flex;
   flex-direction: column;
+  gap: 1.25rem;
+}
+
+/* --- ESTILOS DE INPUTS --- */
+/* Ocultar bordes nativos de Material */
+::ng-deep .custom-field .mdc-notched-outline,
+::ng-deep .custom-field .mdc-notched-outline__leading,
+::ng-deep .custom-field .mdc-notched-outline__notch,
+::ng-deep .custom-field .mdc-notched-outline__trailing {
+  display: none !important;
+}
+
+/* Estilo del contenedor del input */
+::ng-deep .custom-field .mat-mdc-form-field-flex {
+  background-color: #f4f4f4 !important; /* Un gris un poco más oscuro para contraste */
+  border-radius: 12px !important;
+  padding: 0 16px !important;
+  border: 1px solid #ccc; /* Borde más visible */
+  transition: all 0.2s ease;
+  height: 56px;
   align-items: center;
-  width: 100%;
 }
 
-.straight-line {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
+::ng-deep .custom-field:hover .mat-mdc-form-field-flex {
+  background-color: #fff !important;
+  border-color: #999;
 }
 
-.straight-line img {
-  max-height: 40px;
-  width: auto;
-  margin-left: 10px;
+::ng-deep .custom-field.mat-focused .mat-mdc-form-field-flex {
+  border-color: #ff6b35 !important;
+  background-color: #fff !important;
+  box-shadow: 0 0 0 2px rgba(255, 107, 53, 0.2);
 }
 
-.white-line {
-  background-color: white;
-  width: 100%;
-  height: 5px;
-  border-radius: 10px;
+/* Etiquetas (Labels) */
+::ng-deep .custom-field .mat-mdc-floating-label {
+  color: #555 !important; /* Label gris oscuro */
+  font-weight: 600;
+  top: 50% !important; left: 16px !important;
+  transform: translateY(-50%);
+  pointer-events: none;
 }
 
-.straight-line mat-form-field {
-  margin-left: 20px;
-  margin-right: 20px;
+::ng-deep .custom-field.mat-form-field-should-float .mat-mdc-floating-label {
+  transform: translateY(-28px) scale(0.85) !important;
+  color: #ff6b35 !important;
+  position: absolute;
+  background: white;
+  padding: 0 6px;
+  border-radius: 4px;
+}
+
+/* --- TEXTO NEGRO (Corrección solicitada) --- */
+::ng-deep .custom-field input,
+::ng-deep .custom-field .mat-mdc-select-value,
+::ng-deep .custom-field .mat-mdc-select-value-text {
+  color: #000000 !important; /* Negro absoluto */
+  font-weight: 700 !important;
+  -webkit-text-fill-color: #000000 !important;
+  opacity: 1 !important;
+}
+
+/* Opciones del Select */
+::ng-deep .mat-mdc-option {
+  color: #000 !important;
+}
+::ng-deep .mat-mdc-option:hover {
+  background-color: #fff5f0 !important;
+}
+
+::ng-deep .custom-field .mat-mdc-form-field-bottom-align::before { display: none !important; }
+
+/* Mensaje de error */
+.error-msg {
+  color: #d32f2f;
+  font-size: 0.85rem;
+  margin-top: -0.5rem;
+  padding-left: 0.5rem;
+  font-weight: 600;
+}
+
+.dialog-footer {
+  padding: 1.5rem 2.5rem;
+  background: #fafafa;
+  border-top: 1px solid #eee;
+  text-align: right;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+  color: white; border: none; padding: 1rem 3rem; border-radius: 12px;
+  font-weight: 700; cursor: pointer; transition: all 0.2s;
+  box-shadow: 0 4px 12px rgba(255, 107, 53, 0.25);
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.btn-primary:disabled {
+  background: #e0e0e0;
+  color: #999;
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+}
+
+.btn-primary:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255, 107, 53, 0.4);
 }

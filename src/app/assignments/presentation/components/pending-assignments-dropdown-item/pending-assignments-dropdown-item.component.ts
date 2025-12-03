@@ -36,7 +36,7 @@ export class PendingAssignmentsDropdownItem {
     }).format(date);
   }
 
-  deleteAssignment() {
+  deleteAssignment($event: PointerEvent) {
     this.store.deleteAssignment(this.assignment?.id!);
   }
 }

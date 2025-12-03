@@ -191,5 +191,80 @@
     "temperature": "Temperature",
     "humidity": "Humidity",
     "pressure": "Pressure"
+  },
+  "common": {
+    "back": "Back",
+    "cancel": "Cancel",
+    "save": "Save",
+    "create": "Create",
+    "delete": "Delete",
+    "saving": "Saving...",
+    "loading": "Loading...",
+    "confirmDelete": "Are you sure you want to delete this item?"
+  },
+  "roles": {
+    "mechanic": "Mechanic",
+    "owner": "Owner"
+  },
+  "maintenance": {
+    "scheduledTitle": "Scheduled Maintenances",
+    "historyTitle": "History",
+    "activeRequests": "Active Requests",
+    "noScheduled": "No scheduled maintenances found.",
+    "noHistory": "No history available.",
+    "createButton": "Create Maintenance",
+    "mechanicLabel": "Mechanic",
+    "locationLabel": "Location",
+    "vehicleIdLabel": "Vehicle ID",
+    "detailsLabel": "Details",
+    "updateStatusLabel": "Update Status",
+    "totalCostLabel": "Total Cost",
+    "viewDetailsLink": "View Details",
+    "seeExpenseButton": "See Expense",
+    "status": {
+      "pending": "Pending",
+      "in_progress": "In Progress",
+      "completed": "Completed",
+      "cancelled": "Cancelled"
+    },
+    "create": {
+      "title": "New Maintenance",
+      "subtitle": "Register a new service for a client",
+      "vehicleInfo": "Vehicle Information",
+      "selectOwner": "Select Owner",
+      "selectVehicle": "Select Vehicle",
+      "serviceDetails": "Service Details",
+      "titlePlaceholder": "Title / Short Details",
+      "date": "Date",
+      "time": "Time",
+      "location": "Location",
+      "description": "Description / Notes",
+      "submitButton": "Create Maintenance"
+    }
+  },
+  "expenses": {
+    "createButton": "Create Expense",
+    "emptyState": "No expenses found. Create one to get started.",
+    "finalPrice": "Final Price",
+    "notFound": "Expense not found",
+    "deleteConfirm": "Are you sure you want to delete this expense?",
+    "table": {
+      "item": "Item",
+      "type": "Type",
+      "qty": "Qty",
+      "unit": "Unit",
+      "total": "Total"
+    },
+    "create": {
+      "title": "New Expense",
+      "expenseTitlePlaceholder": "Expense Title (e.g. Monthly Maintenance)",
+      "addItemsTitle": "Add Items",
+      "itemName": "Item Name",
+      "itemType": "Type",
+      "itemQty": "Qty",
+      "itemPrice": "Price",
+      "noItems": "No items added",
+      "submitButton": "Create Expense"
+    }
   }
 }

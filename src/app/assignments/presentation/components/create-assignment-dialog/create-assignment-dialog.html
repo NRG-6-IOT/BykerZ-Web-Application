@@ -1,27 +1,32 @@
 <div class="dialog-backdrop">
-  <div class="dialog">
-    <div class="title">
-      <p>{{ 'assignments.createAssignmentDialog.title' | translate }}</p>
+  <div class="dialog-card">
+    <div class="dialog-header">
+      <h2 class="dialog-title">{{ 'assignments.createAssignmentDialog.title' | translate }}</h2>
+      <button class="close-icon" (click)="onClose()">×</button>
     </div>
 
-    <div class="code">
-      @if (createdAssigment){
-        <ng-container>
-          <p class="code-highlight">{{ 'assignments.createAssignmentDialog.code' | translate }} {{ createdAssigment.assignmentCode }}</p>
-        </ng-container>
-      } @else {
-        <ng-template>
-          <p class="loading">{{ 'assignments.createAssignmentDialog.loading' | translate }}</p>
-        </ng-template>
-      }
+    <div class="dialog-body">
+      <ng-template #loadingTemplate>
+        <div class="loading-state">
+          <div class="spinner"></div>
+          <p>{{ 'assignments.createAssignmentDialog.loading' | translate }}</p>
+        </div>
+      </ng-template>
+
+      <div *ngIf="createdAssigment; else loadingTemplate" class="success-content">
+        <p class="instruction">{{ 'assignments.createAssignmentDialog.shareMessage' | translate }}</p>
+
+        <div class="code-box">
+          <span class="label">ASSIGNMENT CODE</span>
+          <div class="code-value">{{ createdAssigment?.assignmentCode }}</div>
+        </div>
+      </div>
     </div>
 
-    <div class="code" style="margin-top: 10px">
-      <p>{{ 'assignments.createAssignmentDialog.shareMessage' | translate }}</p>
-    </div>
-
-    <div class="btn-container">
-      <button (click)="onClose()" class="close-btn">{{ 'assignments.createAssignmentDialog.closeButton' | translate }}</button>
+    <div class="dialog-footer">
+      <button class="btn-primary" (click)="onClose()">
+        {{ 'assignments.createAssignmentDialog.closeButton' | translate }}
+      </button>
     </div>
   </div>
 </div>

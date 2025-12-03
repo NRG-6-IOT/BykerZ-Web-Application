@@ -1,12 +1,11 @@
 <div class="list-container">
-
-  <!-- Estado vacío -->
   <div *ngIf="metrics().length === 0" class="empty-state">
-    <p>There is no loaded metrics</p>
-    <button (click)="store.loadAllMetrics()">Reload metrics</button>
+    <div class="icon-box">📊</div>
+    <h3>No metrics available</h3>
+    <p>There is no loaded metrics at the moment.</p>
+    <button class="btn-reload" (click)="store.loadAllMetrics()">Reload metrics</button>
   </div>
 
-  <!-- Grid de cards -->
   <div *ngIf="metrics().length > 0" class="metrics-grid">
     <app-wellness-metric-item
       *ngFor="let metric of metrics()"

@@ -191,5 +191,80 @@
     "temperature": "Temperatura",
     "humidity": "Humedad",
     "pressure": "Presión"
+  },
+  "common": {
+    "back": "Volver",
+    "cancel": "Cancelar",
+    "save": "Guardar",
+    "create": "Crear",
+    "delete": "Eliminar",
+    "saving": "Guardando...",
+    "loading": "Cargando...",
+    "confirmDelete": "¿Estás seguro de que deseas eliminar este elemento?"
+  },
+  "roles": {
+    "mechanic": "Mecánico",
+    "owner": "Propietario"
+  },
+  "maintenance": {
+    "scheduledTitle": "Mantenimientos Programados",
+    "historyTitle": "Historial",
+    "activeRequests": "Solicitudes Activas",
+    "noScheduled": "No se encontraron mantenimientos programados.",
+    "noHistory": "No hay historial disponible.",
+    "createButton": "Crear Mantenimiento",
+    "mechanicLabel": "Mecánico",
+    "locationLabel": "Ubicación",
+    "vehicleIdLabel": "ID Vehículo",
+    "detailsLabel": "Detalles",
+    "updateStatusLabel": "Actualizar Estado",
+    "totalCostLabel": "Costo Total",
+    "viewDetailsLink": "Ver Detalles",
+    "seeExpenseButton": "Ver Gasto",
+    "status": {
+      "pending": "Pendiente",
+      "in_progress": "En Progreso",
+      "completed": "Completado",
+      "cancelled": "Cancelado"
+    },
+    "create": {
+      "title": "Nuevo Mantenimiento",
+      "subtitle": "Registrar un nuevo servicio para un cliente",
+      "vehicleInfo": "Información del Vehículo",
+      "selectOwner": "Seleccionar Propietario",
+      "selectVehicle": "Seleccionar Vehículo",
+      "serviceDetails": "Detalles del Servicio",
+      "titlePlaceholder": "Título / Detalles Breves",
+      "date": "Fecha",
+      "time": "Hora",
+      "location": "Ubicación",
+      "description": "Descripción / Notas",
+      "submitButton": "Crear Mantenimiento"
+    }
+  },
+  "expenses": {
+    "createButton": "Crear Gasto",
+    "emptyState": "No se encontraron gastos. Crea uno para comenzar.",
+    "finalPrice": "Precio Final",
+    "notFound": "Gasto no encontrado",
+    "deleteConfirm": "¿Estás seguro de que deseas eliminar este gasto?",
+    "table": {
+      "item": "Ítem",
+      "type": "Tipo",
+      "qty": "Cant.",
+      "unit": "Unidad",
+      "total": "Total"
+    },
+    "create": {
+      "title": "Nuevo Gasto",
+      "expenseTitlePlaceholder": "Título del Gasto (ej. Mantenimiento Mensual)",
+      "addItemsTitle": "Agregar Ítems",
+      "itemName": "Nombre del Ítem",
+      "itemType": "Tipo",
+      "itemQty": "Cant.",
+      "itemPrice": "Precio",
+      "noItems": "No se agregaron ítems",
+      "submitButton": "Crear Gasto"
+    }
   }
 }

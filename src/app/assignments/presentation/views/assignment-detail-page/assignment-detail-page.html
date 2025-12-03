@@ -1,30 +1,46 @@
-<div class="screen">
-  <div class="header">
-    <div class="left">
-      <p>{{assignment?.owner?.completeName}} {{ 'assignments.assignmentDetailPage.assignment' | translate }}</p>
-    </div>
-    <div class="right">
-      <p style="font-size: 16px; font-weight: bold">{{ 'assignments.assignmentDetailPage.code' | translate }}</p>
-      <div class="assigment-code">
-        <p>{{assignment?.assignmentCode}}</p>
+<div class="page">
+  <div class="header-card">
+    <div class="header-content">
+      <div class="owner-info">
+        <span class="label">ASSIGNMENT DETAILS</span>
+        <h1 class="page-title">{{ assignment?.owner?.completeName }}</h1>
       </div>
-      <p style="font-size: 16px; font-weight: bold">{{ 'assignments.assignmentDetailPage.type' | translate }}</p>
-      <div>
-        <app-assignment-type-selector [assignmentType]="assignment?.type" (typeChanged)="handleTypeChange($event)"></app-assignment-type-selector>
+
+      <div class="meta-info">
+        <div class="info-pill">
+          <span class="pill-label">{{ 'assignments.assignmentDetailPage.code' | translate }}</span>
+          <span class="pill-value code">{{ assignment?.assignmentCode }}</span>
+        </div>
+
+        <div class="separator"></div>
+
+        <div class="info-pill">
+          <span class="pill-label">{{ 'assignments.assignmentDetailPage.type' | translate }}</span>
+          <app-assignment-type-selector [assignmentType]="assignment?.type" (typeChanged)="handleTypeChange($event)"></app-assignment-type-selector>
+        </div>
       </div>
     </div>
   </div>
-  <div style="width: 100%;">
-    <p style="font-weight: bold; font-size: 18px;">{{ 'assignments.assignmentDetailPage.associatedMotorbikes' | translate }}</p>
-    @if (vehicles.length === 0) {
-      <div style="display: flex; justify-content: center; align-items: center; height: 150px; width: 100%;">
-        <p class="no-vehicles-message">{{ 'assignments.assignmentDetailPage.noAssociatedMotorbikes' | translate }}</p>
-      </div>
 
+  <div class="vehicles-section">
+    <h2 class="section-title">
+      {{ 'assignments.assignmentDetailPage.associatedMotorbikes' | translate }}
+      <span class="count-badge" *ngIf="vehicles.length > 0">{{ vehicles.length }}</span>
+    </h2>
+
+    @if (vehicles.length === 0) {
+      <div class="empty-state">
+        <div class="icon-motorcycle">🏍️</div>
+        <p>{{ 'assignments.assignmentDetailPage.noAssociatedMotorbikes' | translate }}</p>
+      </div>
     } @else {
       <div class="vehicle-grid">
         @for (vehicle of vehicles; let i = $index; track vehicle.id) {
-          <app-assign-vehicle-card style='--i: {{i}}' [vehicle]="vehicle"></app-assign-vehicle-card>
+          <app-assign-vehicle-card
+            class="grid-item"
+            style="--delay: {{i * 0.1}}s"
+            [vehicle]="vehicle">
+          </app-assign-vehicle-card>
         }
       </div>
     }

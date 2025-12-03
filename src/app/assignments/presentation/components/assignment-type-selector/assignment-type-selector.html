@@ -1,7 +1,10 @@
-<div class="type-selector">
-  <select id="assignmentType" [(ngModel)]="assignmentType" (change)="onTypeChange($event)">
-    <option *ngFor="let type of assignmentTypes" [value]="type">
-      {{ 'assignments.assignmentsTypeSelector.' + type.toLowerCase() | translate }}
-    </option>
-  </select>
+<div class="selector-wrapper">
+  <div class="custom-select-container">
+    <select id="assignmentType" [(ngModel)]="assignmentType" (change)="onTypeChange($event)" class="glass-select">
+      <option *ngFor="let type of assignmentTypes" [value]="type">
+        {{ 'assignments.assignmentsTypeSelector.' + type.toLowerCase() | translate }}
+      </option>
+    </select>
+    <div class="select-arrow">▼</div>
+  </div>
 </div>
