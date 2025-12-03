@@ -1,44 +1,60 @@
-<div class="screen">
-  <div class="header">
-    <div class="left">
-      <p>Mechanic Dashboard</p>
-    </div>
-    <div class="right">
-
+<div class="dashboard-container">
+  <div class="dashboard-header">
+    <div class="welcome-section">
+      <h1 class="page-title">Mechanic Dashboard</h1>
+      <p class="subtitle">Manage your clients and work</p>
     </div>
   </div>
-  <div class="grid-container">
-    <div style="grid-area: box-1" class="orange-box">
-      <div class="box-header">
-        <p>Active Subscriptions</p>
+
+  <div class="mechanic-grid">
+    <div class="dash-card subs-card">
+      <div class="card-header orange">
+        <mat-icon class="header-icon">group</mat-icon>
+        <h3>Active Subscriptions</h3>
       </div>
-      <div class="box-content assignments">
+      <div class="card-body list">
         @for (assignment of mechanicAssignments(); track assignment.id) {
-          <div class="white-box assignment-card" [routerLink]="['/assignments',assignment.id]">
-            <mat-icon>person</mat-icon><p>{{assignment.owner?.completeName}}</p>
+          <div class="client-row" [routerLink]="['/assignments', assignment.id]">
+            <div class="avatar-circle">{{ assignment.owner?.completeName?.charAt(0) }}</div>
+            <span class="client-name">{{ assignment.owner?.completeName }}</span>
+            <mat-icon class="arrow">chevron_right</mat-icon>
           </div>
         }
       </div>
     </div>
-    <div style="grid-area: box-2" class="orange-box">
-      <div class="box-header">
-        <p>Current Memberships</p>
+
+    <div class="dash-card member-card">
+      <div class="card-header dark">
+        <mat-icon class="header-icon">card_membership</mat-icon>
+        <h3>Membership Status</h3>
       </div>
-      <div class="box-content">
-        <div class="white-box membership">
-          <p>Membership: Black</p>
-          <p>Remaining Time: 36d 15hrs 36mins</p>
+      <div class="card-body center-content">
+        <div class="status-ring">
+          <span class="plan-name">BLACK</span>
+          <span class="plan-label">PLAN</span>
+        </div>
+        <div class="time-remaining">
+          <span class="time-val">36d</span>
+          <span class="time-label">Remaining</span>
         </div>
       </div>
     </div>
-    <div style="grid-area: box-3" class="orange-box">
-      <div class="box-header">
-        <p>Upcoming Maintenances</p>
+
+    <div class="dash-card work-card">
+      <div class="card-header">
+        <mat-icon class="header-icon">calendar_today</mat-icon>
+        <h3>Upcoming Work</h3>
       </div>
-      <div class="box-content maintenances">
+      <div class="card-body list">
         @for (maintenance of mechanicMaintenances(); track maintenance.id) {
-          <div class="white-box maintenance-card" [routerLink]="['/maintenances','mechanic']">
-            <mat-icon>calendar_month</mat-icon><p>{{maintenance.dateOfService}} | {{getVehicleById(maintenance.vehicleId)()?.owner?.completeName}} | {{getVehicleById(maintenance.vehicleId)()?.model?.name}}</p>
+          <div class="work-item" [routerLink]="['/maintenances', 'mechanic']">
+            <div class="work-date">
+              <span>{{ maintenance.dateOfService | date:'dd MMM' }}</span>
+            </div>
+            <div class="work-details">
+              <span class="work-vehicle">{{ getVehicleById(maintenance.vehicleId)()?.model?.name }}</span>
+              <span class="work-client">{{ getVehicleById(maintenance.vehicleId)()?.owner?.completeName }}</span>
+            </div>
           </div>
         }
       </div>

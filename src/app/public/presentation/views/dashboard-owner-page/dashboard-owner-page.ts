@@ -3,7 +3,7 @@ import {AssignmentsStore} from '@app/assignments/application/assigments.store';
 import {VehiclesStore} from '@app/vehiclemanagement/application/vehicles.store';
 import {MaintenanceStore} from '@app/maintenance-and-operations/application/maintenance.store';
 import {ExpenseStore} from '@app/maintenance-and-operations/application/expense.store';
-import {NgOptimizedImage} from '@angular/common';
+import {DatePipe, NgOptimizedImage} from '@angular/common';
 import {RouterLink} from '@angular/router';
 import {Vehicle} from '@app/comparatives/model/model';
 
@@ -11,7 +11,8 @@ import {Vehicle} from '@app/comparatives/model/model';
   selector: 'app-dashboard-owner-page',
   imports: [
     NgOptimizedImage,
-    RouterLink
+    RouterLink,
+    DatePipe
   ],
   templateUrl: './dashboard-owner-page.html',
   standalone: true,

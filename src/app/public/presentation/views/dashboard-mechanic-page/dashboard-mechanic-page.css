@@ -1,140 +1,83 @@
-.screen{
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-  padding: 40px;
-  gap: 40px;
-  background-color: #ffffff;
+.dashboard-container {
+  max-width: 1400px; margin: 0 auto; padding: 2rem;
+  min-height: 100vh; background: #f8f9fa;
 }
 
-.left{
-  font-size: 32px;
-  font-weight: bold;
-  color: #000000;
-}
+.dashboard-header { margin-bottom: 2.5rem; }
+.page-title { font-size: 2.5rem; font-weight: 800; margin: 0; color: #1a1a1a; }
+.subtitle { color: #666; margin: 0.5rem 0 0; }
 
-.header{
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-}
-
-.right{
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  gap: 20px;
-}
-
-.grid-container {
-  height: 650px;
-  width: 100%;
+.mechanic-grid {
   display: grid;
-  grid-template-columns: 3fr 4fr;
-  grid-template-rows: 1.5fr 3fr;
-  gap: 1em;
-  grid-template-areas:
-    "box-1 box-2"
-    "box-1 box-3";
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1.5rem;
+  align-items: start;
 }
 
-.orange-box {
-  background-color: #FF6B35;
-  border-radius: 10px;
-  display: flex;
-  flex-direction: column;
-  min-height: 0;
-  justify-content: start;
-  box-shadow: rgba(0, 0, 0, 0.38) 10px 10px 15px;
+.dash-card {
+  background: white; border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+  overflow: hidden; min-height: 400px;
+  display: flex; flex-direction: column;
 }
 
-.white-box {
-  background-color: white;
-  border-radius: 10px;
-  color: black;
-  cursor: pointer;
+.card-header {
+  padding: 1.5rem; background: white; border-bottom: 1px solid #f0f0f0;
+  display: flex; align-items: center; gap: 10px;
 }
+.card-header.orange { background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%); color: white; }
+.card-header.dark { background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%); color: white; }
 
-.box-header {
-  color: white;
-  padding: 1.5em 1.5em 0.5em;
-  font-weight: bold;
-  font-size: 20px;
+.header-icon { font-size: 1.5rem; }
+.card-header h3 { margin: 0; font-weight: 700; font-size: 1.1rem; }
+
+.card-body { padding: 1.5rem; flex: 1; overflow-y: auto; }
+.card-body.list { padding: 0; }
+
+/* Client List */
+.client-row {
+  display: flex; align-items: center; gap: 1rem;
+  padding: 1rem 1.5rem; border-bottom: 1px solid #f9f9f9;
+  cursor: pointer; transition: background 0.2s;
 }
-
-.box-content {
-  max-height: calc(100% - 4em);
-  max-width: 100%;
-  flex: 1;
-  overflow: hidden;
-  padding: 0.3rem 1rem 1rem 1rem;
-  min-height: 0;
+.client-row:hover { background: #fefefe; }
+.avatar-circle {
+  width: 40px; height: 40px; background: #f0f0f0; color: #666;
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  font-weight: 700;
 }
+.client-name { font-weight: 600; color: #333; flex: 1; }
+.arrow { color: #ccc; }
 
-.assignments {
-  display: flex;
-  align-items: center;
-  justify-content: start;
-  flex-direction: column;
-  gap: 0.8rem;
-  overflow-y: auto;
+/* Membership */
+.center-content { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2rem; }
+.status-ring {
+  width: 140px; height: 140px; border-radius: 50%;
+  border: 8px solid #1a1a1a;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
 }
+.plan-name { font-size: 1.5rem; font-weight: 900; color: #1a1a1a; }
+.plan-label { font-size: 0.7rem; letter-spacing: 2px; color: #666; }
 
-.assignment-card {
-  width: 100%;
-  min-height: 72px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding-left: 25px;
-  flex-wrap: wrap;
-  font-size: 20px;
-  font-weight: bold;
-  gap: 15px;
+.time-remaining { text-align: center; }
+.time-val { display: block; font-size: 2rem; font-weight: 800; color: #ff6b35; }
+.time-label { color: #999; font-size: 0.9rem; }
+
+/* Work Items */
+.work-item {
+  display: flex; gap: 1rem; padding: 1rem 1.5rem;
+  border-bottom: 1px solid #f9f9f9; cursor: pointer;
 }
-
-.assignment-card mat-icon {
-  transform: scale(2);
+.work-item:hover { background: #fafafa; }
+.work-date {
+  background: #fff5f0; color: #ff6b35; padding: 0.5rem; border-radius: 8px;
+  font-weight: 700; font-size: 0.8rem; height: fit-content;
 }
+.work-details { display: flex; flex-direction: column; }
+.work-vehicle { font-weight: 700; color: #333; }
+.work-client { font-size: 0.85rem; color: #888; }
 
-.maintenances {
-  display: flex;
-  align-items: center;
-  justify-content: start;
-  flex-direction: column;
-  gap: 0.8rem;
-  overflow-y: auto;
-}
-
-.maintenance-card {
-  width: 100%;
-  min-height: 72px;
-  display: flex;
-  align-items: center;
-  justify-content: start;
-  padding-left: 25px;
-  flex-wrap: wrap;
-  font-size: 20px;
-  font-weight: bold;
-  gap: 20px;
-}
-
-.maintenance-card mat-icon {
-  transform: scale(2);
-}
-
-.membership {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  font-weight: bold;
-  font-size: 20px;
-  gap: 20px;
+@media (max-width: 1024px) {
+  .mechanic-grid { grid-template-columns: 1fr; }
+  .dash-card { min-height: auto; }
 }

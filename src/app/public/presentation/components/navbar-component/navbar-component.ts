@@ -17,6 +17,7 @@ import {NgForOf, NgIf} from '@angular/common';
     NgForOf,
     LanguageSwitcherComponent,
     TranslatePipe,
+    RouterLinkActive,
   ],
   templateUrl: './navbar-component.html',
   standalone: true,

@@ -4,11 +4,13 @@ import {MaintenanceStore} from '@app/maintenance-and-operations/application/main
 import {MatIcon} from '@angular/material/icon';
 import {VehiclesStore} from '@app/vehiclemanagement/application/vehicles.store';
 import {RouterLink} from '@angular/router';
+import {DatePipe} from '@angular/common';
 @Component({
   selector: 'app-dashboard-mechanic-page',
   imports: [
     MatIcon,
-    RouterLink
+    RouterLink,
+    DatePipe
   ],
   templateUrl: './dashboard-mechanic-page.html',
   standalone: true,

@@ -139,68 +139,59 @@ import {TranslateModule} from '@ngx-translate/core';
     .form-section { padding: 1.5rem 2rem 0; }
     .w-full { width: 100%; }
 
-    /* --- ESTILOS DE INPUTS PERSONALIZADOS (GLASS/CLEAN) - CORREGIDO --- */
+    /* --- ESTILOS DE INPUTS CORREGIDOS (TEXTO NEGRO) --- */
 
-    /* 1. Ocultar agresivamente el borde nativo (Notched Outline) */
     ::ng-deep .custom-field .mdc-notched-outline,
     ::ng-deep .custom-field .mdc-notched-outline__leading,
     ::ng-deep .custom-field .mdc-notched-outline__notch,
     ::ng-deep .custom-field .mdc-notched-outline__trailing {
       display: none !important;
-      border: none !important;
     }
 
-    /* 2. Dar estilo al contenedor flexible para que sea nuestro "borde" */
     ::ng-deep .custom-field .mat-mdc-form-field-flex {
-      background-color: #f8f9fa !important; /* Fondo gris suave */
+      background-color: #f8f9fa !important;
       border-radius: 12px !important;
-      padding: 0 16px !important; /* Padding interno */
-      border: 1px solid #e0e0e0; /* Borde propio sutil */
+      padding: 0 16px !important;
+      border: 1px solid #e0e0e0;
       transition: all 0.2s ease;
-      height: 56px; /* Altura fija */
+      height: 56px;
       align-items: center;
     }
 
-    /* 3. Hover */
     ::ng-deep .custom-field:hover .mat-mdc-form-field-flex {
-      background-color: #fff !important;
-      border-color: #bdbdbd;
+      background-color: #fff !important; border-color: #bdbdbd;
     }
 
-    /* 4. Focus (Borde Naranja) */
     ::ng-deep .custom-field.mat-focused .mat-mdc-form-field-flex {
-      border-color: #ff6b35 !important;
-      background-color: #fff !important;
-      box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.1); /* Glow naranja suave */
+      border-color: #ff6b35 !important; background-color: #fff !important;
+      box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.1);
     }
 
-    /* 5. Ajustar la etiqueta flotante */
+    /* Etiqueta Normal (Gris Oscuro) */
     ::ng-deep .custom-field .mat-mdc-floating-label {
-      top: 50% !important;
-      left: 16px !important;
+      top: 50% !important; left: 16px !important;
       transform: translateY(-50%);
-      color: #999; font-weight: 500;
-      transition: all 0.2s ease;
-      pointer-events: none;
+      color: #666 !important; font-weight: 500;
+      transition: all 0.2s ease; pointer-events: none;
     }
 
-    /* 6. Etiqueta cuando sube (focus o con valor) */
+    /* Etiqueta Flotante (Corrección de Fondo Blanco para tapar líneas) */
     ::ng-deep .custom-field.mat-form-field-should-float .mat-mdc-floating-label {
-      transform: translateY(-28px) scale(0.85) !important; /* Subir arriba del input */
+      transform: translateY(-30px) scale(0.85) !important;
       color: #ff6b35 !important;
       position: absolute;
-      background: white; /* Truco para tapar la línea si pasara por detrás */
-      padding: 0 4px;
-      margin-left: -4px;
+      background: white !important; /* TAPA LA LÍNEA DEL BORDE */
+      padding: 0 6px;
+      margin-left: -6px;
+      z-index: 10;
     }
 
-    /* Input real */
+    /* Input real (Texto Negro) */
     ::ng-deep .custom-field input,
     ::ng-deep .custom-field .mat-mdc-select-value {
-      color: #333; font-weight: 600;
+      color: #000000 !important; font-weight: 600;
     }
 
-    /* Ocultar linea inferior si estuviera presente (legacy) */
     ::ng-deep .custom-field .mat-mdc-form-field-bottom-align::before { display: none !important; }
     /* ---------------------------------------------------- */
 

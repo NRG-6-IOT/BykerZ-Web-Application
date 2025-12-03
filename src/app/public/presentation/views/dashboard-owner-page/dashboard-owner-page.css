@@ -1,156 +1,113 @@
-.screen{
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-  padding: 40px;
-  gap: 40px;
-  background-color: #ffffff;
+.dashboard-container {
+  max-width: 1400px; margin: 0 auto; padding: 2rem;
+  min-height: 100vh; background: #f8f9fa;
 }
 
-.left{
-  font-size: 32px;
-  font-weight: bold;
-  color: #000000;
+.dashboard-header {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: 2.5rem; flex-wrap: wrap; gap: 1rem;
 }
 
-.header{
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
+.page-title {
+  font-size: 2.5rem; font-weight: 800; margin: 0;
+  background: linear-gradient(135deg, #1a1a1a 0%, #333 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
 }
+.subtitle { color: #666; margin: 0.5rem 0 0; }
 
-.right{
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  gap: 20px;
+.mechanic-badge {
+  background: white; padding: 0.5rem 1rem; border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05); border: 1px solid #eee;
 }
-
-.mechanic-name{
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  justify-content: center;
-  padding: 10px 16px;
-  color: white;
-  background-color: #FF6B35;
-  border-radius: 16px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  font-size: 16px;
+.badge-label { display: block; font-size: 0.7rem; color: #999; text-transform: uppercase; font-weight: 700; margin-bottom: 4px; }
+.badge-content { display: flex; align-items: center; gap: 0.8rem; }
+.mechanic-avatar {
+  width: 32px; height: 32px; background: #ff6b35; color: white;
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  font-weight: 700;
 }
+.mechanic-name { font-weight: 600; color: #333; }
 
-.grid-container {
-  height: 650px;
-  width: 100%;
+/* Grid Layout */
+.dashboard-grid {
   display: grid;
-  grid-template-columns: 3fr 4fr;
-  grid-template-rows: 3fr 3fr;
-  gap: 1em;
   grid-template-areas:
-    "box-1 box-2"
-    "box-3 box-3";
+    "vehicles bills"
+    "maintenance maintenance";
+  grid-template-columns: 1.5fr 1fr;
+  grid-template-rows: 400px 250px;
+  gap: 1.5rem;
 }
 
-.orange-box {
-  background-color: #FF6B35;
-  border-radius: 10px;
-  display: flex;
-  flex-direction: column;
-  min-height: 0;
-  justify-content: start;
+.vehicles-area { grid-area: vehicles; }
+.bills-area { grid-area: bills; }
+.maintenance-area { grid-area: maintenance; }
+
+.dashboard-card {
+  background: white; border-radius: 20px;
+  overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+  display: flex; flex-direction: column;
 }
 
-.white-box {
-  background-color: white;
-  border-radius: 10px;
-  color: black;
-  cursor: pointer;
+.card-header {
+  padding: 1.25rem 1.5rem; background: white;
+  border-bottom: 1px solid #f0f0f0; display: flex; justify-content: space-between; align-items: center;
 }
+.card-header.orange { background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%); color: white; }
+.card-header.dark { background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%); color: white; }
 
-.box-header {
-  color: white;
-  padding: 1.5em 1.5em 0.5em;
-  font-weight: bold;
-  font-size: 20px;
+.card-header h3 { margin: 0; font-size: 1.1rem; font-weight: 700; }
+.count-pill { background: #f0f0f0; padding: 2px 10px; border-radius: 12px; font-size: 0.8rem; font-weight: 700; color: #333; }
+.count-pill.dark { background: rgba(0,0,0,0.2); color: white; }
+
+.card-body { padding: 1rem; overflow-y: auto; flex: 1; }
+.card-body.horizontal { display: flex; gap: 1rem; overflow-x: auto; overflow-y: hidden; align-items: center; }
+
+/* Items */
+.list-item {
+  display: flex; align-items: center; gap: 1rem;
+  padding: 1rem; background: #fff; border-radius: 12px;
+  margin-bottom: 0.8rem; border: 1px solid #f0f0f0;
+  transition: all 0.2s; cursor: pointer;
 }
+.list-item:hover { transform: translateX(4px); border-color: #ff6b35; box-shadow: 0 4px 12px rgba(255, 107, 53, 0.1); }
 
-.box-content {
-  max-height: calc(100% - 4em);
-  max-width: 100%;
-  flex: 1;
-  overflow: hidden;
-  padding: 0.3rem 1rem 1rem 1rem;
-  min-height: 0;
+.item-icon-box {
+  width: 50px; height: 50px; background: #f8f9fa; border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
 }
+.vehicle-thumb { mix-blend-mode: multiply; filter: brightness(0); opacity: 0.7; }
 
-.vehicles {
-  display: flex;
-  align-items: center;
-  justify-content: start;
-  flex-direction: column;
-  gap: 0.8rem;
-  overflow-y: auto;
+.item-info { flex: 1; display: flex; flex-direction: column; }
+.item-title { font-weight: 700; color: #333; font-size: 1rem; }
+.item-sub { font-size: 0.8rem; color: #888; }
+
+.price-tag { font-weight: 700; color: #ff6b35; font-size: 1.1rem; }
+.arrow-icon { color: #ddd; font-weight: 700; }
+
+/* Maintenance Pills */
+.maintenance-pill {
+  min-width: 280px; background: #fff; border: 1px solid #eee;
+  padding: 1rem; border-radius: 16px; display: flex; align-items: center; gap: 1rem;
+  cursor: pointer; transition: transform 0.2s;
 }
+.maintenance-pill:hover { transform: translateY(-4px); border-color: #ff6b35; }
 
-.bills {
-  display: flex;
-  align-items: center;
-  justify-content: start;
-  flex-direction: column;
-  gap: 0.8rem;
-  overflow-y: auto;
+.pill-date {
+  background: #fff5f0; color: #ff6b35; padding: 0.5rem 0.8rem;
+  border-radius: 10px; text-align: center; display: flex; flex-direction: column;
 }
+.pill-date .day { font-size: 1.2rem; font-weight: 800; line-height: 1; }
+.pill-date .month { font-size: 0.7rem; text-transform: uppercase; font-weight: 700; }
 
-.maintenances {
-  display: flex;
-  flex-direction: row;
-  align-items: start;
-  justify-content: start;
-  gap: 1rem;
-  overflow-x: auto;
-}
+.pill-info { display: flex; flex-direction: column; }
+.pill-title { font-weight: 700; color: #333; }
+.pill-sub { font-size: 0.8rem; color: #888; }
 
-.vehicle-card {
-  width: 100%;
-  min-height: 72px;
-  display: flex;
-  align-items: center;
-  justify-content: start;
-  padding: 10px;
-  flex-wrap: wrap;
-}
-
-.expense-card {
-  width: 100%;
-  min-height: 72px;
-  padding: 10px;
-}
-
-.maintenance-card {
-  height: 100%;
-  width: 380px;
-  flex-shrink: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-.vehicle-card p {
-  font-weight: bold;
-  font-size: 25px;
-}
-
-.expense-card p {
-  font-weight: bold;
-}
-
-.maintenance-card p {
-  font-weight: bold;
-  font-size: 15px;
+@media (max-width: 900px) {
+  .dashboard-grid {
+    grid-template-areas: "vehicles" "bills" "maintenance";
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+  }
 }

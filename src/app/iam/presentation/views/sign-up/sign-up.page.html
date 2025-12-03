@@ -1,71 +1,55 @@
-<div class="min-h-screen flex flex-col">
-  <div class="flex w-full justify-end p-4">
+<div class="auth-container">
+  <div class="auth-header">
     <app-language-switcher></app-language-switcher>
   </div>
-  <div class="flex flex-col items-center justify-center min-w-1/2">
-    <div class="flex justify-center p-5">
-      <p class="font-bold text-4xl">{{'register.signUp'|translate}}</p>
+
+  <div class="signup-card">
+    <div class="header-section">
+      <h1 class="page-title">{{'register.signUp'|translate}}</h1>
+      <p class="subtitle">Join BykerZ today</p>
     </div>
-    <div class="w-full max-w-2xl px-4">
-      <form [formGroup]="signUpForm" (ngSubmit)="onSubmit()"
-            class="flex flex-col items-center gap-2">
-        <div class="flex w-full ">
-          <mat-form-field class="w-full">
-            <mat-label>{{'register.firstName'|translate}}</mat-label>
-            <input matInput formControlName="firstName" required />
-            @if (isInvalidControl(signUpForm, 'firstName')) {
-              {{ errorMessagesForControl(signUpForm, 'firstName') }}
-            }
-          </mat-form-field>
-          <mat-form-field class="w-full">
-            <mat-label>{{'register.lastName'|translate}}</mat-label>
-            <input matInput formControlName="lastName" required />
-            @if (isInvalidControl(signUpForm, 'lastName')) {
-              {{ errorMessagesForControl(signUpForm, 'lastName') }}
-            }
-          </mat-form-field>
-        </div>
-        <mat-form-field class="w-full">
-          <mat-label>{{'register.username'|translate}}</mat-label>
-          <input matInput formControlName="username" required />
-          @if (isInvalidControl(signUpForm, 'username')) {
-            {{ errorMessagesForControl(signUpForm, 'username') }}
-          }
+
+    <form [formGroup]="signUpForm" (ngSubmit)="onSubmit()" class="signup-form">
+      <div class="row-2">
+        <mat-form-field appearance="outline" class="custom-field">
+          <mat-label>{{'register.firstName'|translate}}</mat-label>
+          <input matInput formControlName="firstName" required />
         </mat-form-field>
-        <mat-form-field class="w-full">
-          <mat-label>{{'register.email'|translate}}</mat-label>
-          <input matInput formControlName="email" required />
-          @if (isInvalidControl(signUpForm, 'email')) {
-            {{ errorMessagesForControl(signUpForm, 'email') }}
-          }
+        <mat-form-field appearance="outline" class="custom-field">
+          <mat-label>{{'register.lastName'|translate}}</mat-label>
+          <input matInput formControlName="lastName" required />
         </mat-form-field>
-        <mat-form-field class="w-full">
-          <mat-label>{{'register.photoUrl'|translate}}</mat-label>
-          <input matInput formControlName="photoUrl" required />
-          @if (isInvalidControl(signUpForm, 'photoUrl')) {
-            {{ errorMessagesForControl(signUpForm, 'photoUrl') }}
-          }
-        </mat-form-field>
-        <mat-form-field class="w-full">
+      </div>
+
+      <mat-form-field appearance="outline" class="custom-field">
+        <mat-label>{{'register.username'|translate}}</mat-label>
+        <input matInput formControlName="username" required />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="custom-field">
+        <mat-label>{{'register.email'|translate}}</mat-label>
+        <input matInput formControlName="email" required />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="custom-field">
+        <mat-label>{{'register.photoUrl'|translate}}</mat-label>
+        <input matInput formControlName="photoUrl" required />
+      </mat-form-field>
+
+      <div class="row-2">
+        <mat-form-field appearance="outline" class="custom-field">
           <mat-label>{{'register.password'|translate}}</mat-label>
           <input matInput type="password" formControlName="password" required />
-          @if (isInvalidControl(signUpForm, 'password')) {
-            {{ errorMessagesForControl(signUpForm, 'password') }}
-          }
         </mat-form-field>
-        <mat-form-field class="w-full">
+        <mat-form-field appearance="outline" class="custom-field">
           <mat-label>{{'register.confirmPassword'|translate}}</mat-label>
           <input matInput type="password" formControlName="confirmPassword" required />
-          @if (isInvalidControl(signUpForm, 'confirmPassword')) {
-            {{ errorMessagesForControl(signUpForm, 'confirmPassword') }}
-          }
         </mat-form-field>
+      </div>
 
-        <button type="submit" mat-flat-button class="w-full !bg-[#380800]">{{'register.button'|translate}}</button>
-      </form>
-    </div>
-
-
+      <button type="submit" class="btn-primary" [disabled]="signUpForm.invalid">
+        {{'register.button'|translate}}
+      </button>
+    </form>
   </div>
-
 </div>

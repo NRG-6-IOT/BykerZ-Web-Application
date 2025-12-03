@@ -1,56 +1,81 @@
-<div class="screen">
-  <div class="header">
-    <div class="left">
-      <p>Owner Dashboard</p>
+<div class="dashboard-container">
+  <div class="dashboard-header">
+    <div class="welcome-section">
+      <h1 class="page-title">Owner Dashboard</h1>
+      <p class="subtitle">Overview of your vehicles and services</p>
     </div>
-    <div class="right">
-      <p style="font-size: 16px; font-weight: bold">Assigned Mechanic:</p>
-      <div class="mechanic-name">
-        <p>{{ ownerAssignment()?.mechanic?.completeName }}</p>
+
+    <div class="mechanic-badge" *ngIf="ownerAssignment()">
+      <span class="badge-label">Assigned Mechanic</span>
+      <div class="badge-content">
+        <div class="mechanic-avatar">
+          <span class="initial">{{ ownerAssignment()?.mechanic?.completeName?.charAt(0) }}</span>
+        </div>
+        <span class="mechanic-name">{{ ownerAssignment()?.mechanic?.completeName }}</span>
       </div>
     </div>
   </div>
-  <div class="grid-container">
-    <div style="grid-area: box-1" class="orange-box">
-      <div class="box-header">
-        <p>Vehicles</p>
+
+  <div class="dashboard-grid">
+
+    <div class="dashboard-card vehicles-area">
+      <div class="card-header">
+        <h3>My Vehicles</h3>
+        <span class="count-pill">{{ ownerVehicles().length }}</span>
       </div>
-      <div class="box-content vehicles">
+      <div class="card-body scrollable">
         @for (vehicle of ownerVehicles(); track vehicle.id) {
-          <div class="white-box vehicle-card" [routerLink]="['/vehicle',vehicle.id,'owner']">
-            <img ngSrc="/assets/images/vehicle_dark.png" height="45" width="90" alt="" style="margin-right: 10px"/><p>{{vehicle.model?.name}}</p>
+          <div class="list-item vehicle-item" [routerLink]="['/vehicle', vehicle.id, 'owner']">
+            <div class="item-icon-box">
+              <img ngSrc="/assets/images/vehicle.png" width="40" height="20" class="vehicle-thumb" alt="Moto">
+            </div>
+            <div class="item-info">
+              <span class="item-title">{{ vehicle.model?.name }}</span>
+              <span class="item-sub">{{ vehicle.plate }}</span>
+            </div>
+            <span class="arrow-icon">→</span>
           </div>
         }
       </div>
     </div>
-    <div style="grid-area: box-2" class="orange-box">
-      <div class="box-header">
-        <p>Bills</p>
+
+    <div class="dashboard-card bills-area">
+      <div class="card-header orange">
+        <h3>Recent Expenses</h3>
+        <span class="count-pill dark">{{ ownerExpenses().length }}</span>
       </div>
-      <div class="box-content bills">
+      <div class="card-body scrollable">
         @for (expense of ownerExpenses(); track expense.id) {
-          <div class="white-box expense-card" [routerLink]="['/expenses',expense.id]">
-            <p>{{expense.name}}</p>
-            <p>Type: {{expense.expenseType}}</p>
-            <p>Total Price: {{expense.finalPrice}}</p>
+          <div class="list-item expense-item" [routerLink]="['/expenses', expense.id]">
+            <div class="item-info">
+              <span class="item-title">{{ expense.name }}</span>
+              <span class="item-sub">{{ expense.expenseType }}</span>
+            </div>
+            <span class="price-tag">$ {{ expense.finalPrice }}</span>
           </div>
         }
       </div>
     </div>
-    <div style="grid-area: box-3" class="orange-box">
-      <div class="box-header">
-        <p>Scheduled Maintenances</p>
+
+    <div class="dashboard-card maintenance-area">
+      <div class="card-header dark">
+        <h3>Scheduled Maintenances</h3>
       </div>
-      <div class="box-content maintenances">
+      <div class="card-body scrollable horizontal">
         @for (maintenance of ownerMaintenances(); track maintenance.id) {
-          <div class="white-box maintenance-card" [routerLink]="['/maintenances','owner']">
-            <p>Date and Time: {{maintenance.dateOfService}}</p>
-            <p>Location: {{maintenance.location}}</p>
-            <p>Motorcycle: {{getVehicleById(maintenance.vehicleId)()?.model?.name}}</p>
-            <p>Reason: {{maintenance.description}}</p>
+          <div class="maintenance-pill" [routerLink]="['/maintenances', 'owner']">
+            <div class="pill-date">
+              <span class="day">{{ maintenance.dateOfService | date:'dd' }}</span>
+              <span class="month">{{ maintenance.dateOfService | date:'MMM' }}</span>
+            </div>
+            <div class="pill-info">
+              <span class="pill-title">{{ getVehicleById(maintenance.vehicleId)()?.model?.name }}</span>
+              <span class="pill-sub">{{ maintenance.location }}</span>
+            </div>
           </div>
         }
       </div>
     </div>
+
   </div>
 </div>
