@@ -1,7 +1,7 @@
 <div class="type-selector">
   <select id="assignmentType" [(ngModel)]="assignmentType" (change)="onTypeChange($event)">
     <option *ngFor="let type of assignmentTypes" [value]="type">
-      {{ capitalize(type) }} Customer
+      {{ 'assignments.assignmentsTypeSelector.' + type.toLowerCase() | translate }}
     </option>
   </select>
 </div>

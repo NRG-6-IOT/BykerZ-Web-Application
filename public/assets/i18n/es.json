@@ -1,0 +1,194 @@
+{
+  "login": {
+    "username": "Nombre de usuario",
+    "password": "Contraseña",
+    "signIn": "Iniciar Sesión",
+    "signUp": "Registrarse"
+  },
+  "selection": {
+    "owner": {
+      "title": "Registrate como Dueño",
+      "label": "Ingresa el código de asignación proporcionado",
+      "button": "Registrate con código"
+    },
+    "mechanic": {
+      "title": "Registrate como Mecánico",
+      "label": "Elige entre nuestros planes",
+      "button": "Elegir un plan"
+    }
+  },
+  "register": {
+    "signUp": "Registro",
+    "firstName": "Nombre",
+    "lastName": "Apellido",
+    "username": "Nombre de usuario",
+    "email": "Correo electrónico",
+    "photoUrl": "url de la foto",
+    "password": "Contraseña",
+    "confirmPassword": "Confirmar Contraseña",
+    "button": "Registrarse"
+  },
+  "navbar":{
+    "logout":"Cerrar Sesión",
+    "mechanic": {
+      "dashboard": "Panel de Control",
+      "assignments": "Asignaciones",
+      "maintenance": "Mantenimientos",
+      "comparatives": "Comparaciones",
+      "Membership": "Membresia"
+    },
+    "owner": {
+      "dashboard": "Panel de Control",
+      "vehicles": "Vehiculos",
+      "comparatives": "Comparaciones",
+      "expenses": "Gastos",
+      "maintenance": "Mantenimientos"
+    }
+  },
+  "assignments": {
+    "assignVehicleCard": {
+      "modelYear": "Año del Modelo",
+      "plate": "Placa",
+      "type": "Tipo",
+      "brandOrigin": "Origen de la Marca",
+      "producedAt": "Producido En",
+      "displacement": "Desplazamiento",
+      "octane": "Octanaje"
+    },
+    "assignmentCard": {
+      "assignmentType": "Tipo de asignación",
+      "assignmentCode": "Código de asignación",
+      "ownerName": "Nombre del propietario",
+      "assignedOn": "Asignado el"
+    },
+    "assignmentCardList": {
+      "noAssignments": "No tienes asignaciones activas."
+    },
+    "assignmentsTypeSelector": {
+      "uncategorized": "Cliente Sin categoría",
+      "regular": "Cliente Regular",
+      "frequent": "Cliente Frecuente",
+      "business": "Cliente Empresarial"
+    },
+    "createAssignmentButton": {
+      "generateAssignment": "Generar Asignación"
+    },
+    "createAssignmentDialog": {
+      "title": "Se ha creado una nueva asignación",
+      "code": "Código:",
+      "loading": "Cargando...",
+      "shareMessage": "Comparte este código con un propietario para vincularlo contigo",
+      "closeButton": "Cerrar"
+    },
+    "pendingAssignmentsButton": {
+      "title": "Asignaciones Pendientes"
+    },
+    "pendingAssignmentsDropdown": {
+      "noPending": "No hay asignaciones pendientes"
+    },
+    "pendingAssignmentsDropdownItem": {
+      "assignmentCode": "Código de asignación:",
+      "emittedOn": "Emitido el:"
+    },
+    "assignmentDetailPage": {
+      "assignment": "asignación",
+      "code": "Código:",
+      "type": "Tipo:",
+      "associatedMotorbikes": "Motocicletas asociadas:"
+    },
+    "assignmentsPage": {
+      "title": "Asignaciones"
+    }
+  },
+  "comparative": {
+    "common": {
+      "loadingModels": "Cargando modelos...",
+      "loadingVehicles": "Cargando vehículos...",
+      "noModelsTitle": "No hay modelos disponibles",
+      "noModelsMsg": "No se encontraron modelos para comparar.",
+      "noVehiclesTitle": "No hay vehículos disponibles",
+      "noVehiclesMsg": "No tienes vehículos registrados para comparar.",
+      "vs": "VS",
+      "noData": "N/A"
+    },
+    "vehicleCard": {
+      "noDataTitle": "Datos del vehículo no disponibles",
+      "year": "Año",
+      "plate": "Placa",
+      "type": "Tipo",
+      "displacement": "Cilindrada",
+      "power": "Potencia",
+      "consumption": "Consumo"
+    },
+    "specs": {
+      "title": "Especificaciones Técnicas",
+      "subtitle": "Comparación detallada de características",
+      "labels": {
+        "displacement": "Cilindrada",
+        "power": "Potencia",
+        "engineTorque": "Torque",
+        "weight": "Peso",
+        "transmission": "Transmisión",
+        "brakes": "Frenos",
+        "tank": "Tanque",
+        "seatHeight": "Altura Asiento",
+        "consumption": "Consumo",
+        "price": "Precio Aprox."
+      }
+    },
+    "scenarios": {
+      "title": "Escenarios de Uso",
+      "subtitle": "Rendimiento en diferentes condiciones",
+      "betterFor": "Mejor para {{vehicle}}",
+      "types": {
+        "cityTraffic": "Tráfico Urbano",
+        "longTrips": "Viajes Largos",
+        "maintenanceCost": "Costo de Mantenimiento",
+        "resaleValue": "Valor de Reventa"
+      }
+    },
+    "mechanicPage": {
+      "badge": "Mecánico",
+      "title": "Comparación de Modelos",
+      "subtitle": "Compara especificaciones técnicas entre modelos disponibles",
+      "modelA": "Modelo A",
+      "modelB": "Modelo B"
+    },
+    "comparePage": {
+      "title": "Comparación de Vehículos",
+      "subtitle": "Compara las especificaciones técnicas de tus motocicletas",
+      "yourBike": "Tu Moto",
+      "compareWith": "Comparar Con"
+    }
+  },
+  "notifications": {
+    "severity": "Severidad",
+    "type": "Tipo",
+    "connected":"Conectado",
+    "disconnected":"Desconectado",
+    "noVehicles": "No hay notificaciones para este vehículo.",
+    "title": "Título",
+    "message": "Mensaje",
+    "markAll": "Marcar todo como leído",
+    "alerts": "Alertas",
+    "vehicle": "Vehiculo"
+  },
+  "metrics": {
+    "gpsLocation": "Ubicación GPS",
+    "airQuality": "Calidad de aire",
+    "environmentalConditions": "Condiciones Ambientales",
+    "statusImpact":"Estado de impacto",
+    "emittedAt":"Emitido a las",
+    "vehicle": "Vehículo",
+    "impactDetected": "Impacto Detectado",
+    "normalState": "Estado Normal",
+    "latitude": "Latitud",
+    "longitude": "Longitud",
+    "co2": "CO₂",
+    "nh3": "NH₃",
+    "benzene": "Benceno",
+    "temperature": "Temperatura",
+    "humidity": "Humedad",
+    "pressure": "Presión"
+  }
+}

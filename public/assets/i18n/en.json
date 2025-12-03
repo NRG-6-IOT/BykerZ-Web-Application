@@ -1,0 +1,194 @@
+{
+  "login": {
+    "username": "Username",
+    "password": "Password",
+    "signIn": "Sign In",
+    "signUp": "Sign Up"
+  },
+  "selection": {
+    "owner": {
+      "title": "Register as an Owner",
+      "label": "Enter the assignment code provided",
+      "button": "Register with code"
+    },
+    "mechanic": {
+      "title": "Register as a Mechanic",
+      "label": "Pick between our plans",
+      "button": "Choose a plan"
+    }
+  },
+  "register": {
+    "signUp": "Sign Up",
+    "firstName": "First Name",
+    "lastName": "Sur Name",
+    "username": "Username",
+    "email": "Email",
+    "photoUrl": "Photo URL",
+    "password": "Password",
+    "confirmPassword": "Confirm Password",
+    "button": "Register"
+  },
+  "navbar":{
+    "logout":"Log Out",
+    "mechanic": {
+      "dashboard": "Dashboard",
+      "assignments": "Assignments",
+      "maintenance": "Maintenance",
+      "comparatives": "Comparatives",
+      "Membership": "Membership"
+    },
+    "owner": {
+      "dashboard": "Dashboard",
+      "vehicles": "Vehicles",
+      "comparatives": "Comparatives",
+      "expenses": "Expenses",
+      "maintenance": "Maintenance"
+    }
+  },
+  "assignments": {
+    "assignVehicleCard": {
+      "modelYear": "Model Year",
+      "plate": "Plate",
+      "type": "Type",
+      "brandOrigin": "Brand Origin",
+      "producedAt": "Produced At",
+      "displacement": "Displacement",
+      "octane": "Octane"
+    },
+    "assignmentCard": {
+      "assignmentType": "Assignment type",
+      "assignmentCode": "Assignment code",
+      "ownerName": "Owner's name",
+      "assignedOn": "Assigned on"
+    },
+    "assignmentCardList": {
+      "noAssignments": "You have no active assignments."
+    },
+    "assignmentsTypeSelector": {
+      "uncategorized": "Uncategorized Customer",
+      "regular": "Regular Customer",
+      "frequent": "Frequent Customer",
+      "business": "Business Customer"
+    },
+    "createAssignmentButton": {
+      "generateAssignment": "Generate Assignment"
+    },
+    "createAssignmentDialog": {
+      "title": "A new Assignment has been created",
+      "code": "Code:",
+      "loading": "Loading...",
+      "shareMessage": "Share this code with an owner to link it to you",
+      "closeButton": "Close"
+    },
+    "pendingAssignmentsButton": {
+      "title": "Pending Assignments"
+    },
+    "pendingAssignmentsDropdown": {
+      "noPending": "No pending assignments"
+    },
+    "pendingAssignmentsDropdownItem": {
+      "assignmentCode": "Assignment code:",
+      "emittedOn": "Emitted on:"
+    },
+    "assignmentDetailPage": {
+      "assignment": "assignment",
+      "code": "Code:",
+      "type": "Type:",
+      "associatedMotorbikes": "Associated motorbikes:"
+    },
+    "assignmentsPage": {
+      "title": "Assignments"
+    }
+  },
+  "comparative": {
+    "common": {
+      "loadingModels": "Loading models...",
+      "loadingVehicles": "Loading vehicles...",
+      "noModelsTitle": "No models available",
+      "noModelsMsg": "No models found to compare.",
+      "noVehiclesTitle": "No vehicles available",
+      "noVehiclesMsg": "You have no registered vehicles to compare.",
+      "vs": "VS",
+      "noData": "N/A"
+    },
+    "vehicleCard": {
+      "noDataTitle": "No vehicle data available",
+      "year": "Year",
+      "plate": "Plate",
+      "type": "Type",
+      "displacement": "Displacement",
+      "power": "Power",
+      "consumption": "Consumption"
+    },
+    "specs": {
+      "title": "Technical Specifications",
+      "subtitle": "Detailed comparison of features",
+      "labels": {
+        "displacement": "Displacement",
+        "power": "Power",
+        "engineTorque": "Engine Torque",
+        "weight": "Weight",
+        "transmission": "Transmission",
+        "brakes": "Brakes",
+        "tank": "Tank",
+        "seatHeight": "Seat Height",
+        "consumption": "Consumption",
+        "price": "Approx. Price"
+      }
+    },
+    "scenarios": {
+      "title": "Usage Scenarios",
+      "subtitle": "Performance in different conditions",
+      "betterFor": "Better for {{vehicle}}",
+      "types": {
+        "cityTraffic": "City Traffic",
+        "longTrips": "Long Trips",
+        "maintenanceCost": "Maintenance Cost",
+        "resaleValue": "Resale Value"
+      }
+    },
+    "mechanicPage": {
+      "badge": "Mechanic",
+      "title": "Model Comparison",
+      "subtitle": "Compare technical specifications across available models",
+      "modelA": "Model A",
+      "modelB": "Model B"
+    },
+    "comparePage": {
+      "title": "Vehicle Comparison",
+      "subtitle": "Compare the technical specifications of your motorcycles",
+      "yourBike": "Your Bike",
+      "compareWith": "Compare With"
+    }
+  },
+  "notifications": {
+    "severity": "Severity",
+    "type": "Type",
+    "connected":"Connected",
+    "disconnected":"Disconnected",
+    "noVehicles": "There are no notifications for this vehicle.",
+    "title": "Title",
+    "message": "Message",
+    "markAll": "Mark all as read",
+    "alerts": "Alerts",
+    "vehicle": "Vehicle"
+  },
+  "metrics": {
+    "gpsLocation": "GPS Location",
+    "airQuality": "Air Quality",
+    "environmentalConditions": "Environmental Conditions",
+    "statusImpact":"Status Impact",
+    "emittedAt":"Emitted At",
+    "vehicle": "Vehicle",
+    "impactDetected": "Impact Detected",
+    "normalState": "Normal State",
+    "latitude": "Latitude",
+    "longitude": "Longitude",
+    "co2": "CO₂",
+    "nh3": "NH₃",
+    "benzene": "Benzene",
+    "temperature": "Temperature",
+    "humidity": "Humidity",
+    "pressure": "Pressure"
+  }
+}

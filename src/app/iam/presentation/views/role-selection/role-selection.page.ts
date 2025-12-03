@@ -1,11 +1,15 @@
 import { Component } from '@angular/core';
 import {Router} from '@angular/router';
 import {FormsModule} from '@angular/forms';
+import {TranslatePipe} from '@ngx-translate/core';
+import {LanguageSwitcherComponent} from '@app/shared/presentation/components/language-switcher/language-switcher';
 
 @Component({
   selector: 'app-role-selection',
   imports: [
-    FormsModule
+    FormsModule,
+    TranslatePipe,
+    LanguageSwitcherComponent
   ],
   templateUrl: './role-selection.page.html'
 })

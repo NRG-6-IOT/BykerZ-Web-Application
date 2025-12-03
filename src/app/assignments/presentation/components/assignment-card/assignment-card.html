@@ -2,7 +2,7 @@
   <div class="inner-card">
     <div class="row">
       <div class="left">
-        <p>Assignment type:</p>
+        <p>{{ 'assignments.assignmentCard.assignmentType' | translate }}:</p>
       </div>
       <div class="right">
         <p>{{formattedType}}</p>
@@ -10,7 +10,7 @@
     </div>
     <div class="row">
       <div class="left">
-        <p>Assignment code:</p>
+        <p>{{ 'assignments.assignmentCard.assignmentCode' | translate }}:</p>
       </div>
       <div class="right">
         <p>{{assignment?.assignmentCode}}</p>
@@ -18,7 +18,7 @@
     </div>
     <div class="row">
       <div class="left">
-        <p>Owner's name:</p>
+        <p>{{ 'assignments.assignmentCard.ownerName' | translate }}:</p>
       </div>
       <div class="right">
         <p>{{assignment?.owner?.completeName}}</p>
@@ -26,7 +26,7 @@
     </div>
     <div class="row">
       <div class="left">
-        <p>Assigned on:</p>
+        <p>{{ 'assignments.assignmentCard.assignedOn' | translate }}:</p>
       </div>
       <div class="right">
         <p>{{formattedDate}}</p>

@@ -1,14 +1,14 @@
 import {Component, Input} from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
 import {Assignment} from '@app/assignments/domain/model/assignment.entity';
-import {
-  AssignmentCardDialog
-} from '@app/assignments/presentation/components/assignment-card-dialog/assignment-card-dialog';
 import {Router} from '@angular/router';
+import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-assignment-card',
-  imports: [],
+  imports: [
+    TranslatePipe
+  ],
   templateUrl: './assignment-card.html',
   styleUrl: './assignment-card.css'
 })
@@ -29,13 +29,6 @@ export class AssignmentCard {
   formattedType = '';
 
   constructor(private dialog: MatDialog, private router: Router) {}
-
-  openDialog() {
-    if (!this._assignment) { return; }
-    this.dialog.open(AssignmentCardDialog, {
-      data: { assignment: this._assignment }
-    });
-  }
 
   // Formatea la fecha de forma segura y consistente para locale es-ES.
   formatDate(dateInput?: string | Date | null): string {

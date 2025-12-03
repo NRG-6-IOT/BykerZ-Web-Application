@@ -14,15 +14,15 @@
   <!-- Panel desplegable de notificaciones -->
   <div *ngIf="showPanel" class="notifications-panel">
     <div class="panel-header">
-      <h4>Alerts - Vehicle {{vehicleId}}</h4>
+      <h4>{{ 'notifications.alerts'|translate }} - {{'notifications.vehicle'|translate}} {{vehicleId}}</h4>
       <button (click)="markAllAsRead()" *ngIf="unreadCount > 0" class="mark-all-btn">
-        Mark all
+        {{'notifications.markAll'|translate}}
       </button>
-      <button (click)="toggleNotifications()" class="close-btn"></button>
+      <button (click)="toggleNotifications()" class="close-btn">×</button>
     </div>
 
     <div class="connection-status" [class.connected]="isConnected">
-      {{ isConnected ? '🟢 Connected' : '🔴 Disconnected' }}
+      {{ isConnected ? ('notifications.connected'|translate) : ('notifications.disconnected'|translate) }}
     </div>
 
     <div class="notifications-list">
@@ -33,23 +33,38 @@
 
         <div class="notification-content">
           <div class="notification-header">
-            <strong>{{ notif.title }}</strong>
+            <strong>{{ "notifications.title"|translate }}:</strong>
+            {{ notif.title }}
             <span class="notification-time">
               {{ notif.createdAt | date:'shortTime' }}
             </span>
           </div>
+
+          <!-- Mostrar el mensaje completo -->
+          <strong>{{ "notifications.message"|translate }}:</strong>
           <p class="notification-message">{{ notif.message }}</p>
+
+          <!-- Mostrar detalles adicionales con traducciones -->
+          <div class="notification-details" *ngIf="notif.message.includes('Severity:') || notif.message.includes('Type:')">
+            <div *ngIf="notif.message.includes('Severity:')" class="detail-item">
+              <strong>{{ 'notifications.severity' | translate }}:</strong> {{ extractValue(notif.message, 'Severity:') }}
+            </div>
+            <div *ngIf="notif.message.includes('Type:')" class="detail-item">
+              <strong>{{ 'notifications.type' | translate }}:</strong> {{ extractValue(notif.message, 'Type:') }}
+            </div>
+          </div>
         </div>
 
         <button *ngIf="!notif.read"
                 (click)="markAsRead(notif.id); $event.stopPropagation()"
-                class="mark-read-btn">
+                class="mark-read-btn"
+                [title]="'Mark as read'">
           ✓
         </button>
       </div>
 
       <div *ngIf="vehicleNotifications.length === 0" class="empty-state">
-        There are no notifications for this vehicle.
+        {{"notifications.noVehicles" | translate}}
       </div>
     </div>
   </div>
