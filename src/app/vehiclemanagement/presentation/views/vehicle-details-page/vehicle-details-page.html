@@ -17,56 +17,56 @@
   <div class="content-container">
     <div class="specs-card">
       <div class="card-header-row">
-        <h3>Technical Specifications</h3>
+        <h3>{{'vehicle.details.title' | translate}}</h3>
 
         <div class="actions-group">
           <button class="btn-action primary" (click)="navigateToMetrics()">
-            Metrics
+            {{'vehicle.details.metrics' | translate}}
           </button>
           <button class="btn-action secondary" (click)="navigateToCompare()">
-            Compare
+            {{'vehicle.details.compare' | translate}}
           </button>
           <button class="btn-action outline" (click)="exportReport()">
-            Export
+            {{'vehicle.details.export' | translate}}
           </button>
         </div>
       </div>
 
       <div class="grid-specs">
         <div class="spec-cell">
-          <span class="spec-label">Year</span>
+          <span class="spec-label">{{'vehicle.details.year' | translate}}</span>
           <span class="spec-value">{{ vehicle?.model?.modelYear || '-' }}</span>
         </div>
         <div class="spec-cell">
-          <span class="spec-label">Type</span>
+          <span class="spec-label">{{'vehicle.details.type' | translate}}</span>
           <span class="spec-value">{{ vehicle?.model?.type || '-' }}</span>
         </div>
         <div class="spec-cell">
-          <span class="spec-label">Displacement</span>
+          <span class="spec-label">{{'vehicle.details.displacement' | translate}}</span>
           <span class="spec-value">{{ vehicle?.model?.displacement || '-' }}</span>
         </div>
         <div class="spec-cell">
-          <span class="spec-label">Power</span>
+          <span class="spec-label">{{'vehicle.details.power' | translate}}</span>
           <span class="spec-value">{{ vehicle?.model?.potency || '-' }}</span>
         </div>
         <div class="spec-cell">
-          <span class="spec-label">Torque</span>
+          <span class="spec-label">{{'vehicle.details.torque' | translate}}</span>
           <span class="spec-value">{{ vehicle?.model?.engineTorque || '-' }}</span>
         </div>
         <div class="spec-cell">
-          <span class="spec-label">Fuel Tank</span>
+          <span class="spec-label">{{'vehicle.details.tank' | translate}}</span>
           <span class="spec-value">{{ vehicle?.model?.tank || '-' }}</span>
         </div>
         <div class="spec-cell">
-          <span class="spec-label">Weight</span>
+          <span class="spec-label">{{'vehicle.details.weight' | translate}}</span>
           <span class="spec-value">{{ vehicle?.model?.weight || '-' }}</span>
         </div>
         <div class="spec-cell">
-          <span class="spec-label">Consumption</span>
+          <span class="spec-label">{{'vehicle.details.consumption' | translate}}</span>
           <span class="spec-value">{{ vehicle?.model?.consumption || '-' }}</span>
         </div>
         <div class="spec-cell full-width">
-          <span class="spec-label">Connectivity</span>
+          <span class="spec-label">{{'vehicle.details.connectivity' | translate}}</span>
           <span class="spec-value">{{ vehicle?.model?.connectivity || '-' }}</span>
         </div>
       </div>

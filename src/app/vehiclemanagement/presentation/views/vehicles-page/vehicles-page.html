@@ -2,8 +2,8 @@
   @if (vehicles.length === 0) {
     <div class="empty-state">
       <div class="empty-icon">🏍️</div>
-      <h1 class="empty-title">No vehicles found</h1>
-      <p class="empty-subtitle">Register your first vehicle to get started</p>
+      <h1 class="empty-title">{{'vehicle.page.noVehicles' | translate}}</h1>
+      <p class="empty-subtitle">{{'vehicle.page.register' | translate}}</p>
     </div>
   } @else {
     <div class="vehicles-grid">

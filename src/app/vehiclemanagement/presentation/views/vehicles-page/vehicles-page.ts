@@ -7,12 +7,15 @@ import {MatDialog} from '@angular/material/dialog';
 import {RegisterVehicleDialog} from '@app/vehiclemanagement/presentation/components/register-vehicle-dialog/register-vehicle-dialog';
 import {VehiclesStore} from "@app/vehiclemanagement/application/vehicles.store";
 import {ActivatedRoute} from '@angular/router';
+import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-vehicles-page',
   imports: [
     VehicleCard,
-    MatIconModule],
+    MatIconModule,
+    TranslatePipe
+  ],
   templateUrl: './vehicles-page.html',
   standalone: true,
   styleUrl: './vehicles-page.css'

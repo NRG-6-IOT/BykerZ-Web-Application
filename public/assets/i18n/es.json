@@ -70,8 +70,18 @@
     }
   },
   "vehicle": {
+    "page": {
+      "noVehicles": "No se encontraron vehículos",
+      "register": "Registra tu primer vehículo para empezar"
+    },
     "card": {
-      "associatedWith": "Asociado con"
+      "associatedWith": "Asociado con",
+      "year": "Año",
+      "plate": "Placa",
+      "origin": "Origen",
+      "produced": "Producido",
+      "engine": "Motor",
+      "octane": "Octanaje"
     },
     "register": {
       "title": "Agregar Vehículo",
@@ -81,13 +91,23 @@
       "plate": "Placa (ej. 1234-XY)",
       "submit": "Registrar Vehículo",
       "success": "Vehículo registrado exitosamente",
-      "errorPlate": "Formato de placa inválido"
+      "errorPlate": "Formato de placa inválido, requerido: 1234-XY"
     },
     "details": {
+      "title": "Especificaciones Técnicas",
       "client": "Cliente",
       "metrics": "Métricas",
       "compare": "Comparar",
-      "export": "Exportar"
+      "export": "Exportar",
+      "year": "Año",
+      "type": "Tipo",
+      "displacement": "Desplazamiento",
+      "power": "Potencia",
+      "torque": "Torque",
+      "tank": "Capacidad del Tanque",
+      "weight": "Peso",
+      "consumption": "Consumo",
+      "connectivity": "Conectividad"
     }
   },
   "assignments": {

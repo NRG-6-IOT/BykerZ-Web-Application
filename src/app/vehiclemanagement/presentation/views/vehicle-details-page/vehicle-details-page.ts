@@ -7,12 +7,14 @@ import {VehiclesStore} from "@app/vehiclemanagement/application/vehicles.store";
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '@env/environment';
 import { AuthenticationService } from '@app/iam/services/authentication.service';
+import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-vehicle-details-page',
   imports: [
     NgOptimizedImage,
-    NgIf
+    NgIf,
+    TranslatePipe
   ],
   templateUrl: './vehicle-details-page.html',
   standalone: true,

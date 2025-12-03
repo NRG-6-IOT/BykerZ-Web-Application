@@ -9,6 +9,7 @@ import {
 } from '@app/notifications/presentation/components/app-notification-list/app-notification-list';
 
 import {AssignmentsStore} from "@app/assignments/application/assigments.store";
+import {TranslatePipe} from '@ngx-translate/core';
 
 
 @Component({
@@ -16,7 +17,8 @@ import {AssignmentsStore} from "@app/assignments/application/assigments.store";
   imports: [
     NgOptimizedImage,
     RouterLink,
-    NotificationListComponent
+    NotificationListComponent,
+    TranslatePipe
   ],
   templateUrl: './vehicle-card.html',
   standalone: true,

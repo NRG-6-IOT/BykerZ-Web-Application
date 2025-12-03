@@ -9,7 +9,7 @@
         <img ngSrc="/assets/images/vehicle.png" height="104" width="204" alt="Vehicle" class="vehicle-img"/>
       </div>
       <div class="owner-tag">
-        <span class="tag-label">Associated with</span>
+        <span class="tag-label">{{'vehicle.card.associatedWith' | translate}}</span>
         <span class="tag-value">{{ ownerAssignment?.mechanic?.completeName || "Unknown" }}</span>
       </div>
     </div>
@@ -22,27 +22,27 @@
 
       <div class="specs-grid">
         <div class="spec-item">
-          <span class="label">Year</span>
+          <span class="label">{{'vehicle.card.year' | translate}}</span>
           <span class="val">{{ vehicle.model?.modelYear }}</span>
         </div>
         <div class="spec-item">
-          <span class="label">Plate</span>
+          <span class="label">{{'vehicle.card.plate' | translate}}</span>
           <span class="val highlight">{{ vehicle.plate }}</span>
         </div>
         <div class="spec-item">
-          <span class="label">Origin</span>
+          <span class="label">{{'vehicle.card.origin' | translate}}</span>
           <span class="val">{{ vehicle.model?.originCountry }}</span>
         </div>
         <div class="spec-item">
-          <span class="label">Produced</span>
+          <span class="label">{{'vehicle.card.produced' | translate}}</span>
           <span class="val">{{ formatDate(vehicle.model?.producedAt) }}</span>
         </div>
         <div class="spec-item">
-          <span class="label">Engine</span>
+          <span class="label">{{'vehicle.card.engine' | translate}}</span>
           <span class="val">{{ vehicle.model?.displacement }}</span>
         </div>
         <div class="spec-item">
-          <span class="label">Octane</span>
+          <span class="label">{{'vehicle.card.octane' | translate}}</span>
           <span class="val">{{ vehicle.model?.octane }}</span>
         </div>
       </div>

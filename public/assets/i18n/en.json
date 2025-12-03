@@ -70,8 +70,18 @@
     }
   },
   "vehicle": {
+    "page": {
+      "noVehicles": "No vehicles found",
+      "register": "Register your first vehicle to get started"
+    },
     "card": {
-      "associatedWith": "Associated with"
+      "associatedWith": "Associated with",
+      "year": "Year",
+      "plate": "Plate",
+      "origin": "Origin",
+      "produced": "Produced",
+      "engine": "Engine",
+      "octane": "Octane"
     },
     "register": {
       "title": "Add a Vehicle",
@@ -81,13 +91,23 @@
       "plate": "Plate (e.g. 1234-XY)",
       "submit": "Register Vehicle",
       "success": "Vehicle registered successfully",
-      "errorPlate": "Invalid plate format"
+      "errorPlate": "Format required: 1234-XY"
     },
     "details": {
+      "title": "Technical Specifications",
       "client": "Client",
       "metrics": "Metrics",
       "compare": "Compare",
-      "export": "Export"
+      "export": "Export",
+      "year": "Year",
+      "type": "Type",
+      "displacement": "Displacement",
+      "power": "Power",
+      "torque": "Torque",
+      "tank": "Fuel Tank",
+      "weight": "Weight",
+      "consumption": "Consumption",
+      "connectivity": "Connectivity"
     }
   },
   "assignments": {

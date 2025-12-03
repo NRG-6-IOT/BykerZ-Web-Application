@@ -7,7 +7,8 @@ import {MatInputModule} from '@angular/material/input';
 import {MatButton} from '@angular/material/button';
 import {VehiclesStore} from '@app/vehiclemanagement/application/vehicles.store';
 import {Model} from '@app/vehiclemanagement/domain/model/vehicle.entity';
-import { CommonModule } from '@angular/common'; // Agregado para *ngIf
+import { CommonModule } from '@angular/common';
+import {TranslatePipe, TranslateService} from '@ngx-translate/core'; // Agregado para *ngIf
 
 @Component({
   selector: 'app-register-vehicle-dialog',
@@ -20,6 +21,7 @@ import { CommonModule } from '@angular/common'; // Agregado para *ngIf
     FormsModule,
     MatSelectModule,
     MatInputModule,
+    TranslatePipe,
   ],
   templateUrl: './register-vehicle-dialog.html',
   standalone: true,
@@ -37,7 +39,8 @@ export class RegisterVehicleDialog {
   plate: string = "";
 
   constructor(
-    public dialogRef: MatDialogRef<RegisterVehicleDialog>
+    public dialogRef: MatDialogRef<RegisterVehicleDialog>,
+    private translate: TranslateService
   ) {
     this.modelOptions = [];
     this.yearOptions = [
@@ -94,7 +97,7 @@ export class RegisterVehicleDialog {
         alert(this.store.error());
       } else {
         // Asumimos éxito si no hay error inmediato (o puedes suscribirte al store success)
-        alert('Vehicle registered successfully');
+        alert(this.translate.instant('vehicle.register.success'));
         this.dialogRef.close();
       }
     }, 200);
