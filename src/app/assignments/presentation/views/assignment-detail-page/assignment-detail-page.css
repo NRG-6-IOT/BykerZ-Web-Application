@@ -71,3 +71,9 @@ app-assign-vehicle-card:nth-child(n) {
   50%{transform: translateY(10px)}
   100%{opacity: 100%}
 }
+
+.no-vehicles-message{
+  font-size: 18px;
+  color: #888888;
+  margin-top: 40px;
+}

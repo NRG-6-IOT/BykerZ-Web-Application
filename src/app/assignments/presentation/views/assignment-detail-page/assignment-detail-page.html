@@ -16,10 +16,17 @@
   </div>
   <div style="width: 100%;">
     <p style="font-weight: bold; font-size: 18px;">{{ 'assignments.assignmentDetailPage.associatedMotorbikes' | translate }}</p>
-    <div class="vehicle-grid">
-      @for (vehicle of vehicles; let i = $index; track vehicle.id) {
-        <app-assign-vehicle-card style='--i: {{i}}' [vehicle]="vehicle"></app-assign-vehicle-card>
-      }
-    </div>
+    @if (vehicles.length === 0) {
+      <div style="display: flex; justify-content: center; align-items: center; height: 150px; width: 100%;">
+        <p class="no-vehicles-message">{{ 'assignments.assignmentDetailPage.noAssociatedMotorbikes' | translate }}</p>
+      </div>
+
+    } @else {
+      <div class="vehicle-grid">
+        @for (vehicle of vehicles; let i = $index; track vehicle.id) {
+          <app-assign-vehicle-card style='--i: {{i}}' [vehicle]="vehicle"></app-assign-vehicle-card>
+        }
+      </div>
+    }
   </div>
 </div>

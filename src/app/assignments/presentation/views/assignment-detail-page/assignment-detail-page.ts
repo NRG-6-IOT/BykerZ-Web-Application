@@ -1,4 +1,4 @@
-import {Component, inject, OnInit} from '@angular/core';
+import {Component, inject, OnInit, signal, Signal} from '@angular/core';
 import {Assignment} from '@app/assignments/domain/model/assignment.entity';
 import {ActivatedRoute} from '@angular/router';
 import {AssignmentsStore} from '@app/assignments/application/assigments.store';
@@ -8,6 +8,8 @@ import {
 import {VehiclesStore} from '@app/vehiclemanagement/application/vehicles.store';
 import {AssignVehicleCard} from '@app/assignments/presentation/components/assign-vehicle-card/assign-vehicle-card';
 import {TranslatePipe} from '@ngx-translate/core';
+import {Vehicle} from '@app/vehiclemanagement/domain/model/vehicle.entity';
+import {VehiclesApi} from '@app/vehiclemanagement/infrastructure/vehicles-api';
 
 @Component({
   selector: 'app-assignment-detail-page',
@@ -22,11 +24,12 @@ import {TranslatePipe} from '@ngx-translate/core';
 export class AssignmentDetailPage implements OnInit{
   private route = inject(ActivatedRoute);
   private store = inject(AssignmentsStore);
-  private vehicleStore = inject(VehiclesStore);
+  private vehicleApi = inject(VehiclesApi);
 
-  activeAssignments = this.store.activeAssignments;
   assignmentId: number | null = null;
   assignment: Assignment | null = null;
+  ownerId: number  = 0;
+  vehicles: Array<Vehicle> = [];
 
   ngOnInit() {
     this.route.params.subscribe(params => {
@@ -35,17 +38,22 @@ export class AssignmentDetailPage implements OnInit{
         const assignment = this.store.getAssignmentById(this.assignmentId)();
         if(assignment){
           this.assignment = assignment;
-          this.vehicleStore.loadVehiclesByOwner(assignment.owner?.id!);
+          this.ownerId = assignment.owner?.id || 0;
         }
       }
     })
+    this.getVehicles();
+  }
+
+  private getVehicles(){
+    this.vehicleApi.getVehiclesByOwnerId(this.ownerId).subscribe({
+      next: (vehicles) => {
+        this.vehicles = vehicles;
+      }
+    });
   }
 
   handleTypeChange($event: string) {
     this.store.updateAssignmentType(this.assignmentId!, $event);
-  }
-
-  get vehicles() {
-    return this.vehicleStore.vehicles();
   }
 }

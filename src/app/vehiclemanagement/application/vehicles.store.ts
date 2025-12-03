@@ -1,6 +1,7 @@
 import {computed, Injectable, Signal, signal} from '@angular/core';
 import {Model, Vehicle} from '@app/vehiclemanagement/domain/model/vehicle.entity';
 import {VehiclesApi} from '@app/vehiclemanagement/infrastructure/vehicles-api';
+import {toSignal} from '@angular/core/rxjs-interop';
 
 @Injectable({
   providedIn: 'root'
@@ -92,6 +93,14 @@ export class VehiclesStore {
 
   getVehicleById(vehicleId: number): Signal<Vehicle | undefined> {
     return computed(() => this.vehicles().find(v => v.id === vehicleId));
+  }
+
+  getVehiclesByOwnerId(ownerId: number): Signal<Vehicle[]> {
+    const vehiclesSignal = toSignal(
+      this.vehiclesApi.getVehiclesByOwnerId(ownerId),
+      { initialValue: [] }
+    );
+    return computed(() => vehiclesSignal() ?? []);
   }
 
   /**

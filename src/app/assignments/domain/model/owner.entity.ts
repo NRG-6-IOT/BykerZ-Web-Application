@@ -13,13 +13,13 @@ export class Owner implements BaseEntity {
    * @example
    * const owner = new Owner({ ownerId: 1, completeName: "John Doe" });
    */
-  constructor(owner: any) {
+  constructor(owner: {id: number; completeName: string}) {
     // Handle both ownerId and id properties for flexibility
-    this._id = owner.ownerId || owner.id || 0;
-    this._completeName = owner.completeName || owner.name || '';
+    this._id = owner.id;
+    this._completeName = owner.completeName;
 
-    console.log('Owner constructor called with:', owner);
-    console.log('Mapped owner ID:', this._id, 'name:', this._completeName);
+    //console.log('Owner constructor called with:', owner);
+    //console.log('Mapped owner ID:', this._id, 'name:', this._completeName);
   }
 
   get id(): number {

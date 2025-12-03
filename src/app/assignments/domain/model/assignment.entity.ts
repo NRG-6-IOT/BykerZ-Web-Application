@@ -34,7 +34,7 @@ export class Assignment implements BaseEntity {
    * });
    */
   constructor(assignment: any) {
-    console.log('Assignment constructor called with:', assignment);
+    //console.log('Assignment constructor called with:', assignment);
 
     this._id = assignment.id;
     this._owner = assignment.owner ? new Owner(assignment.owner) : null;
@@ -44,7 +44,7 @@ export class Assignment implements BaseEntity {
     this._assignmentCode = assignment.assignmentCode;
     this._createdAt = assignment.createdAt;
 
-    console.log('Created assignment with owner:', this._owner);
+    //console.log('Created assignment with owner:', this._owner);
   }
 
   get id(): number {

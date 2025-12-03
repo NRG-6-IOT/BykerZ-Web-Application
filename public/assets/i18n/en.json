@@ -94,7 +94,8 @@
       "assignment": "assignment",
       "code": "Code:",
       "type": "Type:",
-      "associatedMotorbikes": "Associated motorbikes:"
+      "associatedMotorbikes": "Associated motorbikes:",
+      "noAssociatedMotorbikes": "No motorbikes associated yet."
     },
     "assignmentsPage": {
       "title": "Assignments"
