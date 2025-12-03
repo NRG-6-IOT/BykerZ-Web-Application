@@ -9,5 +9,5 @@ export const environment = {
   platformProviderVehiclesEndpointPath: '/vehicles',
   platformProviderModelsEndpointPath: '/models',
   platformProviderExpenseEndpointPath: '/expense',
-  platformProviderMaintenanceEndpointPath: '/maintenance',
+  platformProviderMaintenanceEndpointPath: '/maintenance'
 };

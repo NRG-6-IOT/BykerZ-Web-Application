@@ -11,6 +11,7 @@ import {WellnessMetricPage} from '@app/vehicle-wellness/presentation/views/welln
 import {ComparePageComponent} from '@app/comparatives/pages/compare-page/compare-page.component';
 import {CompareMechanicComponent} from '@app/comparatives/pages/compare-mechanic/compare-mechanic.component';
 import {authenticationGuard} from '@app/iam/services/authentication.guard';
+import {MembershipPage} from '@app/membership/presentation/components/membership-page/membership-page';
 
 const assignmentsRoutes = () => import('@app/assignments/presentation/assignments.routes').then(m => m.assignmentsRoutes);
 const expensesRoutes = () => import('@app/maintenance-and-operations/presentation/expense.routes').then(m => m.expenseRoutes);
@@ -29,7 +30,7 @@ export const routes: Routes = [
   { path: "assignments", loadChildren: assignmentsRoutes, canActivate: [authenticationGuard] },
   { path: "maintenances", loadChildren: maintenanceRoutes, canActivate: [authenticationGuard] },
   { path : "expenses", loadChildren: expensesRoutes, canActivate: [authenticationGuard]},
-  { path: "membership", component: DashboardOwnerPage, canActivate: [authenticationGuard] },
+  { path: "membership", component: MembershipPage, canActivate: [authenticationGuard] },
   { path: "vehicles", component: VehiclesPage, canActivate: [authenticationGuard] },
   { path: "vehicle/:vehicleId/:role", component: VehicleDetailsPage, canActivate: [authenticationGuard] },
   {path: 'wellness-metrics',component: WellnessMetricPage, canActivate: [authenticationGuard] }
