@@ -5,12 +5,14 @@ import {MatIcon} from '@angular/material/icon';
 import {VehiclesStore} from '@app/vehiclemanagement/application/vehicles.store';
 import {RouterLink} from '@angular/router';
 import {DatePipe} from '@angular/common';
+import {TranslatePipe} from '@ngx-translate/core';
 @Component({
   selector: 'app-dashboard-mechanic-page',
   imports: [
     MatIcon,
     RouterLink,
-    DatePipe
+    DatePipe,
+    TranslatePipe
   ],
   templateUrl: './dashboard-mechanic-page.html',
   standalone: true,
