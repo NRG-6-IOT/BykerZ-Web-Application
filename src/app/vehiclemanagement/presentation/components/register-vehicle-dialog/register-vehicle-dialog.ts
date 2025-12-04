@@ -27,7 +27,7 @@ import {TranslatePipe, TranslateService} from '@ngx-translate/core'; // Agregado
   standalone: true,
   styleUrl: './register-vehicle-dialog.css'
 })
-export class RegisterVehicleDialog {
+export class RegisterVehicleDialog implements OnInit {
 
   private store = inject(VehiclesStore);
 
@@ -47,6 +47,10 @@ export class RegisterVehicleDialog {
       "2024", "2023", "2022", "2021", "2020", "2019", "2018", "2017",
       "2016", "2015", "2014", "2013", "2012", "2011", "2010"
     ];
+  }
+
+  ngOnInit(): void {
+    // Inicialización si es necesaria
   }
 
   get brandOptions() {
@@ -77,6 +81,28 @@ export class RegisterVehicleDialog {
     // Permitir a-z minúsculas también para mejor UX
     const pattern = /^[0-9]{4}-[a-zA-Z]{2}$/;
     return pattern.test(plate);
+  }
+
+  formatPlate(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    let value = input.value.replace(/[^0-9a-zA-Z]/g, ''); // Eliminar caracteres no válidos
+
+    // Tomar solo los primeros 6 caracteres (4 números + 2 letras)
+    if (value.length > 6) {
+      value = value.substring(0, 6);
+    }
+
+    // Formatear: 4 números + guion + 2 letras
+    if (value.length > 4) {
+      const numbers = value.substring(0, 4);
+      const letters = value.substring(4, 6).toUpperCase();
+      this.plate = `${numbers}-${letters}`;
+    } else {
+      this.plate = value;
+    }
+
+    // Actualizar el valor del input
+    input.value = this.plate;
   }
 
   RegisterVehicle() {

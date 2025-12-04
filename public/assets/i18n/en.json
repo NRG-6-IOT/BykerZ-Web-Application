@@ -85,13 +85,17 @@
     },
     "register": {
       "title": "Add a Vehicle",
+      "brandLabel": "Vehicle Brand",
       "brand": "Brand",
+      "modelLabel": "Vehicle Model",
       "model": "Model",
+      "yearLabel": "Manufacturing Year",
       "year": "Year",
+      "plateLabel": "License Plate (Format: 1234-XY)",
       "plate": "Plate (e.g. 1234-XY)",
       "submit": "Register Vehicle",
       "success": "Vehicle registered successfully",
-      "errorPlate": "Format required: 1234-XY"
+      "errorPlate": "Invalid plate format. Use: 1234-XY"
     },
     "details": {
       "title": "Technical Specifications",
@@ -150,6 +154,7 @@
       "title": "Pending Assignments"
     },
     "pendingAssignmentsDropdown": {
+      "title": "Pending Requests",
       "noPending": "No pending assignments"
     },
     "pendingAssignmentsDropdownItem": {

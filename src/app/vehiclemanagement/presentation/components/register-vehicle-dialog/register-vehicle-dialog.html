@@ -9,40 +9,52 @@
     </div>
 
     <div class="form-grid">
-      <mat-form-field appearance="outline" class="custom-field">
-        <mat-label>{{'vehicle.register.brand' | translate}}</mat-label>
-        <mat-select [(ngModel)]="brand" (ngModelChange)="GetModelOptions()">
-          @for (brand of brandOptions; track brand) {
-            <mat-option [value]="brand">{{brand}}</mat-option>
-          }
-        </mat-select>
-      </mat-form-field>
+      <div class="input-group">
+        <label class="input-label">{{'vehicle.register.brandLabel' | translate}}</label>
+        <mat-form-field appearance="outline" class="custom-field">
+          <mat-label>{{'vehicle.register.brand' | translate}}</mat-label>
+          <mat-select [(ngModel)]="brand" (ngModelChange)="GetModelOptions()">
+            @for (brand of brandOptions; track brand) {
+              <mat-option [value]="brand">{{brand}}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+      </div>
 
-      <mat-form-field appearance="outline" class="custom-field">
-        <mat-label>{{'vehicle.register.model' | translate}}</mat-label>
-        <mat-select [(ngModel)]="model" [disabled]="!brand">
-          @for (m of modelOptions; track m) {
-            <mat-option [value]="m">{{m.name}}</mat-option>
-          }
-        </mat-select>
-      </mat-form-field>
+      <div class="input-group">
+        <label class="input-label">{{'vehicle.register.modelLabel' | translate}}</label>
+        <mat-form-field appearance="outline" class="custom-field">
+          <mat-label>{{'vehicle.register.model' | translate}}</mat-label>
+          <mat-select [(ngModel)]="model" [disabled]="!brand">
+            @for (m of modelOptions; track m) {
+              <mat-option [value]="m">{{m.name}}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+      </div>
 
-      <mat-form-field appearance="outline" class="custom-field">
-        <mat-label>{{'vehicle.register.year' | translate}}</mat-label>
-        <mat-select [(ngModel)]="year">
-          @for (y of yearOptions; track y) {
-            <mat-option [value]="y">{{y}}</mat-option>
-          }
-        </mat-select>
-      </mat-form-field>
+      <div class="input-group">
+        <label class="input-label">{{'vehicle.register.yearLabel' | translate}}</label>
+        <mat-form-field appearance="outline" class="custom-field">
+          <mat-label>{{'vehicle.register.year' | translate}}</mat-label>
+          <mat-select [(ngModel)]="year">
+            @for (y of yearOptions; track y) {
+              <mat-option [value]="y">{{y}}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+      </div>
 
-      <mat-form-field appearance="outline" class="custom-field">
-        <mat-label>{{'vehicle.register.plate' | translate}}</mat-label>
-        <input matInput type="text" name="plate" [(ngModel)]="plate" #plateCtrl="ngModel" required pattern="^[0-9]{4}-[a-zA-Z]{2}$">
-      </mat-form-field>
-
-      <div class="error-msg" *ngIf="plateCtrl.invalid && (plateCtrl.dirty || plateCtrl.touched)">
-        {{'vehicle.register.errorPlate' | translate}}
+      <div class="input-group">
+        <label class="input-label">{{'vehicle.register.plateLabel' | translate}}</label>
+        <mat-form-field appearance="outline" class="custom-field">
+          <mat-label>{{'vehicle.register.plate' | translate}}</mat-label>
+          <input matInput type="text" name="plate" [(ngModel)]="plate" #plateCtrl="ngModel"
+                 (input)="formatPlate($event)" maxlength="7" required pattern="^[0-9]{4}-[a-zA-Z]{2}$">
+        </mat-form-field>
+        <div class="error-msg" *ngIf="plateCtrl.invalid && (plateCtrl.dirty || plateCtrl.touched)">
+          {{'vehicle.register.errorPlate' | translate}}
+        </div>
       </div>
     </div>
   </div>

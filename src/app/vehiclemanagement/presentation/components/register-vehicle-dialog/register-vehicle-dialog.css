@@ -49,7 +49,21 @@
 .form-grid {
   display: flex;
   flex-direction: column;
-  gap: 1.25rem;
+  gap: 1.5rem;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.input-label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #1a1a1a;
+  letter-spacing: 0.3px;
+  padding-left: 0.25rem;
 }
 
 /* --- ESTILOS DE INPUTS CORREGIDOS (TEXTO NEGRO) --- */
@@ -125,8 +139,8 @@
 /* Mensaje de error */
 .error-msg {
   color: #d32f2f;
-  font-size: 0.85rem;
-  margin-top: -0.5rem;
+  font-size: 0.8rem;
+  margin-top: 0.25rem;
   padding-left: 0.5rem;
   font-weight: 600;
 }
