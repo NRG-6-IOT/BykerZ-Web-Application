@@ -73,6 +73,9 @@ import {TranslateModule} from '@ngx-translate/core';
 
     .page-title {
       font-size: 2.5rem; font-weight: 700; margin: 0;
+      line-height: 1.1;
+      display: block;
+      height: auto;
       background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
       -webkit-background-clip: text; -webkit-text-fill-color: transparent;
     }
