@@ -1,13 +1,11 @@
 <div class="list-container">
-  <h1>Wellness's metrics</h1>
-
-  <!-- Estado vacío -->
   <div *ngIf="metrics().length === 0" class="empty-state">
-    <p>There is no loaded metrics</p>
-    <button (click)="store.loadAllMetrics()">Reload metrics</button>
+    <div class="icon-box">📊</div>
+    <h3>{{ 'metrics.list.emptyTitle' | translate }}</h3>
+    <p>{{ 'metrics.list.emptyMessage' | translate }}</p>
+    <button class="btn-reload" (click)="store.loadAllMetrics()">{{ 'metrics.list.reloadButton' | translate }}</button>
   </div>
 
-  <!-- Grid de cards -->
   <div *ngIf="metrics().length > 0" class="metrics-grid">
     <app-wellness-metric-item
       *ngFor="let metric of metrics()"

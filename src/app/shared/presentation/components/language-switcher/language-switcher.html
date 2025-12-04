@@ -1,0 +1,8 @@
+<div style="display: flex; justify-content: center;">
+  <mat-button-toggle-group  [value]="currentLang" class="language-switcher" appearance="standard" aria-label="language-switcher">
+    <mat-button-toggle (click)="useLanguage(language)" class="language-option" *ngFor="let language of languages" [value]="language" [aria-label]="language">
+      {{ language.toUpperCase() }}
+    </mat-button-toggle>
+  </mat-button-toggle-group>
+</div>
+

@@ -7,6 +7,7 @@ import {Vehicle} from '@app/vehiclemanagement/domain/model/vehicle.entity';
 import {Maintenance} from '@app/maintenance-and-operations/domain/model/mainteance.entity';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {environment} from '@env/environment';
+import {TranslateModule} from '@ngx-translate/core';
 
 interface MaintenanceCard {
   maintenance: Maintenance;
@@ -16,130 +17,193 @@ interface MaintenanceCard {
 
 @Component({
   selector: 'app-owner-maintenance-page',
-  imports: [CommonModule],
+  standalone: true,
+  imports: [CommonModule, TranslateModule],
   template: `
-    <div class="screen p-10 relative">
-      <!-- Loading State -->
-      @if (maintenanceStore.loading() || vehiclesStore.loading()) {
-        <div class="text-center text-gray-500 py-8">
-          Loading maintenances...
-        </div>
-      }
-
-      <!-- Error State -->
-      @if (maintenanceStore.error()) {
-        <div class="text-center text-red-500 py-8">
-          {{maintenanceStore.error()}}
-        </div>
-      }
-
-      <!-- Scheduled Maintenances Section -->
-      <h1 class="text-3xl font-bold mb-4">Scheduled Maintenances</h1>
-      <div class="flex flex-col gap-4 mb-8">
-        @if (scheduledCards().length === 0 && !maintenanceStore.loading()) {
-          <p class="text-gray-500">No scheduled maintenances</p>
-        }
-        @for (card of scheduledCards(); track card.maintenance.id) {
-          <div class="bg-[#FF6B35] rounded-2xl p-2">
-            <div class="bg-white text-black rounded-xl p-4">
-              <div class="grid grid-cols-2 gap-4">
-                <div>
-                  <p class="font-semibold">Date & Time:</p>
-                  <p>{{card.maintenance.dateOfService | date:'medium'}}</p>
-                </div>
-                <div>
-                  <p class="font-semibold">Location:</p>
-                  <p>{{card.maintenance.location}}</p>
-                </div>
-                <div>
-                  <p class="font-semibold">Mechanic:</p>
-                  <p>{{card.mechanicName || 'Loading...'}}</p>
-                </div>
-                <div>
-                  <p class="font-semibold">Vehicle:</p>
-                  <p>{{getVehicleDisplay(card.vehicle)}}</p>
-                </div>
-                <div class="col-span-2">
-                  <p class="font-semibold">Details:</p>
-                  <p>{{card.maintenance.details}}</p>
-                </div>
-                <div class="col-span-2">
-                  <p class="font-semibold">Status:</p>
-                  <p class="inline-block px-3 py-1 rounded-full text-sm font-semibold"
-                     [ngClass]="{
-                       'bg-yellow-200 text-yellow-800': card.maintenance.state === 'PENDING',
-                       'bg-blue-200 text-blue-800': card.maintenance.state === 'IN_PROGRESS'
-                     }">
-                    {{card.maintenance.state}}
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        }
+    <div class="page">
+      <div class="header">
+        <h1 class="page-title">{{ 'navbar.owner.maintenance' | translate }}</h1>
+        <p class="subtitle">{{ 'dashboard.owner.subtitle' | translate }}</p>
       </div>
 
-      <!-- Completed Maintenances Section -->
-      <h1 class="text-3xl font-bold mb-4">Maintenances Done</h1>
-      <div class="flex flex-col gap-4 mb-4">
-        @if (completedCards().length === 0 && !maintenanceStore.loading()) {
-          <p class="text-gray-500">No completed maintenances</p>
-        }
-        @for (card of completedCards(); track card.maintenance.id) {
-          <div class="bg-[#FF6B35] rounded-2xl p-2">
-            <div class="bg-white text-black rounded-xl p-4">
-              <div class="grid grid-cols-2 gap-4">
-                <div>
-                  <p class="font-semibold">Date & Time:</p>
-                  <p>{{card.maintenance.dateOfService | date:'medium'}}</p>
-                </div>
-                <div>
-                  <p class="font-semibold">Location:</p>
-                  <p>{{card.maintenance.location}}</p>
-                </div>
-                <div>
-                  <p class="font-semibold">Mechanic:</p>
-                  <p>{{card.mechanicName || 'Loading...'}}</p>
-                </div>
-                <div>
-                  <p class="font-semibold">Vehicle:</p>
-                  <p>{{getVehicleDisplay(card.vehicle)}}</p>
-                </div>
-                <div class="col-span-2">
-                  <p class="font-semibold">Details:</p>
-                  <p>{{card.maintenance.details}}</p>
-                </div>
-                <div class="col-span-2">
-                  <p class="font-semibold">Status:</p>
-                  <p class="inline-block px-3 py-1 rounded-full text-sm font-semibold"
-                     [ngClass]="{
-                       'bg-green-200 text-green-800': card.maintenance.state === 'COMPLETED',
-                       'bg-red-200 text-red-800': card.maintenance.state === 'CANCELLED'
-                     }">
-                    {{card.maintenance.state}}
-                  </p>
-                </div>
-                @if (card.maintenance.expense) {
-                  <div class="col-span-2">
-                    <p class="font-semibold">Expense:</p>
-                    <p>{{card.maintenance.expense.name}} - $ {{card.maintenance.expense.finalPrice | number:'1.2-2'}}</p>
-                  </div>
-                  <div class="col-span-2">
-                    <button
-                      (click)="navigateToExpenseDetails(card.maintenance.expense.id)"
-                      class="bg-[#FF6B35] text-white px-4 py-2 rounded-lg hover:bg-[#ff9169] transition-colors font-semibold">
-                      See Expense Details
-                    </button>
-                  </div>
-                }
+      <div *ngIf="maintenanceStore.loading() || vehiclesStore.loading()" class="loading-container">
+        <div class="spinner"></div>
+        <p>{{ 'common.loading' | translate }}</p>
+      </div>
+
+      <div *ngIf="maintenanceStore.error()" class="empty-state">
+        <p style="color: red">{{maintenanceStore.error()}}</p>
+      </div>
+
+      <div *ngIf="!maintenanceStore.loading()" class="content">
+        <h2 class="section-title">{{ 'maintenance.scheduledTitle' | translate }}</h2>
+
+        <div *ngIf="scheduledCards().length === 0" class="empty-state">
+          <p>{{ 'maintenance.noScheduled' | translate }}</p>
+        </div>
+
+        <div class="grid-container">
+          <div class="card" *ngFor="let card of scheduledCards()">
+            <div class="card-header-gradient">
+              <span class="card-date">{{ card.maintenance.dateOfService | date:'mediumDate' }}</span>
+              <span class="status-badge" [ngClass]="card.maintenance.state.toLowerCase()">{{ card.maintenance.state }}</span>
+            </div>
+            <div class="card-body">
+              <h3 class="vehicle-title">{{ getVehicleDisplay(card.vehicle) }}</h3>
+
+              <div class="detail-row">
+                <span class="label">{{ 'maintenance.mechanicLabel' | translate }}</span>
+                <span class="value">{{ card.mechanicName || ('common.loading' | translate) }}</span>
+              </div>
+              <div class="detail-row">
+                <span class="label">{{ 'maintenance.locationLabel' | translate }}</span>
+                <span class="value">{{ card.maintenance.location }}</span>
+              </div>
+
+              <div class="description-box">
+                <p>{{ card.maintenance.details }}</p>
               </div>
             </div>
           </div>
-        }
+        </div>
+
+        <h2 class="section-title mt-5">{{ 'maintenance.historyTitle' | translate }}</h2>
+
+        <div class="grid-container">
+          <div class="card" *ngFor="let card of completedCards()">
+            <div class="card-header-gradient done">
+              <span class="card-date">{{ card.maintenance.dateOfService | date:'mediumDate' }}</span>
+              <span class="status-badge" [ngClass]="card.maintenance.state.toLowerCase()">{{ card.maintenance.state }}</span>
+            </div>
+            <div class="card-body">
+              <h3 class="vehicle-title">{{ getVehicleDisplay(card.vehicle) }}</h3>
+
+              <div class="detail-row">
+                <span class="label">{{ 'maintenance.mechanicLabel' | translate }}</span>
+                <span class="value">{{ card.mechanicName || ('common.loading' | translate) }}</span>
+              </div>
+
+              <div class="description-box">
+                <p>{{ card.maintenance.details }}</p>
+              </div>
+
+              <div class="actions" *ngIf="card.maintenance.expense">
+                <button class="btn-primary" (click)="navigateToExpenseDetails(card.maintenance.expense.id)">
+                  {{ 'maintenance.seeExpenseButton' | translate }} ($ {{card.maintenance.expense.finalPrice | number:'1.2-2'}})
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   `,
-  styles: ``,
+  styles: [`
+    .page {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+      animation: fadeIn 0.5s ease-in;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .header { text-align: center; margin-bottom: 2rem; padding: 2rem 0; }
+
+    .page-title {
+      font-size: 2.5rem; font-weight: 700;
+      background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+      color: transparent;
+      margin: 0 0 0.5rem 0; letter-spacing: -0.5px;
+      padding-block: 0.25em;
+      display: inline-block;
+      line-height: normal;
+    }
+
+    .subtitle { font-size: 1.1rem; color: #666; margin: 0; }
+
+    .section-title {
+      font-size: 1.5rem; font-weight: 700; color: #1a1a1a;
+      margin: 2rem 0 1rem 0; padding-left: 0.5rem;
+      border-left: 4px solid #ff6b35;
+    }
+    .mt-5 { margin-top: 3rem; }
+
+    .grid-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .card {
+      background: white; border-radius: 16px; overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+      transition: all 0.3s ease;
+      display: flex; flex-direction: column;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    }
+
+    .card-header-gradient {
+      background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+      padding: 1rem 1.5rem; display: flex; justify-content: space-between; align-items: center;
+      color: white;
+    }
+    .card-header-gradient.done {
+      background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+    }
+
+    .card-date { font-weight: 600; font-size: 0.9rem; }
+
+    .status-badge {
+      background: rgba(255,255,255,0.2); backdrop-filter: blur(4px);
+      padding: 0.25rem 0.75rem; border-radius: 20px;
+      font-size: 0.75rem; font-weight: 700; text-transform: uppercase;
+    }
+
+    .card-body { padding: 1.5rem; display: flex; flex-direction: column; gap: 1rem; flex: 1; }
+
+    .vehicle-title { margin: 0; font-size: 1.2rem; font-weight: 700; color: #333; }
+
+    .detail-row { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #f5f5f5; padding-bottom: 0.5rem; }
+    .label { font-size: 0.8rem; text-transform: uppercase; color: #999; font-weight: 600; }
+    .value { font-size: 0.95rem; font-weight: 600; color: #333; }
+
+    .description-box {
+      background: #f9f9f9; padding: 1rem; border-radius: 8px;
+      font-size: 0.9rem; color: #666; margin-top: auto;
+    }
+
+    .actions { margin-top: 1rem; }
+
+    .btn-primary {
+      width: 100%; padding: 0.75rem; border: none; border-radius: 12px;
+      background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+      color: white; font-weight: 600; cursor: pointer;
+      transition: opacity 0.2s;
+    }
+    .btn-primary:hover { opacity: 0.9; }
+
+    .loading-container { display: flex; flex-direction: column; align-items: center; padding: 3rem; }
+    .spinner {
+      width: 40px; height: 40px; border: 3px solid #f3f3f3;
+      border-top: 3px solid #ff6b35; border-radius: 50%;
+      animation: spin 1s linear infinite; margin-bottom: 1rem;
+    }
+    @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+    .empty-state { text-align: center; color: #999; padding: 3rem; background: white; border-radius: 16px; }
+  `]
 })
 export class OwnerMaintenancePage implements OnInit {
   readonly maintenanceStore = inject(MaintenanceStore);
@@ -149,19 +213,15 @@ export class OwnerMaintenancePage implements OnInit {
 
   private mechanicNamesCache = signal<Map<number, string>>(new Map());
 
-  // Computed signals for maintenance cards with enriched data
-  readonly scheduledCards = computed<MaintenanceCard[]>(() => {
-    const scheduled = this.maintenanceStore.scheduledMaintenances();
-    return this.enrichMaintenances(scheduled);
-  });
+  readonly scheduledCards = computed<MaintenanceCard[]>(() =>
+    this.enrichMaintenances(this.maintenanceStore.scheduledMaintenances())
+  );
 
-  readonly completedCards = computed<MaintenanceCard[]>(() => {
-    const completed = this.maintenanceStore.completedMaintenances();
-    return this.enrichMaintenances(completed);
-  });
+  readonly completedCards = computed<MaintenanceCard[]>(() =>
+    this.enrichMaintenances(this.maintenanceStore.completedMaintenances())
+  );
 
   constructor() {
-    // Effect to load mechanic names when maintenances change
     effect(() => {
       const maintenances = this.maintenanceStore.maintenances();
       maintenances.forEach(maintenance => {
@@ -178,75 +238,41 @@ export class OwnerMaintenancePage implements OnInit {
 
   private loadMaintenances(): void {
     const roleId = localStorage.getItem('role_id');
-    if (!roleId) {
-      console.error('Owner ID not found');
-      return;
-    }
+    if (!roleId) return;
 
     const ownerId = parseInt(roleId, 10);
-
-    // Load vehicles for this owner, then load maintenances for each vehicle
     const vehicles = this.vehiclesStore.vehicles();
 
     if (vehicles.length === 0) {
-      // If vehicles aren't loaded yet, load them first
       this.vehiclesStore.loadVehiclesByOwner(ownerId);
-
-      // Wait a bit and then load maintenances
-      setTimeout(() => {
-        this.loadMaintenancesForVehicles();
-      }, 500);
+      setTimeout(() => this.loadMaintenancesForVehicles(), 500);
     } else {
       this.loadMaintenancesForVehicles();
     }
   }
 
   private loadMaintenancesForVehicles(): void {
-    const vehicles = this.vehiclesStore.vehicles();
-
-    // For now, load maintenances by each vehicle ID
-    // In a production app, you might want a single endpoint to get all maintenances for an owner
-    vehicles.forEach(vehicle => {
+    this.vehiclesStore.vehicles().forEach(vehicle => {
       this.maintenanceStore.loadMaintenancesByVehicleId(vehicle.id);
     });
   }
 
   private enrichMaintenances(maintenances: Maintenance[]): MaintenanceCard[] {
-    return maintenances.map(maintenance => {
-      const vehicle = this.vehiclesStore.vehicles().find(v => v.id === maintenance.vehicleId);
-      const mechanicName = this.mechanicNamesCache().get(maintenance.mechanicId);
-
-      return {
-        maintenance,
-        vehicle,
-        mechanicName
-      };
-    });
+    return maintenances.map(maintenance => ({
+      maintenance,
+      vehicle: this.vehiclesStore.vehicles().find(v => v.id === maintenance.vehicleId),
+      mechanicName: this.mechanicNamesCache().get(maintenance.mechanicId)
+    }));
   }
 
   private loadMechanicName(mechanicId: number): void {
     const baseUrl = environment.platformProviderApiBaseUrl;
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${localStorage.getItem('token')}`
-    });
+    const headers = new HttpHeaders({ 'Authorization': `Bearer ${localStorage.getItem('token')}` });
 
     this.http.get<{id: number, username: string}>(`${baseUrl}/users/${mechanicId}`, { headers })
       .subscribe({
-        next: (user) => {
-          this.mechanicNamesCache.update(cache => {
-            const newCache = new Map(cache);
-            newCache.set(mechanicId, user.username);
-            return newCache;
-          });
-        },
-        error: (error) => {
-          console.error(`Error loading mechanic ${mechanicId}:`, error);
-          this.mechanicNamesCache.update(cache => {
-            const newCache = new Map(cache);
-            newCache.set(mechanicId, 'Unknown Mechanic');
-            return newCache;
-          });
-        }
+        next: (user) => this.mechanicNamesCache.update(cache => new Map(cache).set(mechanicId, user.username)),
+        error: () => this.mechanicNamesCache.update(cache => new Map(cache).set(mechanicId, 'Unknown'))
       });
   }
 
@@ -255,12 +281,7 @@ export class OwnerMaintenancePage implements OnInit {
   }
 
   getVehicleDisplay(vehicle?: Vehicle): string {
-    if (!vehicle) {
-      return 'Loading...';
-    }
-    if (!vehicle.model) {
-      return vehicle.plate || 'Unknown Vehicle';
-    }
-    return `${vehicle.model.brand} ${vehicle.model.name} - ${vehicle.plate}`;
+    if (!vehicle) return 'Loading...';
+    return vehicle.model ? `${vehicle.model.brand} ${vehicle.model.name}` : (vehicle.plate || 'Vehicle');
   }
 }

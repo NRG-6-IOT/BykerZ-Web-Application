@@ -1,64 +1,57 @@
-<mat-card >
-
-  <div class="notification-corner">
+<div class="vehicle-card" [routerLink]="['/vehicle', vehicle.id, 'owner']">
+  <div class="notification-badge">
     <app-notification-list [vehicleId]="vehicle.id"></app-notification-list>
   </div>
 
-  <mat-card-content [routerLink]="['/vehicle',vehicle.id,'owner']">
-    <div class="horizontal">
-      <img class="item" ngSrc="/assets/images/vehicle.png" height="104" width="204" alt=""/>
+  <div class="card-content">
+    <div class="image-section">
+      <div class="image-wrapper">
+        <img ngSrc="/assets/images/vehicle2.png" height="104" width="204" alt="Vehicle" class="vehicle-img"/>
+      </div>
+      <div class="owner-tag">
+        <span class="tag-label">{{ 'vehicle.card.associatedWith' | translate }}</span>
+        <span class="tag-value">{{ ownerAssignment?.mechanic?.completeName || "Unknown" }}</span>
+      </div>
+    </div>
 
-      <div class="vertical item">
-        <h1>{{ vehicle.model?.brand }} - {{ vehicle.model?.name }}</h1>
+    <div class="info-section">
+      <div class="info-header">
+        <h2 class="vehicle-title">{{ vehicle.model?.brand }} {{ vehicle.model?.name }}</h2>
+        <span class="vehicle-type">{{ vehicle.model?.type }}</span>
+      </div>
 
-
-
-
-        <div class="white-box">
-          <div class="data-row">
-            <span><b>Model Year:</b></span>
-            <span>{{ vehicle.model?.modelYear }}</span>
-          </div>
-
-          <div class="data-row">
-            <span><b>Plate:</b></span>
-            <span>{{ vehicle.plate }}</span>
-          </div>
-
-          <div class="data-row">
-            <span><b>Type:</b></span>
-            <span>{{ vehicle.model?.type }}</span>
-          </div>
-
-          <div class="data-row">
-            <span><b>Brand Origin:</b></span>
-            <span>{{ vehicle.model?.originCountry }}</span>
-          </div>
-
-          <div class="data-row">
-            <span><b>Produced At:</b></span>
-            <span>{{ formatDate(vehicle.model?.producedAt) }}</span>
-          </div>
-
-          <div class="data-row">
-            <span><b>Displacement:</b></span>
-            <span>{{ vehicle.model?.displacement }}</span>
-          </div>
-
-          <div class="data-row">
-            <span><b>Octane:</b></span>
-            <span>{{ vehicle.model?.octane }}</span>
-          </div>
+      <div class="specs-grid">
+        <div class="spec-item">
+          <span class="label">{{ 'vehicle.card.year' | translate }}</span>
+          <span class="val">{{ vehicle.model?.modelYear }}</span>
+        </div>
+        <div class="spec-item">
+          <span class="label">{{ 'vehicle.card.plate' | translate }}</span>
+          <span class="val highlight">{{ vehicle.plate }}</span>
+        </div>
+        <div class="spec-item">
+          <span class="label">{{ 'vehicle.card.origin' | translate }}</span>
+          <span class="val">{{ vehicle.model?.originCountry }}</span>
+        </div>
+        <div class="spec-item">
+          <span class="label">{{ 'vehicle.card.produced' | translate }}</span>
+          <span class="val">{{ formatDate(vehicle.model?.producedAt) }}</span>
+        </div>
+        <div class="spec-item">
+          <span class="label">{{ 'vehicle.card.engine' | translate }}</span>
+          <span class="val">{{ vehicle.model?.displacement }}</span>
+        </div>
+        <div class="spec-item">
+          <span class="label">{{ 'vehicle.card.octane' | translate }}</span>
+          <span class="val">{{ vehicle.model?.octane }}</span>
         </div>
       </div>
-
-      <span class="item" style="display: inline-block;height: 200px; background-color: white; width: 1%; border-radius: 10px"></span>
-
-      <div class="item">
-        <h2>Associated with: {{ownerAssignment?.mechanic?.completeName || "Unknown"}}</h2>
-      </div>
-
-      <img class="selection-arrow" style="margin-left: 10px" ngSrc="/assets/images/selection_arrow.png" height="68" width="39" alt="">
     </div>
-  </mat-card-content>
-</mat-card>
+
+    <div class="action-arrow">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M9 18l6-6-6-6"/>
+      </svg>
+    </div>
+  </div>
+</div>

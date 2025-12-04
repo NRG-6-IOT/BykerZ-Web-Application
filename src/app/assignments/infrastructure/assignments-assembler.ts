@@ -19,7 +19,7 @@ export class AssignmentAssembler implements BaseAssembler<Assignment, Assignment
 
     return new Assignment({
       id: resource.id,
-      owner: ownerEntity ? { ownerId: ownerEntity.id, completeName: ownerEntity.completeName } : null,
+      owner: ownerEntity ? { id: ownerEntity.id, completeName: ownerEntity.completeName } : null,
       mechanic: mechanicEntity ? { mechanicId: mechanicEntity.id, completeName: mechanicEntity.completeName } : null,
       type: resource.type,
       status: resource.status,
@@ -31,7 +31,7 @@ export class AssignmentAssembler implements BaseAssembler<Assignment, Assignment
   toResourceFromEntity(entity: Assignment): AssignmentResource {
     return {
       id: entity.id,
-      owner: entity.owner ? { ownerId: entity.owner.id, completeName: entity.owner.completeName } : null,
+      owner: entity.owner ? { id: entity.owner.id, completeName: entity.owner.completeName } : null,
       mechanic: entity.mechanic ? { mechanicId: entity.mechanic.id, completeName: entity.mechanic.completeName } : null,
       type: entity.type,
       status: entity.status,

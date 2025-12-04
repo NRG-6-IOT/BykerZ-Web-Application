@@ -1,18 +1,21 @@
-<div class="dropdown">
-  @if (assignments.length > 0) {
-    <ng-container>
-      <ul>
+<div class="dropdown-card">
+  <div class="dropdown-header">
+    <span class="header-title">{{ 'assignments.pendingAssignmentsDropdown.title' | translate }}</span>
+    <span class="badge" *ngIf="assignments.length > 0">{{assignments.length}}</span>
+  </div>
+
+  <div class="list-container custom-scrollbar">
+    @if (assignments.length > 0) {
+      <ul class="clean-list">
         <app-pending-assignments-dropdown-item
           *ngFor="let a of assignments"
           [assignment]="a">
         </app-pending-assignments-dropdown-item>
       </ul>
-    </ng-container>
-  } @else {
-    <ng-container>
-      <div class="no-pending">
-        <p>No pending assignments</p>
+    } @else {
+      <div class="empty-dropdown">
+        <p>{{ 'assignments.pendingAssignmentsDropdown.noPending' | translate }}</p>
       </div>
-    </ng-container>
-  }
+    }
+  </div>
 </div>

@@ -1,0 +1,424 @@
+{
+  "login": {
+    "usernameLabel": "Usuario o Correo",
+    "username": "Nombre de usuario",
+    "passwordLabel": "Tu Contraseña",
+    "password": "Contraseña",
+    "signIn": "Iniciar Sesión",
+    "signUp": "Registrarse",
+    "slogan": "Gestión Premium de Motocicletas",
+    "divider": "o"
+  },
+  "selection": {
+    "mainTitle": "Elige tu rol",
+    "divider": "O",
+    "owner": {
+      "title": "Soy Propietario",
+      "label": "Gestiona tus vehículos y gastos",
+      "placeholder": "Ingresa código de invitación",
+      "button": "Registrarse"
+    },
+    "mechanic": {
+      "title": "Soy Mecánico",
+      "label": "Gestiona clientes y trabajos",
+      "button": "Elegir un plan"
+    }
+  },
+  "register": {
+    "signUp": "Registro",
+    "subtitle": "Únete a BykerZ hoy",
+    "firstName": "Nombre",
+    "lastName": "Apellido",
+    "username": "Nombre de usuario",
+    "email": "Correo electrónico",
+    "photoUrl": "URL de la foto",
+    "password": "Contraseña",
+    "confirmPassword": "Confirmar Contraseña",
+    "button": "Registrarse"
+  },
+  "dashboard": {
+    "owner": {
+      "title": "Panel del Propietario",
+      "subtitle": "Resumen de tus vehículos y servicios",
+      "assignedMechanic": "Mecánico Asignado",
+      "myVehicles": "Mis Vehículos",
+      "recentExpenses": "Gastos Recientes",
+      "scheduledMaintenances": "Mantenimientos Programados"
+    },
+    "mechanic": {
+      "title": "Panel del Mecánico",
+      "subtitle": "Gestiona tus clientes y trabajos",
+      "activeSubscriptions": "Suscripciones Activas",
+      "membershipStatus": "Estado de Membresía",
+      "upcomingWork": "Próximos Trabajos",
+      "plan": "PLAN",
+      "remaining": "Restante"
+    }
+  },
+  "navbar": {
+    "logout": "Cerrar Sesión",
+    "mechanic": {
+      "dashboard": "Panel",
+      "assignments": "Asignaciones",
+      "maintenance": "Mantenimientos",
+      "comparatives": "Comparaciones",
+      "Membership": "Membresía"
+    },
+    "owner": {
+      "dashboard": "Panel",
+      "vehicles": "Vehículos",
+      "comparatives": "Comparaciones",
+      "expenses": "Gastos",
+      "maintenance": "Mantenimientos"
+    }
+  },
+  "vehicle": {
+    "page": {
+      "noVehicles": "No se encontraron vehículos",
+      "register": "Registra tu primer vehículo para empezar"
+    },
+    "card": {
+      "associatedWith": "Asociado con",
+      "year": "Año",
+      "plate": "Placa",
+      "origin": "Origen",
+      "produced": "Producido",
+      "engine": "Motor",
+      "octane": "Octanaje"
+    },
+    "register": {
+      "title": "Agregar Vehículo",
+      "brandLabel": "Marca del Vehículo",
+      "brand": "Marca",
+      "modelLabel": "Modelo del Vehículo",
+      "model": "Modelo",
+      "yearLabel": "Año de Fabricación",
+      "year": "Año",
+      "plateLabel": "Placa del Vehículo (Formato: 1234-XY)",
+      "plate": "Placa (ej. 1234-XY)",
+      "submit": "Registrar Vehículo",
+      "success": "Vehículo registrado exitosamente",
+      "errorPlate": "Formato de placa inválido. Use: 1234-XY"
+    },
+    "details": {
+      "title": "Especificaciones Técnicas",
+      "client": "Cliente",
+      "metrics": "Métricas",
+      "compare": "Comparar",
+      "export": "Exportar",
+      "technicalSpecs": "Especificaciones Técnicas",
+      "year": "Año",
+      "type": "Tipo",
+      "displacement": "Cilindrada",
+      "power": "Potencia",
+      "torque": "Torque",
+      "fuelTank": "Tanque",
+      "weight": "Peso",
+      "consumption": "Consumo",
+      "connectivity": "Conectividad"
+    }
+  },
+  "assignments": {
+    "assignVehicleCard": {
+      "modelYear": "Año del Modelo",
+      "plate": "Placa",
+      "type": "Tipo",
+      "brandOrigin": "Origen de la Marca",
+      "producedAt": "Producido En",
+      "displacement": "Cilindrada",
+      "octane": "Octanaje"
+    },
+    "assignmentCard": {
+      "assignmentType": "Tipo de asignación",
+      "assignmentCode": "Código",
+      "ownerName": "Propietario",
+      "assignedOn": "Asignado el",
+      "viewDetails": "Ver Detalles"
+    },
+    "assignmentCardList": {
+      "noAssignments": "No tienes asignaciones activas."
+    },
+    "assignmentsTypeSelector": {
+      "uncategorized": "Sin categoría",
+      "regular": "Cliente Regular",
+      "frequent": "Cliente Frecuente",
+      "business": "Cliente Empresarial"
+    },
+    "createAssignmentButton": {
+      "generateAssignment": "Generar Asignación"
+    },
+    "createAssignmentDialog": {
+      "title": "Nueva asignación creada",
+      "code": "Código:",
+      "loading": "Cargando...",
+      "shareMessage": "Comparte este código con un propietario para vincularlo",
+      "closeButton": "Cerrar"
+    },
+    "pendingAssignmentsButton": {
+      "title": "Asignaciones Pendientes"
+    },
+    "pendingAssignmentsDropdown": {
+      "title": "Solicitudes Pendientes",
+      "noPending": "No hay pendientes"
+    },
+    "pendingAssignmentsDropdownItem": {
+      "assignmentCode": "Código:",
+      "emittedOn": "Emitido:"
+    },
+    "assignmentDetailPage": {
+      "assignment": "asignación",
+      "assignmentDetails": "Detalles de la Asignación",
+      "code": "Código",
+      "type": "Tipo",
+      "associatedMotorbikes": "Motocicletas Asociadas",
+      "noAssociatedMotorbikes": "Aún no hay motocicletas asociadas."
+    },
+    "assignmentsPage": {
+      "title": "Asignaciones"
+    }
+  },
+  "comparative": {
+    "common": {
+      "vs": "VS",
+      "noData": "N/D",
+      "loadingVehicles": "Cargando tus vehículos...",
+      "loadingModels": "Cargando modelos disponibles...",
+      "noVehiclesTitle": "No se encontraron vehículos",
+      "noVehiclesMsg": "Aún no tienes vehículos registrados.",
+      "noModelsTitle": "No hay modelos disponibles",
+      "noModelsMsg": "No hay modelos disponibles para comparar en este momento."
+    },
+    "comparePage": {
+      "title": "Comparación de Vehículos",
+      "subtitle": "Compara las especificaciones técnicas de tus motocicletas",
+      "yourBike": "Tu Moto",
+      "compareWith": "Comparar Con"
+    },
+    "mechanicPage": {
+      "badge": "Modo Profesional",
+      "title": "Comparación de Modelos",
+      "subtitle": "Compara especificaciones técnicas entre diferentes modelos",
+      "modelA": "Modelo A",
+      "modelB": "Modelo B"
+    },
+    "vehicleCard": {
+      "year": "Año",
+      "plate": "Placa",
+      "type": "Tipo",
+      "displacement": "Cilindrada",
+      "power": "Potencia",
+      "consumption": "Consumo",
+      "noDataTitle": "No hay vehículo seleccionado"
+    },
+    "specs": {
+      "title": "Especificaciones Técnicas",
+      "subtitle": "Comparación detallada de características y rendimiento",
+      "labels": {
+        "displacement": "Cilindrada",
+        "power": "Potencia",
+        "engineTorque": "Torque",
+        "weight": "Peso",
+        "transmission": "Transmisión",
+        "brakes": "Frenos",
+        "tank": "Tanque",
+        "seatHeight": "Altura del Asiento",
+        "consumption": "Consumo",
+        "price": "Precio"
+      }
+    },
+    "scenarios": {
+      "title": "Escenarios de Uso",
+      "subtitle": "Rendimiento en diferentes condiciones de conducción",
+      "betterFor": "Mejor para {{ vehicle }}",
+      "types": {
+        "cityTraffic": "Tráfico Urbano",
+        "longTrips": "Viajes Largos",
+        "maintenanceCost": "Costo de Mantenimiento",
+        "resaleValue": "Valor de Reventa"
+      }
+    }
+  },
+  "notifications": {
+    "severity": "Severidad",
+    "type": "Tipo",
+    "connected": "Conectado",
+    "disconnected": "Desconectado",
+    "noVehicles": "No hay notificaciones para este vehículo.",
+    "title": "Título",
+    "message": "Mensaje",
+    "markAll": "Marcar todo leído",
+    "alerts": "Alertas",
+    "vehicle": "Vehículo"
+  },
+  "metrics": {
+    "gpsLocation": "Ubicación GPS",
+    "airQuality": "Calidad de Aire",
+    "environmentalConditions": "Condiciones Ambientales",
+    "statusImpact": "Estado de Impacto",
+    "emittedAt": "Emitido a las",
+    "vehicle": "Vehículo",
+    "impactDetected": "Impacto Detectado",
+    "normalState": "Estado Normal",
+    "latitude": "Latitud",
+    "longitude": "Longitud",
+    "co2": "CO₂",
+    "nh3": "NH₃",
+    "benzene": "Benceno",
+    "temperature": "Temperatura",
+    "humidity": "Humedad",
+    "pressure": "Presión",
+    "list": {
+      "emptyTitle": "No hay métricas disponibles",
+      "emptyMessage": "No hay métricas cargadas en este momento.",
+      "reloadButton": "Recargar métricas"
+    },
+    "details": {
+      "title": "Detalles de la Métrica",
+      "backButton": "Volver a métricas"
+    }
+  },
+  "membership": {
+    "title": "Elige Tu Plan de Membresía",
+    "subtitle": "Selecciona el plan perfecto para tu taller. Actualiza o cambia en cualquier momento.",
+    "plans": {
+      "bronze": "Bronce",
+      "silver": "Plata",
+      "black": "Negro"
+    },
+    "bronze": {
+      "name": "Bronce",
+      "idealFor": "Para mecánicos independientes que empiezan",
+      "maxClients": "Clientes máx.",
+      "storage": "Almacenamiento"
+    },
+    "silver": {
+      "name": "Plata",
+      "idealFor": "Para talleres establecidos",
+      "maxClients": "Clientes máx.",
+      "storage": "Almacenamiento"
+    },
+    "black": {
+      "name": "Negro",
+      "idealFor": "Para talleres con múltiples mecánicos",
+      "maxClients": "Clientes máx.",
+      "storage": "Almacenamiento"
+    },
+    "common": {
+      "idealFor": "Ideal para:",
+      "perMonth": "/mes",
+      "processing": "Procesando...",
+      "selectPlan": "Seleccionar Plan {{plan}}",
+      "popularBadge": "MÁS POPULAR",
+      "features": {
+        "clients": "Máx. clientes:",
+        "storage": "Almacenamiento:"
+      }
+    },
+    "success": {
+      "title": "¡Felicidades!",
+      "message": "Ahora tienes membresía {{plan}}",
+      "redirecting": "Redirigiendo al dashboard..."
+    },
+    "error": {
+      "noMechanic": "No se pudo identificar al mecánico. Por favor, inicie sesión nuevamente.",
+      "mechanicsOnly": "Esta página solo está disponible para mecánicos.",
+      "invalidMechanic": "ID de mecánico no válido.",
+      "updating": "Error al actualizar la membresía. Por favor, intente nuevamente.",
+      "notFound": "Mecánico no encontrado.",
+      "invalidData": "Datos inválidos.",
+      "unauthorized": "Sesión expirada. Por favor, inicie sesión nuevamente.",
+      "connection": "No se pudo conectar con el servidor. Verifique su conexión."
+    },
+    "footer": {
+      "guarantee": "Todos los planes incluyen soporte 24/7, actualizaciones regulares y garantía de devolución de 30 días."
+    },
+    "loading": {
+      "title": "Actualizando membresía",
+      "message": "Por favor, espere mientras actualizamos su plan."
+    }
+  },
+  "common": {
+    "back": "Volver",
+    "cancel": "Cancelar",
+    "save": "Guardar",
+    "create": "Crear",
+    "delete": "Eliminar",
+    "close": "Cerrar",
+    "saving": "Guardando...",
+    "loading": "Cargando...",
+    "confirmDelete": "¿Estás seguro de que deseas eliminar este elemento?"
+  },
+  "roles": {
+    "mechanic": "Mecánico",
+    "owner": "Propietario"
+  },
+  "maintenance": {
+    "scheduledTitle": "Mantenimientos Programados",
+    "historyTitle": "Historial",
+    "activeRequests": "Solicitudes Activas",
+    "noScheduled": "No se encontraron mantenimientos programados.",
+    "noHistory": "No hay historial disponible.",
+    "createButton": "Crear Mantenimiento",
+    "mechanicLabel": "Mecánico",
+    "locationLabel": "Ubicación",
+    "vehicleIdLabel": "ID Vehículo",
+    "detailsLabel": "Detalles",
+    "updateStatusLabel": "Actualizar Estado",
+    "totalCostLabel": "Costo Total",
+    "viewDetailsLink": "Ver Detalles",
+    "seeExpenseButton": "Ver Gasto",
+    "status": {
+      "pending": "Pendiente",
+      "in_progress": "En Progreso",
+      "completed": "Completado",
+      "cancelled": "Cancelado"
+    },
+    "create": {
+      "title": "Nuevo Mantenimiento",
+      "subtitle": "Registrar un nuevo servicio para un cliente",
+      "vehicleInfo": "Información del Vehículo",
+      "owner": "Propietario",
+      "selectOwner": "Seleccionar Propietario",
+      "vehicle": "Vehículo",
+      "selectVehicle": "Seleccionar Vehículo",
+      "serviceDetails": "Detalles del Servicio",
+      "serviceTitle": "Título del Servicio",
+      "titlePlaceholder": "Título / Detalles Breves",
+      "titleExample": "Ej: Cambio de Aceite",
+      "serviceDate": "Fecha del Servicio",
+      "date": "Fecha",
+      "serviceTime": "Hora del Servicio",
+      "time": "Hora",
+      "serviceLocation": "Ubicación del Servicio",
+      "location": "Ubicación",
+      "serviceDescription": "Descripción del Servicio",
+      "description": "Descripción / Notas",
+      "submitButton": "Crear Mantenimiento"
+    }
+  },
+  "expenses": {
+    "createButton": "Crear Gasto",
+    "emptyState": "No se encontraron gastos. Crea uno para comenzar.",
+    "finalPrice": "Precio Final",
+    "notFound": "Gasto no encontrado",
+    "deleteConfirm": "¿Estás seguro de que deseas eliminar este gasto?",
+    "table": {
+      "item": "Ítem",
+      "type": "Tipo",
+      "qty": "Cant.",
+      "unit": "Unidad",
+      "total": "Total"
+    },
+    "create": {
+      "title": "Nuevo Gasto",
+      "expenseTitlePlaceholder": "Título del Gasto (ej. Mantenimiento Mensual)",
+      "addItemsTitle": "Agregar Ítems",
+      "itemName": "Nombre del Ítem",
+      "itemType": "Tipo",
+      "itemQty": "Cant.",
+      "itemPrice": "Precio",
+      "noItems": "No se agregaron ítems",
+      "submitButton": "Crear Gasto"
+    }
+  }
+}

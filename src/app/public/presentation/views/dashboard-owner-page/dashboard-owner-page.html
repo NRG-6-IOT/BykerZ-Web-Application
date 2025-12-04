@@ -1,13 +1,83 @@
-<div class="screen">
-  <div class="header">
-    <div class="left">
-      <p>Owner Dashboard</p>
+<div class="dashboard-container">
+  <div class="dashboard-header">
+    <div class="welcome-section">
+      <h1 class="page-title">{{ 'dashboard.owner.title' | translate }}</h1>
+      <p class="subtitle">{{ 'dashboard.owner.subtitle' | translate }}</p>
     </div>
-    <div class="right">
-      <p style="font-size: 16px; font-weight: bold">Assigned Mechanic:</p>
-      <div class="mechanic-name">
-        <p>{{ ownerAssignment()?.mechanic?.completeName }}</p>
+
+    @if (ownerAssignment()) {
+      <div class="mechanic-badge">
+        <span class="badge-label">{{ 'dashboard.owner.assignedMechanic' | translate }}</span>
+        <div class="badge-content">
+          <div class="mechanic-avatar">
+            <span class="initial">{{ (ownerAssignment()?.mechanic?.completeName || '?').charAt(0) }}</span>
+          </div>
+          <span class="mechanic-name">{{ ownerAssignment()?.mechanic?.completeName }}</span>
+        </div>
+      </div>
+    }
+  </div>
+
+  <div class="dashboard-grid">
+
+    <div class="dashboard-card vehicles-area">
+      <div class="card-header">
+        <h3 class="card-title">{{ 'dashboard.owner.myVehicles' | translate }}</h3>
+        <span class="count-pill">{{ ownerVehicles().length }}</span>
+      </div>
+      <div class="card-body scrollable">
+        @for (vehicle of ownerVehicles(); track vehicle.id) {
+          <div class="list-item vehicle-item" [routerLink]="['/vehicle', vehicle.id, 'owner']">
+            <div class="item-icon-box">
+              <img ngSrc="/assets/images/vehicle.png" width="40" height="20" class="vehicle-thumb" alt="Moto">
+            </div>
+            <div class="item-info">
+              <span class="item-title">{{ vehicle.model?.name }}</span>
+              <span class="item-sub">{{ vehicle.plate }}</span>
+            </div>
+            <span class="arrow-icon">→</span>
+          </div>
+        }
       </div>
     </div>
+
+    <div class="dashboard-card bills-area">
+      <div class="card-header orange">
+        <h3 class="card-title">{{ 'dashboard.owner.recentExpenses' | translate }}</h3>
+        <span class="count-pill dark">{{ ownerExpenses().length }}</span>
+      </div>
+      <div class="card-body scrollable">
+        @for (expense of ownerExpenses(); track expense.id) {
+          <div class="list-item expense-item" [routerLink]="['/expenses', expense.id]">
+            <div class="item-info">
+              <span class="item-title">{{ expense.name }}</span>
+              <span class="item-sub">{{ expense.expenseType }}</span>
+            </div>
+            <span class="price-tag">$ {{ expense.finalPrice }}</span>
+          </div>
+        }
+      </div>
+    </div>
+
+    <div class="dashboard-card maintenance-area">
+      <div class="card-header dark">
+        <h3 class="card-title">{{ 'dashboard.owner.scheduledMaintenances' | translate }}</h3>
+      </div>
+      <div class="card-body scrollable horizontal">
+        @for (maintenance of ownerMaintenances(); track maintenance.id) {
+          <div class="maintenance-pill" [routerLink]="['/maintenances', 'owner']">
+            <div class="pill-date">
+              <span class="day">{{ maintenance.dateOfService | date:'dd' }}</span>
+              <span class="month">{{ maintenance.dateOfService | date:'MMM' }}</span>
+            </div>
+            <div class="pill-info">
+              <span class="pill-title">{{ getVehicleById(maintenance.vehicleId)()?.model?.name }}</span>
+              <span class="pill-sub">{{ maintenance.location }}</span>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+
   </div>
 </div>

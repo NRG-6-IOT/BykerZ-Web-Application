@@ -6,37 +6,38 @@ import { SpecsCardComponent } from '../../components/specs-card/specs-card.compo
 import { ScenariosCardComponent } from '../../components/scenarios-card/scenarios-card.component';
 import { VehiclesApi } from '@app/vehiclemanagement/infrastructure/vehicles-api';
 import { ActivatedRoute } from '@angular/router';
+import {TranslateModule} from '@ngx-translate/core';
 
 @Component({
   standalone: true,
-  imports: [CommonModule, VehicleCardComponent, SpecsCardComponent, ScenariosCardComponent],
+  imports: [CommonModule, VehicleCardComponent, SpecsCardComponent, ScenariosCardComponent, TranslateModule],
   selector: 'app-compare-mechanic',
   template: `
     <div class="page">
       <div class="header">
-        <div class="badge">Mechanic</div>
-        <h1 class="page-title">Model Comparison</h1>
-        <p class="subtitle">Compare technical specifications across available models</p>
+        <div class="badge">{{ 'comparative.mechanicPage.badge' | translate }}</div>
+        <h1 class="page-title">{{ 'comparative.mechanicPage.title' | translate }}</h1>
+        <p class="subtitle">{{ 'comparative.mechanicPage.subtitle' | translate }}</p>
       </div>
 
       <div *ngIf="loading" class="loading-container">
         <div class="spinner"></div>
-        <p>Loading models...</p>
+        <p>{{ 'comparative.common.loadingModels' | translate }}</p>
       </div>
 
       <div *ngIf="!loading && availableVehicles.length === 0" class="empty-state">
         <svg width="120" height="120" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
           <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
         </svg>
-        <h3>No models available</h3>
-        <p>No models found to compare.</p>
+        <h3>{{ 'comparative.common.noModelsTitle' | translate }}</h3>
+        <p>{{ 'comparative.common.noModelsMsg' | translate }}</p>
       </div>
 
       <div *ngIf="isReady" class="content">
         <div class="comparison-grid">
           <app-vehicle-card
             [vehicle]="leftVehicle"
-            title="Model A"
+            [title]="'comparative.mechanicPage.modelA' | translate"
             [selectable]="true"
             [options]="availableVehicles"
             (selectionChange)="onLeftSelect($event)"
@@ -44,12 +45,12 @@ import { ActivatedRoute } from '@angular/router';
           </app-vehicle-card>
 
           <div class="vs-divider">
-            <span class="vs-text">VS</span>
+            <span class="vs-text">{{ 'comparative.common.vs' | translate }}</span>
           </div>
 
           <app-vehicle-card
             [vehicle]="rightVehicle"
-            title="Model B"
+            [title]="'comparative.mechanicPage.modelB' | translate"
             [selectable]="true"
             [options]="availableVehicles"
             (selectionChange)="onRightSelect($event)"
@@ -312,9 +313,11 @@ export class CompareMechanicComponent implements OnInit {
         }
 
         this.loading = false;
+        this.cdr.detectChanges();
       },
       error: (error) => {
         this.loading = false;
+        this.cdr.detectChanges();
       }
     });
   }

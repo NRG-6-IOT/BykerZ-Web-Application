@@ -1,26 +1,25 @@
-<div class="screen">
-  <div class="header">
-    <div class="left">
-      <p>Active Assignments</p>
-    </div>
-    <div class="right">
-      <div>
-        <app-create-assignment-button></app-create-assignment-button>
-      </div>
-      <div>
-        <app-pending-assignments-button></app-pending-assignments-button>
-      </div>
+<div class="page">
+  <div class="page-header">
+    <h1 class="page-title">{{ 'assignments.assignmentsPage.title' | translate }}</h1>
+
+    <div class="actions-toolbar">
+      <app-create-assignment-button></app-create-assignment-button>
+      <app-pending-assignments-button></app-pending-assignments-button>
     </div>
   </div>
-  <div style="width: 100%;">
+
+  <div class="page-content">
     @if (store.loading()) {
-      <mat-spinner diameter="40"></mat-spinner>
+      <div class="loading-state">
+        <mat-spinner diameter="50" color="warn"></mat-spinner>
+        <p>Loading assignments...</p>
+      </div>
     } @else if (store.error()) {
-      <mat-error>{{ store.error() }}</mat-error>
+      <div class="error-state">
+        <p>{{ store.error() }}</p>
+      </div>
     } @else {
-      <app-assignment-card-list
-        [assignments]="activeAssignments">
-      </app-assignment-card-list>
+      <app-assignment-card-list [assignments]="activeAssignments"></app-assignment-card-list>
     }
   </div>
 </div>

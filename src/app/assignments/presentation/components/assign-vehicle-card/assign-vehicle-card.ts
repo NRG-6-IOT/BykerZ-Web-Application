@@ -1,5 +1,4 @@
 import {Component, inject, Input} from '@angular/core';
-import {MatCard, MatCardContent} from '@angular/material/card';
 import {RouterLink} from '@angular/router';
 
 import {
@@ -8,15 +7,15 @@ import {
 
 import {AssignmentsStore} from "@app/assignments/application/assigments.store";
 import {Vehicle} from '@app/vehiclemanagement/domain/model/vehicle.entity';
+import {TranslatePipe} from '@ngx-translate/core';
 
 
 @Component({
   selector: 'app-assign-vehicle-card',
   imports: [
-    MatCard,
-    MatCardContent,
     RouterLink,
-    NotificationListComponent
+    NotificationListComponent,
+    TranslatePipe
   ],
   templateUrl: './assign-vehicle-card.html',
   standalone: true,

@@ -1,31 +1,44 @@
-<!-- html -->
-<div class="h-screen flex divide-x divide-gray-300">
-  <div class="flex-1 flex flex-col items-center justify-center bg-white space-y-4 p-6">
-    <span class="text-3xl font-semibold">Register as an Owner</span>
-    <input
-      type="text"
-      class="border rounded px-3 py-2 w-64"
-      placeholder="Enter owner identifier"
-      [(ngModel)]="invitationCode"
-      aria-label="Owner code"
-    />
-    <button
-      class="bg-[#ff6b35] text-white px-4 py-2 rounded disabled:opacity-50"
-      [disabled]="!invitationCode?.trim()"
-      (click)="registerAsOwner()"
-    >
-      Register with code
-    </button>
+<div class="selection-page">
+  <div class="header-actions">
+    <app-language-switcher></app-language-switcher>
   </div>
 
-  <div class="flex-1 flex flex-col items-center justify-center bg-white space-y-4 p-6">
-    <span class="text-3xl font-semibold">Register as a Mechanic</span>
-    <p class="text-xl">Pick between our plans</p>
-    <button
-      class="bg-[#ff6b35] text-white px-6 py-3 rounded"
-      (click)="registerAsMechanic()"
-    >
-      Choose a plan
-    </button>
+  <h1 class="main-title">{{ 'selection.mainTitle' | translate }}</h1>
+
+  <div class="cards-container">
+    <div class="role-card owner">
+      <div class="card-icon">🏍️</div>
+      <h2 class="role-title">{{ 'selection.owner.title' | translate }}</h2>
+      <p class="role-desc">{{ 'selection.owner.label' | translate }}</p>
+
+      <div class="input-group">
+        <input
+          type="text"
+          class="code-input"
+          [placeholder]="'selection.owner.placeholder' | translate"
+          [(ngModel)]="invitationCode"
+        />
+        <button
+          class="btn-action"
+          [disabled]="!invitationCode.trim()"
+          (click)="registerAsOwner()">
+          {{ 'selection.owner.button' | translate }}
+        </button>
+      </div>
+    </div>
+
+    <div class="divider-vertical">
+      <span>{{ 'selection.divider' | translate }}</span>
+    </div>
+
+    <div class="role-card mechanic" (click)="registerAsMechanic()">
+      <div class="card-icon">🔧</div>
+      <h2 class="role-title">{{ 'selection.mechanic.title' | translate }}</h2>
+      <p class="role-desc">{{ 'selection.mechanic.label' | translate }}</p>
+
+      <button class="btn-action full">
+        {{ 'selection.mechanic.button' | translate }}
+      </button>
+    </div>
   </div>
 </div>

@@ -1,51 +1,48 @@
-<mat-card [routerLink]="['/vehicle',vehicle.id,'mechanic']">
-  <mat-card-content>
-    <div class="horizontal">
+<div class="vehicle-card" [routerLink]="['/vehicle', vehicle.id, 'mechanic']">
+  <div class="card-header">
+    <h2 class="vehicle-title">{{ vehicle.model?.brand }} {{ vehicle.model?.name }}</h2>
+    <div class="notification-badge">
+      <app-notification-list [vehicleId]="vehicle.id"></app-notification-list>
+    </div>
+  </div>
 
-      <div class="vertical item">
-        <h1>{{ vehicle.model?.brand }} - {{ vehicle.model?.name }}</h1>
+  <div class="card-body">
+    <div class="specs-grid">
+      <div class="spec-row">
+        <span class="label">{{ 'assignments.assignVehicleCard.modelYear' | translate }}</span>
+        <span class="value">{{ vehicle.model?.modelYear }}</span>
+      </div>
 
-        <!-- Icono de notificaciones para este vehículo -->
-        <app-notification-list [vehicleId]="vehicle.id"></app-notification-list>
+      <div class="spec-row">
+        <span class="label">{{ 'assignments.assignVehicleCard.plate' | translate }}</span>
+        <span class="value">{{ vehicle.plate }}</span>
+      </div>
 
+      <div class="spec-row">
+        <span class="label">{{ 'assignments.assignVehicleCard.type' | translate }}</span>
+        <span class="value">{{ vehicle.model?.type }}</span>
+      </div>
 
-        <div class="white-box">
-          <div class="data-row">
-            <span><b>Model Year:</b></span>
-            <span>{{ vehicle.model?.modelYear }}</span>
-          </div>
+      <div class="spec-row">
+        <span class="label">{{ 'assignments.assignVehicleCard.brandOrigin' | translate }}</span>
+        <span class="value">{{ vehicle.model?.originCountry }}</span>
+      </div>
 
-          <div class="data-row">
-            <span><b>Plate:</b></span>
-            <span>{{ vehicle.plate }}</span>
-          </div>
+      <div class="spec-row">
+        <span class="label">{{ 'assignments.assignVehicleCard.producedAt' | translate }}</span>
+        <span class="value">{{ formatDate(vehicle.model?.producedAt!) }}</span>
+      </div>
 
-          <div class="data-row">
-            <span><b>Type:</b></span>
-            <span>{{ vehicle.model?.type }}</span>
-          </div>
-
-          <div class="data-row">
-            <span><b>Brand Origin:</b></span>
-            <span>{{ vehicle.model?.originCountry }}</span>
-          </div>
-
-          <div class="data-row">
-            <span><b>Produced At:</b></span>
-            <span>{{ formatDate(vehicle.model?.producedAt!) }}</span>
-          </div>
-
-          <div class="data-row">
-            <span><b>Displacement:</b></span>
-            <span>{{ vehicle.model?.displacement }}</span>
-          </div>
-
-          <div class="data-row">
-            <span><b>Octane:</b></span>
-            <span>{{ vehicle.model?.octane }}</span>
-          </div>
+      <div class="highlight-row">
+        <div class="mini-stat">
+          <span class="stat-label">{{ 'assignments.assignVehicleCard.displacement' | translate }}</span>
+          <span class="stat-value">{{ vehicle.model?.displacement }}</span>
+        </div>
+        <div class="mini-stat">
+          <span class="stat-label">{{ 'assignments.assignVehicleCard.octane' | translate }}</span>
+          <span class="stat-value">{{ vehicle.model?.octane }}</span>
         </div>
       </div>
     </div>
-  </mat-card-content>
-</mat-card>
+  </div>
+</div>

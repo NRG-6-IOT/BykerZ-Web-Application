@@ -1,0 +1,425 @@
+{
+  "login": {
+    "usernameLabel": "Username or Email",
+    "username": "Username",
+    "passwordLabel": "Your Password",
+    "password": "Password",
+    "signIn": "Sign In",
+    "signUp": "Sign Up",
+    "slogan": "Premium Motorcycle Management",
+    "divider": "or"
+  },
+  "selection": {
+    "mainTitle": "Choose your role",
+    "divider": "OR",
+    "owner": {
+      "title": "I'm a Vehicle Owner",
+      "label": "Manage your vehicles and expenses",
+      "placeholder": "Enter invitation code",
+      "button": "Register"
+    },
+    "mechanic": {
+      "title": "I'm a Mechanic",
+      "label": "Manage clients and assignments",
+      "button": "Choose a plan"
+    }
+  },
+  "register": {
+    "signUp": "Sign Up",
+    "subtitle": "Join BykerZ today",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "username": "Username",
+    "email": "Email",
+    "photoUrl": "Photo URL",
+    "password": "Password",
+    "confirmPassword": "Confirm Password",
+    "button": "Register"
+  },
+  "dashboard": {
+    "owner": {
+      "title": "Owner Dashboard",
+      "subtitle": "Overview of your vehicles and services",
+      "assignedMechanic": "Assigned Mechanic",
+      "myVehicles": "My Vehicles",
+      "recentExpenses": "Recent Expenses",
+      "scheduledMaintenances": "Scheduled Maintenances"
+    },
+    "mechanic": {
+      "title": "Mechanic Dashboard",
+      "subtitle": "Manage your clients and work",
+      "activeSubscriptions": "Active Subscriptions",
+      "membershipStatus": "Membership Status",
+      "upcomingWork": "Upcoming Work",
+      "plan": "PLAN",
+      "remaining": "Remaining"
+    }
+  },
+  "navbar": {
+    "logout": "Log Out",
+    "mechanic": {
+      "dashboard": "Dashboard",
+      "assignments": "Assignments",
+      "maintenance": "Maintenance",
+      "comparatives": "Comparatives",
+      "Membership": "Membership"
+    },
+    "owner": {
+      "dashboard": "Dashboard",
+      "vehicles": "Vehicles",
+      "comparatives": "Comparatives",
+      "expenses": "Expenses",
+      "maintenance": "Maintenance"
+    }
+  },
+  "vehicle": {
+    "page": {
+      "noVehicles": "No vehicles found",
+      "register": "Register your first vehicle to get started"
+    },
+    "card": {
+      "associatedWith": "Associated with",
+      "year": "Year",
+      "plate": "Plate",
+      "origin": "Origin",
+      "produced": "Produced",
+      "engine": "Engine",
+      "octane": "Octane"
+    },
+    "register": {
+      "title": "Add a Vehicle",
+      "brandLabel": "Vehicle Brand",
+      "brand": "Brand",
+      "modelLabel": "Vehicle Model",
+      "model": "Model",
+      "yearLabel": "Manufacturing Year",
+      "year": "Year",
+      "plateLabel": "License Plate (Format: 1234-XY)",
+      "plate": "Plate (e.g. 1234-XY)",
+      "submit": "Register Vehicle",
+      "success": "Vehicle registered successfully",
+      "errorPlate": "Invalid plate format. Use: 1234-XY"
+    },
+    "details": {
+      "title": "Technical Specifications",
+      "client": "Client",
+      "metrics": "Metrics",
+      "compare": "Compare",
+      "export": "Export",
+      "technicalSpecs": "Technical Specifications",
+      "year": "Year",
+      "type": "Type",
+      "displacement": "Displacement",
+      "power": "Power",
+      "torque": "Torque",
+      "fuelTank": "Fuel Tank",
+      "weight": "Weight",
+      "consumption": "Consumption",
+      "connectivity": "Connectivity"
+    }
+  },
+  "assignments": {
+    "assignVehicleCard": {
+      "modelYear": "Model Year",
+      "plate": "Plate",
+      "type": "Type",
+      "brandOrigin": "Brand Origin",
+      "producedAt": "Produced At",
+      "displacement": "Displacement",
+      "octane": "Octane"
+    },
+    "assignmentCard": {
+      "assignmentType": "Assignment type",
+      "assignmentCode": "Assignment code",
+      "ownerName": "Owner's name",
+      "assignedOn": "Assigned on",
+      "viewDetails": "View Details"
+    },
+    "assignmentCardList": {
+      "noAssignments": "You have no active assignments."
+    },
+    "assignmentsTypeSelector": {
+      "uncategorized": "Uncategorized Customer",
+      "regular": "Regular Customer",
+      "frequent": "Frequent Customer",
+      "business": "Business Customer"
+    },
+    "createAssignmentButton": {
+      "generateAssignment": "Generate Assignment"
+    },
+    "createAssignmentDialog": {
+      "title": "New Assignment Created",
+      "code": "Code:",
+      "loading": "Loading...",
+      "shareMessage": "Share this code with an owner to link it to you",
+      "closeButton": "Close"
+    },
+    "pendingAssignmentsButton": {
+      "title": "Pending Assignments"
+    },
+    "pendingAssignmentsDropdown": {
+      "title": "Pending Requests",
+      "noPending": "No pending assignments"
+    },
+    "pendingAssignmentsDropdownItem": {
+      "assignmentCode": "Assignment code:",
+      "emittedOn": "Emitted on:"
+    },
+    "assignmentDetailPage": {
+      "assignment": "assignment",
+      "assignmentDetails": "Assignment Details",
+      "code": "Code",
+      "type": "Type",
+      "associatedMotorbikes": "Associated Motorbikes",
+      "noAssociatedMotorbikes": "No motorbikes associated yet."
+    },
+    "assignmentsPage": {
+      "title": "Assignments"
+    }
+  },
+  "comparative": {
+    "common": {
+      "vs": "VS",
+      "noData": "N/A",
+      "loadingVehicles": "Loading your vehicles...",
+      "loadingModels": "Loading available models...",
+      "noVehiclesTitle": "No vehicles found",
+      "noVehiclesMsg": "You don't have any vehicles registered yet.",
+      "noModelsTitle": "No models available",
+      "noModelsMsg": "There are no models available for comparison at the moment."
+    },
+    "comparePage": {
+      "title": "Vehicle Comparison",
+      "subtitle": "Compare the technical specifications of your motorcycles",
+      "yourBike": "Your Bike",
+      "compareWith": "Compare With"
+    },
+    "mechanicPage": {
+      "badge": "Professional Mode",
+      "title": "Model Comparison",
+      "subtitle": "Compare technical specifications between different models",
+      "modelA": "Model A",
+      "modelB": "Model B"
+    },
+    "vehicleCard": {
+      "year": "Year",
+      "plate": "Plate",
+      "type": "Type",
+      "displacement": "Displacement",
+      "power": "Power",
+      "consumption": "Consumption",
+      "noDataTitle": "No vehicle selected"
+    },
+    "specs": {
+      "title": "Technical Specifications",
+      "subtitle": "Detailed comparison of features and performance",
+      "labels": {
+        "displacement": "Displacement",
+        "power": "Power",
+        "engineTorque": "Torque",
+        "weight": "Weight",
+        "transmission": "Transmission",
+        "brakes": "Brakes",
+        "tank": "Fuel Tank",
+        "seatHeight": "Seat Height",
+        "consumption": "Consumption",
+        "price": "Price"
+      }
+    },
+    "scenarios": {
+      "title": "Usage Scenarios",
+      "subtitle": "Performance in different riding conditions",
+      "betterFor": "Better for {{ vehicle }}",
+      "types": {
+        "cityTraffic": "City Traffic",
+        "longTrips": "Long Trips",
+        "maintenanceCost": "Maintenance Cost",
+        "resaleValue": "Resale Value"
+      }
+    }
+  },
+  "notifications": {
+    "severity": "Severity",
+    "type": "Type",
+    "connected": "Connected",
+    "disconnected": "Disconnected",
+    "noVehicles": "There are no notifications for this vehicle.",
+    "title": "Title",
+    "message": "Message",
+    "markAll": "Mark all as read",
+    "alerts": "Alerts",
+    "vehicle": "Vehicle"
+  },
+  "metrics": {
+    "gpsLocation": "GPS Location",
+    "airQuality": "Air Quality",
+    "environmentalConditions": "Environmental Conditions",
+    "statusImpact": "Status Impact",
+    "emittedAt": "Emitted At",
+    "vehicle": "Vehicle",
+    "impactDetected": "Impact Detected",
+    "normalState": "Normal State",
+    "latitude": "Latitude",
+    "longitude": "Longitude",
+    "co2": "CO₂",
+    "nh3": "NH₃",
+    "benzene": "Benzene",
+    "temperature": "Temperature",
+    "humidity": "Humidity",
+    "pressure": "Pressure",
+    "list": {
+      "emptyTitle": "No metrics available",
+      "emptyMessage": "There is no loaded metrics at the moment.",
+      "reloadButton": "Reload metrics"
+    },
+    "details": {
+      "title": "Metric Details",
+      "backButton": "Back to metrics"
+    }
+  },
+  "membership": {
+    "title": "Choose Your Membership Plan",
+    "subtitle": "Select the perfect plan for your workshop. Upgrade or downgrade at any time.",
+    "plans": {
+      "bronze": "Bronze",
+      "silver": "Silver",
+      "black": "Black"
+    },
+    "bronze": {
+      "name": "Bronze",
+      "idealFor": "Beginning independent mechanics",
+      "maxClients": "Max. clients",
+      "storage": "Storage"
+    },
+    "silver": {
+      "name": "Silver",
+      "idealFor": "Established workshops",
+      "maxClients": "Max. clients",
+      "storage": "Storage"
+    },
+    "black": {
+      "name": "Black",
+      "idealFor": "Workshops with multiple mechanics",
+      "maxClients": "Max. clients",
+      "storage": "Storage"
+    },
+    "common": {
+      "idealFor": "Ideal for:",
+      "perMonth": "/month",
+      "processing": "Processing...",
+      "selectPlan": "Select {{plan}} Plan",
+      "popularBadge": "MOST POPULAR",
+      "features": {
+        "clients": "Max. clients:",
+        "storage": "Storage:"
+      }
+    },
+    "success": {
+      "title": "Congratulations!",
+      "message": "You now have {{plan}} membership",
+      "redirecting": "Redirecting to dashboard..."
+    },
+    "error": {
+      "noMechanic": "Could not identify the mechanic. Please log in again.",
+      "mechanicsOnly": "This page is only available for mechanics.",
+      "invalidMechanic": "Invalid mechanic ID.",
+      "updating": "Error updating membership. Please try again.",
+      "notFound": "Mechanic not found.",
+      "invalidData": "Invalid data.",
+      "unauthorized": "Session expired. Please log in again.",
+      "connection": "Could not connect to server. Check your connection."
+    },
+    "footer": {
+      "guarantee": "All plans include 24/7 support, regular updates, and a 30-day money-back guarantee."
+    },
+    "loading": {
+      "title": "Updating membership",
+      "message": "Please wait while we update your plan."
+    },
+    "confirmation": "Are you sure you want to upgrade to {{plan}} for S/ {{price}}/month?"
+  },
+  "common": {
+    "back": "Back",
+    "cancel": "Cancel",
+    "save": "Save",
+    "create": "Create",
+    "delete": "Delete",
+    "close": "Close",
+    "saving": "Saving...",
+    "loading": "Loading...",
+    "confirmDelete": "Are you sure you want to delete this item?"
+  },
+  "roles": {
+    "mechanic": "Mechanic",
+    "owner": "Owner"
+  },
+  "maintenance": {
+    "scheduledTitle": "Scheduled Maintenances",
+    "historyTitle": "History",
+    "activeRequests": "Active Requests",
+    "noScheduled": "No scheduled maintenances found.",
+    "noHistory": "No history available.",
+    "createButton": "Create Maintenance",
+    "mechanicLabel": "Mechanic",
+    "locationLabel": "Location",
+    "vehicleIdLabel": "Vehicle ID",
+    "detailsLabel": "Details",
+    "updateStatusLabel": "Update Status",
+    "totalCostLabel": "Total Cost",
+    "viewDetailsLink": "View Details",
+    "seeExpenseButton": "See Expense",
+    "status": {
+      "pending": "Pending",
+      "in_progress": "In Progress",
+      "completed": "Completed",
+      "cancelled": "Cancelled"
+    },
+    "create": {
+      "title": "New Maintenance",
+      "subtitle": "Register a new service for a client",
+      "vehicleInfo": "Vehicle Information",
+      "owner": "Owner",
+      "selectOwner": "Select Owner",
+      "vehicle": "Vehicle",
+      "selectVehicle": "Select Vehicle",
+      "serviceDetails": "Service Details",
+      "serviceTitle": "Service Title",
+      "titlePlaceholder": "Title / Short Details",
+      "titleExample": "Ex: Oil Change",
+      "serviceDate": "Service Date",
+      "date": "Date",
+      "serviceTime": "Service Time",
+      "time": "Time",
+      "serviceLocation": "Service Location",
+      "location": "Location",
+      "serviceDescription": "Service Description",
+      "description": "Description / Notes",
+      "submitButton": "Create Maintenance"
+    }
+  },
+  "expenses": {
+    "createButton": "Create Expense",
+    "emptyState": "No expenses found. Create one to get started.",
+    "finalPrice": "Final Price",
+    "notFound": "Expense not found",
+    "deleteConfirm": "Are you sure you want to delete this expense?",
+    "table": {
+      "item": "Item",
+      "type": "Type",
+      "qty": "Qty",
+      "unit": "Unit",
+      "total": "Total"
+    },
+    "create": {
+      "title": "New Expense",
+      "expenseTitlePlaceholder": "Expense Title (e.g. Monthly Maintenance)",
+      "addItemsTitle": "Add Items",
+      "itemName": "Item Name",
+      "itemType": "Type",
+      "itemQty": "Qty",
+      "itemPrice": "Price",
+      "noItems": "No items added",
+      "submitButton": "Create Expense"
+    }
+  }
+}

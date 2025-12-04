@@ -2,23 +2,24 @@ import { Component, Input, Output, EventEmitter, OnChanges, SimpleChanges, Chang
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Vehicle } from '../../model/model';
+import {TranslateModule} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-vehicle-card',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, TranslateModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="card">
       <div class="card-header">
-        <h3 class="card-title">{{ title }}</h3>
+        <h3 class="card-title">{{ title | translate }}</h3>
         <select
           *ngIf="selectable && options && options.length > 0"
           [(ngModel)]="selectedVehicleId"
           (ngModelChange)="onSelectionChange($event)"
           class="vehicle-select">
           <option *ngFor="let opt of options" [value]="opt.id">
-            {{ opt.model?.brand || 'N/A' }} {{ opt.model?.name || 'N/A' }} - {{ opt.plate || 'N/A' }}
+            {{ opt.model.brand || 'N/A' }} {{ opt.model.name || 'N/A' }} - {{ opt.plate || 'N/A' }}
           </option>
         </select>
       </div>
@@ -36,39 +37,39 @@ import { Vehicle } from '../../model/model';
           <h2 class="vehicle-name">{{ vehicle.model.brand || 'N/A' }} {{ vehicle.model.name || 'N/A' }}</h2>
           <div class="vehicle-details">
             <div class="detail-item">
-              <span class="detail-label">Year</span>
-              <span class="detail-value">{{ vehicle.year || 'N/A' }}</span>
+              <span class="detail-label">{{ 'comparative.vehicleCard.year' | translate }}</span>
+              <span class="detail-value">{{ vehicle.year || ('comparative.common.noData' | translate) }}</span>
             </div>
             <div class="detail-item">
-              <span class="detail-label">Plate</span>
-              <span class="detail-value">{{ vehicle.plate || 'N/A' }}</span>
+              <span class="detail-label">{{ 'comparative.vehicleCard.plate' | translate }}</span>
+              <span class="detail-value">{{ vehicle.plate || ('comparative.common.noData' | translate) }}</span>
             </div>
             <div class="detail-item">
-              <span class="detail-label">Type</span>
-              <span class="detail-value">{{ vehicle.model.type || 'N/A' }}</span>
+              <span class="detail-label">{{ 'comparative.vehicleCard.type' | translate }}</span>
+              <span class="detail-value">{{ vehicle.model.type || ('comparative.common.noData' | translate) }}</span>
             </div>
           </div>
         </div>
 
         <div class="specs-preview">
           <div class="spec-badge">
-            <div class="spec-value">{{ vehicle.model.displacement || 'N/A' }}</div>
-            <div class="spec-label">Displacement</div>
+            <div class="spec-value">{{ vehicle.model.displacement || ('comparative.common.noData' | translate) }}</div>
+            <div class="spec-label">{{ 'comparative.vehicleCard.displacement' | translate }}</div>
           </div>
           <div class="spec-badge">
-            <div class="spec-value">{{ vehicle.model.potency || 'N/A' }}</div>
-            <div class="spec-label">Power</div>
+            <div class="spec-value">{{ vehicle.model.potency || ('comparative.common.noData' | translate) }}</div>
+            <div class="spec-label">{{ 'comparative.vehicleCard.power' | translate }}</div>
           </div>
           <div class="spec-badge">
-            <div class="spec-value">{{ vehicle.model.consumption || 'N/A' }}</div>
-            <div class="spec-label">Consumption</div>
+            <div class="spec-value">{{ vehicle.model.consumption || ('comparative.common.noData' | translate) }}</div>
+            <div class="spec-label">{{ 'comparative.vehicleCard.consumption' | translate }}</div>
           </div>
         </div>
       </div>
 
       <div class="card-body" *ngIf="!vehicle || !vehicle.model">
         <div class="empty-message">
-          <p>No vehicle data available</p>
+          <p>{{ 'comparative.vehicleCard.noDataTitle' | translate }}</p>
         </div>
       </div>
     </div>

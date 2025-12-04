@@ -1,68 +1,132 @@
+/* Fondo desenfocado y oscuro */
 .dialog-backdrop {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
+  top: 0; left: 0; width: 100vw; height: 100vh;
   background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(5px);
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 1000;
+  animation: fadeIn 0.3s ease-out;
 }
 
+/* Tarjeta Principal */
 .dialog {
   background: white;
-  border-radius: 8px;
-  padding: 20px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  max-width: 400px;
-  width: 100%;
+  border-radius: 20px;
+  width: 90%;
+  max-width: 420px;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Encabezado Oscuro (Premium) */
+.title {
+  background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+  padding: 1.5rem 2rem;
+  text-align: center;
+  border-bottom: 4px solid #ff6b35; /* Línea de acento */
 }
 
 .title p {
-  font-size: 1.4rem;
+  margin: 0;
+  color: white;
+  font-size: 1.25rem;
   font-weight: 700;
-  margin: 0 0 12px 0;
-  color: #222;
+  letter-spacing: -0.5px;
 }
 
-.code .code-highlight {
-  display: inline-block;
-  width: 100%;
-  background: linear-gradient(90deg, #f8b490, #faa37a);
-  border-left: 4px solid #FF6B35;
-  padding: 10px 12px;
-  border-radius: 4px;
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", monospace;
-  font-weight: bold;
-  color: black;
-  font-size: 1.2rem;
-  margin: 0;
-}
+/* Secciones de Contenido (.code se usa para dos cosas en tu HTML, las diferenciamos por orden) */
 
-.loading {
-  color: #777;
-  margin: 0;
-}
-
-.btn-container {
+/* 1. Bloque del Código (El primer .code) */
+.dialog > .code:nth-of-type(2) {
+  padding: 2rem 2rem 0.5rem 2rem;
+  text-align: center;
   display: flex;
-  justify-content: flex-end;
-  margin-top: 16px;
+  justify-content: center;
 }
 
+/* Estilo del Código Generado */
+.code-highlight {
+  font-size: 2rem;
+  font-weight: 800;
+  color: #ff6b35; /* Naranja Marca */
+  font-family: 'Courier New', monospace; /* Monospaced para códigos */
+  letter-spacing: 2px;
+  background: #fff5f0;
+  padding: 1rem 1.5rem;
+  border-radius: 12px;
+  border: 2px dashed rgba(255, 107, 53, 0.3);
+  margin: 0;
+  width: 100%;
+}
+
+/* Estado de Carga */
+.loading {
+  color: #666;
+  font-style: italic;
+  font-weight: 500;
+}
+
+/* 2. Bloque del Mensaje (El segundo .code) */
+.dialog > .code:nth-of-type(3) {
+  padding: 0 2rem 1.5rem 2rem;
+  text-align: center;
+}
+
+.dialog > .code:nth-of-type(3) p {
+  color: #666; /* Gris oscuro para lectura */
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* Contenedor del Botón */
+.btn-container {
+  padding: 1.5rem;
+  background: #fafafa;
+  border-top: 1px solid #f0f0f0;
+  display: flex;
+  justify-content: center;
+}
+
+/* Botón de Cerrar (Estilo Primario) */
 .close-btn {
-  background-color: #e53935;
-  color: #ffffff;
+  background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+  color: white;
   border: none;
-  padding: 8px 14px;
-  border-radius: 6px;
+  padding: 0.8rem 3rem;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 700;
   cursor: pointer;
-  font-weight: 600;
-  transition: background-color 0.12s ease;
+  box-shadow: 0 4px 12px rgba(255, 107, 53, 0.25);
+  transition: all 0.2s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  outline: none;
 }
 
 .close-btn:hover {
-  background-color: #c62828;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(255, 107, 53, 0.4);
+}
+
+.close-btn:active {
+  transform: translateY(0);
+}
+
+/* Animaciones */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(30px) scale(0.95); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
 }

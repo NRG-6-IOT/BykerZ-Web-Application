@@ -1,32 +1,83 @@
-.screen{
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-  padding: 40px;
-  gap: 40px;
-  background-color: #ffffff;
+.dashboard-container {
+  max-width: 1400px; margin: 0 auto; padding: 2rem;
+  min-height: 100vh; background: #f8f9fa;
 }
 
-.left{
-  font-size: 32px;
-  font-weight: bold;
-  color: #000000;
+.dashboard-header { margin-bottom: 2.5rem; }
+.page-title { font-size: 2.5rem; font-weight: 800; margin: 0; color: #1a1a1a; }
+.subtitle { color: #666; margin: 0.5rem 0 0; }
+
+.mechanic-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1.5rem;
+  align-items: start;
 }
 
-.header{
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
+.dash-card {
+  background: white; border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+  overflow: hidden; min-height: 400px;
+  display: flex; flex-direction: column;
 }
 
-.right{
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  gap: 20px;
+.card-header {
+  padding: 1.5rem; background: white; border-bottom: 1px solid #f0f0f0;
+  display: flex; align-items: center; gap: 10px;
+}
+.card-header.orange { background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%); color: white; }
+.card-header.dark { background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%); color: white; }
+
+.header-icon { font-size: 1.5rem; }
+.card-header h3 { margin: 0; font-weight: 700; font-size: 1.1rem; }
+
+.card-body { padding: 1.5rem; flex: 1; overflow-y: auto; }
+.card-body.list { padding: 0; }
+
+/* Client List */
+.client-row {
+  display: flex; align-items: center; gap: 1rem;
+  padding: 1rem 1.5rem; border-bottom: 1px solid #f9f9f9;
+  cursor: pointer; transition: background 0.2s;
+}
+.client-row:hover { background: #fefefe; }
+.avatar-circle {
+  width: 40px; height: 40px; background: #f0f0f0; color: #666;
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  font-weight: 700;
+}
+.client-name { font-weight: 600; color: #333; flex: 1; }
+.arrow { color: #ccc; }
+
+/* Membership */
+.center-content { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2rem; }
+.status-ring {
+  width: 140px; height: 140px; border-radius: 50%;
+  border: 8px solid #1a1a1a;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+}
+.plan-name { font-size: 1.5rem; font-weight: 900; color: #1a1a1a; }
+.plan-label { font-size: 0.7rem; letter-spacing: 2px; color: #666; }
+
+.time-remaining { text-align: center; }
+.time-val { display: block; font-size: 2rem; font-weight: 800; color: #ff6b35; }
+.time-label { color: #999; font-size: 0.9rem; }
+
+/* Work Items */
+.work-item {
+  display: flex; gap: 1rem; padding: 1rem 1.5rem;
+  border-bottom: 1px solid #f9f9f9; cursor: pointer;
+}
+.work-item:hover { background: #fafafa; }
+.work-date {
+  background: #fff5f0; color: #ff6b35; padding: 0.5rem; border-radius: 8px;
+  font-weight: 700; font-size: 0.8rem; height: fit-content;
+}
+.work-details { display: flex; flex-direction: column; }
+.work-vehicle { font-weight: 700; color: #333; }
+.work-client { font-size: 0.85rem; color: #888; }
+
+@media (max-width: 1024px) {
+  .mechanic-grid { grid-template-columns: 1fr; }
+  .dash-card { min-height: auto; }
 }

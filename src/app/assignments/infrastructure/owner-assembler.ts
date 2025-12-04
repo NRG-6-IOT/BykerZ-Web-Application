@@ -10,12 +10,12 @@ export class OwnerAssembler implements BaseAssembler<Owner, OwnerResource, Owner
 
   toEntityFromResource(resource: OwnerResource): Owner {
     const completeName = resource.completeName ?? '';
-    return new Owner({ ownerId: resource.ownerId, completeName });
+    return new Owner({ id: resource.id, completeName });
   }
 
   toResourceFromEntity(entity: Owner): OwnerResource {
     return {
-      ownerId: entity.id,
+      id: entity.id,
       completeName: entity.completeName
     } as OwnerResource;
   }

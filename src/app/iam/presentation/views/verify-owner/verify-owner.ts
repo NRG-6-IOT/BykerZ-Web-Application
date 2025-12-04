@@ -4,14 +4,30 @@ import {environment} from '../../../../../environments/environment';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AuthenticationService} from '@app/iam/services/authentication.service';
+import {CommonModule} from '@angular/common';
 
 @Component({
   selector: 'app-verify-owner',
-  imports: [],
-  templateUrl: './verify-owner.html'
+  standalone: true,
+  imports: [CommonModule],
+  templateUrl: './verify-owner.html',
+  styles: [`
+    .verify-page {
+      height: 100vh; display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      background: #f8f9fa; font-family: 'Segoe UI', sans-serif;
+    }
+    .spinner {
+      width: 50px; height: 50px; border: 4px solid #eee; border-top-color: #ff6b35;
+      border-radius: 50%; animation: spin 1s infinite linear; margin-bottom: 1.5rem;
+    }
+    h2 { color: #1a1a1a; margin: 0 0 0.5rem; }
+    p { color: #666; }
+    @keyframes spin { 100% { transform: rotate(360deg); } }
+  `]
 })
 export class VerifyOwner implements OnInit {
-
+  // ... (La lógica se mantiene igual que en tu archivo original) ...
   baseUrl: string = `${environment.platformProviderApiBaseUrl}`;
   httpOptions = { headers: new HttpHeaders({'Content-type': 'application/json'})};
   invitationCode: string | null = null;
@@ -23,14 +39,11 @@ export class VerifyOwner implements OnInit {
     private authenticationService: AuthenticationService
   ) {}
 
-  // TODO: Move these methods to a dedicated store
-  // Fetch assignment info
   verifyAssignmentCode(assignmentCode: string) {
     const url = `${this.baseUrl}/assignments/code/${encodeURIComponent(assignmentCode)}`;
     return this.http.get<any>(url, this.httpOptions);
   }
 
-  // Assign owner to that assignment
   assignOwnerToAssignment(assignmentCode: string, ownerId: number) {
     const url = `${this.baseUrl}/assignments/code/${encodeURIComponent(assignmentCode)}/assign-owner/${ownerId}`;
     return this.http.patch<any>(url, null, this.httpOptions);
@@ -41,27 +54,14 @@ export class VerifyOwner implements OnInit {
     const ownerId = Number(localStorage.getItem('role_id') ?? 0);
 
     if (!this.invitationCode || ownerId === 0) {
-      console.warn('❌ Missing invitation code or invalid owner ID');
       this.handleInvalidState();
       return;
     }
 
     this.verifyAssignmentCode(this.invitationCode).pipe(
-      tap(() => console.log(`Invitation code verified: ${this.invitationCode}`)),
-
-      switchMap(() => {
-        console.log(`Assigning owner ${ownerId} to assignment ${this.invitationCode}`);
-        return this.assignOwnerToAssignment(this.invitationCode!, ownerId);
-      }),
-
-      tap(() => console.log('Owner assigned successfully')),
-
-      tap(() => {
-        this.router.navigate(['/owner-dashboard']).then();
-      }),
-
-      catchError(err => {
-        console.error('Verification or assignment failed:', err);
+      switchMap(() => this.assignOwnerToAssignment(this.invitationCode!, ownerId)),
+      tap(() => this.router.navigate(['/owner-dashboard'])),
+      catchError(() => {
         this.handleInvalidState();
         return EMPTY;
       })
@@ -70,8 +70,6 @@ export class VerifyOwner implements OnInit {
 
   private handleInvalidState() {
     this.authenticationService.signOut();
-    setTimeout(() => {
-      this.router.navigate(['/sign-in']).then();
-    }, 3000);
+    setTimeout(() => this.router.navigate(['/sign-in']), 3000);
   }
 }

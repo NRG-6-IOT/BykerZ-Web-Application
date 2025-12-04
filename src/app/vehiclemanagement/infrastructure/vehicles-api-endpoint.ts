@@ -8,7 +8,7 @@ import {
 } from '@app/vehiclemanagement/infrastructure/vehicles-response';
 import {VehiclesAssembler} from '@app/vehiclemanagement/infrastructure/vehicles-assembler';
 import {HttpClient} from '@angular/common/http';
-import {catchError, Observable} from 'rxjs';
+import {catchError, Observable, tap} from 'rxjs';
 
 const vehiclesEndpointUrl = `${environment.platformProviderApiBaseUrl}${environment.platformProviderVehiclesEndpointPath}`;
 
@@ -19,6 +19,7 @@ export class VehiclesApiEndpoint extends BaseApiEndpoint<Vehicle, VehicleResourc
 
   getByOwnerId(ownerId: number): Observable<VehiclesResponse | VehicleResource[]> {
     return this.http.get<VehiclesResponse | VehicleResource[]>(`${this.endpointUrl}/owner/${ownerId}`).pipe(
+      tap(response => console.log('API Response for ownerId', ownerId, ':', response)),
       catchError(this.handleError(`Failed to fetch vehicles for ownerId=${ownerId}`))
     );
   }

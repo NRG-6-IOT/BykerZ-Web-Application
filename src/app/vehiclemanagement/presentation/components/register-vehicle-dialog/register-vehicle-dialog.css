@@ -1,36 +1,176 @@
-mat-dialog-content {
+/* Contenedor Principal */
+.dialog-container {
+  background: white;
+  border-radius: 20px;
+  overflow: hidden;
+  max-width: 500px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+/* Header Oscuro */
+.dialog-header {
+  background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+  padding: 1.5rem 2rem;
+  color: white;
+  text-align: center;
+}
+
+.dialog-title {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #ff6b35;
+}
+
+.dialog-body {
+  padding: 2rem 2.5rem;
+}
+
+/* Header Visual (Imagen) */
+.visual-header {
   display: flex;
-  flex-direction: column;
   justify-content: center;
+  margin-bottom: 2rem;
+  background: #ffffff;
+  padding: 1rem;
+  border-radius: 12px;
+  border: 2px dashed #e0e0e0;
 }
 
-.main-container {
+.vehicle-img {
+  max-width: 100%;
+  height: auto;
+  /* TRUCO: Fuerza la imagen a negro puro (Brightness 0) para que se vea sobre blanco */
+  filter: brightness(0) !important;
+  opacity: 0.8;
+}
+
+.form-grid {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  width: 100%;
+  gap: 1.5rem;
 }
 
-.straight-line {
+.input-group {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.input-label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #1a1a1a;
+  letter-spacing: 0.3px;
+  padding-left: 0.25rem;
+}
+
+/* --- ESTILOS DE INPUTS CORREGIDOS (TEXTO NEGRO) --- */
+::ng-deep .custom-field .mdc-notched-outline,
+::ng-deep .custom-field .mdc-notched-outline__leading,
+::ng-deep .custom-field .mdc-notched-outline__notch,
+::ng-deep .custom-field .mdc-notched-outline__trailing {
+  display: none !important;
+}
+
+/* Caja del Input */
+::ng-deep .custom-field .mat-mdc-form-field-flex {
+  background-color: #f4f4f4 !important; /* Gris claro */
+  border-radius: 12px !important;
+  padding: 0 16px !important;
+  border: 1px solid #ccc;
+  transition: all 0.2s ease;
+  height: 56px;
   align-items: center;
 }
 
-.straight-line img {
-  max-height: 40px;
-  width: auto;
-  margin-left: 10px;
+::ng-deep .custom-field:hover .mat-mdc-form-field-flex {
+  background-color: #fff !important;
+  border-color: #999;
 }
 
-.white-line {
-  background-color: white;
-  width: 100%;
-  height: 5px;
-  border-radius: 10px;
+::ng-deep .custom-field.mat-focused .mat-mdc-form-field-flex {
+  border-color: #ff6b35 !important;
+  background-color: #fff !important;
+  box-shadow: 0 0 0 2px rgba(255, 107, 53, 0.2);
 }
 
-.straight-line mat-form-field {
-  margin-left: 20px;
-  margin-right: 20px;
+/* Etiquetas */
+::ng-deep .custom-field .mat-mdc-floating-label {
+  color: #555 !important; /* Gris oscuro */
+  font-weight: 600;
+  top: 50% !important; left: 16px !important;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+/* Etiqueta Flotante con fondo blanco */
+::ng-deep .custom-field.mat-form-field-should-float .mat-mdc-floating-label {
+  transform: translateY(-30px) scale(0.85) !important;
+  color: #ff6b35 !important;
+  position: absolute;
+  background: white;
+  padding: 0 6px;
+  border-radius: 4px;
+  z-index: 10;
+}
+
+/* TEXTO NEGRO FORZADO */
+::ng-deep .custom-field input,
+::ng-deep .custom-field .mat-mdc-select-value,
+::ng-deep .custom-field .mat-mdc-select-value-text {
+  color: #000000 !important;
+  font-weight: 700 !important;
+  -webkit-text-fill-color: #000000 !important;
+  opacity: 1 !important;
+}
+
+/* Opciones del Select */
+::ng-deep .mat-mdc-option {
+  color: #000 !important;
+}
+::ng-deep .mat-mdc-option:hover {
+  background-color: #fff5f0 !important;
+}
+
+::ng-deep .custom-field .mat-mdc-form-field-bottom-align::before { display: none !important; }
+
+/* Mensaje de error */
+.error-msg {
+  color: #d32f2f;
+  font-size: 0.8rem;
+  margin-top: 0.25rem;
+  padding-left: 0.5rem;
+  font-weight: 600;
+}
+
+.dialog-footer {
+  padding: 1.5rem 2.5rem;
+  background: #fafafa;
+  border-top: 1px solid #eee;
+  text-align: right;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+  color: white; border: none; padding: 1rem 3rem; border-radius: 12px;
+  font-weight: 700; cursor: pointer; transition: all 0.2s;
+  box-shadow: 0 4px 12px rgba(255, 107, 53, 0.25);
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.btn-primary:disabled {
+  background: #e0e0e0;
+  color: #999;
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+}
+
+.btn-primary:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255, 107, 53, 0.4);
 }

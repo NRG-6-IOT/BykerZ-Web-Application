@@ -4,11 +4,13 @@ import {Assignment} from '@app/assignments/domain/model/assignment.entity';
 import {
   CreateAssignmentDialog
 } from '@app/assignments/presentation/components/create-assignment-dialog/create-assignment-dialog';
+import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-create-assignment-button',
   imports: [
-    CreateAssignmentDialog
+    CreateAssignmentDialog,
+    TranslatePipe
   ],
   templateUrl: './create-assignment-button.html',
   styleUrl: './create-assignment-button.css'

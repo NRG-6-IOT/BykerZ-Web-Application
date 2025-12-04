@@ -1,35 +1,55 @@
-<div class="min-h-screen flex items-center justify-center">
-  <div class="flex">
-    <div class="w-96 h-96 border rounded-2xl p-5 bg-[#ffede9] flex items-center justify-center">
-      <div class="text-center">
-        <p class="font-bold text-6xl pb-6">BykerZ</p>
-        <img ngSrc="/assets/images/logo-bykerz.png" alt="Logo" width="180" height="100" />
+<div class="auth-container">
+  <div class="auth-card">
+    <div class="brand-section">
+      <div class="brand-content" style="display: flex; align-items: center; flex-direction: column;">
+        <img ngSrc="/assets/images/logo-bykerz.png" alt="Logo" width="180" height="100" class="logo-img" />
+        <p class="brand-name">BykerZ</p>
+        <p class="brand-slogan">Premium Motorcycle Management</p>
+      </div>
+      <div class="lang-switch-wrapper">
+        <app-language-switcher></app-language-switcher>
       </div>
     </div>
 
-    <div class="w-96 h-96 border rounded-2xl p-5 bg-[#ff6b35] flex items-center justify-center">
-      <form [formGroup]="signInFormGroup" (ngSubmit)="signIn()"
-            class="w-11/12 max-w-xs space-y-4 flex flex-col items-center ">
-        <mat-form-field class="w-full ">
-          <mat-label>Username</mat-label>
-          <input matInput formControlName="username" required />
-          @if (isInvalidControl(signInFormGroup, 'username')) {
-            <mat-error>{{ errorMessagesForControl(signInFormGroup, 'username') }}</mat-error>
-          }
-        </mat-form-field>
+    <div class="form-section">
+      <h2 class="form-title">{{'login.signIn'|translate}}</h2>
 
-        <mat-form-field class="w-full">
-          <mat-label>Password</mat-label>
-          <input matInput type="password" formControlName="password" required />
-          @if (isInvalidControl(signInFormGroup, 'password')) {
-            <mat-error>{{ errorMessagesForControl(signInFormGroup, 'password') }}</mat-error>
-          }
-        </mat-form-field>
+      <form [formGroup]="signInFormGroup" (ngSubmit)="signIn()" class="auth-form">
+        <div class="input-group">
+          <label class="input-label">{{'login.usernameLabel'|translate}}</label>
+          <mat-form-field appearance="outline" class="custom-field">
+            <mat-label>{{'login.username'|translate}}</mat-label>
+            <input matInput formControlName="username" required />
+            <mat-error *ngIf="isInvalidControl(signInFormGroup, 'username')">
+              {{ errorMessagesForControl(signInFormGroup, 'username') }}
+            </mat-error>
+          </mat-form-field>
+        </div>
 
-        <button mat-flat-button class="w-full !bg-[#380800]" type="submit" [disabled]="signInFormGroup.invalid">Sign In</button>
-        <button matButton routerLink="/selection" type="button">
-          <p class="text-black">Sign Up</p>
-        </button>
+        <div class="input-group">
+          <label class="input-label">{{'login.passwordLabel'|translate}}</label>
+          <mat-form-field appearance="outline" class="custom-field">
+            <mat-label>{{'login.password'|translate}}</mat-label>
+            <input matInput type="password" formControlName="password" required />
+            <mat-error *ngIf="isInvalidControl(signInFormGroup, 'password')">
+              {{ errorMessagesForControl(signInFormGroup, 'password') }}
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="actions">
+          <button type="submit" class="btn-primary" [disabled]="signInFormGroup.invalid">
+            {{'login.signIn'|translate}}
+          </button>
+
+          <div class="divider">
+            <span>{{'login.divider'|translate}}</span>
+          </div>
+
+          <button type="button" class="btn-secondary" routerLink="/selection">
+            {{'login.signUp'|translate}}
+          </button>
+        </div>
       </form>
     </div>
   </div>

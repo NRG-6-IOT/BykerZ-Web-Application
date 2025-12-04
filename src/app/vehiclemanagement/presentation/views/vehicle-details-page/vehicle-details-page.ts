@@ -1,20 +1,20 @@
 import {Component, inject, OnInit} from '@angular/core';
 import {Model, Vehicle} from '../../../domain/model/vehicle.entity';
 import {ActivatedRoute, Router} from '@angular/router';
-import {NgOptimizedImage} from '@angular/common';
+import {NgIf, NgOptimizedImage} from '@angular/common';
 import {MatCard} from '@angular/material/card';
 import {VehiclesStore} from "@app/vehiclemanagement/application/vehicles.store";
-import {MatButton} from '@angular/material/button';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '@env/environment';
 import { AuthenticationService } from '@app/iam/services/authentication.service';
+import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-vehicle-details-page',
   imports: [
     NgOptimizedImage,
-    MatCard,
-    MatButton
+    NgIf,
+    TranslatePipe
   ],
   templateUrl: './vehicle-details-page.html',
   standalone: true,
@@ -24,6 +24,7 @@ export class VehicleDetailsPage implements OnInit {
   vehicleId: number | null = null;
   vehicle: Vehicle | null = null;
   loading: boolean = true;
+
 
   constructor(
     private route: ActivatedRoute,

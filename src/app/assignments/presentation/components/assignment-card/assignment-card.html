@@ -1,36 +1,27 @@
-<div class="exterior-card" (click)="redirectToDetails()">
-  <div class="inner-card">
-    <div class="row">
-      <div class="left">
-        <p>Assignment type:</p>
-      </div>
-      <div class="right">
-        <p>{{formattedType}}</p>
-      </div>
+<div class="assignment-card" (click)="redirectToDetails()">
+  <div class="card-top">
+    <div class="type-badge">{{ formattedType }}</div>
+    <div class="code">{{ assignment?.assignmentCode }}</div>
+  </div>
+
+  <div class="card-content">
+    <div class="info-group">
+      <span class="label">{{ 'assignments.assignmentCard.ownerName' | translate }}</span>
+      <h3 class="owner-name">{{ assignment?.owner?.completeName }}</h3>
     </div>
-    <div class="row">
-      <div class="left">
-        <p>Assignment code:</p>
-      </div>
-      <div class="right">
-        <p>{{assignment?.assignmentCode}}</p>
-      </div>
+
+    <div class="divider"></div>
+
+    <div class="info-group row">
+      <span class="label">{{ 'assignments.assignmentCard.assignedOn' | translate }}</span>
+      <span class="date-value">{{ formattedDate }}</span>
     </div>
-    <div class="row">
-      <div class="left">
-        <p>Owner's name:</p>
-      </div>
-      <div class="right">
-        <p>{{assignment?.owner?.completeName}}</p>
-      </div>
-    </div>
-    <div class="row">
-      <div class="left">
-        <p>Assigned on:</p>
-      </div>
-      <div class="right">
-        <p>{{formattedDate}}</p>
-      </div>
-    </div>
+  </div>
+
+  <div class="card-footer">
+    <span>{{ 'assignments.assignmentCard.viewDetails' | translate }}</span>
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M5 12h14M12 5l7 7-7 7"/>
+    </svg>
   </div>
 </div>

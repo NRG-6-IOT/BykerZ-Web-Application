@@ -1,57 +1,67 @@
-<mat-dialog-content>
-
-  <div class="main-container">
-    <div class="straight-line">
-      <h1>Add a Vehicle</h1>
-      <img ngSrc="/assets/images/vehicle.png" width="204" height="104" alt="">
-    </div>
-    <div class="white-line"></div>
-
-    <div class="straight-line" style="margin-top: 15px">
-      <mat-form-field>
-        <mat-label>Brand</mat-label>
-        <mat-select [(ngModel)]="brand" (ngModelChange)="GetModelOptions()">
-          @for (brand of brandOptions; track brand) {
-            <mat-option [value]="brand">{{brand}}</mat-option>
-          }
-        </mat-select>
-      </mat-form-field>
-      <mat-form-field>
-        <mat-label>Model</mat-label>
-        <mat-select [(ngModel)]="model" [disabled]="!brand">
-          @for (model of modelOptions; track model) {
-            <mat-option [value]="model">{{model.name}}</mat-option>
-          }
-        </mat-select>
-      </mat-form-field>
-      <mat-form-field>
-        <mat-label>Year</mat-label>
-        <mat-select [(ngModel)]="year">
-          @for (year of yearOptions; track year) {
-            <mat-option [value]="year">{{year}}</mat-option>
-          }
-        </mat-select>
-      </mat-form-field>
-      <mat-form-field>
-        <mat-label>Plate</mat-label>
-        <input
-          matInput
-          name="plate"
-          [(ngModel)]="plate"
-          #plateCtrl="ngModel"
-          required
-          pattern="^[0-9]{4}-[A-Z]{2}$"
-          placeholder="1234-XY"
-        >
-        @if (plateCtrl.invalid && plateCtrl.touched) {
-          <mat-error>
-            Invalid plate format. Example: 1234-XY
-          </mat-error>
-        }
-      </mat-form-field>
-    </div>
-
-    <button mat-flat-button [disabled]="!IsValid()" (click)="RegisterVehicle()">Register</button>
+<div class="dialog-container">
+  <div class="dialog-header">
+    <h2 class="dialog-title">{{'vehicle.register.title' | translate}}</h2>
   </div>
 
-</mat-dialog-content>
+  <div class="dialog-body">
+    <div class="visual-header">
+      <img ngSrc="/assets/images/vehicle.png" width="204" height="104" alt="Vehicle" class="vehicle-img">
+    </div>
+
+    <div class="form-grid">
+      <div class="input-group">
+        <label class="input-label">{{'vehicle.register.brandLabel' | translate}}</label>
+        <mat-form-field appearance="outline" class="custom-field">
+          <mat-label>{{'vehicle.register.brand' | translate}}</mat-label>
+          <mat-select [(ngModel)]="brand" (ngModelChange)="GetModelOptions()">
+            @for (brand of brandOptions; track brand) {
+              <mat-option [value]="brand">{{brand}}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="input-group">
+        <label class="input-label">{{'vehicle.register.modelLabel' | translate}}</label>
+        <mat-form-field appearance="outline" class="custom-field">
+          <mat-label>{{'vehicle.register.model' | translate}}</mat-label>
+          <mat-select [(ngModel)]="model" [disabled]="!brand">
+            @for (m of modelOptions; track m) {
+              <mat-option [value]="m">{{m.name}}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="input-group">
+        <label class="input-label">{{'vehicle.register.yearLabel' | translate}}</label>
+        <mat-form-field appearance="outline" class="custom-field">
+          <mat-label>{{'vehicle.register.year' | translate}}</mat-label>
+          <mat-select [(ngModel)]="year">
+            @for (y of yearOptions; track y) {
+              <mat-option [value]="y">{{y}}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="input-group">
+        <label class="input-label">{{'vehicle.register.plateLabel' | translate}}</label>
+        <mat-form-field appearance="outline" class="custom-field">
+          <mat-label>{{'vehicle.register.plate' | translate}}</mat-label>
+          <input matInput type="text" name="plate" [(ngModel)]="plate" #plateCtrl="ngModel"
+                 (input)="formatPlate($event)" maxlength="7" required pattern="^[0-9]{4}-[a-zA-Z]{2}$">
+        </mat-form-field>
+        <div class="error-msg" *ngIf="plateCtrl.invalid && (plateCtrl.dirty || plateCtrl.touched)">
+          {{'vehicle.register.errorPlate' | translate}}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="dialog-footer">
+    <button class="btn-primary" [disabled]="!IsValid()" (click)="RegisterVehicle()">
+      {{'vehicle.register.submit' | translate}}
+    </button>
+  </div>
+</div>
