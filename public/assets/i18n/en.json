@@ -164,6 +164,7 @@
     },
     "assignmentDetailPage": {
       "assignment": "assignment",
+      "assignmentDetails": "Assignment Details",
       "code": "Code",
       "type": "Type",
       "associatedMotorbikes": "Associated Motorbikes",

@@ -164,6 +164,7 @@
     },
     "assignmentDetailPage": {
       "assignment": "asignación",
+      "assignmentDetails": "Detalles de la Asignación",
       "code": "Código",
       "type": "Tipo",
       "associatedMotorbikes": "Motocicletas Asociadas",
