@@ -27,7 +27,7 @@ import {CommonModule} from '@angular/common';
         </div>
         <div class="header-section">
           <h1 class="page-title">{{'register.signUp'|translate}}</h1>
-          <p class="subtitle">Join BykerZ today</p>
+          <p class="subtitle"> {{'register.subtitle'|translate}} </p>
         </div>
 
         <form [formGroup]="signUpForm" (ngSubmit)="onSubmit()" class="signup-form">

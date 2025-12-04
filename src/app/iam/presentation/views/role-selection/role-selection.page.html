@@ -3,41 +3,41 @@
     <app-language-switcher></app-language-switcher>
   </div>
 
-  <h1 class="main-title">Choose your role</h1>
+  <h1 class="main-title">{{ 'selection.mainTitle' | translate }}</h1>
 
   <div class="cards-container">
     <div class="role-card owner">
       <div class="card-icon">🏍️</div>
-      <h2 class="role-title">{{'selection.owner.title'|translate}}</h2>
-      <p class="role-desc">{{'selection.owner.label'|translate}}</p>
+      <h2 class="role-title">{{ 'selection.owner.title' | translate }}</h2>
+      <p class="role-desc">{{ 'selection.owner.label' | translate }}</p>
 
       <div class="input-group">
         <input
           type="text"
           class="code-input"
-          placeholder="Enter code"
+          [placeholder]="'selection.owner.placeholder' | translate"
           [(ngModel)]="invitationCode"
         />
         <button
           class="btn-action"
-          [disabled]="!invitationCode?.trim()"
+          [disabled]="!invitationCode.trim()"
           (click)="registerAsOwner()">
-          Register
+          {{ 'selection.owner.button' | translate }}
         </button>
       </div>
     </div>
 
     <div class="divider-vertical">
-      <span>OR</span>
+      <span>{{ 'selection.divider' | translate }}</span>
     </div>
 
     <div class="role-card mechanic" (click)="registerAsMechanic()">
       <div class="card-icon">🔧</div>
-      <h2 class="role-title">{{'selection.mechanic.title'|translate}}</h2>
-      <p class="role-desc">{{'selection.mechanic.label'|translate}}</p>
+      <h2 class="role-title">{{ 'selection.mechanic.title' | translate }}</h2>
+      <p class="role-desc">{{ 'selection.mechanic.label' | translate }}</p>
 
       <button class="btn-action full">
-        {{'selection.mechanic.button'|translate}}
+        {{ 'selection.mechanic.button' | translate }}
       </button>
     </div>
   </div>

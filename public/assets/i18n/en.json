@@ -10,13 +10,13 @@
     "mainTitle": "Choose your role",
     "divider": "OR",
     "owner": {
-      "title": "Register as an Owner",
+      "title": "I'm a Vehicle Owner",
       "label": "Manage your vehicles and expenses",
       "placeholder": "Enter invitation code",
       "button": "Register"
     },
     "mechanic": {
-      "title": "Register as a Mechanic",
+      "title": "I'm a Mechanic",
       "label": "Manage clients and assignments",
       "button": "Choose a plan"
     }
