@@ -169,63 +169,63 @@
   },
   "comparative": {
     "common": {
-      "loadingModels": "Loading models...",
-      "loadingVehicles": "Loading vehicles...",
-      "noModelsTitle": "No models available",
-      "noModelsMsg": "No models found to compare.",
-      "noVehiclesTitle": "No vehicles available",
-      "noVehiclesMsg": "You have no registered vehicles to compare.",
       "vs": "VS",
-      "noData": "N/A"
-    },
-    "vehicleCard": {
-      "noDataTitle": "No vehicle data available",
-      "year": "Year",
-      "plate": "Plate",
-      "type": "Type",
-      "displacement": "Displacement",
-      "power": "Power",
-      "consumption": "Consumption"
-    },
-    "specs": {
-      "title": "Technical Specifications",
-      "subtitle": "Detailed comparison of features",
-      "labels": {
-        "displacement": "Displacement",
-        "power": "Power",
-        "engineTorque": "Engine Torque",
-        "weight": "Weight",
-        "transmission": "Transmission",
-        "brakes": "Brakes",
-        "tank": "Tank",
-        "seatHeight": "Seat Height",
-        "consumption": "Consumption",
-        "price": "Approx. Price"
-      }
-    },
-    "scenarios": {
-      "title": "Usage Scenarios",
-      "subtitle": "Performance in different conditions",
-      "betterFor": "Better for {{vehicle}}",
-      "types": {
-        "cityTraffic": "City Traffic",
-        "longTrips": "Long Trips",
-        "maintenanceCost": "Maintenance Cost",
-        "resaleValue": "Resale Value"
-      }
-    },
-    "mechanicPage": {
-      "badge": "Mechanic",
-      "title": "Model Comparison",
-      "subtitle": "Compare technical specifications across available models",
-      "modelA": "Model A",
-      "modelB": "Model B"
+      "noData": "N/A",
+      "loadingVehicles": "Loading your vehicles...",
+      "loadingModels": "Loading available models...",
+      "noVehiclesTitle": "No vehicles found",
+      "noVehiclesMsg": "You don't have any vehicles registered yet.",
+      "noModelsTitle": "No models available",
+      "noModelsMsg": "There are no models available for comparison at the moment."
     },
     "comparePage": {
       "title": "Vehicle Comparison",
       "subtitle": "Compare the technical specifications of your motorcycles",
       "yourBike": "Your Bike",
       "compareWith": "Compare With"
+    },
+    "mechanicPage": {
+      "badge": "Professional Mode",
+      "title": "Model Comparison",
+      "subtitle": "Compare technical specifications between different models",
+      "modelA": "Model A",
+      "modelB": "Model B"
+    },
+    "vehicleCard": {
+      "year": "Year",
+      "plate": "Plate",
+      "type": "Type",
+      "displacement": "Displacement",
+      "power": "Power",
+      "consumption": "Consumption",
+      "noDataTitle": "No vehicle selected"
+    },
+    "specs": {
+      "title": "Technical Specifications",
+      "subtitle": "Detailed comparison of features and performance",
+      "labels": {
+        "displacement": "Displacement",
+        "power": "Power",
+        "engineTorque": "Torque",
+        "weight": "Weight",
+        "transmission": "Transmission",
+        "brakes": "Brakes",
+        "tank": "Fuel Tank",
+        "seatHeight": "Seat Height",
+        "consumption": "Consumption",
+        "price": "Price"
+      }
+    },
+    "scenarios": {
+      "title": "Usage Scenarios",
+      "subtitle": "Performance in different riding conditions",
+      "betterFor": "Better for {{ vehicle }}",
+      "types": {
+        "cityTraffic": "City Traffic",
+        "longTrips": "Long Trips",
+        "maintenanceCost": "Maintenance Cost",
+        "resaleValue": "Resale Value"
+      }
     }
   },
   "notifications": {

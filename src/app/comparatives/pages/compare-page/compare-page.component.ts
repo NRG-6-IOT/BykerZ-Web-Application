@@ -8,10 +8,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { VehiclesApi } from '@app/vehiclemanagement/infrastructure/vehicles-api';
 import { AuthenticationService } from '@app/iam/services/authentication.service';
 import {TranslateModule} from '@ngx-translate/core';
+import { forkJoin } from 'rxjs';
 
 @Component({
   standalone: true,
-  imports: [CommonModule, VehicleCardComponent, SpecsCardComponent, ScenariosCardComponent, TranslateModule], // AGREGADO
+  imports: [CommonModule, VehicleCardComponent, SpecsCardComponent, ScenariosCardComponent, TranslateModule],
   selector: 'app-compare-page',
   template: `
     <div class="page">
@@ -289,21 +290,18 @@ export class ComparePageComponent implements OnInit {
 
     if (userId) {
       this.currentOwnerId = userId;
-      this.loadOwnerVehicles();
-      this.loadAllModels();
+      this.loadData();
     } else {
       this.authService.currentUserId.subscribe({
         next: (id) => {
           if (id && id !== this.currentOwnerId) {
             this.currentOwnerId = id;
-            this.loadOwnerVehicles();
-            this.loadAllModels();
+            this.loadData();
           } else if (!id) {
             const tokenUserId = this.getUserIdFromToken();
             if (tokenUserId) {
               this.currentOwnerId = tokenUserId;
-              this.loadOwnerVehicles();
-              this.loadAllModels();
+              this.loadData();
             } else {
               this.loading = false;
             }
@@ -328,6 +326,52 @@ export class ComparePageComponent implements OnInit {
       return null;
     }
     return null;
+  }
+
+  private loadData(): void {
+    if (!this.currentOwnerId) {
+      this.loading = false;
+      return;
+    }
+
+    this.loading = true;
+
+    forkJoin({
+      vehicles: this.vehiclesApi.getVehiclesByOwnerId(this.currentOwnerId),
+      models: this.vehiclesApi.getAllModels()
+    }).subscribe({
+      next: ({ vehicles, models }) => {
+        this.availableVehicles = vehicles.map(entity => new Vehicle({
+          id: entity.id,
+          ownerId: entity.owner?.id,
+          model: entity.model,
+          year: entity.year,
+          plate: entity.plate
+        }));
+
+        this.availableModels = models.map((model) => new Vehicle({
+          id: model.id,
+          ownerId: 0,
+          model: model,
+          year: model.modelYear,
+          plate: `MODEL-${model.id}`
+        }));
+
+        if (this.availableVehicles.length > 0 && this.availableModels.length > 0) {
+          this.initializeSelection();
+        }
+
+        this.loading = false;
+        this.cdr.detectChanges();
+      },
+      error: (err) => {
+        if (err?.status === 404) {
+          this.router.navigate(['/compare-mechanic']);
+        }
+        this.loading = false;
+        this.cdr.detectChanges();
+      }
+    });
   }
 
   private saveState(): void {
@@ -355,55 +399,6 @@ export class ComparePageComponent implements OnInit {
     return null;
   }
 
-  private loadAllModels(): void {
-    this.vehiclesApi.getAllModels().subscribe({
-      next: (models) => {
-        this.availableModels = models.map((model) => new Vehicle({
-          id: model.id,
-          ownerId: 0,
-          model: model,
-          year: model.modelYear,
-          plate: `MODEL-${model.id}`
-        }));
-      },
-      error: (error) => {
-      }
-    });
-  }
-
-  private loadOwnerVehicles(): void {
-    if (!this.currentOwnerId) {
-      this.loading = false;
-      return;
-    }
-
-    this.loading = true;
-
-    this.vehiclesApi.getVehiclesByOwnerId(this.currentOwnerId).subscribe({
-      next: (vehicleEntities) => {
-        this.availableVehicles = vehicleEntities.map(entity => new Vehicle({
-          id: entity.id,
-          ownerId: entity.owner?.id,
-          model: entity.model,
-          year: entity.year,
-          plate: entity.plate
-        }));
-
-        if (this.availableVehicles.length > 0) {
-          this.initializeSelection();
-        }
-
-        this.loading = false;
-      },
-      error: (err) => {
-        if (err?.status === 404) {
-          this.router.navigate(['/compare-mechanic']);
-        }
-        this.loading = false;
-      }
-    });
-  }
-
   private initializeSelection(): void {
     const vehicleIdParam = this.route.snapshot.queryParamMap.get('vehicleId');
     const saved = this.getSavedState();
@@ -418,7 +413,7 @@ export class ComparePageComponent implements OnInit {
     }
 
     const compareId = saved?.compareVehicleId;
-    if (compareId && this.availableModels.length > 0) {
+    if (compareId) {
       const found = this.availableModels.find(v =>
         (v.id === compareId || v.model?.id === compareId) &&
         v.model?.id !== this.ownerVehicle?.model?.id
@@ -426,7 +421,7 @@ export class ComparePageComponent implements OnInit {
       this.compareVehicle = found ||
         this.availableModels.find(v => v.model?.id !== this.ownerVehicle?.model?.id) ||
         this.availableModels[0];
-    } else if (this.availableModels.length > 0) {
+    } else {
       this.compareVehicle = this.availableModels.find(v =>
         v.model?.id !== this.ownerVehicle?.model?.id
       ) || this.availableModels[0];

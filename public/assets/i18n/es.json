@@ -169,27 +169,40 @@
   },
   "comparative": {
     "common": {
-      "loadingModels": "Cargando modelos...",
-      "loadingVehicles": "Cargando vehículos...",
-      "noModelsTitle": "No hay modelos disponibles",
-      "noModelsMsg": "No se encontraron modelos para comparar.",
-      "noVehiclesTitle": "No hay vehículos disponibles",
-      "noVehiclesMsg": "No tienes vehículos registrados para comparar.",
       "vs": "VS",
-      "noData": "N/A"
+      "noData": "N/D",
+      "loadingVehicles": "Cargando tus vehículos...",
+      "loadingModels": "Cargando modelos disponibles...",
+      "noVehiclesTitle": "No se encontraron vehículos",
+      "noVehiclesMsg": "Aún no tienes vehículos registrados.",
+      "noModelsTitle": "No hay modelos disponibles",
+      "noModelsMsg": "No hay modelos disponibles para comparar en este momento."
+    },
+    "comparePage": {
+      "title": "Comparación de Vehículos",
+      "subtitle": "Compara las especificaciones técnicas de tus motocicletas",
+      "yourBike": "Tu Moto",
+      "compareWith": "Comparar Con"
+    },
+    "mechanicPage": {
+      "badge": "Modo Profesional",
+      "title": "Comparación de Modelos",
+      "subtitle": "Compara especificaciones técnicas entre diferentes modelos",
+      "modelA": "Modelo A",
+      "modelB": "Modelo B"
     },
     "vehicleCard": {
-      "noDataTitle": "Datos no disponibles",
       "year": "Año",
       "plate": "Placa",
       "type": "Tipo",
       "displacement": "Cilindrada",
       "power": "Potencia",
-      "consumption": "Consumo"
+      "consumption": "Consumo",
+      "noDataTitle": "No hay vehículo seleccionado"
     },
     "specs": {
       "title": "Especificaciones Técnicas",
-      "subtitle": "Comparación detallada de características",
+      "subtitle": "Comparación detallada de características y rendimiento",
       "labels": {
         "displacement": "Cilindrada",
         "power": "Potencia",
@@ -198,34 +211,21 @@
         "transmission": "Transmisión",
         "brakes": "Frenos",
         "tank": "Tanque",
-        "seatHeight": "Altura Asiento",
+        "seatHeight": "Altura del Asiento",
         "consumption": "Consumo",
-        "price": "Precio Aprox."
+        "price": "Precio"
       }
     },
     "scenarios": {
       "title": "Escenarios de Uso",
-      "subtitle": "Rendimiento en diferentes condiciones",
-      "betterFor": "Mejor para {{vehicle}}",
+      "subtitle": "Rendimiento en diferentes condiciones de conducción",
+      "betterFor": "Mejor para {{ vehicle }}",
       "types": {
         "cityTraffic": "Tráfico Urbano",
         "longTrips": "Viajes Largos",
-        "maintenanceCost": "Costo Mantenimiento",
-        "resaleValue": "Valor Reventa"
+        "maintenanceCost": "Costo de Mantenimiento",
+        "resaleValue": "Valor de Reventa"
       }
-    },
-    "mechanicPage": {
-      "badge": "Mecánico",
-      "title": "Comparación de Modelos",
-      "subtitle": "Compara especificaciones técnicas entre modelos",
-      "modelA": "Modelo A",
-      "modelB": "Modelo B"
-    },
-    "comparePage": {
-      "title": "Comparación de Vehículos",
-      "subtitle": "Compara las especificaciones de tus motocicletas",
-      "yourBike": "Tu Moto",
-      "compareWith": "Comparar Con"
     }
   },
   "notifications": {

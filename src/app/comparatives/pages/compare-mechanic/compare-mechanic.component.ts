@@ -313,9 +313,11 @@ export class CompareMechanicComponent implements OnInit {
         }
 
         this.loading = false;
+        this.cdr.detectChanges();
       },
       error: (error) => {
         this.loading = false;
+        this.cdr.detectChanges();
       }
     });
   }
