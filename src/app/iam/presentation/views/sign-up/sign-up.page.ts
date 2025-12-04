@@ -111,7 +111,7 @@ import {CommonModule} from '@angular/common';
     .header-section { text-align: center; margin-bottom: 2rem; }
     .page-title {
       margin: 0.5rem 0;
-      font-size: clamp(2.5rem, 2.5vw, 1.6rem);
+      font-size: 2.5rem;
       line-height: 1.1;
       display: block;
       height: auto;

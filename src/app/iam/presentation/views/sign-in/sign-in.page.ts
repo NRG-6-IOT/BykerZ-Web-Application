@@ -52,7 +52,7 @@ import {TranslateModule} from '@ngx-translate/core';
     .logo-img { filter: drop-shadow(0 4px 12px rgba(255,255,255,0.1)); margin-bottom: 1.5rem; }
     .brand-name {
       margin: 1rem 0;
-      font-size: clamp(3.5rem, 2.5vw, 1.6rem);
+      font-size: 3.5rem;
       line-height: 1.1;
       display: block;
       height: auto;
