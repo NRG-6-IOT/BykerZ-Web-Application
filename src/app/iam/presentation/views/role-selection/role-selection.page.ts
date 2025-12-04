@@ -68,7 +68,7 @@ export class RoleSelectionPage {
   constructor(private router: Router) {}
 
   registerAsOwner() {
-    if (this.invitationCode?.trim()) {
+    if (this.invitationCode.trim()) {
       this.router.navigate(['/sign-up'], {queryParams: {invitationCode: this.invitationCode.trim()}});
     }
   }

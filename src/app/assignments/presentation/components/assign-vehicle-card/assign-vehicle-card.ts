@@ -1,5 +1,4 @@
 import {Component, inject, Input} from '@angular/core';
-import {MatCard, MatCardContent} from '@angular/material/card';
 import {RouterLink} from '@angular/router';
 
 import {
@@ -14,8 +13,6 @@ import {TranslatePipe} from '@ngx-translate/core';
 @Component({
   selector: 'app-assign-vehicle-card',
   imports: [
-    MatCard,
-    MatCardContent,
     RouterLink,
     NotificationListComponent,
     TranslatePipe

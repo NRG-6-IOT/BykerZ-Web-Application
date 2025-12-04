@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import {TranslatePipe} from '@ngx-translate/core';
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'app-wellness-metric-details-page',
@@ -10,5 +11,9 @@ import {TranslatePipe} from '@ngx-translate/core';
   styleUrl: './wellness-metric-details-page.css'
 })
 export class WellnessMetricDetailsPage {
+  constructor(private location: Location) {}
 
+  goBack(): void {
+    this.location.back();
+  }
 }

@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import {NgForOf} from '@angular/common';
+import {CommonModule} from '@angular/common';
 import {Assignment} from '@app/assignments/domain/model/assignment.entity';
 import {
   PendingAssignmentsDropdownItem
@@ -10,7 +10,7 @@ import {TranslatePipe} from '@ngx-translate/core';
   selector: 'app-pending-assignments-dropdown',
   templateUrl: './pending-assignments-dropdown.component.html',
   imports: [
-    NgForOf,
+    CommonModule,
     PendingAssignmentsDropdownItem,
     TranslatePipe
   ],
