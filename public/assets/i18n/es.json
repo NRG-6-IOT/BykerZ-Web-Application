@@ -129,7 +129,8 @@
       "assignmentType": "Tipo de asignación",
       "assignmentCode": "Código",
       "ownerName": "Propietario",
-      "assignedOn": "Asignado el"
+      "assignedOn": "Asignado el",
+      "viewDetails": "Ver Detalles"
     },
     "assignmentCardList": {
       "noAssignments": "No tienes asignaciones activas."

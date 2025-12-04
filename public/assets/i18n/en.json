@@ -129,7 +129,8 @@
       "assignmentType": "Assignment type",
       "assignmentCode": "Assignment code",
       "ownerName": "Owner's name",
-      "assignedOn": "Assigned on"
+      "assignedOn": "Assigned on",
+      "viewDetails": "View Details"
     },
     "assignmentCardList": {
       "noAssignments": "You have no active assignments."
