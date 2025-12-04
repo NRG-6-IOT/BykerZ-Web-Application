@@ -1,9 +1,9 @@
 <div class="list-container">
   <div *ngIf="metrics().length === 0" class="empty-state">
     <div class="icon-box">📊</div>
-    <h3>No metrics available</h3>
-    <p>There is no loaded metrics at the moment.</p>
-    <button class="btn-reload" (click)="store.loadAllMetrics()">Reload metrics</button>
+    <h3>{{ 'metrics.list.emptyTitle' | translate }}</h3>
+    <p>{{ 'metrics.list.emptyMessage' | translate }}</p>
+    <button class="btn-reload" (click)="store.loadAllMetrics()">{{ 'metrics.list.reloadButton' | translate }}</button>
   </div>
 
   <div *ngIf="metrics().length > 0" class="metrics-grid">

@@ -1,1 +1,12 @@
-<p>wellness-metric-details-page works!</p>
+<div class="details-page">
+  <div class="page-header">
+    <button class="btn-back" (click)="goBack()">
+      ← {{ 'metrics.details.backButton' | translate }}
+    </button>
+    <h1 class="page-title">{{ 'metrics.details.title' | translate }}</h1>
+  </div>
+
+  <div class="content-placeholder">
+    <!-- Aquí irá el contenido detallado de la métrica -->
+  </div>
+</div>

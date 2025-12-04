@@ -12,7 +12,7 @@
   <div class="card-content">
     <div class="data-grid">
       <div class="data-item">
-        <span class="section-title">GPS</span>
+        <span class="section-title">{{ 'metrics.gpsLocation' | translate }}</span>
         <span class="data-value">{{ wellnessMetric().latitude | number:'1.2-2' }}, {{ wellnessMetric().longitude | number:'1.2-2' }}</span>
       </div>
 
@@ -22,8 +22,8 @@
       </div>
 
       <div class="data-item">
-        <span class="section-title">Air Quality</span>
-        <span class="data-value highlight">CO2: {{ wellnessMetric().CO2Ppm }}</span>
+        <span class="section-title">{{ 'metrics.airQuality' | translate }}</span>
+        <span class="data-value highlight">{{ 'metrics.co2' | translate }}: {{ wellnessMetric().CO2Ppm }}</span>
       </div>
 
       <div class="data-item">

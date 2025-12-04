@@ -78,6 +78,11 @@ import {TranslateModule} from '@ngx-translate/core';
       height: auto;
       background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
       -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+      color: transparent;
+      padding-block: 0.25em;
+      display: inline-block;
+      line-height: normal;
     }
 
     .btn-create {

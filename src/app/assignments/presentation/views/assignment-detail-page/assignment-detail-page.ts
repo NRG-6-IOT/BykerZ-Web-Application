@@ -10,13 +10,15 @@ import {AssignVehicleCard} from '@app/assignments/presentation/components/assign
 import {TranslatePipe} from '@ngx-translate/core';
 import {Vehicle} from '@app/vehiclemanagement/domain/model/vehicle.entity';
 import {VehiclesApi} from '@app/vehiclemanagement/infrastructure/vehicles-api';
+import {UpperCasePipe} from '@angular/common';
 
 @Component({
   selector: 'app-assignment-detail-page',
   imports: [
     AssignmentTypeSelector,
     AssignVehicleCard,
-    TranslatePipe
+    TranslatePipe,
+    UpperCasePipe
   ],
   templateUrl: './assignment-detail-page.html',
   styleUrl: './assignment-detail-page.css'

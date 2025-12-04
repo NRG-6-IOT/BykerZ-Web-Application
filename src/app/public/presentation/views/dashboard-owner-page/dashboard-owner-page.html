@@ -1,16 +1,16 @@
 <div class="dashboard-container">
   <div class="dashboard-header">
     <div class="welcome-section">
-      <h1 class="page-title">{{'dashboard.owner.title' | translate}}</h1>
-      <p class="subtitle">{{'dashboard.owner.subtitle' | translate}}</p>
+      <h1 class="page-title">{{ 'dashboard.owner.title' | translate }}</h1>
+      <p class="subtitle">{{ 'dashboard.owner.subtitle' | translate }}</p>
     </div>
 
     @if (ownerAssignment()) {
       <div class="mechanic-badge">
-        <span class="badge-label">{{'dashboard.owner.assignedMechanic' | translate}}</span>
+        <span class="badge-label">{{ 'dashboard.owner.assignedMechanic' | translate }}</span>
         <div class="badge-content">
           <div class="mechanic-avatar">
-            <span class="initial">{{ ownerAssignment()?.mechanic?.completeName?.charAt(0) }}</span>
+            <span class="initial">{{ (ownerAssignment()?.mechanic?.completeName || '?').charAt(0) }}</span>
           </div>
           <span class="mechanic-name">{{ ownerAssignment()?.mechanic?.completeName }}</span>
         </div>
@@ -22,7 +22,7 @@
 
     <div class="dashboard-card vehicles-area">
       <div class="card-header">
-        <h3>{{'dashboard.owner.myVehicles' | translate}}</h3>
+        <h3 class="card-title">{{ 'dashboard.owner.myVehicles' | translate }}</h3>
         <span class="count-pill">{{ ownerVehicles().length }}</span>
       </div>
       <div class="card-body scrollable">
@@ -43,7 +43,7 @@
 
     <div class="dashboard-card bills-area">
       <div class="card-header orange">
-        <h3>{{'dashboard.owner.recentExpenses' | translate}}</h3>
+        <h3 class="card-title">{{ 'dashboard.owner.recentExpenses' | translate }}</h3>
         <span class="count-pill dark">{{ ownerExpenses().length }}</span>
       </div>
       <div class="card-body scrollable">
@@ -61,7 +61,7 @@
 
     <div class="dashboard-card maintenance-area">
       <div class="card-header dark">
-        <h3>{{'dashboard.owner.scheduledMaintenances' | translate}}</h3>
+        <h3 class="card-title">{{ 'dashboard.owner.scheduledMaintenances' | translate }}</h3>
       </div>
       <div class="card-body scrollable horizontal">
         @for (maintenance of ownerMaintenances(); track maintenance.id) {

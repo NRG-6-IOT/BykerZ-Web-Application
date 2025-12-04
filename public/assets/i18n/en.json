@@ -99,12 +99,13 @@
       "metrics": "Metrics",
       "compare": "Compare",
       "export": "Export",
+      "technicalSpecs": "Technical Specifications",
       "year": "Year",
       "type": "Type",
       "displacement": "Displacement",
       "power": "Power",
       "torque": "Torque",
-      "tank": "Fuel Tank",
+      "fuelTank": "Fuel Tank",
       "weight": "Weight",
       "consumption": "Consumption",
       "connectivity": "Connectivity"
@@ -255,7 +256,16 @@
     "benzene": "Benzene",
     "temperature": "Temperature",
     "humidity": "Humidity",
-    "pressure": "Pressure"
+    "pressure": "Pressure",
+    "list": {
+      "emptyTitle": "No metrics available",
+      "emptyMessage": "There is no loaded metrics at the moment.",
+      "reloadButton": "Reload metrics"
+    },
+    "details": {
+      "title": "Metric Details",
+      "backButton": "Back to metrics"
+    }
   },
   "membership": {
     "title": "Choose Your Membership Plan",
@@ -358,14 +368,21 @@
       "title": "New Maintenance",
       "subtitle": "Register a new service for a client",
       "vehicleInfo": "Vehicle Information",
+      "owner": "Owner",
       "selectOwner": "Select Owner",
+      "vehicle": "Vehicle",
       "selectVehicle": "Select Vehicle",
       "serviceDetails": "Service Details",
+      "serviceTitle": "Service Title",
       "titlePlaceholder": "Title / Short Details",
       "titleExample": "Ex: Oil Change",
+      "serviceDate": "Service Date",
       "date": "Date",
+      "serviceTime": "Service Time",
       "time": "Time",
+      "serviceLocation": "Service Location",
       "location": "Location",
+      "serviceDescription": "Service Description",
       "description": "Description / Notes",
       "submitButton": "Create Maintenance"
     }

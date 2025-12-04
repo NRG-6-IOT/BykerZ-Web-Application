@@ -2,7 +2,7 @@
   <div class="header-card">
     <div class="header-content">
       <div class="owner-info">
-        <span class="label">ASSIGNMENT DETAILS</span>
+        <span class="label">{{ 'assignments.assignmentDetailPage.assignmentDetails' | translate | uppercase }}</span>
         <h1 class="page-title">{{ assignment?.owner?.completeName }}</h1>
       </div>
 
@@ -38,7 +38,7 @@
         @for (vehicle of vehicles; let i = $index; track vehicle.id) {
           <app-assign-vehicle-card
             class="grid-item"
-            style="--delay: {{i * 0.1}}s"
+            [style.--delay]="(i * 0.1) + 's'"
             [vehicle]="vehicle">
           </app-assign-vehicle-card>
         }

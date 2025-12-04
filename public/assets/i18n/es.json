@@ -99,12 +99,13 @@
       "metrics": "Métricas",
       "compare": "Comparar",
       "export": "Exportar",
+      "technicalSpecs": "Especificaciones Técnicas",
       "year": "Año",
       "type": "Tipo",
-      "displacement": "Desplazamiento",
+      "displacement": "Cilindrada",
       "power": "Potencia",
       "torque": "Torque",
-      "tank": "Capacidad del Tanque",
+      "fuelTank": "Tanque",
       "weight": "Peso",
       "consumption": "Consumo",
       "connectivity": "Conectividad"
@@ -255,7 +256,16 @@
     "benzene": "Benceno",
     "temperature": "Temperatura",
     "humidity": "Humedad",
-    "pressure": "Presión"
+    "pressure": "Presión",
+    "list": {
+      "emptyTitle": "No hay métricas disponibles",
+      "emptyMessage": "No hay métricas cargadas en este momento.",
+      "reloadButton": "Recargar métricas"
+    },
+    "details": {
+      "title": "Detalles de la Métrica",
+      "backButton": "Volver a métricas"
+    }
   },
   "membership": {
     "title": "Elige Tu Plan de Membresía",
@@ -357,14 +367,21 @@
       "title": "Nuevo Mantenimiento",
       "subtitle": "Registrar un nuevo servicio para un cliente",
       "vehicleInfo": "Información del Vehículo",
+      "owner": "Propietario",
       "selectOwner": "Seleccionar Propietario",
+      "vehicle": "Vehículo",
       "selectVehicle": "Seleccionar Vehículo",
       "serviceDetails": "Detalles del Servicio",
+      "serviceTitle": "Título del Servicio",
       "titlePlaceholder": "Título / Detalles Breves",
       "titleExample": "Ej: Cambio de Aceite",
+      "serviceDate": "Fecha del Servicio",
       "date": "Fecha",
+      "serviceTime": "Hora del Servicio",
       "time": "Hora",
+      "serviceLocation": "Ubicación del Servicio",
       "location": "Ubicación",
+      "serviceDescription": "Descripción del Servicio",
       "description": "Descripción / Notas",
       "submitButton": "Crear Mantenimiento"
     }

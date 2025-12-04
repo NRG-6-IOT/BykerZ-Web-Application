@@ -119,7 +119,12 @@ interface MaintenanceCard {
       font-size: 2.5rem; font-weight: 700;
       background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
       -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+      color: transparent;
       margin: 0 0 0.5rem 0; letter-spacing: -0.5px;
+      padding-block: 0.25em;
+      display: inline-block;
+      line-height: normal;
     }
 
     .subtitle { font-size: 1.1rem; color: #666; margin: 0; }

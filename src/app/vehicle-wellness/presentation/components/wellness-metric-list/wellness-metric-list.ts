@@ -4,10 +4,11 @@ import {WellnessMetricItem} from '@app/vehicle-wellness/presentation/components/
 import {MetricsStore} from '@app/vehicle-wellness/application/metrics.store';
 import {WellnessMetric} from '@app/vehicle-wellness/domain/model/wellness-metric.entity';
 import {ActivatedRoute} from '@angular/router';
+import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-wellness-metric-list',
-  imports: [CommonModule, WellnessMetricItem], // ← AGREGA LOS IMPORTS
+  imports: [CommonModule, WellnessMetricItem, TranslatePipe], // ← AGREGA LOS IMPORTS
   templateUrl: './wellness-metric-list.html',
   styleUrl: './wellness-metric-list.css'
 })

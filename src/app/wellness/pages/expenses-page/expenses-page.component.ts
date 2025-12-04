@@ -43,15 +43,14 @@ import { TranslateModule } from '@ngx-translate/core';
       font-weight: 800;
       margin: 0;
       background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
-      -webkit-background-clip: text;
+      N-webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
       color: transparent;
-
-      /* --- CORRECCIÓN DEFINITIVA --- */
-      line-height: 1.6; /* Altura generosa */
-      padding: 0.2em 0; /* Espacio vertical */
+      padding-block: 0.25em;
       display: inline-block;
+      width: fit-content;
+      line-height: normal;
     }
 
     /* ... (resto de los estilos igual) ... */

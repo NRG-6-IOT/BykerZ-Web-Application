@@ -1,8 +1,8 @@
 <div class="dashboard-container">
   <div class="dashboard-header">
     <div class="welcome-section">
-      <h1 class="page-title">{{'dashboard.mechanic.title' | translate}}</h1>
-      <p class="subtitle">{{'dashboard.mechanic.subtitle' | translate}}</p>
+      <h1 class="page-title">{{ 'dashboard.mechanic.title' | translate }}</h1>
+      <p class="subtitle">{{ 'dashboard.mechanic.subtitle' | translate }}</p>
     </div>
   </div>
 
@@ -10,12 +10,12 @@
     <div class="dash-card subs-card">
       <div class="card-header orange">
         <mat-icon class="header-icon">group</mat-icon>
-        <h3>{{'dashboard.mechanic.activeSubscriptions' | translate}}</h3>
+        <h3>{{ 'dashboard.mechanic.activeSubscriptions' | translate }}</h3>
       </div>
       <div class="card-body list">
         @for (assignment of mechanicAssignments(); track assignment.id) {
           <div class="client-row" [routerLink]="['/assignments', assignment.id]">
-            <div class="avatar-circle">{{ assignment.owner?.completeName?.charAt(0) }}</div>
+            <div class="avatar-circle">{{ (assignment.owner?.completeName || '?').charAt(0) }}</div>
             <span class="client-name">{{ assignment.owner?.completeName }}</span>
             <mat-icon class="arrow">chevron_right</mat-icon>
           </div>
@@ -26,16 +26,16 @@
     <div class="dash-card member-card">
       <div class="card-header dark">
         <mat-icon class="header-icon">card_membership</mat-icon>
-        <h3>{{'dashboard.mechanic.membershipStatus' | translate}}</h3>
+        <h3>{{ 'dashboard.mechanic.membershipStatus' | translate }}</h3>
       </div>
       <div class="card-body center-content">
         <div class="status-ring">
           <span class="plan-name">BLACK</span>
-          <span class="plan-label">{{'dashboard.mechanic.plan' | translate}}</span>
+          <span class="plan-label">{{ 'dashboard.mechanic.plan' | translate }}</span>
         </div>
         <div class="time-remaining">
           <span class="time-val">36d</span>
-          <span class="time-label">{{'dashboard.mechanic.remaining' | translate}}</span>
+          <span class="time-label">{{ 'dashboard.mechanic.remaining' | translate }}</span>
         </div>
       </div>
     </div>
@@ -43,7 +43,7 @@
     <div class="dash-card work-card">
       <div class="card-header">
         <mat-icon class="header-icon">calendar_today</mat-icon>
-        <h3>{{'dashboard.mechanic.upcomingWork' | translate}}</h3>
+        <h3>{{ 'dashboard.mechanic.upcomingWork' | translate }}</h3>
       </div>
       <div class="card-body list">
         @for (maintenance of mechanicMaintenances(); track maintenance.id) {
