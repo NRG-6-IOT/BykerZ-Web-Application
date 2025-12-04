@@ -1,10 +1,13 @@
 {
   "login": {
+    "usernameLabel": "Username or Email",
     "username": "Username",
+    "passwordLabel": "Your Password",
     "password": "Password",
     "signIn": "Sign In",
     "signUp": "Sign Up",
-    "slogan": "Premium Motorcycle Management"
+    "slogan": "Premium Motorcycle Management",
+    "divider": "or"
   },
   "selection": {
     "mainTitle": "Choose your role",

@@ -73,17 +73,31 @@ import {TranslateModule} from '@ngx-translate/core';
 
     .form-title { font-size: 2rem; font-weight: 700; color: #1a1a1a; margin-bottom: 2rem; text-align: center; }
 
-    .auth-form { display: flex; flex-direction: column; gap: 1.25rem; }
+    .auth-form { display: flex; flex-direction: column; gap: 1.5rem; }
+
+    .input-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .input-label {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: #1a1a1a;
+      letter-spacing: 0.3px;
+      padding-left: 0.25rem;
+    }
 
     /* --- INPUTS GLASS CORREGIDOS (TEXTO NEGRO) --- */
     ::ng-deep .custom-field .mdc-notched-outline { display: none !important; }
     ::ng-deep .custom-field .mat-mdc-form-field-bottom-align::before { display: none !important; }
 
     ::ng-deep .custom-field .mat-mdc-form-field-flex {
-      background-color: #f4f4f4 !important; /* Gris claro */
+      background-color: #f4f4f4 !important;
       border-radius: 12px !important;
       padding: 0 16px !important;
-      border: 1px solid #ccc; /* Borde visible */
+      border: 1px solid #ccc;
       transition: all 0.2s ease;
       height: 56px;
       align-items: center;
@@ -95,7 +109,6 @@ import {TranslateModule} from '@ngx-translate/core';
       box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.1);
     }
 
-    /* COLOR DEL TEXTO DEL INPUT: NEGRO */
     ::ng-deep .custom-field input {
       color: #000000 !important;
       font-weight: 600;
@@ -103,17 +116,15 @@ import {TranslateModule} from '@ngx-translate/core';
       caret-color: #ff6b35;
     }
 
-    /* Etiquetas */
     ::ng-deep .custom-field .mat-mdc-floating-label {
       top: 50% !important;
       transform: translateY(-50%);
-      color: #666 !important; /* Gris oscuro */
+      color: #666 !important;
       font-weight: 500;
       pointer-events: none;
       transition: all 0.2s ease;
     }
 
-    /* Etiqueta flotante con fondo blanco (Evita tachado) */
     ::ng-deep .custom-field.mat-form-field-should-float .mat-mdc-floating-label {
       transform: translateY(-30px) scale(0.85) !important;
       color: #ff6b35 !important;
@@ -122,7 +133,6 @@ import {TranslateModule} from '@ngx-translate/core';
       margin-left: -6px;
       z-index: 10;
     }
-    /* ---------------------------------------------------- */
 
     /* Botones */
     .actions { display: flex; flex-direction: column; gap: 1rem; margin-top: 1rem; }

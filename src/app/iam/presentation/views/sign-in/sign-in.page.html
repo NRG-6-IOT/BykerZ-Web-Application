@@ -15,21 +15,27 @@
       <h2 class="form-title">{{'login.signIn'|translate}}</h2>
 
       <form [formGroup]="signInFormGroup" (ngSubmit)="signIn()" class="auth-form">
-        <mat-form-field appearance="outline" class="custom-field">
-          <mat-label>{{'login.username'|translate}}</mat-label>
-          <input matInput formControlName="username" required />
-          <mat-error *ngIf="isInvalidControl(signInFormGroup, 'username')">
-            {{ errorMessagesForControl(signInFormGroup, 'username') }}
-          </mat-error>
-        </mat-form-field>
+        <div class="input-group">
+          <label class="input-label">{{'login.usernameLabel'|translate}}</label>
+          <mat-form-field appearance="outline" class="custom-field">
+            <mat-label>{{'login.username'|translate}}</mat-label>
+            <input matInput formControlName="username" required />
+            <mat-error *ngIf="isInvalidControl(signInFormGroup, 'username')">
+              {{ errorMessagesForControl(signInFormGroup, 'username') }}
+            </mat-error>
+          </mat-form-field>
+        </div>
 
-        <mat-form-field appearance="outline" class="custom-field">
-          <mat-label>{{'login.password'|translate}}</mat-label>
-          <input matInput type="password" formControlName="password" required />
-          <mat-error *ngIf="isInvalidControl(signInFormGroup, 'password')">
-            {{ errorMessagesForControl(signInFormGroup, 'password') }}
-          </mat-error>
-        </mat-form-field>
+        <div class="input-group">
+          <label class="input-label">{{'login.passwordLabel'|translate}}</label>
+          <mat-form-field appearance="outline" class="custom-field">
+            <mat-label>{{'login.password'|translate}}</mat-label>
+            <input matInput type="password" formControlName="password" required />
+            <mat-error *ngIf="isInvalidControl(signInFormGroup, 'password')">
+              {{ errorMessagesForControl(signInFormGroup, 'password') }}
+            </mat-error>
+          </mat-form-field>
+        </div>
 
         <div class="actions">
           <button type="submit" class="btn-primary" [disabled]="signInFormGroup.invalid">
@@ -37,7 +43,7 @@
           </button>
 
           <div class="divider">
-            <span>or</span>
+            <span>{{'login.divider'|translate}}</span>
           </div>
 
           <button type="button" class="btn-secondary" routerLink="/selection">

@@ -1,10 +1,13 @@
 {
   "login": {
+    "usernameLabel": "Usuario o Correo",
     "username": "Nombre de usuario",
+    "passwordLabel": "Tu Contraseña",
     "password": "Contraseña",
     "signIn": "Iniciar Sesión",
     "signUp": "Registrarse",
-    "slogan": "Gestión Premium de Motocicletas"
+    "slogan": "Gestión Premium de Motocicletas",
+    "divider": "o"
   },
   "selection": {
     "mainTitle": "Elige tu rol",
