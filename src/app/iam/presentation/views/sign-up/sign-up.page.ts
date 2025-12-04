@@ -21,11 +21,10 @@ import {CommonModule} from '@angular/common';
   ],
   template: `
     <div class="auth-container">
-      <div class="auth-header">
-        <app-language-switcher></app-language-switcher>
-      </div>
-
       <div class="signup-card">
+        <div class="auth-header">
+          <app-language-switcher></app-language-switcher>
+        </div>
         <div class="header-section">
           <h1 class="page-title">{{'register.signUp'|translate}}</h1>
           <p class="subtitle">Join BykerZ today</p>
@@ -95,12 +94,12 @@ import {CommonModule} from '@angular/common';
   `,
   styles: [`
     .auth-container {
-      min-height: 100vh; padding: 2rem;
+      min-height: 100vh;
       background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
       display: flex; flex-direction: column; align-items: center;
     }
 
-    .auth-header { width: 100%; display: flex; justify-content: flex-end; margin-bottom: 1rem; max-width: 800px; }
+    .auth-header { width: 100%; display: flex; justify-content: flex-end; max-width: 800px; }
 
     .signup-card {
       background: white; border-radius: 20px;
@@ -110,7 +109,15 @@ import {CommonModule} from '@angular/common';
     }
 
     .header-section { text-align: center; margin-bottom: 2rem; }
-    .page-title { font-size: 2.5rem; font-weight: 800; color: #1a1a1a; margin: 0; letter-spacing: -1px; }
+    .page-title {
+      margin: 0.5rem 0;
+      font-size: clamp(2.5rem, 2.5vw, 1.6rem);
+      line-height: 1.1;
+      display: block;
+      height: auto;
+      font-weight: 800;
+      color: #1a1a1a;
+    }
     .subtitle { color: #666; margin-top: 0.5rem; font-size: 1.1rem; }
 
     .signup-form { display: flex; flex-direction: column; gap: 1.25rem; }

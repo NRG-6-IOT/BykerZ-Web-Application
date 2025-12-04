@@ -50,7 +50,17 @@ import {TranslateModule} from '@ngx-translate/core';
     }
 
     .logo-img { filter: drop-shadow(0 4px 12px rgba(255,255,255,0.1)); margin-bottom: 1.5rem; }
-    .brand-name { font-size: 3.5rem; font-weight: 800; margin: 0; letter-spacing: -1px; background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .brand-name {
+      margin: 1rem 0;
+      font-size: clamp(3.5rem, 2.5vw, 1.6rem);
+      line-height: 1.1;
+      display: block;
+      height: auto;
+      font-weight: 800;
+      background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
     .brand-slogan { font-size: 1rem; opacity: 0.7; letter-spacing: 1px; font-weight: 300; }
 
     .lang-switch-wrapper { position: absolute; bottom: 2rem; }
