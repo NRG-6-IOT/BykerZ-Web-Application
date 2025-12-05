@@ -6,13 +6,13 @@ import { WellnessMetric } from '@app/vehicle-wellness/domain/model/wellness-metr
   providedIn: 'root'
 })
 export class MetricsStore {
-  // State signals
+  
   private metricsSignal = signal<WellnessMetric[]>([]);
 
-  // ✅ CORREGIDO - Computed con paréntesis
+  
   readonly metrics = computed(() => this.metricsSignal());
 
-  // Dependency injections
+  
   private wellnessMetricsApiService = inject(WellnessMetricApiService);
 
   loadAllMetrics(): void {
@@ -75,9 +75,7 @@ export class MetricsStore {
     });
   }
 
-  /**
-   * Resets the entire store state (useful for sign-out)
-   */
+  
   reset(): void {
     this.metricsSignal.set([]);
   }
