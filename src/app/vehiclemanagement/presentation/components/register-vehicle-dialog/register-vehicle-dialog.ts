@@ -27,7 +27,7 @@ import {TranslatePipe, TranslateService} from '@ngx-translate/core'; // Agregado
   standalone: true,
   styleUrl: './register-vehicle-dialog.css'
 })
-export class RegisterVehicleDialog implements OnInit {
+export class RegisterVehicleDialog {
 
   private store = inject(VehiclesStore);
 
@@ -49,10 +49,6 @@ export class RegisterVehicleDialog implements OnInit {
     ];
   }
 
-  ngOnInit(): void {
-    // Inicialización si es necesaria
-  }
-
   get brandOptions() {
     return this.store.brands();
   }
@@ -67,7 +63,6 @@ export class RegisterVehicleDialog implements OnInit {
   }
 
   IsValid(): boolean {
-    // Verificación más robusta
     const validBrand = this.brand && this.brand.trim() !== "";
     const validModel = this.model != null;
     const validYear = this.year && this.year.trim() !== "";
@@ -78,21 +73,18 @@ export class RegisterVehicleDialog implements OnInit {
 
   IsValidPlate(plate: string): boolean {
     if (!plate) return false;
-    // Permitir a-z minúsculas también para mejor UX
     const pattern = /^[0-9]{4}-[a-zA-Z]{2}$/;
     return pattern.test(plate);
   }
 
   formatPlate(event: Event): void {
     const input = event.target as HTMLInputElement;
-    let value = input.value.replace(/[^0-9a-zA-Z]/g, ''); // Eliminar caracteres no válidos
+    let value = input.value.replace(/[^0-9a-zA-Z]/g, '');
 
-    // Tomar solo los primeros 6 caracteres (4 números + 2 letras)
     if (value.length > 6) {
       value = value.substring(0, 6);
     }
 
-    // Formatear: 4 números + guion + 2 letras
     if (value.length > 4) {
       const numbers = value.substring(0, 4);
       const letters = value.substring(4, 6).toUpperCase();
@@ -101,14 +93,12 @@ export class RegisterVehicleDialog implements OnInit {
       this.plate = value;
     }
 
-    // Actualizar el valor del input
     input.value = this.plate;
   }
 
   RegisterVehicle() {
     if (!this.IsValid()) return;
 
-    // Convertir placa a mayúsculas antes de enviar
     const formattedPlate = this.plate.toUpperCase();
 
     this.store.addVehicleToOwner(localStorage.getItem('role_id') ? +localStorage.getItem('role_id')! : 0, {
@@ -117,12 +107,10 @@ export class RegisterVehicleDialog implements OnInit {
       modelId: this.model!.id
     });
 
-    // Pequeño timeout para verificar errores del store, aunque idealmente el store manejaría esto reactivamente
     setTimeout(() => {
       if (this.store.error() != null) {
         alert(this.store.error());
       } else {
-        // Asumimos éxito si no hay error inmediato (o puedes suscribirte al store success)
         alert(this.translate.instant('vehicle.register.success'));
         this.dialogRef.close();
       }
