@@ -28,14 +28,12 @@ export class NotificationListComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
 
-    // Suscribirse al estado de conexión
     this.subs.push(
       this.websocketService.isConnected.subscribe(connected => {
         this.isConnected = connected;
       })
     );
 
-    // Suscribirse a las notificaciones
     this.subs.push(
       this.websocketService.notifications.subscribe(allNotifications => {
         this.vehicleNotifications = this.websocketService.getVehicleNotifications(this.vehicleId);
@@ -44,10 +42,7 @@ export class NotificationListComponent implements OnInit, OnDestroy {
       })
     );
 
-    // SUSCRIBIRSE UNA SOLA VEZ
     this.websocketService.subscribeToVehicle(this.vehicleId);
-
-
   }
 
   toggleNotifications(event?: Event) {
@@ -56,7 +51,6 @@ export class NotificationListComponent implements OnInit, OnDestroy {
     }
     this.showPanel = !this.showPanel;
 
-    // Si el panel se cierra Y no hay notificaciones sin leer, destruir
     if (!this.showPanel && this.unreadCount === 0) {
       this.destroyComponent();
     }
@@ -65,7 +59,6 @@ export class NotificationListComponent implements OnInit, OnDestroy {
   markAsRead(notificationId: number) {
     this.websocketService.markAsRead(notificationId);
 
-    // Verificar si todas están leídas después de marcar
     setTimeout(() => {
       const updatedUnreadCount = this.vehicleNotifications.filter(n => !n.read).length;
       if (updatedUnreadCount === 0 && !this.showPanel) {
@@ -81,7 +74,6 @@ export class NotificationListComponent implements OnInit, OnDestroy {
       }
     });
 
-    // Destruir después de marcar todas
     setTimeout(() => {
       if (!this.showPanel) {
         this.destroyComponent();
@@ -107,11 +99,9 @@ export class NotificationListComponent implements OnInit, OnDestroy {
   }
 
   extractValue(message: string, label: string): string {
-    // Busca el label en el mensaje y extrae lo que viene después
     const index = message.indexOf(label);
     if (index === -1) return '';
 
-    // Toma el texto desde después del label hasta la próxima coma o el final
     const afterLabel = message.substring(index + label.length);
     const nextComma = afterLabel.indexOf(',');
 

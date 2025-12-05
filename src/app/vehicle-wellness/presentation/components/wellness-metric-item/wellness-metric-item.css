@@ -28,10 +28,10 @@
 .status-badge {
   font-size: 0.7rem; text-transform: uppercase; font-weight: 700;
   padding: 3px 8px; border-radius: 10px;
-  background: #dcfce7; color: #15803d; /* Normal (Green) */
+  background: #dcfce7; color: #15803d;
 }
 .status-badge.impact {
-  background: #fee2e2; color: #b91c1c; /* Impact (Red) */
+  background: #fee2e2; color: #b91c1c;
 }
 
 .card-content { padding: 1.25rem; display: flex; flex-direction: column; gap: 1rem; }

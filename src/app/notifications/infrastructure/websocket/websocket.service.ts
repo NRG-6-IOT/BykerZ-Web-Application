@@ -13,7 +13,7 @@ export class WebSocketService {
   public isConnected = new BehaviorSubject<boolean>(false);
   private connectionAttempted = false;
   private activeSubscriptions = new Map<number, any>();
-  private pendingSubscriptions = new Set<number>(); // ← Para evitar duplicados durante reconexión
+  private pendingSubscriptions = new Set<number>();
 
   constructor() {}
 
@@ -31,7 +31,6 @@ export class WebSocketService {
       onConnect: () => {
         console.log('✅ WebSocket Conectado exitosamente');
         this.isConnected.next(true);
-        // NO llamar reconnectSubscriptions aquí - ya se maneja en setupSubscription
       },
 
       onDisconnect: () => {
@@ -61,16 +60,13 @@ export class WebSocketService {
   subscribeToVehicle(vehicleId: number) {
     console.log('📡 Intentando suscribirse a vehicle:', vehicleId);
 
-    // ✅ VERIFICACIÓN MÁS ESTRICTA
     if (this.activeSubscriptions.has(vehicleId) || this.pendingSubscriptions.has(vehicleId)) {
       console.log('ℹ️ Ya suscrito o pendiente de suscripción a vehicle:', vehicleId);
       return;
     }
 
-    // Marcar como pendiente
     this.pendingSubscriptions.add(vehicleId);
 
-    // Si no hay cliente, conectarse primero
     if (!this.client) {
       console.log('🔄 Cliente no existe, conectando...');
       this.connect();
@@ -80,25 +76,22 @@ export class WebSocketService {
   }
 
   private setupSubscription(vehicleId: number) {
-    // Si ya está conectado, suscribir inmediatamente
     if (this.isConnected.value && this.client) {
       console.log('✅ Ya conectado, suscribiendo inmediatamente');
       this.doSubscription(vehicleId);
       return;
     }
 
-    // Si no está conectado, esperar la conexión
     console.log('⏳ Esperando conexión para vehicle:', vehicleId);
 
     const connectionSub = this.isConnected.subscribe(connected => {
       if (connected && this.client) {
         console.log('✅ Conectado, suscribiendo a vehicle:', vehicleId);
         this.doSubscription(vehicleId);
-        connectionSub.unsubscribe(); // ← Limpiar después de usar
+        connectionSub.unsubscribe();
       }
     });
 
-    // Limpiar suscripción después de 30 segundos por si acaso
     setTimeout(() => {
       connectionSub.unsubscribe();
       this.pendingSubscriptions.delete(vehicleId);
@@ -112,7 +105,6 @@ export class WebSocketService {
       return;
     }
 
-    // ✅ VERIFICACIÓN FINAL ANTES DE SUSCRIBIR
     if (this.activeSubscriptions.has(vehicleId)) {
       console.log('ℹ️ Ya existe suscripción activa para vehicle:', vehicleId);
       this.pendingSubscriptions.delete(vehicleId);
@@ -137,7 +129,6 @@ export class WebSocketService {
             data.severity
           );
 
-          // Agregar a la lista
           const current = this.notifications.value;
           this.notifications.next([notification, ...current]);
 
@@ -147,7 +138,6 @@ export class WebSocketService {
         }
       });
 
-      // ✅ MARCAR COMO SUSCRITO
       this.activeSubscriptions.set(vehicleId, stompSubscription);
       this.pendingSubscriptions.delete(vehicleId);
 
@@ -172,13 +162,11 @@ export class WebSocketService {
   private showBrowserNotification(notification: NotificationEntity) {
     if ('Notification' in window) {
       if (Notification.permission === 'granted') {
-        // Usar un icono por defecto si no existe el personalizado
         const iconUrl = '/assets/icons/alert.png';
         new Notification(notification.title, {
           body: notification.message,
           icon: iconUrl
         }).onerror = () => {
-          // Si falla el icono, crear sin icono
           new Notification(notification.title, {
             body: notification.message
           });
@@ -206,7 +194,6 @@ export class WebSocketService {
       this.client = null;
       this.isConnected.next(false);
 
-      // Limpiar todas las suscripciones
       this.activeSubscriptions.forEach((sub, vehicleId) => {
         sub.unsubscribe();
       });
@@ -217,7 +204,6 @@ export class WebSocketService {
     }
   }
 
-  // ✅ MÉTODO PARA DEBUG: Ver estado actual
   getSubscriptionStatus() {
     return {
       activeSubscriptions: Array.from(this.activeSubscriptions.keys()),

@@ -38,7 +38,6 @@ export class WellnessMetricApiService {
       );
   }
 
-  // POST - Create new wellness metric
   createWellnessMetric(wellnessMetric: WellnessMetric): Observable<WellnessMetric> {
     const createResource=WellnessMetricAssembler.toResourceFromEntity(wellnessMetric);
 
@@ -48,7 +47,6 @@ export class WellnessMetricApiService {
       );
   }
 
-  // PUT - Update existing wellness metric
   updateWellnessMetric(id: number, wellnessMetric: WellnessMetric): Observable<WellnessMetric> {
     const updateResource = WellnessMetricAssembler.toResourceFromEntity(wellnessMetric);
     return this.http.put<WellnessMetricResource>(`${this.baseUrl}/${id}`, updateResource)
@@ -57,7 +55,6 @@ export class WellnessMetricApiService {
       );
   }
 
-  // DELETE - Delete wellness metric
   deleteWellnessMetric(id: number): Observable<void> {
     return this.http.delete<void>(`${this.baseUrl}/${id}`);
   }

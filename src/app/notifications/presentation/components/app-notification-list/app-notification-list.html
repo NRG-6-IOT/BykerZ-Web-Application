@@ -1,9 +1,7 @@
-<!-- app-notification-list.html -->
 <div class="notification-badge"
      [class.has-notifications]="unreadCount > 0"
      (click)="toggleNotifications()">
 
-  <!-- Icono de campana con contador -->
   <div class="bell-icon">
     🔔
     <span *ngIf="unreadCount > 0" class="badge">
@@ -11,7 +9,6 @@
     </span>
   </div>
 
-  <!-- Panel desplegable de notificaciones -->
   <div *ngIf="showPanel" class="notifications-panel">
     <div class="panel-header">
       <h4>{{ 'notifications.alerts'|translate }} - {{'notifications.vehicle'|translate}} {{vehicleId}}</h4>
@@ -40,11 +37,9 @@
             </span>
           </div>
 
-          <!-- Mostrar el mensaje completo -->
           <strong>{{ "notifications.message"|translate }}:</strong>
           <p class="notification-message">{{ notif.message }}</p>
 
-          <!-- Mostrar detalles adicionales con traducciones -->
           <div class="notification-details" *ngIf="notif.message.includes('Severity:') || notif.message.includes('Type:')">
             <div *ngIf="notif.message.includes('Severity:')" class="detail-item">
               <strong>{{ 'notifications.severity' | translate }}:</strong> {{ extractValue(notif.message, 'Severity:') }}
