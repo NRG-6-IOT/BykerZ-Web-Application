@@ -59,11 +59,11 @@ export class WebSocketService {
   }
 
   subscribeToVehicle(vehicleId: number) {
-    console.log('📡 Intentando suscribirse a vehicle:', vehicleId);
+    console.log('Intentando suscribirse a vehicle:', vehicleId);
 
     
     if (this.activeSubscriptions.has(vehicleId) || this.pendingSubscriptions.has(vehicleId)) {
-      console.log('ℹ️ Ya suscrito o pendiente de suscripción a vehicle:', vehicleId);
+      console.log('Ya suscrito o pendiente de suscripción a vehicle:', vehicleId);
       return;
     }
 
